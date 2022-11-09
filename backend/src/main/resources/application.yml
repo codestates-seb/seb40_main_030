@@ -1,0 +1,30 @@
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  profiles:
+    active: local
+  jpa:
+    hibernate:
+      profiles: # local
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        one-indexed-parameters: true
+jwt:
+  key:
+    secret: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 1440
+  refresh-token-expiration-minutes: 1440

@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test2 # 스키마 명 넣기
+    username: root # my sql db name
+    password: tlxltlf1!A # mysql password
+  jpa:
+    hibernate:
+      ddl-auto: create   #필요시 update로 변경
+    defer-datasource-initialization: true
+#  sql:
+#    init:
+#      data-locations: classpath:static/db/data.sql
+#      mode: always
+# 추후 sql 데이터 사용시 활성화 예정
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
+file:
+  img: /Users/
+
+iam:
+  access-key: local
+  secret-key: local
+  region: local
+
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+mod: local
