@@ -1,0 +1,24 @@
+= 전기차 보조 배터리 대여 서비스
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: prettify
+
+Kim Dong Jin, Kim Min Gu, Lee Dong Won
+
+v1.0.0, 2022.11.10
+
+***
+== Zone Controller
+.curl-request
+include::{snippets}/
+
+.request-fields
+include::{snippets}/
+
+.http-response
+include::{snippets}/
+
+.response-fields
+include::{snippets}/
