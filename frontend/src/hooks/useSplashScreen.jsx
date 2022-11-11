@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useSplashScreen = () => {
+const useSplashScreen = (delay) => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -8,7 +8,7 @@ const useSplashScreen = () => {
 
     setTimeout(() => {
       setLoading(false);
-    }, 4000);
+    }, delay);
   }, []);
 
   return { isLoading };
