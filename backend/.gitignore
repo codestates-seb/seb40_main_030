@@ -18,6 +18,9 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
+application.yml
+application-local.yml
+application-server.yml
 .idea
 *.iws
 *.iml
