@@ -27,24 +27,24 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<SingleResDto<OrderResDto>> postOrder (@RequestBody OrderPostReqDto orderPostReqDto) {
+    public ResponseEntity<OrderResDto> postOrder (@RequestBody OrderPostReqDto orderPostReqDto) {
         Order order = orderPostReqDto.toOrder();
         Order createdOrder = orderService.createOrder(order);
         OrderResDto orderResDto = new OrderResDto(createdOrder);
 
-        return new ResponseEntity<>(new SingleResDto<>(orderResDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(orderResDto, HttpStatus.CREATED);
     }
 
 
     @PatchMapping("/{orderId}")
-    public ResponseEntity<SingleResDto<OrderResDto>> patchOrder (@PathVariable Long orderId,
+    public ResponseEntity<OrderResDto> patchOrder (@PathVariable Long orderId,
                                                             @RequestBody OrderPatchReqDto orderPatchReqDto) {
         orderPatchReqDto.setOrderId(orderId);
         Order order = orderPatchReqDto.toOrder();
         Order modifiedOrder = orderService.modifyOrder(order);
         OrderResDto orderResDto = new OrderResDto(modifiedOrder);
 
-        return new ResponseEntity<>(new SingleResDto<>(orderResDto), HttpStatus.OK);
+        return new ResponseEntity<>(orderResDto, HttpStatus.OK);
     }
 
 
