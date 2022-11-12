@@ -1,7 +1,8 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { BOTTOM_SHEET_HEIGHT } from '../../../constants';
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -15,11 +16,14 @@ const Wrapper = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
   height: ${BOTTOM_SHEET_HEIGHT}px;
 
+  transition: transform 150ms ease-out;
+
   // 추후 삭제 예정
   border: 1px solid red;
+  margin-top: 800px;
 `;
 
-const HeaderContainer = styled.div`
+const HeaderWrapper = styled.div`
   height: 48px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -36,4 +40,11 @@ const HandleBar = styled.div`
   margin: auto;
 `;
 
-export { Wrapper, HeaderContainer, HandleBar };
+const ContentWrapper = styled.div`
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  height: 100vh;
+  border: 1px solid green;
+`;
+
+export { Wrapper, HeaderWrapper, HandleBar, ContentWrapper };
