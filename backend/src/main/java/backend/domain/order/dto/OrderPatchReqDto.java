@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Getter @Setter
-public class OrderPatchReqDto extends BaseTime {
+public class OrderPatchReqDto {
 
     private Long orderId;
     private StatusState status;
@@ -22,8 +22,6 @@ public class OrderPatchReqDto extends BaseTime {
         order.setStatus(this.status);
         order.setStartTime(this.startTime);
         order.setEndTime(this.endTime);
-        order.setCreatedAt(LocalDateTime.now());
-        order.setModifiedAt(LocalDateTime.now());
         return order;
     }
 }

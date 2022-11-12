@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service @RequiredArgsConstructor
 public class OrderService {
 
@@ -21,10 +23,16 @@ public class OrderService {
     }
 
     public Order modifyOrder (Order order) {
-        orderRepository.findById(order.getId())
+
+        Order savedOrder = orderRepository.findById(order.getId())
                 .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NOT_FOUND));
 
-        return orderRepository.save(order);
+        savedOrder.setStatus(order.getStatus());
+        savedOrder.setStartTime(order.getStartTime());
+        savedOrder.setEndTime(order.getEndTime());
+        savedOrder.setModifiedAt(LocalDateTime.now());
+
+        return orderRepository.save(savedOrder);
     }
 
     public void deleteOrder (Long orderId) {
