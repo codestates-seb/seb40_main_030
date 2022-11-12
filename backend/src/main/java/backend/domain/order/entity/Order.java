@@ -6,15 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 
 @AllArgsConstructor @NoArgsConstructor
-@Entity @Getter @Setter @Table(name = "orders")
+@Entity
+@Getter @Setter @Table(name = "orders")
 public class Order extends BaseTime {
-    @Id @Column(name = "order_id")
+
+    @GeneratedValue @Id
+    @Column(name = "order_id")
     private Long id;
 
     private StatusState status;

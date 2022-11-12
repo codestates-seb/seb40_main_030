@@ -5,8 +5,10 @@ import backend.domain.order.dto.OrderPostReqDto;
 import backend.domain.order.dto.OrderResDto;
 import backend.domain.order.entity.Order;
 import backend.domain.order.entity.StatusState;
+import backend.domain.order.service.OrderService;
 import backend.global.dto.PageInfoDto;
 import backend.global.dto.SingleResDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -18,14 +20,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController @RequestMapping("/orders")
 public class OrderController {
+
+    private final OrderService orderService;
 
     @PostMapping
     public ResponseEntity<SingleResDto<OrderResDto>> postOrder (@RequestBody OrderPostReqDto orderPostReqDto) {
         Order order = orderPostReqDto.toOrder();
-        order.setStatus(StatusState.RESERVED);
-        OrderResDto orderResDto = new OrderResDto(order);
+        Order createdOrder = orderService.createOrder(order);
+        OrderResDto orderResDto = new OrderResDto(createdOrder);
 
         return new ResponseEntity<>(new SingleResDto<>(orderResDto), HttpStatus.CREATED);
     }
@@ -36,7 +41,8 @@ public class OrderController {
                                                             @RequestBody OrderPatchReqDto orderPatchReqDto) {
         orderPatchReqDto.setOrderId(orderId);
         Order order = orderPatchReqDto.toOrder();
-        OrderResDto orderResDto = new OrderResDto(order);
+        Order modifiedOrder = orderService.modifyOrder(order);
+        OrderResDto orderResDto = new OrderResDto(modifiedOrder);
 
         return new ResponseEntity<>(new SingleResDto<>(orderResDto), HttpStatus.OK);
     }
@@ -44,31 +50,29 @@ public class OrderController {
 
     @DeleteMapping("/{orderId}")
     public ResponseEntity<SingleResDto<String>> deleteOrder (@PathVariable Long orderId) {
-
+        orderService.deleteOrder(orderId);
         return new ResponseEntity<>(new SingleResDto<>("success delete"), HttpStatus.OK);
     }
 
+
     @GetMapping("/{orderId}")
     public ResponseEntity<OrderResDto> getOrder (@PathVariable Long orderId) {
-        Order order = new Order();
-        order.setId(orderId);
-        order.setStatus(StatusState.IN_USE);
-        order.setStartTime(String.format("2022.11.11.10"));
-        order.setEndTime(String.format("2022.11.12.10"));
-        order.setCreatedAt(LocalDateTime.now());
-        order.setModifiedAt(LocalDateTime.now());
-        OrderResDto orderResDto = new OrderResDto(order);
+
+        Order existOrder = orderService.findOrder(orderId);
+        OrderResDto orderResDto = new OrderResDto(existOrder);
 
         return new ResponseEntity<>(orderResDto, HttpStatus.OK);
     }
 
+
     @GetMapping
     public ResponseEntity<PageInfoDto> getOrders (Pageable pageable) {
+//        Mock 데이터
         List<Order> list = new ArrayList<>();
         for (int i=1 ; i<=10 ; i++) {
             Order order = new Order();
             order.setId(1L + i);
-            order.setStatus(StatusState.RESERVED);
+            order.setStatus(StatusState.사용중);
             order.setStartTime(String.format("2022.11.1%d.10",i));
             order.setEndTime(String.format("2022.11.1%d.10",i+1));
             order.setCreatedAt(LocalDateTime.now());
@@ -77,6 +81,10 @@ public class OrderController {
         }
         Page<Order> page = new PageImpl<>(list, pageable, list.size());
 
+//         실제 사용할 API
+//        Page<Order> page = orderService.findOrders(pageable);
+
         return new ResponseEntity<>(new PageInfoDto(page), HttpStatus.OK);
     }
+
 }
