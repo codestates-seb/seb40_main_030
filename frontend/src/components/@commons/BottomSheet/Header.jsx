@@ -2,9 +2,9 @@ import * as S from './BottomSheet.style';
 
 const Header = () => {
   return (
-    <S.HeaderContainer>
+    <S.HeaderWrapper>
       <S.HandleBar />
-    </S.HeaderContainer>
+    </S.HeaderWrapper>
   );
 };
 
