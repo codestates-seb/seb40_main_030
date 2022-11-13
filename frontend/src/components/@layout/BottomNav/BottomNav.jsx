@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { navState } from '../../../recoil/pagesState';
 import {
   MapIcon,
   LogoIcon,
   BatteryIcon,
   ClockIcon,
   MyPageIcon,
-} from '../../assets';
-import { BottomSheet } from '../@commons';
+} from '../../../assets';
 import * as S from './BottomNav.style';
 
 const Nav = () => {
-  const [isActive, setIsActive] = useState(false);
-  const isSplashed = sessionStorage.getItem('isSplashed');
+  const [isActive, setIsActive] = useRecoilState(navState);
 
   return (
     <>
@@ -35,14 +34,6 @@ const Nav = () => {
           <MyPageIcon />
         </S.IconBox>
       </S.Wrapper>
-
-      {/* Bottom Sheet 에 대한 visibility transition 이 들어가야함 */}
-      {/* session storage 값으로 검증을 하는 방식이 맞는지 확인이 필요함 */}
-      {isSplashed !== null ? (
-        <div>
-          <BottomSheet isActive={isActive} />
-        </div>
-      ) : null}
     </>
   );
 };

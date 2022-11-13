@@ -22,7 +22,7 @@ const useSplashScreen = (delay) => {
     }
   }, []);
 
-  return { isLoading };
+  return { isLoading, isSplashed };
 };
 
 export default useSplashScreen;
