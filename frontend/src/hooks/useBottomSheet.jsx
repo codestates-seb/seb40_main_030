@@ -93,7 +93,7 @@ const useBottomSheet = () => {
       } else {
         // 컨텐츠를 스크롤하는 동안에는 body가 스크롤되는 것을 막습니다
 
-        document.body.style.overflowY = 'hidden';
+        document.body.style.overflow = 'hidden';
       }
     };
 
@@ -106,10 +106,10 @@ const useBottomSheet = () => {
       const currentSheetY = sheetRef.current.getBoundingClientRect().y;
 
       // MIN_TOP의 값을 찾아야함
-      if (currentSheetY !== 100) {
+      if (currentSheetY !== 200) {
         if (touchMove.movingDirection === 'down') {
           // 이부분이 모달창 어디서든 stop 할수 있는 부분 ( translateY = 0 || 1)
-          sheetRef.current.style.setProperty('transform', 'translateY(0)');
+          sheetRef.current.style.setProperty('transform', 'translateY(1)');
         }
 
         if (touchMove.movingDirection === 'up') {
@@ -134,26 +134,14 @@ const useBottomSheet = () => {
       };
     };
 
-    sheetRef.current.addEventListener('touchstart', handleTouchStart, {
-      passive: true,
-    });
-    sheetRef.current.addEventListener('touchmove', handleTouchMove, {
-      passive: true,
-    });
-    sheetRef.current.addEventListener('touchend', handleTouchEnd, {
-      passive: true,
-    });
+    sheetRef.current.addEventListener('touchstart', handleTouchStart);
+    sheetRef.current.addEventListener('touchmove', handleTouchMove);
+    sheetRef.current.addEventListener('touchend', handleTouchEnd);
 
     return () => {
-      sheetRef.current.addEventListener('touchstart', handleTouchStart, {
-        passive: true,
-      });
-      sheetRef.current.addEventListener('touchmove', handleTouchMove, {
-        passive: true,
-      });
-      sheetRef.current.addEventListener('touchend', handleTouchEnd, {
-        passive: true,
-      });
+      sheetRef.current.addEventListener('touchstart', handleTouchStart);
+      sheetRef.current.addEventListener('touchmove', handleTouchMove);
+      sheetRef.current.addEventListener('touchend', handleTouchEnd);
     };
   }, []);
 
