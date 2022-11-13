@@ -1,14 +1,25 @@
 import { useEffect, useState } from 'react';
 
+// delay : number
+// isSplashed : boolean
+// isLoading : boolean
+
 const useSplashScreen = (delay) => {
+  // 세션 스토리지에 splash 유무 를 저장해서 탭을 닫고 열때는 다시 로딩화면을 보여줄 수 있게 함
   const [isLoading, setLoading] = useState(false);
+  const isSplashed = sessionStorage.getItem('isSplashed');
 
   useEffect(() => {
-    setLoading(true);
+    if (isSplashed === null) {
+      setLoading(true);
 
-    setTimeout(() => {
+      setTimeout(() => {
+        setLoading(false);
+        sessionStorage.setItem('isSplashed', true);
+      }, delay);
+    } else {
       setLoading(false);
-    }, delay);
+    }
   }, []);
 
   return { isLoading };

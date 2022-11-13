@@ -1,13 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { MAX_Y, MIN_Y } from '../../constants';
+import { MAX_Y, MIN_Y } from '../constants';
 
 const useBottomSheet = () => {
   const sheetRef = useRef(null);
   const contentRef = useRef(null);
-
-  if (!sheetRef || !contentRef) {
-    return;
-  }
 
   const metrics = useRef({
     touchStart: {
@@ -26,7 +22,7 @@ const useBottomSheet = () => {
     const canUserMoveBottomSheet = () => {
       const { touchMove, isContentAreaTouched } = metrics.current;
 
-      // 바텀 시트에서 컨텐으 영역이 아닌 부분 터치시에는 항상 바텀시트를 움직임
+      // 바텀 시트에서 컨텐츠의 영역이 아닌 부분 터치시에는 항상 바텀시트를 움직임
       if (!isContentAreaTouched) {
         return true;
       }
@@ -110,8 +106,9 @@ const useBottomSheet = () => {
       const currentSheetY = sheetRef.current.getBoundingClientRect().y;
 
       // MIN_TOP의 값을 찾아야함
-      if (currentSheetY !== 400) {
+      if (currentSheetY !== 100) {
         if (touchMove.movingDirection === 'down') {
+          // 이부분이 모달창 어디서든 stop 할수 있는 부분 ( translateY = 0 || 1)
           sheetRef.current.style.setProperty('transform', 'translateY(0)');
         }
 
@@ -137,14 +134,26 @@ const useBottomSheet = () => {
       };
     };
 
-    sheetRef.current.addEventListener('touchstart', handleTouchStart);
-    sheetRef.current.addEventListener('touchmove', handleTouchMove);
-    sheetRef.current.addEventListener('touchend', handleTouchEnd);
+    sheetRef.current.addEventListener('touchstart', handleTouchStart, {
+      passive: true,
+    });
+    sheetRef.current.addEventListener('touchmove', handleTouchMove, {
+      passive: true,
+    });
+    sheetRef.current.addEventListener('touchend', handleTouchEnd, {
+      passive: true,
+    });
 
     return () => {
-      sheetRef.current.addEventListener('touchstart', handleTouchStart);
-      sheetRef.current.addEventListener('touchmove', handleTouchMove);
-      sheetRef.current.addEventListener('touchend', handleTouchEnd);
+      sheetRef.current.addEventListener('touchstart', handleTouchStart, {
+        passive: true,
+      });
+      sheetRef.current.addEventListener('touchmove', handleTouchMove, {
+        passive: true,
+      });
+      sheetRef.current.addEventListener('touchend', handleTouchEnd, {
+        passive: true,
+      });
     };
   }, []);
 
@@ -153,10 +162,14 @@ const useBottomSheet = () => {
       metrics.current.isContentAreaTouched = true;
     };
 
-    contentRef.current.addEventListener('touchstart', handleTouchStart);
+    contentRef.current.addEventListener('touchstart', handleTouchStart, {
+      passive: true,
+    });
 
     return () =>
-      contentRef.current.addEventListener('touchstart', handleTouchStart);
+      contentRef.current.addEventListener('touchstart', handleTouchStart, {
+        passive: true,
+      });
   }, []);
 
   return { sheetRef, contentRef };
