@@ -14,7 +14,7 @@ public class OrderPostReqDto {
 
     public Order toOrder() {
         Order order = new Order();
-        order.setState(OrderState.RESERVED);   // 기본적으로 주문은 주문중으로 생성
+        order.setStatus(OrderState.RESERVED);   // 기본적으로 주문은 주문중으로 생성
         order.setStartTime(this.startTime);
         order.setEndTime(this.endTime);
         order.setCreatedAt(LocalDateTime.now());

@@ -16,7 +16,7 @@ public class OrderPatchReqDto {
     public Order toOrder() {
         Order order = new Order();
         order.setId(this.orderId);
-        order.setState(this.status);
+        order.setStatus(this.status);
         order.setStartTime(this.startTime);
         order.setEndTime(this.endTime);
         return order;

@@ -22,11 +22,10 @@ public class OrderService {
     }
 
     public Order modifyOrder (Order order) {
-
         Order savedOrder = orderRepository.findById(order.getId())
                 .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NOT_FOUND));
 
-        savedOrder.setState(order.getState());
+        savedOrder.setStatus(order.getStatus());
         savedOrder.setStartTime(order.getStartTime());
         savedOrder.setEndTime(order.getEndTime());
         savedOrder.setModifiedAt(LocalDateTime.now());
@@ -36,17 +35,19 @@ public class OrderService {
 
     public void deleteOrder (Long orderId) {
         Order existOrder = orderRepository.findById(orderId)
-                .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NO_CONTENT));
+                .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NOT_FOUND));
+
         orderRepository.delete(existOrder);
     }
 
     public Order findOrder (Long orderId) {
 
         return orderRepository.findById(orderId)
-                .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NO_CONTENT));
+                .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NOT_FOUND));
     }
 
     public Page<Order> findOrders(Pageable pageable) {
+
         return orderRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 

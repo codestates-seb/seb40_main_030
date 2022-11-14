@@ -19,7 +19,7 @@ public class Order extends BaseTime {
     @Column(name = "order_id")
     private Long id;
 
-    private OrderState state;
+    private OrderState status;
 
     private String startTime;
 
