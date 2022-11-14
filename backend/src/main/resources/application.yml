@@ -8,20 +8,27 @@ server:
       force: true
 
 spring:
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2
+#  datasource:
+#    url: jdbc:h2:mem:test
   profiles:
-    active: local
+    active: local   # 로컬 프로파일 사용을 위한 설정
   jpa:
     hibernate:
-      profiles: # local
+      ddl-auto: update
+      profiles:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
     properties:
       hibernate:
         default_batch_fetch_size: 100
   data:
     web:
       pageable:
-        default-page-size: 10
         one-indexed-parameters: true
 jwt:
   key:

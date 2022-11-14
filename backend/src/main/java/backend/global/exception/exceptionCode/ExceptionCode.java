@@ -4,6 +4,8 @@ import lombok.Getter;
 
 public enum ExceptionCode {
     // 비즈니스 모델에서 필요시 에러코드 추가하는 부분
+
+    NO_CONTENT(204, "데이터가 존재하지 않습니다."),
     NOT_FOUND(404, "요청하신 데이터를 찾을 수 없습니다."),
     NOT_FOUND_ACCOUNT(400, "계정을 찾을 수 없습니다."),
 
