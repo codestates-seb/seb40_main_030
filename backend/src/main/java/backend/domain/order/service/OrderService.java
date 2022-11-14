@@ -1,7 +1,6 @@
 package backend.domain.order.service;
 
 import backend.domain.order.entity.Order;
-import backend.domain.order.entity.StatusState;
 import backend.domain.order.repository.OrderRepository;
 import backend.global.exception.dto.BusinessLoginException;
 import backend.global.exception.exceptionCode.ExceptionCode;
@@ -27,7 +26,7 @@ public class OrderService {
         Order savedOrder = orderRepository.findById(order.getId())
                 .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NOT_FOUND));
 
-        savedOrder.setStatus(order.getStatus());
+        savedOrder.setState(order.getState());
         savedOrder.setStartTime(order.getStartTime());
         savedOrder.setEndTime(order.getEndTime());
         savedOrder.setModifiedAt(LocalDateTime.now());

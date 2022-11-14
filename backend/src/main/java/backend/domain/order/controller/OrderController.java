@@ -4,7 +4,7 @@ import backend.domain.order.dto.OrderPatchReqDto;
 import backend.domain.order.dto.OrderPostReqDto;
 import backend.domain.order.dto.OrderResDto;
 import backend.domain.order.entity.Order;
-import backend.domain.order.entity.StatusState;
+import backend.domain.order.entity.OrderState;
 import backend.domain.order.service.OrderService;
 import backend.global.dto.PageInfoDto;
 import backend.global.dto.SingleResDto;
@@ -72,7 +72,7 @@ public class OrderController {
         for (int i=1 ; i<=10 ; i++) {
             Order order = new Order();
             order.setId(1L + i);
-            order.setStatus(StatusState.사용중);
+            order.setState(OrderState.IN_USE);
             order.setStartTime(String.format("2022.11.1%d.10",i));
             order.setEndTime(String.format("2022.11.1%d.10",i+1));
             order.setCreatedAt(LocalDateTime.now());
