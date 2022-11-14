@@ -9,7 +9,7 @@ import {
 } from '../../../assets';
 import * as S from './BottomNav.style';
 
-const Nav = () => {
+const BottomNav = () => {
   const [isActive, setIsActive] = useRecoilState(navState);
 
   return (
@@ -38,4 +38,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default BottomNav;
