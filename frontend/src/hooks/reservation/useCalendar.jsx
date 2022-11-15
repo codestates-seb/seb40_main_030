@@ -17,17 +17,20 @@ const useCalendar = () => {
   };
 
   const year = new Date().getFullYear();
-  const month = new Date(date.startValue).getMonth();
+  const startMonth = new Date(date.startValue).getMonth();
+  const endMonth = new Date(date.endValue).getMonth();
 
   const startDate = new Date(date.startValue).getDate();
   const endDate = new Date(date.endValue).getDate();
+
+  console.log(startMonth, endMonth);
 
   useEffect(() => {
     if (date.startValue !== null && date.endValue !== null) {
       setReservationStatus({
         ...reservationStatus,
-        startDate: { year, month, date: startDate },
-        endDate: { year, month, date: endDate },
+        startDate: { year, month: startMonth, date: startDate },
+        endDate: { year, month: endMonth, date: endDate },
         dateFixed: { ...reservationStatus.dateFixed, date: true },
       });
     }
