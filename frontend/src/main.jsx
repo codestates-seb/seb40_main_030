@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { worker } from './mocks/browser';
-import ErrorBoundary from './@helper/ErrorBoundary';
+import ErrorBoundary from './components/@helper/ErrorBoundary';
 
 // MSW가 develop 환경에서만 구동됨
 if (process.env.NODE_ENV === 'development') {
