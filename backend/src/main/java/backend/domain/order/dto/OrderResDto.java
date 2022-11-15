@@ -15,7 +15,7 @@ public class OrderResDto extends BaseTime {
 
     public OrderResDto(Order order) {
         this.orderId = order.getId();
-        this.status = order.getStatus().getStatus();
+        this.status = order.getStatus().getMessage();
         this.startTime = order.getStartTime();
         this.endTime = order.getEndTime();
         setCreatedAt(order.getCreatedAt());

@@ -1,7 +1,6 @@
 package backend.domain.order.service;
 
 import backend.domain.order.entity.Order;
-import backend.domain.order.entity.StatusState;
 import backend.domain.order.repository.OrderRepository;
 import backend.global.exception.dto.BusinessLoginException;
 import backend.global.exception.exceptionCode.ExceptionCode;
@@ -23,7 +22,6 @@ public class OrderService {
     }
 
     public Order modifyOrder (Order order) {
-
         Order savedOrder = orderRepository.findById(order.getId())
                 .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NOT_FOUND));
 
@@ -37,17 +35,19 @@ public class OrderService {
 
     public void deleteOrder (Long orderId) {
         Order existOrder = orderRepository.findById(orderId)
-                .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NO_CONTENT));
+                .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NOT_FOUND));
+
         orderRepository.delete(existOrder);
     }
 
     public Order findOrder (Long orderId) {
 
         return orderRepository.findById(orderId)
-                .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NO_CONTENT));
+                .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NOT_FOUND));
     }
 
     public Page<Order> findOrders(Pageable pageable) {
+
         return orderRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
