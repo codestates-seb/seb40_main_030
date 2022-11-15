@@ -6,5 +6,5 @@ module.exports = {
   bracketSpacing: true,
   tabWidth: 2,
   semi: true,
-  endOfLine: 'lf',
+  endOfLine: 'auto',
 };
