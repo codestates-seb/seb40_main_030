@@ -1,12 +1,17 @@
 import TimeTable from './TimeTable/TimeTable';
 import Calendar from './Calendar/Calendar';
 import * as S from './Reservation.style';
-import { reservationState } from '../../../recoil/pagesState';
-import { useRecoilValue } from 'recoil';
+import {
+  initialReservationValue,
+  reservationState,
+} from '../../../recoil/pagesState';
+import { useRecoilState } from 'recoil';
 
 const Reservation = () => {
-  const { dateFixed } = useRecoilValue(reservationState);
-  const isCompleted = dateFixed?.date && dateFixed?.time;
+  const [reservationStatus, setReservationStatus] =
+    useRecoilState(reservationState);
+  const isCompleted =
+    reservationStatus.dateFixed?.date && reservationStatus.dateFixed?.time;
 
   return (
     <S.Container>
@@ -19,7 +24,9 @@ const Reservation = () => {
       {!isCompleted ? (
         <TimeTable />
       ) : (
-        <S.ResetButton onClick={() => localStorage.removeItem('dateFixed')}>
+        <S.ResetButton
+          onClick={() => setReservationStatus(initialReservationValue)}
+        >
           예약정보 재설정
         </S.ResetButton>
       )}

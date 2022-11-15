@@ -12,7 +12,7 @@ const Calendar = () => {
 
   return (
     <S.Wrapper>
-      {!dateFixed.date ? (
+      {!dateFixed?.date ? (
         <Datepicker
           onChange={handleChange}
           locale={enUS}
