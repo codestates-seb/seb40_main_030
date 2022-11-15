@@ -62,5 +62,21 @@ const invalidateTokenDirectly = async (path) => {
     console.log('요청완료');
   }
 };
+const invalidateTokenIndirectly = async (path) => {
+  console.log('실행');
+  try {
+    const res = await axios.post('/logout', { path: path });
+    return res;
+  } catch (error) {
+    console.log('에러', error);
+  } finally {
+    console.log('mock, back에서 응답받았음');
+  }
+};
 
-export { getTokenDirectly, getTokenIndirectly, invalidateTokenDirectly };
+export {
+  getTokenDirectly,
+  getTokenIndirectly,
+  invalidateTokenDirectly,
+  invalidateTokenIndirectly,
+};

@@ -1,9 +1,9 @@
 import { useRecoilState } from 'recoil';
-import { getTokenIndirectly } from '../../apis/auth';
+import { getTokenDirectly, getTokenIndirectly } from '../../apis/auth';
 import { loginState } from '../../recoil/login';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { KAKAO_AUTHCODE_URL } from '../../constants/auth';
+import { KAKAO_AUTHCODE_URL, KAKAO_TOKENCODE_URL } from '../../constants/auth';
 
 const useKakaoLogin = () => {
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
@@ -38,7 +38,9 @@ const useKakaoLogin = () => {
       // const type = 'authorization_code';
       // getTokenDirectly(KAKAO_TOKENCODE_URL, type, authorizationCode).then(
       //   (data) => {
-      //     console.log('받은 토큰은', data);
+      //     console.log('받은 asdasd토큰은', data);
+      //     localStorage.setItem('accessToken', data.access_token);
+      //     navigate('/logout');
       //     setIsAuthorized(true);
       //   }
       // );
