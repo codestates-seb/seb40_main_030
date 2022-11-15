@@ -45,12 +45,14 @@ const useWatchLocation = (options = {}) => {
     locationWatchId.current = geolocation.watchPosition(
       handleSuccess,
       handleError,
-      options,
+      options
     );
 
     // React가 사용된 구성 요소를 마운트 해제할 때 위치 감시 인스턴스를 지웁니다.
     return cancelLocationWatch;
-  }, [options]);
+
+    // originally options
+  }, []);
 
   return { location, cancelLocationWatch, error };
 };

@@ -36,7 +36,9 @@ const useCurrentLocation = (options = {}) => {
 
     // Geolocation API 호출
     geolocation.getCurrentPosition(handleSuccess, handleError, options);
-  }, [options]);
+
+    // originally options
+  }, []);
 
   return { location, error, handleSuccess };
 };

@@ -4,7 +4,7 @@ import BottomSheet from '../../components/@layout/BottomSheet/BottomSheet';
 import { useRecoilValue } from 'recoil';
 import { navState } from '../../recoil/pagesState';
 import MapArea from '../../components/Home/Maps';
-import TimeTable from '../../components/Home/TimeTable';
+import Reservation from '../../components/Home/Reservation/Reservation';
 
 const Home = () => {
   // Home 은 landing page 의 역할
@@ -20,9 +20,7 @@ const Home = () => {
       {/* session storage 값으로 검증을 하는 방식이 맞는지 확인이 필요함 */}
       {isSplashed !== null ? (
         <div>
-          <BottomSheet isActive={isActive}>
-            <TimeTable />
-          </BottomSheet>
+          <BottomSheet isActive={isActive} children={<Reservation />} />
         </div>
       ) : null}
     </>
