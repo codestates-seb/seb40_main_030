@@ -1,6 +1,8 @@
 import { rest } from 'msw';
 import mockOrder from './data/order';
-
+import qs from 'qs';
+import { KAKAO_TOKENCODE_URL, REDIRECT_URI } from '../constants/auth';
+import { getTokenDirectly } from '../apis/auth';
 let MockData = [...mockOrder];
 
 export const handlers = [
@@ -55,4 +57,17 @@ export const handlers = [
 
     return res(ctx.delay(), ctx.status(204));
   }),
+
+  /**
+   * 클라이언트에서 인증코드 받아서
+   * 백엔드서버 -> 카카오인증서버로 요청 후
+   * 토큰 발급 받아옴
+   */
+  rest.post('/login/token', async (req, res, ctx) => {
+    const authCode = req.body.authorizationCode;
+    const type = req.body.type;
+    let token = await getTokenDirectly(KAKAO_TOKENCODE_URL, type, authCode);
+    return res(ctx.delay(200), ctx.status(200), ctx.json(token));
+  }),
 ];
+//토큰 헤더[0], 쿠키, 바디

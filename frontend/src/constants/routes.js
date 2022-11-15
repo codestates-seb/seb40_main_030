@@ -9,6 +9,14 @@ const ROUTES = Object.freeze({
     PATH: '*',
     NAME: 'Page Not Found',
   },
+  LOGIN: {
+    PATH: '/login',
+    NAME: 'Login',
+  },
+  LOGOUT: {
+    PATH: '/logout',
+    NAME: 'Logout',
+  },
 });
 
 export default ROUTES;
