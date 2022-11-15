@@ -1,16 +1,21 @@
-import useCounter from '../../../hooks/useCounter';
+import useCounter from '../../../hooks/reservation/useCounter';
 import * as S from './Counter.style';
 
-const Counter = ({ min, max, range }) => {
-  const { inputRef, handleTime, currentTime } = useCounter(min, max, range);
+const Counter = ({ type, min, max, range }) => {
+  const { inputRef, handleTime, currentTime } = useCounter(
+    type,
+    min,
+    max,
+    range
+  );
 
   return (
     <S.Container>
-      <S.UpDownButton onClick={() => handleTime('down')}>-</S.UpDownButton>
-      <S.NumberBox>
-        <S.NumberIndicator ref={inputRef} value={currentTime} readOnly />
-      </S.NumberBox>
       <S.UpDownButton onClick={() => handleTime('up')}>+</S.UpDownButton>
+      <S.NumberBox>
+        <S.NumberInput ref={inputRef} value={currentTime} readOnly />
+      </S.NumberBox>
+      <S.UpDownButton onClick={() => handleTime('down')}>-</S.UpDownButton>
     </S.Container>
   );
 };
