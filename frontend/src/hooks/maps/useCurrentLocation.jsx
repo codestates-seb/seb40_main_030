@@ -38,7 +38,7 @@ const useCurrentLocation = (options = {}) => {
     geolocation.getCurrentPosition(handleSuccess, handleError, options);
   }, [options]);
 
-  return { location, error };
+  return { location, error, handleSuccess };
 };
 
 export default useCurrentLocation;
