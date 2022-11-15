@@ -15,7 +15,8 @@ public enum ExceptionCode {
     ACCESS_TOKEN_EXPIRATION(401, "재 로그인이 필요합니다."),
     LOGIN_FAILURE(401, "아이디 혹은 비밀번호가 옳지 않습니다."),
 
-    ILLEGAL_FILENAME(400, "잘못된 형식의 파일명입니다.");
+    ILLEGAL_FILENAME(400, "잘못된 형식의 파일명입니다."),
+    BATTERY_NOT_FOUND(400, "해당하는 ID의 배터리가 존재하지 않습니다.");
 
 
     @Getter
