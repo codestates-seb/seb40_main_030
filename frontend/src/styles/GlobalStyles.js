@@ -1,7 +1,11 @@
 import { createGlobalStyle, css } from 'styled-components';
+import color from './color';
 
 const GlobalStyles = createGlobalStyle`
 ${({ theme }) => css`
+:root{
+  ${color}
+}
   html,
   body,
   div,

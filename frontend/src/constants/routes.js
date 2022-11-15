@@ -9,6 +9,10 @@ const ROUTES = Object.freeze({
     PATH: '*',
     NAME: 'Page Not Found',
   },
+  PAY: {
+    PATH: '/Pay',
+    NAME: 'Pay',
+  },
 });
 
 export default ROUTES;
