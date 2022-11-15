@@ -1,13 +1,10 @@
 import LoginForm from '../../components/Login/LoginForm';
 import * as S from '../../components/Login/LoginStyledComp.style';
 import { useRecoilState } from 'recoil';
-import { useEffect } from 'react';
-import { getTokenDirectly, getTokenIndirectly } from '../../apis/auth';
-import { KAKAO_TOKENCODE_URL } from '../../constants/auth';
-import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
+import { loginState } from '../../recoil/login';
 const Login = () => {
-  const { isAuthorized } = useKakaoLogin();
-  // const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
+  const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
+
   return (
     <S.LoginPageWrapper>
       <LoginForm />

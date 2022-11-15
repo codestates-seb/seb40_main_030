@@ -1,6 +1,5 @@
 import { rest } from 'msw';
 import mockOrder from './data/order';
-import qs from 'qs';
 import { KAKAO_TOKENCODE_URL, REDIRECT_URI } from '../constants/auth';
 import { getTokenDirectly } from '../apis/auth';
 let MockData = [...mockOrder];

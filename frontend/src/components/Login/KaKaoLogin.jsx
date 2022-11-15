@@ -1,14 +1,14 @@
 import { KaKaoLoginImg } from '../../assets';
 import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
 
-const KaKaoLogin = ({ clickHandler }) => {
-  // useKakaoLogin();
+const KakaoLogin = () => {
+  const { loginClickHandler } = useKakaoLogin();
 
   return (
-    <button onClick={clickHandler}>
+    <button onClick={loginClickHandler}>
       <img src={KaKaoLoginImg} />
     </button>
   );
 };
 
-export default KaKaoLogin;
+export default KakaoLogin;

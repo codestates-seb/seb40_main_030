@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import { KAKAO_TOKEN_LOGOUT_URL, REDIRECT_URI } from '../constants/auth';
+import { REDIRECT_URI } from '../constants/auth';
 
 //백엔드로 인증코드 보냄 or mock 서버로 보냄
 const getTokenIndirectly = async (authorizationCode, type) => {
@@ -52,7 +52,7 @@ const invalidateTokenDirectly = async (path) => {
       path,
       {},
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` }, //엑세스 토큰 헤더에 담아서 요청
       }
     );
     return res;
