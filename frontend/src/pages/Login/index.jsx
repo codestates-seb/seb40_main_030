@@ -1,8 +1,8 @@
 import LoginForm from '../../components/Login/LoginForm';
-import * as S from '../../components/Login/LoginStyledComp.style';
+import * as S from './Login.style';
 import { useRecoilState } from 'recoil';
 import { loginState } from '../../recoil/login';
-
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -13,7 +13,9 @@ const Login = () => {
       navigate('/');
     }
   };
-  isLogin();
+  useEffect(() => {
+    isLogin();
+  }, [isAuthorized]);
   return (
     <S.LoginPageWrapper>
       <LoginForm />

@@ -1,5 +1,5 @@
 import KakaoLogin from './KakaoLogin';
-import * as S from './LoginStyledComp.style';
+import * as S from '../../pages/Login/Login.style';
 import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
 import { SplashScreen } from '../@commons';
 import { renewTokenDirectly } from '../../apis/auth';

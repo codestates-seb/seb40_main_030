@@ -1,6 +1,6 @@
 import { ServiceLogo } from '../../assets';
-import * as S from './EntranceStyledComp.style';
-const TitleAndLogo = () => {
+import * as S from './Entrance.style';
+const EntranceIcon = () => {
   return (
     <S.TitleAndLogoContainer>
       <h1>집나간 배터리</h1>
@@ -11,4 +11,4 @@ const TitleAndLogo = () => {
   );
 };
 
-export default TitleAndLogo;
+export default EntranceIcon;

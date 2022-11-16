@@ -1,5 +1,5 @@
-import { EntranceWrapper } from '../../components/Entrance/EntranceStyledComp.style';
-import TitleAndLogo from '../../components/Entrance/TitleAndLogo';
+import { EntranceWrapper } from '../../components/Entrance/Entrance.style';
+import TitleAndLogo from '../../components/Entrance/EntranceIcon';
 import { useNavigate } from 'react-router-dom';
 
 const Entrance = () => {
