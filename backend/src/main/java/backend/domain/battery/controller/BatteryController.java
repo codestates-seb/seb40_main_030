@@ -42,7 +42,7 @@ public class BatteryController {
     @PatchMapping("/{batteryId}")
     public ResponseEntity patchBattery(@PathVariable("batteryId") @Positive long batteryId,
                                        @Valid @RequestBody BatteryDto.Patch requestBody){
-        requestBody.setBatteryId((batteryId));
+        requestBody.setBatteryId(batteryId);
         Battery battery = mapper.batteryPatchDtoToBattery(requestBody);
         Battery updateBattery = batteryService.updateBattery(battery);
         BatteryDto.Response response = mapper.batteryToBatteryResponse(updateBattery);
