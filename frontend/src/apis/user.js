@@ -18,7 +18,7 @@ const getUserById = async (memberId) => {
 
 // 유저 정보 등록
 const createUser = async (userInfo) => {
-  const response = await apiClient.get(`/api/members/`, userInfo);
+  const response = await apiClient.post(`/api/members/`, userInfo);
 
   console.log(response);
 
@@ -26,8 +26,10 @@ const createUser = async (userInfo) => {
 };
 
 // 유저 정보 수정
-const modifyUser = async (memberId) => {
-  const response = await apiClient.patch(`/api/members/${memberId}`);
+const modifyUser = async (memberId, newInfo) => {
+  const response = await apiClient.patch(`/api/members/${memberId}`, {
+    newInfo,
+  });
 
   console.log(response);
 
