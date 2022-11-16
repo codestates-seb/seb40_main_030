@@ -1,8 +1,8 @@
-import useSplashScreen from '../../hooks/useSplashScreen';
-import { SplashScreen } from '../../components/@commons';
-import BottomSheet from '../../components/@layout/BottomSheet/BottomSheet';
-import { useRecoilValue } from 'recoil';
-import { navState } from '../../recoil/pagesState';
+import useSplashScreen from "../../hooks/useSplashScreen";
+import { SplashScreen } from "../../components/@commons";
+import BottomSheet from "../../components/@layout/BottomSheet/BottomSheet";
+import { useRecoilValue } from "recoil";
+import { navState } from "../../recoil/pagesState";
 
 const Home = () => {
   // Home 은 landing page 의 역할
@@ -14,11 +14,11 @@ const Home = () => {
   ) : (
     <>
       {/* 임시 */}
-      <div style={{ width: '100%', height: '90vh', overflow: 'hidden' }}>
+      <div style={{ width: "100%", height: "90vh", overflow: "hidden" }}>
         <img
-          height='100%'
-          width='100%'
-          src='../../../src/assets/mockImage.png'
+          height="100%"
+          width="100%"
+          src="../../../src/assets/mockImage.png"
         />
       </div>
       {/* Bottom Sheet 에 대한 visibility transition 이 들어가야함 */}

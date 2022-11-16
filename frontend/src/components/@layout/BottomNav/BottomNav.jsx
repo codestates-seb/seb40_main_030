@@ -1,13 +1,13 @@
-import { useRecoilState } from 'recoil';
-import { navState } from '../../../recoil/pagesState';
+import { useRecoilState } from "recoil";
+import { navState } from "../../../recoil/pagesState";
 import {
   MapIcon,
   LogoIcon,
   BatteryIcon,
   ClockIcon,
   MyPageIcon,
-} from '../../../assets';
-import * as S from './BottomNav.style';
+} from "../../../assets";
+import * as S from "./BottomNav.style";
 
 const BottomNav = () => {
   const [isActive, setIsActive] = useRecoilState(navState);
@@ -19,7 +19,7 @@ const BottomNav = () => {
           <MapIcon />
         </S.IconBox>
         <S.IconBox
-          className={isActive ? 'active' : null}
+          className={isActive ? "active" : null}
           onClick={() => setIsActive(!isActive)}
         >
           <ClockIcon />

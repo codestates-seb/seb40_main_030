@@ -2,12 +2,12 @@
 
 const ROUTES = Object.freeze({
   HOME: {
-    PATH: '/',
-    NAME: 'Home',
+    PATH: "/",
+    NAME: "Home",
   },
   NOT_FOUND: {
-    PATH: '*',
-    NAME: 'Page Not Found',
+    PATH: "*",
+    NAME: "Page Not Found",
   },
 });
 

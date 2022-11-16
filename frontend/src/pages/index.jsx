@@ -1,7 +1,7 @@
-import Layout from '../components/@layout/Layout';
-import { ROUTES } from '../constants';
-import Home from './Home';
-import NotFound from './NotFound';
+import Layout from "../components/@layout/Layout";
+import { ROUTES } from "../constants";
+import Home from "./Home";
+import NotFound from "./NotFound";
 
 const PAGES = [
   {
