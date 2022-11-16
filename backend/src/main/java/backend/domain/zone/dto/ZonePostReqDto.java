@@ -7,7 +7,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter @Setter
+@Getter
+@Setter
 public class ZonePostReqDto {
 
     private String name;
@@ -15,11 +16,12 @@ public class ZonePostReqDto {
     private ZoneLocation location;
 
     public Zone toZone() {
-        Zone zone = new Zone();
-        zone.setName(this.name);
-        zone.setDetails(this.details);
-        zone.setLatitude(this.location.getLatitude());
-        zone.setLongitude(this.location.getLongitude());
+        Zone zone = new Zone().builder()
+                .name(this.name)
+                .details(this.details)
+                .latitude(this.location.getLatitude())
+                .longitude(this.location.getLongitude())
+                .build();
         zone.setCreatedAt(LocalDateTime.now());
         zone.setModifiedAt(LocalDateTime.now());
 

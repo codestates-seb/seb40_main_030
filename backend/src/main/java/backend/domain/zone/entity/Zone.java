@@ -1,10 +1,7 @@
 package backend.domain.zone.entity;
 
 import backend.global.auditing.BaseTime;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor @NoArgsConstructor
-@Entity @Getter @Setter
+@Entity @Getter @Setter @Builder
 public class Zone extends BaseTime {
 
     @Id @GeneratedValue
