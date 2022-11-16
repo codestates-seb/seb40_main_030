@@ -26,7 +26,7 @@ const useSetReservation = () => {
         dateFixed: { ...reservationStatus.dateFixed, time: true },
       });
 
-      // 로직 분리가 필요한가 ?
+      // 로직 세부 분리가 필요한가 ?
       setLocation({ latitude: 37.5963, longitude: 127.0844 });
     }
 

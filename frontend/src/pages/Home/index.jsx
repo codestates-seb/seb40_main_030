@@ -20,7 +20,7 @@ const Home = () => {
       {/* session storage 값으로 검증을 하는 방식이 맞는지 확인이 필요함 */}
       {isSplashed !== null ? (
         <div>
-          <BottomSheet isActive={isActive} children={<Reservation />} />
+          {/* <BottomSheet isActive={isActive} children={<Reservation />} /> */}
         </div>
       ) : null}
     </>

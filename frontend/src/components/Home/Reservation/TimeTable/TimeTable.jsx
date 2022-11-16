@@ -23,6 +23,7 @@ const TimeTable = () => {
             </S.TimeLineContainer>
           </S.StatusContainer>
         </S.Wrapper>
+        {/* 예약 설정완료 후에 status.bookable 이 true인 값만 찾기 */}
         <button
           style={{
             width: 100,

@@ -16,7 +16,8 @@ const MapArea = () => {
       >
         <span>{toggle ? '지도로 보기' : '로드뷰'}</span>
       </S.Button>
-      <KakaoMap location={location} toggle={toggle} />
+      {/* 상단에 검색창 추후 구현시 이자리 */}
+      <KakaoMap toggle={toggle} />
     </S.Wrapper>
   );
 };
