@@ -5,6 +5,7 @@ import NotFound from './NotFound';
 import Login from './Login';
 import Logout from './Logout/index';
 import Entrance from './Entrance/index';
+import Empty from './Empty/index';
 
 const PAGES = [
   {
@@ -24,6 +25,7 @@ const PAGES = [
   },
   { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
   { element: <Logout />, path: ROUTES.LOGOUT.PATH, name: ROUTES.LOGOUT.NAME },
+  { element: <Empty />, path: ROUTES.EMPTY.PATH, name: ROUTES.EMPTY.NAME },
   {
     element: <NotFound />,
     path: ROUTES.NOT_FOUND.PATH,

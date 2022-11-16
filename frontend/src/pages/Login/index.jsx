@@ -2,12 +2,18 @@ import LoginForm from '../../components/Login/LoginForm';
 import * as S from '../../components/Login/LoginStyledComp.style';
 import { useRecoilState } from 'recoil';
 import { loginState } from '../../recoil/login';
-import { renewTokenDirectly } from '../../apis/auth';
-import { SplashScreen } from '../../components/@commons';
+
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
-
+  const navigate = useNavigate();
+  const isLogin = () => {
+    if (isAuthorized) {
+      navigate('/');
+    }
+  };
+  isLogin();
   return (
     <S.LoginPageWrapper>
       <LoginForm />
