@@ -8,18 +8,14 @@ import backend.domain.payment.service.PaymentService;
 import backend.global.dto.SingleResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RequiredArgsConstructor
 @RestController @RequestMapping("/payments")
-public class PayController {
+public class PaymentController {
 
     private final PaymentService paymentService;
 
@@ -54,25 +50,15 @@ public class PayController {
 
     @GetMapping("/{paymentId}")
     public ResponseEntity<Payment> getPayment (@PathVariable Long paymentId) {
-        Payment payment = new Payment().builder()
-                .totalPrice(1000)
-                .totalBatteries(1)
-                .build();
+        Payment payment = paymentService.getPayment(paymentId);
 
         return new ResponseEntity<>(payment, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<Page> getPayments (Pageable pageable) {
-        List<Payment> list = new ArrayList<>();
-        for (int i = 1 ; i<=10 ; i++) {
-            Payment payment = new Payment().builder()
-                    .totalPrice(1000*i)
-                    .totalBatteries(i)
-                    .build();
-            list.add(payment);
-        }
-        Page<Payment> page = new PageImpl(list, pageable, list.size());
+        Page<Payment> page = paymentService.getPayments(pageable);
+
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
