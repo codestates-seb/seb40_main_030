@@ -15,8 +15,10 @@ const Entrance = () => {
         style={{
           color: 'black',
           fontSize: '50px',
+          fontWeight: 'bold',
           border: '3px solid black',
           margin: '30px',
+          backgroundColor: '#D9D9D9',
         }}
       >
         일반회원 로그인

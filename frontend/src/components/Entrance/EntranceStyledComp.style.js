@@ -11,7 +11,6 @@ const EntranceWrapper = styled.div`
 `;
 
 const TitleAndLogoContainer = styled.div`
-  border: 1px solid red;
   width: 450px;
   height: 450px;
 
@@ -20,7 +19,7 @@ const TitleAndLogoContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  & > div {
+  & > h1 {
     padding: 10px;
     font-size: 70px;
     font-weight: 900;

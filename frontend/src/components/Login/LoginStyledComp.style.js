@@ -8,7 +8,7 @@ const LoginPageWrapper = styled.div`
   align-items: center;
 
   border: 1px solid red;
-  padding: 25px;
+  /* padding: 25px; */
 `;
 
 const LoginContainer = styled.div`

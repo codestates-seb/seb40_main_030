@@ -1,12 +1,17 @@
 import { KaKaoLoginImg } from '../../assets';
 import useKakaoLogout from '../../hooks/Login/useKakaoLogout';
 
-const KakaoLogout = () => {
-  const { logoutClickHandler } = useKakaoLogout();
-
+const KakaoLogout = ({ logoutClickHandler }) => {
   return (
-    <button onClick={logoutClickHandler}>
-      <img src={KaKaoLoginImg} />
+    <button
+      style={{
+        fontSize: '30px',
+        border: '1px solid black',
+        backgroundColor: 'yellow',
+      }}
+      onClick={logoutClickHandler}
+    >
+      카카오 로그아웃 버튼
     </button>
   );
 };

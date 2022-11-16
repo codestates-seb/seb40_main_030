@@ -1,16 +1,33 @@
 import { loginState } from '../../recoil/login';
 import { useRecoilState } from 'recoil';
 import KakaoLogout from '../../components/Login/KakaoLogout';
+import useKakaoLogout from '../../hooks/Login/useKakaoLogout';
 
 const Logout = () => {
-  const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
-
+  const { logoutClickHandler, isAuthorized } = useKakaoLogout();
   return (
-    <>
-      <div>로그인 후 페이지입니다.</div>
-      <div>{isAuthorized ? `로그인됨 ${isAuthorized}` : '로그인 안됨'}</div>
-      <KakaoLogout />
-    </>
+    <div
+      style={{
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <div
+        style={{
+          margin: '30px',
+          backgroundColor: 'skyblue',
+          border: '1px solid black',
+        }}
+      >
+        {isAuthorized
+          ? `로그인상태창 : ${isAuthorized}`
+          : `로그인상태창 : ${isAuthorized}`}
+      </div>
+      <KakaoLogout logoutClickHandler={logoutClickHandler} />
+    </div>
   );
 };
 

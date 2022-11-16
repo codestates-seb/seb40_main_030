@@ -3,7 +3,7 @@ import * as S from './EntranceStyledComp.style';
 const TitleAndLogo = () => {
   return (
     <S.TitleAndLogoContainer>
-      <div>집나간 배터리</div>
+      <h1>집나간 배터리</h1>
       <div className='car-logo'>
         <ServiceLogo width={'200px'} height={'300px'} />
       </div>

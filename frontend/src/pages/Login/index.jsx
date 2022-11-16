@@ -7,18 +7,10 @@ import { SplashScreen } from '../../components/@commons';
 
 const Login = () => {
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
-  const getNewTokenHandler = () => {
-    renewTokenDirectly().then((res) => {
-      console.log('getNewTokenHandler 응답', res);
-      res?.access_token &&
-        localStorage.setItem('accessToken', res.access_token);
-    });
-  };
+
   return (
     <S.LoginPageWrapper>
       <LoginForm />
-      <button onClick={getNewTokenHandler}>토큰 갱신하기</button>
-      <div>{isAuthorized ? `로그인됨 ${isAuthorized}` : '로그인 안됨'}</div>
     </S.LoginPageWrapper>
   );
 };
