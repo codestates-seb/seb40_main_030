@@ -61,7 +61,7 @@ public class AdminService {
         return findAdmin;
     }
 
-    // 해당 email이 존재하는지 검증
+    // 해당 email이 존재하는지 검증합니다.
     private void verifyExistsEmail(String email){
         Optional<Admin> admin = adminRepository.findByEmail(email);
 
