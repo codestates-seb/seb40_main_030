@@ -1,19 +1,21 @@
 import { useRecoilState } from 'recoil';
 import { getTokenDirectly, getTokenIndirectly } from '../../apis/auth';
 import { loginState } from '../../recoil/login';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { KAKAO_AUTHCODE_URL, KAKAO_TOKENCODE_URL } from '../../constants/auth';
 
 const useKakaoLogin = () => {
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
+  const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
 
   const loginClickHandler = () => {
     //카카오로그인 -> 리다이렉트 with auth code
-    console.log('카카오로그인 클릭');
-    console.log(KAKAO_AUTHCODE_URL);
-    window.location.assign(KAKAO_AUTHCODE_URL);
+    if (!isAuthorized) {
+      setIsloading(true);
+      window.location.assign(KAKAO_AUTHCODE_URL);
+    }
   };
 
   useEffect(() => {
@@ -31,8 +33,10 @@ const useKakaoLogin = () => {
         console.log('받은 토큰은', data);
         localStorage.setItem('accessToken', data.data.access_token);
         localStorage.setItem('refreshToken', data.data.refresh_token);
+        console.log('logout페이지로 이동');
         navigate('/logout');
-        setIsAuthorized(true); //로그인된 상태
+        setIsAuthorized(true);
+        setIsloading(false); //로그인된 상태
       });
 
       // getTokenDirectly(KAKAO_TOKENCODE_URL, authorizationCode).then((data) => {
@@ -44,7 +48,13 @@ const useKakaoLogin = () => {
       // });
     }
   }, []);
-  return { isAuthorized, setIsAuthorized, loginClickHandler };
+  return {
+    isAuthorized,
+    setIsAuthorized,
+    loginClickHandler,
+    isLoading,
+    setIsloading,
+  };
 };
 
 export default useKakaoLogin;

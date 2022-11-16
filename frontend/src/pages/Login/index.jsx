@@ -3,6 +3,8 @@ import * as S from '../../components/Login/LoginStyledComp.style';
 import { useRecoilState } from 'recoil';
 import { loginState } from '../../recoil/login';
 import { renewTokenDirectly } from '../../apis/auth';
+import { SplashScreen } from '../../components/@commons';
+
 const Login = () => {
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
   const getNewTokenHandler = () => {

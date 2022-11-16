@@ -1,7 +1,10 @@
 import KakaoLogin from './KakaoLogin';
 import * as S from './LoginStyledComp.style';
+import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
+import { SplashScreen } from '../@commons';
 
 const LoginForm = () => {
+  const { loginClickHandler } = useKakaoLogin();
   return (
     <S.LoginContainer>
       <div //임시로 넣어둠
@@ -9,7 +12,8 @@ const LoginForm = () => {
       >
         일반회원 회원가입...로그인
       </div>
-      <KakaoLogin />
+
+      <KakaoLogin loginClickHandler={loginClickHandler} />
     </S.LoginContainer>
   );
 };
