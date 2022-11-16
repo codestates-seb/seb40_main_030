@@ -4,9 +4,11 @@ import backend.domain.zone.entity.Zone;
 import backend.domain.zone.entity.ZoneLocation;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.time.LocalDateTime;
 
-@Getter @Setter
+@Getter
+@Setter
 public class ZonePatchReqDto {
 
     private String name;
@@ -15,12 +17,13 @@ public class ZonePatchReqDto {
 
 
     public Zone toZone(Long zoneId) {
-        Zone zone = new Zone();
-        zone.setId(zoneId);
-        zone.setName(this.name);
-        zone.setDetails(this.details);
-        zone.setLatitude(this.location.getLatitude());
-        zone.setLongitude(this.location.getLongitude());
+        Zone zone = new Zone().builder()
+                .id(zoneId)
+                .name(this.name)
+                .details(this.details)
+                .latitude(this.location.getLatitude())
+                .longitude(this.location.getLongitude())
+                .build();
         zone.setModifiedAt(LocalDateTime.now());
 
         return zone;
