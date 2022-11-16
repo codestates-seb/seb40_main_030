@@ -135,6 +135,7 @@ ${({ theme }) => css`
   }
   * {
     box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   }
   body {
     font-family: 'Source Sans Pro', sans-serif;

@@ -3,6 +3,8 @@ import { SplashScreen } from '../../components/@commons';
 import BottomSheet from '../../components/@layout/BottomSheet/BottomSheet';
 import { useRecoilValue } from 'recoil';
 import { navState } from '../../recoil/pagesState';
+import MapArea from '../../components/Home/Maps';
+import Reservation from '../../components/Home/Reservation/Reservation';
 
 const Home = () => {
   // Home 은 landing page 의 역할
@@ -13,19 +15,12 @@ const Home = () => {
     <SplashScreen />
   ) : (
     <>
-      {/* 임시 */}
-      <div style={{ width: '100%', height: '90vh', overflow: 'hidden' }}>
-        <img
-          height='100%'
-          width='100%'
-          src='../../../src/assets/mockImage.png'
-        />
-      </div>
+      <MapArea />
       {/* Bottom Sheet 에 대한 visibility transition 이 들어가야함 */}
       {/* session storage 값으로 검증을 하는 방식이 맞는지 확인이 필요함 */}
       {isSplashed !== null ? (
         <div>
-          <BottomSheet isActive={isActive} />
+          {/* <BottomSheet isActive={isActive} children={<Reservation />} /> */}
         </div>
       ) : null}
     </>
