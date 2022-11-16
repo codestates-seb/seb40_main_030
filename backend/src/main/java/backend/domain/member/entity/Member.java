@@ -1,27 +1,17 @@
 package backend.domain.member.entity;
 
+import backend.global.auditing.BaseTime;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
-@Builder
-@Transactional
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter
-@Entity
-
-public class Member {
+@AllArgsConstructor @NoArgsConstructor
+@Entity @Setter @Getter @Builder
+public class Member extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Id @Column(name = "memberId")
     private Long memberId;
 
     @Column(nullable = false)
@@ -36,21 +26,21 @@ public class Member {
     @Column(nullable = false)
     private String phone;
 
+    @Column(nullable = false)
+    private String address;
 
-//
-//    @Column(nullable = false)
-//    @OneToMany
-//    @JoinColumn(name = "CAR_Id")
-//    private Car car;
-
-@ElementCollection(fetch = FetchType.EAGER)
-List<String> roles = new ArrayList<>();
+    @Column(nullable = false)
+    private String photoURL;
 
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = this.getRoles().stream().map(strAuth -> new SimpleGrantedAuthority("ROLE_" + strAuth)).collect(Collectors.toList());
-        return authorities;
-    }
+//    @ElementCollection(fetch = FetchType.EAGER)     현재 시큐리티 미적용 상태이므로 주석처리 해두었습니다
+//    List<String> roles = new ArrayList<>();
+
+
+//    public Collection<? extends GrantedAuthority> getAuthorities() {   현재 시큐리티 미적용 상태이므로 주석처리 해두었습니다
+//        List<GrantedAuthority> authorities = this.getRoles().stream().map(strAuth -> new SimpleGrantedAuthority("ROLE_" + strAuth)).collect(Collectors.toList());
+//        return authorities;
+//    }
 
     public String getPassword() {
         return this.getPassword();
