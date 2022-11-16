@@ -1,0 +1,5 @@
+insert into orders(order_id, status, startTime, endTime, createdAt, modifiedAt) values('101', '0', '2022-11-18T09', '2022-11-20T09','2022-10-14 17:13:10', '2022-10-14 17:13:10');
+insert into orders(order_id, status, startTime, endTime, createdAt, modifiedAt) values('102', '1', '2022-11-20T09', '2022-11-22T09','2022-10-15 17:13:10', '2022-10-15 17:13:10');
+insert into orders(order_id, status, startTime, endTime, createdAt, modifiedAt) values('103', '2', '2022-11-25T09', '2022-11-29T09','2022-10-16 17:13:10', '2022-10-20 13:13:10');
+insert into orders(order_id, status, startTime, endTime, createdAt, modifiedAt) values('104', '2', '2022-11-07T09', '2022-11-10T09','2022-10-21 17:13:10', '2022-10-25 17:13:10');
+insert into orders(order_id, status, startTime, endTime, createdAt, modifiedAt) values('105', '3', '2022-12-24T09', '2022-12-25T09','2022-11-07 09:13:10', '2022-11-17 20:13:10');
