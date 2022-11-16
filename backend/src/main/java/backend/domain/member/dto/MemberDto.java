@@ -8,13 +8,14 @@ import org.hibernate.validator.constraints.URL;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
 
 
 public class MemberDto {
 
     @NoArgsConstructor @AllArgsConstructor
     @Getter @Setter
-    public static class Post extends BaseTime {
+    public static class Post {
 
         @NotBlank @Email
         private String email;
@@ -37,7 +38,7 @@ public class MemberDto {
 
     @NoArgsConstructor @AllArgsConstructor
     @Getter @Setter
-    public static class Patch extends BaseTime {
+    public static class Patch {
 
         //정규식 필요
         @NotBlank @Pattern(regexp = "^[가-힣a-zA-Z]*$")
@@ -69,6 +70,10 @@ public class MemberDto {
 
         private String photoUrl;
 
+        private LocalDateTime createdAt;
+
+        private LocalDateTime modifiedAt;
+
         public Response (Member member) {
             this.memberId = member.getMemberId();
             this.email = member.getEmail();
@@ -76,8 +81,8 @@ public class MemberDto {
             this.phone = member.getPhone();
             this.address = member.getAddress();
             this.photoUrl = member.getPhotoURL();
-            member.getCreatedAt();
-            member.getModifiedAt();
+            this.createdAt = member.getCreatedAt();
+            this.modifiedAt = member.getModifiedAt();
         }
 
     }

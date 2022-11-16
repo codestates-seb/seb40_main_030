@@ -52,8 +52,9 @@ public class MemberController {
     public ResponseEntity<MemberDto.Response> patchMember (@PathVariable("member-id") Long memberId,
                                                                       @RequestBody MemberDto.Patch dto) {
         Member member = mapper.memberDtoPatchToMember(dto);
+        member.setMemberId(memberId);
         Member modifiedMember = service.patchMember(member);
-        MemberDto.Response response = mapper.memberToMemberDtoResponse(modifiedMember);
+        MemberDto.Response response = new MemberDto.Response(modifiedMember);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
