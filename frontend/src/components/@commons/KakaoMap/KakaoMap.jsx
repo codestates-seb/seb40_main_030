@@ -1,9 +1,10 @@
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { Map } from 'react-kakao-maps-sdk';
 import KakaoRoadView from './RoadView';
 import * as S from './KakaoMap.style';
 import { useRecoilValue } from 'recoil';
 import { currentLocationState } from '../../../recoil/pagesState';
 import useGetAllZones from '../../../hooks/maps/useGetAllZones';
+import MarkerContainer from './MarkerContainer';
 
 // type Location = {
 //   location: {
@@ -32,18 +33,9 @@ const KakaoMap = ({ toggle }) => {
             style={{ width: '100%', height: '100%' }}
             level={3}
           >
-            {zones.map(({ zoneId, location, title }) => {
-              return (
-                <MapMarker
-                  key={zoneId}
-                  position={{
-                    lat: location.latitude,
-                    lng: location.longitude,
-                  }}
-                  title={title}
-                />
-              );
-            })}
+            {zones.map((content) => (
+              <MarkerContainer key={content.zoneId} content={content} />
+            ))}
           </Map>
         ) : (
           <KakaoRoadView location={{ latitude, longitude }} />

@@ -69,8 +69,6 @@ const useBottomSheet = () => {
       }
 
       if (canUserMoveBottomSheet()) {
-        e.preventDefault();
-
         // 터치 시작점에서 현재 터치 포인트까지의 변화된 y값
         const touchOffset = currentTouch.clientY - touchStart.touchY;
         let nextSheetY = touchStart.sheetY + touchOffset;
@@ -97,7 +95,7 @@ const useBottomSheet = () => {
       }
     };
 
-    const handleTouchEnd = (e) => {
+    const handleTouchEnd = () => {
       const { touchMove } = metrics.current;
 
       document.body.style.overflowY = 'auto';
@@ -134,14 +132,26 @@ const useBottomSheet = () => {
       };
     };
 
-    sheetRef.current.addEventListener('touchstart', handleTouchStart);
-    sheetRef.current.addEventListener('touchmove', handleTouchMove);
-    sheetRef.current.addEventListener('touchend', handleTouchEnd);
+    sheetRef.current.addEventListener('touchstart', handleTouchStart, {
+      passive: true,
+    });
+    sheetRef.current.addEventListener('touchmove', handleTouchMove, {
+      passive: true,
+    });
+    sheetRef.current.addEventListener('touchend', handleTouchEnd, {
+      passive: true,
+    });
 
     return () => {
-      sheetRef.current.addEventListener('touchstart', handleTouchStart);
-      sheetRef.current.addEventListener('touchmove', handleTouchMove);
-      sheetRef.current.addEventListener('touchend', handleTouchEnd);
+      sheetRef.current.addEventListener('touchstart', handleTouchStart, {
+        passive: true,
+      });
+      sheetRef.current.addEventListener('touchmove', handleTouchMove, {
+        passive: true,
+      });
+      sheetRef.current.addEventListener('touchend', handleTouchEnd, {
+        passive: true,
+      });
     };
   }, []);
 

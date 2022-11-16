@@ -23,8 +23,6 @@ const useCalendar = () => {
   const startDate = new Date(date.startValue).getDate();
   const endDate = new Date(date.endValue).getDate();
 
-  console.log(startMonth, endMonth);
-
   useEffect(() => {
     if (date.startValue !== null && date.endValue !== null) {
       setReservationStatus({
