@@ -7,8 +7,9 @@ const Login = () => {
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
   const getNewTokenHandler = () => {
     renewTokenDirectly().then((res) => {
-      console.log('새로받은 토큰데이터', res);
-      localStorage.setItem('accessToken', res.access_token);
+      console.log('getNewTokenHandler 응답', res);
+      res?.access_token &&
+        localStorage.setItem('accessToken', res.access_token);
     });
   };
   return (

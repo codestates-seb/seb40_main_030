@@ -15,6 +15,7 @@ const useKakaoLogout = () => {
     //백엔드로 로그아웃 요청을 보내고(토큰을)
     // invalidateTokenIndirectly(KAKAO_TOKEN_LOGOUT_URL).then((res) => {
     //   localStorage.setItem('accessToken', '');
+    // localStorage.setItem('refreshToken', '');
     //   navigate('/login');
     //   setIsAuthorized(false);
     // });
@@ -23,6 +24,7 @@ const useKakaoLogout = () => {
     invalidateTokenDirectly(KAKAO_TOKEN_LOGOUT_URL).then((res) => {
       console.log('로그아웃 응답은', res);
       localStorage.setItem('accessToken', '');
+      localStorage.setItem('refreshToken', '');
       setIsAuthorized(false);
       navigate('/login', { replace: true });
     });
