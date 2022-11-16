@@ -5,6 +5,7 @@ import backend.domain.payment.dto.PayPostReqDto;
 import backend.domain.payment.dto.PayResDto;
 import backend.domain.payment.entity.Payment;
 import backend.domain.payment.service.PaymentService;
+import backend.global.dto.PageInfoDto;
 import backend.global.dto.SingleResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,13 +31,14 @@ public class PaymentController {
 
 
     @PatchMapping("/{paymentId}")
-    public ResponseEntity<SingleResDto<String>> patchPayment (@PathVariable Long paymentId,
+    public ResponseEntity<PayResDto> patchPayment (@PathVariable Long paymentId,
                                                          @RequestBody PayPatchReqDto payPatchReqDto) {
         Payment payment = payPatchReqDto.toPayment();
+        payment.setId(paymentId);
         Payment modifiedPayment = paymentService.patchPayment(payment);
         PayResDto response = new PayResDto(modifiedPayment);
 
-        return new ResponseEntity<>(new SingleResDto<>("success modify"), HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
@@ -44,7 +46,7 @@ public class PaymentController {
     public ResponseEntity<SingleResDto<String>> deletePayment (@PathVariable Long paymentId) {
         paymentService.deletePayment(paymentId);
 
-        return new ResponseEntity<>(new SingleResDto<>("success create"), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResDto<>("Success Delete"), HttpStatus.OK);
     }
 
 
@@ -56,10 +58,10 @@ public class PaymentController {
     }
 
     @GetMapping
-    public ResponseEntity<Page> getPayments (Pageable pageable) {
+    public ResponseEntity<PageInfoDto> getPayments (Pageable pageable) {
         Page<Payment> page = paymentService.getPayments(pageable);
 
-        return new ResponseEntity<>(page, HttpStatus.OK);
+        return new ResponseEntity<>(new PageInfoDto(page), HttpStatus.OK);
     }
 
 }

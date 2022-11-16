@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service @RequiredArgsConstructor @Transactional(readOnly = true)
@@ -29,8 +30,8 @@ public class PaymentService {
     public Payment patchPayment (Payment payment) {
         Payment savedPayment = paymentRepository.findById(payment.getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
-        Optional.ofNullable(payment.getTotalPrice()).ifPresent(savedPayment::setTotalPrice);
-        Optional.ofNullable(payment.getTotalBatteries()).ifPresent(savedPayment::setTotalBatteries);
+        Optional.of(payment.getTotalPrice()).ifPresent(savedPayment::setTotalPrice);
+        Optional.of(payment.getTotalBatteries()).ifPresent(savedPayment::setTotalBatteries);
         savedPayment.setModifiedAt(payment.getModifiedAt());
 
         return paymentRepository.save(savedPayment);
