@@ -1,6 +1,8 @@
 import { rest } from 'msw';
 import { mockOrder, mockUser } from './data';
 import mockZone from './data/zone';
+import { KAKAO_TOKENCODE_URL, KAKAO_TOKEN_LOGOUT_URL } from '../constants/auth';
+import { getTokenDirectly, invalidateTokenDirectly } from '../apis/auth';
 
 let MockOrder = [...mockOrder];
 let MockUsers = [...mockUser];
@@ -127,4 +129,25 @@ export const handlers = [
   rest.get('/api/zones', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(MockZone));
   }),
+  /**
+   * 클라이언트에서 인증코드 받아서
+   * 카카오인증서버로 요청 후 토큰 받아옴
+   */
+  rest.post('/login/token', async (req, res, ctx) => {
+    const authCode = req.body.authorizationCode;
+    const type = req.body.type;
+    let token = await getTokenDirectly(KAKAO_TOKENCODE_URL, authCode);
+    return res(ctx.delay(200), ctx.status(200), ctx.json(token));
+  }),
+
+  /**
+   * 클라이언트에서 로그아웃 요청 받아서 처리
+   * 카카오인증 서버로 로그아웃 요청 보냄
+   */
+  rest.post('/logout', async (req, res, ctx) => {
+    const logoutRes = await invalidateTokenDirectly(KAKAO_TOKEN_LOGOUT_URL);
+    console.log('moc logout res', logoutRes);
+    return res(ctx.delay(200), ctx.status(200), ctx.json(logoutRes));
+  }),
 ];
+//토큰 헤더[0], 쿠키, 바디

@@ -1,9 +1,8 @@
-package backend.domain.battery.entity;
+package backend.domain.admin.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,32 +11,23 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-public class Battery {
-
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long batteryId;
+    private Long adminId;
 
     @Column
-    private String type;
+    private String email;
 
     @Column
-    private boolean status;
+    private String password;
 
     @Column
-    private int price;
-
-    @URL
-    @Column
-    private String photoURL;
-
-//    @ManyToOne
-//    @JoinColumn(name = "ZONE_ID")
-//    private Zone zone;
+    private String phone;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(nullable = false, name = "LAST_MODIFIED_AT")
+    @Column(nullable = false)
     private LocalDateTime modifiedAt = LocalDateTime.now();
 }
