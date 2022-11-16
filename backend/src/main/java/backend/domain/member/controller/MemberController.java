@@ -29,7 +29,6 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<MemberDto.Response> postMember(@Valid @RequestBody MemberDto.Post dto) {
 
-
         Member member = mapper.memberDtoPostToMember(dto);  // 식별자 값이 DB저장까지는 나오지 않아 mapper가 식별자 값을 못잡는 주의문구가 뜹니다. 사용에는 지장이 없으니 주의문구는 무시하셔도 좋습니다.
         Member createdMember = service.createMember(member);
 //        MemberDto.Response response = mapper.memberToMemberDtoResponse(createdMember); // 매퍼에서 일부 값을 받지 못해 null값이 반환되어 우선 생성자를 사용한 변환방법으로 사용했습니다
@@ -52,7 +51,7 @@ public class MemberController {
     public ResponseEntity<MemberDto.Response> patchMember (@PathVariable("member-id") Long memberId,
                                                                       @RequestBody MemberDto.Patch dto) {
         Member member = mapper.memberDtoPatchToMember(dto);
-        member.setMemberId(memberId);
+        member.setId(memberId);
         Member modifiedMember = service.patchMember(member);
         MemberDto.Response response = new MemberDto.Response(modifiedMember);
 

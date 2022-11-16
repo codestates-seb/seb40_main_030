@@ -2,17 +2,23 @@ package backend.domain.member.entity;
 
 import backend.global.auditing.BaseTime;
 import lombok.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import javax.persistence.*;
 
-@AllArgsConstructor @NoArgsConstructor
-@Entity @Setter @Getter @Builder
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity @Builder @Getter @Setter
 public class Member extends BaseTime {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id @Column(name = "memberId")
-    private Long memberId;
+    @GeneratedValue
+    @Id
+    private Long id;
 
     @Column(nullable = false)
     private String password;
@@ -42,34 +48,34 @@ public class Member extends BaseTime {
 //        return authorities;
 //    }
 
-    public String getPassword() {
-        return this.getPassword();
-    }
-
-
-    public String getUsername() {
-        return this.getEmail();
-    }
-
-
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-
-    public boolean isEnabled() {
-        return true;
-    }
+//    public String getPassword() {
+//        return this.getPassword();
+//    }
+//
+//
+//    public String getUsername() {
+//        return this.getEmail();
+//    }
+//
+//
+//    public boolean isAccountNonExpired() {
+//        return true;
+//    }
+//
+//
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
+//
+//
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
+//
+//
+//    public boolean isEnabled() {
+//        return true;
+//    }
 
 }
 

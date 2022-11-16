@@ -75,7 +75,7 @@ public class MemberDto {
         private LocalDateTime modifiedAt;
 
         public Response (Member member) {
-            this.memberId = member.getMemberId();
+            this.memberId = member.getId();
             this.email = member.getEmail();
             this.nickname = member.getNickname();
             this.phone = member.getPhone();
@@ -84,6 +84,5 @@ public class MemberDto {
             this.createdAt = member.getCreatedAt();
             this.modifiedAt = member.getModifiedAt();
         }
-
     }
 }

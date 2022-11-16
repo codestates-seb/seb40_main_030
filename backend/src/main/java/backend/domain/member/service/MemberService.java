@@ -14,14 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
@@ -48,7 +42,7 @@ public class MemberService {
 
     @Transactional
     public Member patchMember(Member member) {
-        Member verifiedMember = verifyExistsMember(member.getMemberId());
+        Member verifiedMember = verifyExistsMember(member.getId());
         Optional.ofNullable(member.getNickname()).ifPresent(verifiedMember::setNickname);
         Optional.ofNullable(member.getPhone()).ifPresent(verifiedMember::setPhone);
         Optional.ofNullable(member.getAddress()).ifPresent(verifiedMember::setAddress);
@@ -65,15 +59,13 @@ public class MemberService {
     }
 
     public Member findMember(Long memberId) {
-        Member findMember = verifyExistsMember(memberId);
 
-        return findMember;
+        return verifyExistsMember(memberId);
     }
 
     public Page<Member> findMembers(Pageable pageable) {
-        Page<Member> allMemberList = memberRepository.findAllByOrderByCreatedAtDesc(pageable);
 
-        return allMemberList;
+        return memberRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
 //    public void outMember(HttpServletRequest request) {      현재 시큐리티 미적용으로 주석처리 했습니다.
