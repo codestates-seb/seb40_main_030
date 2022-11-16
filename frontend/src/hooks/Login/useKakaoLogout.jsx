@@ -21,6 +21,7 @@ const useKakaoLogout = () => {
 
     //클라이언트에서 카카오 서버로 바로 통신
     invalidateTokenDirectly(KAKAO_TOKEN_LOGOUT_URL).then((res) => {
+      console.log('로그아웃 응답은', res);
       localStorage.setItem('accessToken', '');
       setIsAuthorized(false);
       navigate('/login', { replace: true });

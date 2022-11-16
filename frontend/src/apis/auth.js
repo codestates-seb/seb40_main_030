@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import { REDIRECT_URI } from '../constants/auth';
+import { KAKAO_RENEWTOKEN_URL, REDIRECT_URI } from '../constants/auth';
 
 //백엔드로 인증코드 보냄 or mock 서버로 보냄
 const getTokenIndirectly = async (authorizationCode) => {
@@ -76,19 +76,34 @@ const invalidateTokenIndirectly = async (path) => {
 };
 
 // //
-// const renewTokenDirectly = async() => {
-//   try {
-
-//   } catch (error) {
-//     console.log('에러는', error);
-//   } finally {
-//     console.log('요청완료');
-//   }
-// };
+const renewTokenDirectly = async () => {
+  const refreshToken = localStorage.getItem('refreshToken');
+  console.log('로컬에서 가져온 리프레쉬 토큰', refreshToken);
+  try {
+    const res = await fetch(KAKAO_RENEWTOKEN_URL, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+      body: qs.stringify({
+        grant_type: 'refresh_token',
+        client_id: import.meta.env.VITE_CLIENT_ID,
+        refresh_token: refreshToken,
+        client_secret: import.meta.env.VITE_ClIENT_SECRET,
+      }),
+    });
+    return await res.json();
+  } catch (error) {
+    console.log('에러는', error);
+  } finally {
+    console.log('요청완료');
+  }
+};
 
 export {
   getTokenDirectly,
   getTokenIndirectly,
   invalidateTokenDirectly,
   invalidateTokenIndirectly,
+  renewTokenDirectly,
 };

@@ -2,12 +2,19 @@ import LoginForm from '../../components/Login/LoginForm';
 import * as S from '../../components/Login/LoginStyledComp.style';
 import { useRecoilState } from 'recoil';
 import { loginState } from '../../recoil/login';
+import { renewTokenDirectly } from '../../apis/auth';
 const Login = () => {
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
-
+  const getNewTokenHandler = () => {
+    renewTokenDirectly().then((res) => {
+      console.log('새로받은 토큰데이터', res);
+      localStorage.setItem('accessToken', res.access_token);
+    });
+  };
   return (
     <S.LoginPageWrapper>
       <LoginForm />
+      <button onClick={getNewTokenHandler}>토큰 갱신하기</button>
       <div>{isAuthorized ? `로그인됨 ${isAuthorized}` : '로그인 안됨'}</div>
     </S.LoginPageWrapper>
   );

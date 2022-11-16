@@ -30,6 +30,7 @@ const useKakaoLogin = () => {
       getTokenIndirectly(authorizationCode).then((data) => {
         console.log('받은 토큰은', data);
         localStorage.setItem('accessToken', data.data.access_token);
+        localStorage.setItem('refreshToken', data.data.refresh_token);
         navigate('/logout');
         setIsAuthorized(true); //로그인된 상태
       });
@@ -37,6 +38,7 @@ const useKakaoLogin = () => {
       // getTokenDirectly(KAKAO_TOKENCODE_URL, authorizationCode).then((data) => {
       //   console.log('받은 asdasd토큰은', data);
       //   localStorage.setItem('accessToken', data.access_token);
+      // localStorage.setItem('refreshToken', data.data.refresh_token);
       //   navigate('/logout');
       //   setIsAuthorized(true);
       // });
