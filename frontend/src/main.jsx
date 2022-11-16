@@ -12,7 +12,9 @@ import ErrorBoundary from './components/@helper/ErrorBoundary';
 
 // MSW가 develop 환경에서만 구동됨
 if (process.env.NODE_ENV === 'development') {
-  worker.start();
+  worker.start({
+    onUnhandledRequest: 'bypass',
+  });
 }
 
 // react query
