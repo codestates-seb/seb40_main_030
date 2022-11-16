@@ -3,12 +3,11 @@ import qs from 'qs';
 import { REDIRECT_URI } from '../constants/auth';
 
 //백엔드로 인증코드 보냄 or mock 서버로 보냄
-const getTokenIndirectly = async (authorizationCode, type) => {
+const getTokenIndirectly = async (authorizationCode) => {
   console.log('실행');
   try {
     const res = await axios.post('/login/token', {
       authorizationCode: authorizationCode,
-      type: type,
     });
     return res;
   } catch (error) {
@@ -20,7 +19,7 @@ const getTokenIndirectly = async (authorizationCode, type) => {
 
 //클라이언트에서 직접 토큰 받아옴(백엔드 api 아직 완성x)
 //쿼리스트링으로 보내야해서 fetch 사용. axios 직렬화 안하고 보내는 방법 찾는중..
-const getTokenDirectly = async (path, type, authorizationCode) => {
+const getTokenDirectly = async (path, authorizationCode) => {
   try {
     const res = await fetch(path, {
       method: 'POST',
@@ -28,14 +27,14 @@ const getTokenDirectly = async (path, type, authorizationCode) => {
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
       body: qs.stringify({
-        grant_type: type,
+        grant_type: 'authorization_code',
         client_id: import.meta.env.VITE_CLIENT_ID,
         redirect_uri: REDIRECT_URI,
-        refresh_token: type === 'refresh_token' ? '리프레쉬토큰들어감' : '',
-        code: type === 'authorization_code' ? authorizationCode : '',
+        code: authorizationCode,
         client_secret: import.meta.env.VITE_ClIENT_SECRET,
       }),
     });
+    console.log('실행중');
     return await res.json();
   } catch (error) {
     console.log('에러는', error);
@@ -62,8 +61,10 @@ const invalidateTokenDirectly = async (path) => {
     console.log('요청완료');
   }
 };
+
+//mock api 사용 / 백엔드 서버 우회 사용
 const invalidateTokenIndirectly = async (path) => {
-  console.log('실행');
+  console.log('토큰 무효화 실행');
   try {
     const res = await axios.post('/logout', { path: path });
     return res;
@@ -73,6 +74,17 @@ const invalidateTokenIndirectly = async (path) => {
     console.log('mock, back에서 응답받았음');
   }
 };
+
+// //
+// const renewTokenDirectly = async() => {
+//   try {
+
+//   } catch (error) {
+//     console.log('에러는', error);
+//   } finally {
+//     console.log('요청완료');
+//   }
+// };
 
 export {
   getTokenDirectly,

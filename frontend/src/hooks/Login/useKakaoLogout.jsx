@@ -13,16 +13,18 @@ const useKakaoLogout = () => {
 
   const logoutClickHandler = () => {
     //백엔드로 로그아웃 요청을 보내고(토큰을)
-    invalidateTokenIndirectly(KAKAO_TOKEN_LOGOUT_URL).then((res) =>
-      console.log('mock 로그아웃 응답', res)
-    );
+    // invalidateTokenIndirectly(KAKAO_TOKEN_LOGOUT_URL).then((res) => {
+    //   localStorage.setItem('accessToken', '');
+    //   navigate('/login');
+    //   setIsAuthorized(false);
+    // });
 
     //클라이언트에서 카카오 서버로 바로 통신
-    // invalidateTokenDirectly(KAKAO_TOKEN_LOGOUT_URL).then((res) => {
-    //   localStorage.setItem('accessToken', '');
-    //   setIsAuthorized(false);
-    //   navigate('/login', { replace: true });
-    // });
+    invalidateTokenDirectly(KAKAO_TOKEN_LOGOUT_URL).then((res) => {
+      localStorage.setItem('accessToken', '');
+      setIsAuthorized(false);
+      navigate('/login', { replace: true });
+    });
   };
   return { isAuthorized, setIsAuthorized, logoutClickHandler };
 };
