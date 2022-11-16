@@ -10,10 +10,10 @@ const Cards = ({ content, setIsOpen }) => {
           <S.Image src={image} alt={name} />
         </S.Container>
         <S.Details>
-          <h3>{name}</h3>
+          <h3 onClick={() => console.log(name)}>{name}</h3>
           <p>{details}</p>
           <p>
-            배터리 보유 현황 <span>{status}</span>
+            배터리 보유 현황 <span>{status.amount}</span>
           </p>
           <div className='close' onClick={() => setIsOpen(false)}>
             &times;
