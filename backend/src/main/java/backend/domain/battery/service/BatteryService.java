@@ -2,7 +2,7 @@ package backend.domain.battery.service;
 
 import backend.domain.battery.entity.Battery;
 import backend.domain.battery.repository.BatteryRepository;
-import backend.global.exception.dto.BusinessLoginException;
+import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.exceptionCode.ExceptionCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -58,7 +58,7 @@ public class BatteryService {
     private Battery findVerifiedBattery(long batteryId) {
         Optional<Battery> optionalBattery = batteryRepository.findById(batteryId);
         Battery findBattery = optionalBattery.orElseThrow(() ->
-                new BusinessLoginException(ExceptionCode.BATTERY_NOT_FOUND));
+                new BusinessLogicException(ExceptionCode.BATTERY_NOT_FOUND));
         return findBattery;
     }
 }

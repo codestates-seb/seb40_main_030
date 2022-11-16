@@ -2,7 +2,7 @@ package backend.domain.order.service;
 
 import backend.domain.order.entity.Order;
 import backend.domain.order.repository.OrderRepository;
-import backend.global.exception.dto.BusinessLoginException;
+import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.exceptionCode.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,7 +23,7 @@ public class OrderService {
 
     public Order modifyOrder (Order order) {
         Order savedOrder = orderRepository.findById(order.getId())
-                .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
 
         savedOrder.setStatus(order.getStatus());
         savedOrder.setStartTime(order.getStartTime());
@@ -35,7 +35,7 @@ public class OrderService {
 
     public void deleteOrder (Long orderId) {
         Order existOrder = orderRepository.findById(orderId)
-                .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
 
         orderRepository.delete(existOrder);
     }
@@ -43,7 +43,7 @@ public class OrderService {
     public Order findOrder (Long orderId) {
 
         return orderRepository.findById(orderId)
-                .orElseThrow(() -> new BusinessLoginException(ExceptionCode.NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
     }
 
     public Page<Order> findOrders(Pageable pageable) {

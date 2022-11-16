@@ -1,6 +1,6 @@
 package backend.global.exception.advice;
 
-import backend.global.exception.dto.BusinessLoginException;
+import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class ExceptionAdvice {
 
     // 비즈니스 로직(Service) 에러 처리
     @ExceptionHandler
-    public ResponseEntity BusinessLoginExceptionHandler (BusinessLoginException e) {
+    public ResponseEntity BusinessLoginExceptionHandler (BusinessLogicException e) {
         ErrorResponse errorResponse = new ErrorResponse(e.getExceptionCode().getStatus(),  // 보내줄 에러 정보들 (현재 3가지만 선정)
                 e.getClass().getSimpleName(),
                 e.getExceptionCode().getMessage());
