@@ -19,34 +19,32 @@ const BottomNav = () => {
   const setCurrentLocation = useSetRecoilState(currentLocationState);
 
   return (
-    <>
-      <S.Wrapper>
-        <S.IconBox
-          onClick={() =>
-            pathname === '/' ? setCurrentLocation(location) : navigate('/')
-          }
-        >
-          <MapIcon />
-        </S.IconBox>
-        <S.IconBox
-          className={isActive ? 'active' : null}
-          onClick={() => {
-            setIsActive(!isActive);
-          }}
-        >
-          <ClockIcon />
-        </S.IconBox>
-        <S.IconBox>
-          <LogoIcon />
-        </S.IconBox>
-        <S.IconBox>
-          <BatteryIcon />
-        </S.IconBox>
-        <S.IconBox>
-          <MyPageIcon />
-        </S.IconBox>
-      </S.Wrapper>
-    </>
+    <S.Wrapper>
+      <S.IconBox
+        onClick={() =>
+          pathname === '/' ? setCurrentLocation(location) : navigate('/')
+        }
+      >
+        <MapIcon />
+      </S.IconBox>
+      <S.IconBox
+        className={isActive ? 'active' : null}
+        onClick={() => {
+          setIsActive(!isActive);
+        }}
+      >
+        <ClockIcon />
+      </S.IconBox>
+      <S.IconBox>
+        <LogoIcon />
+      </S.IconBox>
+      <S.IconBox>
+        <BatteryIcon />
+      </S.IconBox>
+      <S.IconBox>
+        <MyPageIcon />
+      </S.IconBox>
+    </S.Wrapper>
   );
 };
 

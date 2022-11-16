@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { currentLocationState } from '../../../recoil/pagesState';
 import useGetAllZones from '../../../hooks/maps/useGetAllZones';
 import MarkerContainer from './MarkerContainer';
+import LocationHover from './LocationHover';
 
 // type Location = {
 //   location: {
@@ -17,8 +18,10 @@ import MarkerContainer from './MarkerContainer';
 const KakaoMap = ({ toggle }) => {
   const { data: zones, isSuccess } = useGetAllZones();
   const currentLocation = useRecoilValue(currentLocationState);
-  const latitude = currentLocation?.latitude || 33.450701;
-  const longitude = currentLocation?.longitude || 126.570667;
+  const latitude = currentLocation?.latitude || 37.4965;
+  const longitude = currentLocation?.longitude || 127.0248;
+
+  // location 기반 필터링시에 범위를 어디까지 할것인가를 알아봐야함
 
   if (isSuccess) {
     return (
@@ -40,6 +43,7 @@ const KakaoMap = ({ toggle }) => {
         ) : (
           <KakaoRoadView location={{ latitude, longitude }} />
         )}
+        <LocationHover />
       </S.MapWrapper>
     );
   }

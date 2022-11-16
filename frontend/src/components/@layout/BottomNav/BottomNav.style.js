@@ -2,25 +2,34 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  gap: 35px;
-  padding: 0 10px;
+  position: fixed;
+  top: 90vh;
   align-items: center;
-  width: 100%;
+  gap: 40px;
+  padding: 10px;
   height: 10vh;
-  background: #fff;
+  width: 90%;
+  background: transparent;
 
   z-index: 10;
 
   .active {
-    border-top: 3px solid green;
+    border: 1px solid red;
   }
 `;
 
 const IconBox = styled.div`
   display: flex;
   align-items: center;
-  height: 100%;
+  justify-content: center;
+
+  width: 50px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 50px;
+  background: lightgray;
+
+  border: 1px solid green;
 `;
 
 export { Wrapper, IconBox };

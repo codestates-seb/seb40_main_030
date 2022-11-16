@@ -4,4 +4,4 @@ const GEOLOCATION_OPTIONS = {
   maximumAge: 1000 * 3600 * 24, // 24 hour
 };
 
-export default GEOLOCATION_OPTIONS;
+export { GEOLOCATION_OPTIONS };

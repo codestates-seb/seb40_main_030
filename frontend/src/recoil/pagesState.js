@@ -23,6 +23,12 @@ const localStorageEffect =
     });
   };
 
+const reservationState = atom({
+  key: 'reservationState',
+  default: initialReservationValue,
+  effects: [localStorageEffect('reservation')],
+});
+
 const navState = atom({
   key: 'navState',
   default: false,
@@ -31,12 +37,6 @@ const navState = atom({
 const currentLocationState = atom({
   key: 'currentLocationState',
   default: { latitude: 37.4965, longitude: 127.0248 },
-});
-
-const reservationState = atom({
-  key: 'reservationState',
-  default: initialReservationValue,
-  effects: [localStorageEffect('reservation')],
 });
 
 export {

@@ -132,42 +132,27 @@ const useBottomSheet = () => {
       };
     };
 
-    sheetRef.current.addEventListener('touchstart', handleTouchStart, {
-      passive: true,
-    });
-    sheetRef.current.addEventListener('touchmove', handleTouchMove, {
-      passive: true,
-    });
-    sheetRef.current.addEventListener('touchend', handleTouchEnd, {
-      passive: true,
-    });
+    sheetRef.current.addEventListener('touchstart', handleTouchStart);
+    sheetRef.current.addEventListener('touchmove', handleTouchMove);
+    sheetRef.current.addEventListener('touchend', handleTouchEnd);
 
     return () => {
-      sheetRef.current.addEventListener('touchstart', handleTouchStart, {
-        passive: true,
-      });
-      sheetRef.current.addEventListener('touchmove', handleTouchMove, {
-        passive: true,
-      });
-      sheetRef.current.addEventListener('touchend', handleTouchEnd, {
-        passive: true,
-      });
+      sheetRef.current.addEventListener('touchstart', handleTouchStart);
+      sheetRef.current.addEventListener('touchmove', handleTouchMove);
+      sheetRef.current.addEventListener('touchend', handleTouchEnd);
     };
   }, []);
 
   useEffect(() => {
-    const handleTouchStart = () => {
+    const handleTouchStart = (e) => {
+      e.preventDefault();
       metrics.current.isContentAreaTouched = true;
     };
 
-    contentRef.current.addEventListener('touchstart', handleTouchStart, {
-      passive: true,
-    });
+    contentRef.current.addEventListener('touchstart', handleTouchStart);
 
     return () =>
-      contentRef.current.addEventListener('touchstart', handleTouchStart, {
-        passive: true,
-      });
+      contentRef.current.addEventListener('touchstart', handleTouchStart);
   }, []);
 
   return { sheetRef, contentRef };

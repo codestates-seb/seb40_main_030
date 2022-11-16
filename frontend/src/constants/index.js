@@ -1,5 +1,5 @@
 import ROUTES from './routes';
-import GEOLOCATION_OPTIONS from './location';
+import { GEOLOCATION_OPTIONS } from './location';
 
 import { BOTTOM_SHEET_HEIGHT, MIN_Y, MAX_Y } from './bottomSheet';
 
