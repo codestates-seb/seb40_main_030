@@ -27,7 +27,7 @@ public class Battery {
     @Column
     private int price;
 
-    //@URL
+    @URL
     @Column
     private String photoURL;
 
