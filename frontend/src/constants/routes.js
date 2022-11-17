@@ -10,16 +10,20 @@ const ROUTES = Object.freeze({
     NAME: "Page Not Found",
   },
   ENTRANCE: {
-    PATH: '/entrance',
-    NAME: 'Entrance',
+    PATH: "/entrance",
+    NAME: "Entrance",
   },
   LOGIN: {
-    PATH: '/login',
-    NAME: 'Login',
+    PATH: "/login",
+    NAME: "Login",
   },
   LOGOUT: {
-    PATH: '/logout',
-    NAME: 'Logout',
+    PATH: "/logout",
+    NAME: "Logout",
+  },
+  SIGNUP: {
+    PATH: "/signup",
+    NAME: "Signup",
   },
 });
 
