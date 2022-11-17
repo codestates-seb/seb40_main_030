@@ -27,6 +27,7 @@ const getTokenDirectly = async (path, authorizationCode) => {
       headers: {
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
+
       body: qs.stringify({
         grant_type: 'authorization_code',
         client_id: import.meta.env.VITE_CLIENT_ID,
@@ -53,6 +54,9 @@ const invalidateTokenDirectly = async (path) => {
       {},
       {
         headers: { Authorization: `Bearer ${token}` }, //엑세스 토큰 헤더에 담아서 요청
+      },
+      {
+        withCredentials: true, // 쿠키 cors 통신 설정
       }
     );
     return res;
@@ -67,7 +71,14 @@ const invalidateTokenDirectly = async (path) => {
 const invalidateTokenIndirectly = async (path) => {
   console.log('invalidateTokenIndirectly 실행');
   try {
-    const res = await axios.post('/logout', { path: path });
+    const res = await axios.post(
+      '/logout',
+      { path: path },
+      {
+        withCredentials: true, // 쿠키 cors 통신 설정
+      }
+    );
+
     return res;
   } catch (error) {
     console.log('invalidateTokenIndirectly 에러', error);
@@ -107,6 +118,7 @@ const renewTokenDirectly = async () => {
   }
 };
 
+//
 export {
   getTokenDirectly,
   getTokenIndirectly,
