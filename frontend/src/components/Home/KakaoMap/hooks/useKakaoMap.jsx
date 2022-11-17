@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
+import { GEOLOCATION_OPTIONS } from '../../../../constants';
 
-import GEOLOCATION_OPTIONS from '../../constants/location';
 import useCurrentLocation from './useCurrentLocation';
 import useWatchLocation from './useWatchLocation';
 

@@ -1,8 +1,7 @@
-import { rest } from "msw";
-import { mockOrder, mockUser } from "./data";
-import mockZone from "./data/zone";
-import { KAKAO_TOKENCODE_URL, KAKAO_TOKEN_LOGOUT_URL } from "../constants/auth";
-import { getTokenDirectly, invalidateTokenDirectly } from "../apis/auth";
+import { rest } from 'msw';
+import { mockOrder, mockUser, mockZone } from './data';
+import { KAKAO_TOKENCODE_URL, KAKAO_TOKEN_LOGOUT_URL } from '../constants/auth';
+import { getTokenDirectly, invalidateTokenDirectly } from '../apis/auth';
 
 let MockOrder = [...mockOrder];
 let MockUsers = [...mockUser];
@@ -11,24 +10,24 @@ let MockZone = [...mockZone];
 export const handlers = [
   // OAuth
 
-  rest.get("/api/login", (req, res, ctx) => {
+  rest.get('/api/login', (req, res, ctx) => {
     return res(
       ctx.delay(),
-      ctx.json({ token: "token", id: 12345 }),
+      ctx.json({ token: 'token', id: 12345 }),
       ctx.status(200),
-      ctx.cookie("shadowToken", "true")
+      ctx.cookie('shadowToken', 'true')
     );
   }),
 
   // order related
 
   // 전체 주문 조회
-  rest.get("/api/orders", (req, res, ctx) => {
+  rest.get('/api/orders', (req, res, ctx) => {
     return res(ctx.delay(200), ctx.status(200), ctx.json(MockOrder));
   }),
 
   // 단일 주문 조회
-  rest.get("/api/orders/:orderId", (req, res, ctx) => {
+  rest.get('/api/orders/:orderId', (req, res, ctx) => {
     const { orderId } = req.params;
 
     const filteredOrder = MockOrder.find(
@@ -39,7 +38,7 @@ export const handlers = [
   }),
 
   // 주문 요청
-  rest.post("/api/orders", (req, res, ctx) => {
+  rest.post('/api/orders', (req, res, ctx) => {
     const newOrder = req.body;
 
     MockOrder.unshift(newOrder);
@@ -48,7 +47,7 @@ export const handlers = [
   }),
 
   // 주문 수정
-  rest.patch("/api/orders/:orderId", (req, res, ctx) => {
+  rest.patch('/api/orders/:orderId', (req, res, ctx) => {
     const { orderId } = req.params;
     const modifiedOrder = req.body;
 
@@ -60,7 +59,7 @@ export const handlers = [
   }),
 
   // 주문 취소
-  rest.delete("/api/orders/:orderId", (req, res, ctx) => {
+  rest.delete('/api/orders/:orderId', (req, res, ctx) => {
     const { orderId } = req.params;
 
     if (MockOrder.length === 0) {
@@ -77,12 +76,12 @@ export const handlers = [
   // users related
 
   // 모든 유저 정보
-  rest.get("/api/members", (req, res, ctx) => {
+  rest.get('/api/members', (req, res, ctx) => {
     return res(ctx.delay(), ctx.status(200), ctx.json(MockUsers));
   }),
 
   // 단일 유저 조회
-  rest.get("/api/members/:memberId", (req, res, ctx) => {
+  rest.get('/api/members/:memberId', (req, res, ctx) => {
     const { memberId } = req.params;
     const user = MockUsers.find((user) => user.memberId === Number(memberId));
 
@@ -90,7 +89,7 @@ export const handlers = [
   }),
 
   // 유저 정보 등록
-  rest.post("/api/members", (req, res, ctx) => {
+  rest.post('/api/members', (req, res, ctx) => {
     const newUser = req.body;
 
     MockUsers.unshift(newUser);
@@ -99,7 +98,7 @@ export const handlers = [
   }),
 
   // 유저 정보 수정
-  rest.patch("/api/members/:memberId", (req, res, ctx) => {
+  rest.patch('/api/members/:memberId', (req, res, ctx) => {
     const { memberId } = req.params;
     const newInfo = req.body;
 
@@ -111,7 +110,7 @@ export const handlers = [
   }),
 
   // 유저 정보 삭제
-  rest.delete("/api/members/:memberId", (req, res, ctx) => {
+  rest.delete('/api/members/:memberId', (req, res, ctx) => {
     const { memberId } = req.params;
 
     if (MockOrder.length === 0) {
@@ -126,14 +125,14 @@ export const handlers = [
   }),
 
   // Zone related
-  rest.get("/api/zones", (req, res, ctx) => {
+  rest.get('/api/zones', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(MockZone));
   }),
   /**
    * 클라이언트에서 인증코드 받아서
    * 카카오인증서버로 요청 후 토큰 받아옴
    */
-  rest.post("/login/token", async (req, res, ctx) => {
+  rest.post('/login/token', async (req, res, ctx) => {
     const authCode = req.body.authorizationCode;
     const type = req.body.type;
     let token = await getTokenDirectly(KAKAO_TOKENCODE_URL, authCode);
@@ -144,12 +143,12 @@ export const handlers = [
    * 클라이언트에서 로그아웃 요청 받아서 처리
    * 카카오인증 서버로 로그아웃 요청 보냄
    */
-  rest.post("/logout", async (req, res, ctx) => {
+  rest.post('/logout', async (req, res, ctx) => {
     const logoutRes = await invalidateTokenDirectly(KAKAO_TOKEN_LOGOUT_URL);
-    console.log("moc logout res", logoutRes);
+    console.log('moc logout res', logoutRes);
     return res(
       ctx.delay(200),
-      ctx.cookie("auth-token", "abc-123"),
+      ctx.cookie('auth-token', 'abc-123'),
       ctx.status(200),
       ctx.json(logoutRes)
     );
