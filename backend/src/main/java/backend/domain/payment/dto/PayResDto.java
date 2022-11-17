@@ -11,9 +11,7 @@ import java.time.LocalDateTime;
 public class PayResDto extends BaseTime {
 
     private Long paymentId;
-
     private int totalPrice;
-
     private int totalBatteries;
 
     public PayResDto(Payment payment) {

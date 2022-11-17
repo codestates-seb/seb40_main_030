@@ -14,8 +14,8 @@ public class BatteryDto {
     @Getter
     @Setter
     public static class Post{
-        @NotBlank(message = "type을 입력해주세요.")
-        private String type;
+        @NotBlank(message = "용량을 입력해주세요.")
+        private String capacity;
 
         @NotNull(message = "상태를 설정해주세요.")
         private boolean status;
@@ -42,7 +42,7 @@ public class BatteryDto {
     @NoArgsConstructor
     public static class Response{
         private long batteryId;
-        private String type;
+        private String capacity;
         private boolean status;
         private int price;
         private String photoURL;
