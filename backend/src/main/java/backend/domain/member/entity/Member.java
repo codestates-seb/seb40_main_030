@@ -17,7 +17,7 @@ import javax.persistence.Id;
 @Entity @Builder @Getter @Setter
 public class Member extends BaseTime {
     @GeneratedValue
-    @Id
+    @Id @Column(name = "member_id")
     private Long id;
 
     @Column(nullable = false)
