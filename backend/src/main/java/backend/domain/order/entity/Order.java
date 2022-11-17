@@ -1,25 +1,21 @@
 package backend.domain.order.entity;
 
 import backend.global.auditing.BaseTime;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
 @AllArgsConstructor @NoArgsConstructor
-@Entity
-@Getter @Setter @Table(name = "orders")
+@Entity @Getter @Setter @Builder @Table(name = "orders")
 public class Order extends BaseTime {
 
     @GeneratedValue @Id
     @Column(name = "order_id")
     private Long id;
 
-    private StatusState status;
+    private OrderState status;
 
     private String startTime;
 

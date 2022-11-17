@@ -1,8 +1,7 @@
 package backend.domain.order.dto;
 
 import backend.domain.order.entity.Order;
-import backend.domain.order.entity.StatusState;
-import backend.global.auditing.BaseTime;
+import backend.domain.order.entity.OrderState;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,16 +11,19 @@ import java.time.LocalDateTime;
 public class OrderPatchReqDto {
 
     private Long orderId;
-    private StatusState status;
+    private OrderState status;
     private String startTime;
     private String endTime;
 
     public Order toOrder() {
-        Order order = new Order();
-        order.setId(this.orderId);
-        order.setStatus(this.status);
-        order.setStartTime(this.startTime);
-        order.setEndTime(this.endTime);
+        Order order = new Order().builder()
+                .id(this.orderId)
+                .status(this.status)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
+                .build();
+        order.setModifiedAt(LocalDateTime.now());
+
         return order;
     }
 }
