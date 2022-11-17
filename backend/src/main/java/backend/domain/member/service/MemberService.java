@@ -64,8 +64,9 @@ public class MemberService {
     }
 
     public Page<Member> findMembers(Pageable pageable) {
+        Page<Member> page = memberRepository.findAllByOrderByCreatedAtDesc(pageable);
 
-        return memberRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return page.map(Member::new);
     }
 
 //    public void outMember(HttpServletRequest request) {      현재 시큐리티 미적용으로 주석처리 했습니다.

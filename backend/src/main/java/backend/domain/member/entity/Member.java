@@ -77,5 +77,16 @@ public class Member extends BaseTime {
 //        return true;
 //    }
 
+    public Member(Member member) {
+        setId(member.getId());
+        setEmail(member.getEmail());
+        setPhone(member.getPhone());
+        setNickname(member.getNickname());
+        setAddress(member.getAddress());
+        setPhotoURL(member.getPhotoURL());
+        setCreatedAt(member.getCreatedAt());
+        setModifiedAt(member.getModifiedAt());
+    }
+
 }
 
