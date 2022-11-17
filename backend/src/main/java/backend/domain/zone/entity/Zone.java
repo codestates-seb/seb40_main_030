@@ -6,9 +6,6 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @AllArgsConstructor @NoArgsConstructor
 @Entity @Getter @Setter @Builder

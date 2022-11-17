@@ -45,7 +45,7 @@ public class OrderController {
     @DeleteMapping("/{orderId}")
     public ResponseEntity<SingleResDto<String>> deleteOrder (@PathVariable Long orderId) {
         orderService.deleteOrder(orderId);
-        return new ResponseEntity<>(new SingleResDto<>("success delete"), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResDto<>("Success Delete"), HttpStatus.OK);
     }
 
 

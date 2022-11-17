@@ -5,8 +5,7 @@ import backend.domain.battery.repository.BatteryRepository;
 import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.exceptionCode.ExceptionCode;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -43,8 +42,8 @@ public class BatteryService {
     }
 
     // 배터리 전체 조회
-    public Page<Battery> findBatteries(int page, int size){
-        return batteryRepository.findAll(PageRequest.of(page, size, Sort.by("batteryId").descending()));
+    public Page<Battery> findBatteries(Pageable pageable){
+        return batteryRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     // 해당 ID 배터리 삭제

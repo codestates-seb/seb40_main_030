@@ -1,28 +1,24 @@
 package backend.domain.member.entity;
 
+import backend.global.auditing.BaseTime;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import javax.persistence.*;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-@Builder
-@Transactional
+
+
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@Entity
-
-public class Member {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Entity @Builder @Getter @Setter
+public class Member extends BaseTime {
+    @GeneratedValue
     @Id
-    private Long memberId;
+    private Long id;
 
     @Column(nullable = false)
     private String password;
@@ -36,50 +32,50 @@ public class Member {
     @Column(nullable = false)
     private String phone;
 
+    @Column(nullable = false)
+    private String address;
 
+    @Column(nullable = false)
+    private String photoURL;
+
+
+//    @ElementCollection(fetch = FetchType.EAGER)     현재 시큐리티 미적용 상태이므로 주석처리 해두었습니다
+//    List<String> roles = new ArrayList<>();
+
+
+//    public Collection<? extends GrantedAuthority> getAuthorities() {   현재 시큐리티 미적용 상태이므로 주석처리 해두었습니다
+//        List<GrantedAuthority> authorities = this.getRoles().stream().map(strAuth -> new SimpleGrantedAuthority("ROLE_" + strAuth)).collect(Collectors.toList());
+//        return authorities;
+//    }
+
+//    public String getPassword() {
+//        return this.getPassword();
+//    }
 //
-//    @Column(nullable = false)
-//    @OneToMany
-//    @JoinColumn(name = "CAR_Id")
-//    private Car car;
-
-@ElementCollection(fetch = FetchType.EAGER)
-List<String> roles = new ArrayList<>();
-
-
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = this.getRoles().stream().map(strAuth -> new SimpleGrantedAuthority("ROLE_" + strAuth)).collect(Collectors.toList());
-        return authorities;
-    }
-
-    public String getPassword() {
-        return this.getPassword();
-    }
-
-
-    public String getUsername() {
-        return this.getEmail();
-    }
-
-
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-
-    public boolean isEnabled() {
-        return true;
-    }
+//
+//    public String getUsername() {
+//        return this.getEmail();
+//    }
+//
+//
+//    public boolean isAccountNonExpired() {
+//        return true;
+//    }
+//
+//
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
+//
+//
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
+//
+//
+//    public boolean isEnabled() {
+//        return true;
+//    }
 
 }
 
