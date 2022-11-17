@@ -30,8 +30,8 @@ public class ZoneService {
 
         Optional.ofNullable(zone.getName()).ifPresent(savedZone::setName);
         Optional.ofNullable(zone.getDetails()).ifPresent(savedZone::setDetails);
-        Optional.ofNullable(zone.getLatitude()).ifPresent(savedZone::setLatitude);
-        Optional.ofNullable(zone.getLongitude()).ifPresent(savedZone::setLongitude);
+        Optional.of(zone.getLatitude()).ifPresent(savedZone::setLatitude);
+        Optional.of(zone.getLongitude()).ifPresent(savedZone::setLongitude);
 
         return zoneRepository.save(savedZone);
     }

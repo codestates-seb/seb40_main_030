@@ -44,7 +44,7 @@ public class ZoneController {
     public ResponseEntity<SingleResDto<String>> deleteZone (@PathVariable Long zoneId) {
         zoneService.deleteZone(zoneId);
 
-        return new ResponseEntity<>(new SingleResDto<>("success delete"), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResDto<>("Success Delete"), HttpStatus.OK);
     }
 
 
