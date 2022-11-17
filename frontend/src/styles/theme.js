@@ -1,5 +1,9 @@
 // 공통 theme 요소
 
-const theme = {};
+import COLOR from './color';
+
+const theme = {
+  ...COLOR,
+};
 
 export default theme;

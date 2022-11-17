@@ -4,6 +4,7 @@ import lombok.Getter;
 
 public enum ExceptionCode {
     // 비즈니스 모델에서 필요시 에러코드 추가하는 부분
+
     NOT_FOUND(404, "요청하신 데이터를 찾을 수 없습니다."),
     NOT_FOUND_ACCOUNT(400, "계정을 찾을 수 없습니다."),
 
@@ -13,7 +14,10 @@ public enum ExceptionCode {
     ACCESS_TOKEN_EXPIRATION(401, "재 로그인이 필요합니다."),
     LOGIN_FAILURE(401, "아이디 혹은 비밀번호가 옳지 않습니다."),
 
-    ILLEGAL_FILENAME(400, "잘못된 형식의 파일명입니다.");
+    ILLEGAL_FILENAME(400, "잘못된 형식의 파일명입니다."),
+    BATTERY_NOT_FOUND(400, "해당하는 ID의 배터리가 존재하지 않습니다."),
+    ADMIN_NOT_FOUND(400, "해당하는 ID의 관리자가 존재하지 않습니다."),
+    ADMIN_EXIST(409, "해당 email의 관리자가 존재합니다.");
 
 
     @Getter
