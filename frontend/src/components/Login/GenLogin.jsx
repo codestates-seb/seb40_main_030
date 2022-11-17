@@ -3,6 +3,8 @@ import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+// 일반 로그인 컴포넌트
+
 const LoginBtn = styled.button`
   width: 100px;
   background-color: skyblue;
@@ -21,7 +23,6 @@ const GenLogin = () => {
   const [inputId, setInputId] = useState("");
   const [inputPassWord, setInputPassWord] = useState("");
   const [checkedLogin, setCheckedLogin] = useState(false);
-
   console.log("상태유지 체크박스 state 값 : ", checkedLogin);
 
   return (

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+// 회원가입 컴포넌트
+
 const SignUp = () => {
   return (
     <div>
