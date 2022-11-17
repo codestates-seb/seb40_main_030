@@ -12,6 +12,7 @@ public class ZoneResDto {
     private String name;
     private String details;
     private ZoneLocation location;
+    private String photoURL;
 
     public ZoneResDto(Zone zone) {
         this.id = zone.getId();
@@ -21,5 +22,6 @@ public class ZoneResDto {
         location.setLatitude(zone.getLatitude());
         location.setLongitude(zone.getLongitude());
         this.location = location;
+        this.photoURL = zone.getPhotoURL();
     }
 }
