@@ -19,7 +19,7 @@ public class PayPatchReqDto extends BaseTime {
                 .totalPrice(this.totalPrice)
                 .totalBatteries(this.totalBatteries)
                 .build();
-        setModifiedAt(LocalDateTime.now());
+        payment.setModifiedAt(LocalDateTime.now());
         return payment;
     }
 

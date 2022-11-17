@@ -19,7 +19,7 @@ public class Battery {
     private Long batteryId;
 
     @Column
-    private String type;
+    private String capacity;
 
     @Column
     private boolean status;

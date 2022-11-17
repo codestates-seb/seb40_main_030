@@ -34,7 +34,7 @@ const useKakaoLogin = () => {
         localStorage.setItem('accessToken', data.data.access_token);
         localStorage.setItem('refreshToken', data.data.refresh_token);
         console.log('logout페이지로 이동');
-        navigate('/logout');
+        navigate('/logout', { replace: true });
         setIsAuthorized(true);
         setIsloading(false); //로그인된 상태
       });
