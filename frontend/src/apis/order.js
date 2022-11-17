@@ -15,8 +15,6 @@ const getAllOrders = async () => {
 const getOrderById = async (orderId) => {
   const { data } = await apiClient.get(`/api/orders/${orderId}`);
 
-  console.log(data);
-
   return data;
 };
 
@@ -40,4 +38,11 @@ const deleteOrder = async (orderId) => {
   return await apiClient.delete(`/api/orders/${orderId}`);
 };
 
-export { getAllOrders, getOrderById, createNewOrder, modifyOrder, deleteOrder };
+export {
+  apiClient,
+  getAllOrders,
+  getOrderById,
+  createNewOrder,
+  modifyOrder,
+  deleteOrder,
+};
