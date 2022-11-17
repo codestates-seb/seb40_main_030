@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { reservationState } from '../../recoil/pagesState';
+import { reservationState } from '../../../../recoil/pagesState';
 
 const useCheckValidReserveTable = () => {
   const [reservationStatus, setReservationStatus] =

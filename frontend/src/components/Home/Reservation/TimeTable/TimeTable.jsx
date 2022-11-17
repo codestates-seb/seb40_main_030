@@ -1,14 +1,13 @@
 import { useRecoilValue } from 'recoil';
-import useSetReservation from '../../../../hooks/reservation/useSetReservation';
 import { reservationState } from '../../../../recoil/pagesState';
-
-import Counter from '../../../@commons/Counter/Counter';
+import { useReservation } from '../hooks';
+import Counter from '../Counter/Counter';
 import * as S from './TimeTable.style';
 
 const TimeTable = () => {
   const { hours, minutes } = useRecoilValue(reservationState);
 
-  const { handleReservation, reservation, reserveInfo } = useSetReservation();
+  const { handleReservation, reservation, reserveInfo } = useReservation();
 
   if (!reserveInfo?.time) {
     return (

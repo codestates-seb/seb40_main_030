@@ -1,33 +1,16 @@
-import { Datepicker } from '@meinefinsternis/react-horizontal-date-picker';
-import { enUS } from 'date-fns/locale';
-import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import useCalendar from '../../../../hooks/reservation/useCalendar';
 import { reservationState } from '../../../../recoil/pagesState';
+import HorizontalDatePicker from './HorizontalDatePicker';
 import * as S from './Calendar.style';
 
 const Calendar = () => {
-  const { date, handleChange } = useCalendar();
   const { startDate, endDate, startTime, endTime, dateFixed } =
     useRecoilValue(reservationState);
-  const buttons = document.querySelectorAll('.Kq');
-
-  // 캘린터 버튼 삭제 로직
-  useEffect(() => {
-    if (buttons) {
-      [...buttons].map((button) => button.remove());
-    }
-  }, [buttons]);
 
   return (
     <S.Wrapper>
       {!dateFixed?.date ? (
-        <Datepicker
-          onChange={handleChange}
-          locale={enUS}
-          startValue={date.startValue}
-          endValue={date.endValue}
-        />
+        <HorizontalDatePicker />
       ) : (
         <S.ReservationContainer>
           <S.ReservationBox>

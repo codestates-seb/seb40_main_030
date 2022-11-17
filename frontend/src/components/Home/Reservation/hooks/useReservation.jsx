@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import {
-  currentLocationState,
-  reservationState,
-} from '../../recoil/pagesState';
+import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { reservationState } from '../../../../recoil/pagesState';
 
-const useSetReservation = () => {
+const useReservation = () => {
   const [reservation, setReservation] = useState(false);
   const [reservationStatus, setReservationStatus] =
     useRecoilState(reservationState);
@@ -36,4 +33,4 @@ const useSetReservation = () => {
   return { handleReservation, reservation, reservationStatus };
 };
 
-export default useSetReservation;
+export default useReservation;

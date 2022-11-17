@@ -1,17 +1,16 @@
-import useSplashScreen from '../../hooks/useSplashScreen';
-import { SplashScreen } from '../../components/@commons';
-import BottomSheet from '../../components/@layout/BottomSheet/BottomSheet';
 import { useRecoilValue } from 'recoil';
 import { navState } from '../../recoil/pagesState';
+
+import { SplashScreen } from '../../components/@commons';
 import MapArea from '../../components/Home/Maps';
+import useSplashScreen from '../../hooks/useSplashScreen';
+import BottomSheet from '../../components/@layout/BottomSheet/BottomSheet';
 import Reservation from '../../components/Home/Reservation/Reservation';
-import useCheckValidReserveTable from '../../hooks/reservation/useCheckValidReserveTable';
 
 const Home = () => {
   // Home 은 landing page 의 역할
   const { isLoading, isSplashed } = useSplashScreen(3000);
   const isActive = useRecoilValue(navState);
-  useCheckValidReserveTable();
 
   return isLoading ? (
     <SplashScreen />

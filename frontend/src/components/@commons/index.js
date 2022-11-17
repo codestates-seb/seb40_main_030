@@ -1,5 +1,5 @@
 import SplashScreen from './SplashScreen/SplashScreen';
 import BatteryCharging from './Loading/BatteryCharging';
-import KakaoMap from './KakaoMap/KakaoMap';
+import Cards from './CardModal/Cards';
 
-export { SplashScreen, BatteryCharging, KakaoMap };
+export { SplashScreen, BatteryCharging, Cards };
