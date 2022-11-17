@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { navState } from '../../../recoil/pagesState';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { currentLocationState, navState } from '../../../recoil/pagesState';
 import {
   MapIcon,
   LogoIcon,
@@ -9,7 +9,7 @@ import {
   MyPageIcon,
 } from '../../../assets';
 import * as S from './BottomNav.style';
-import useCurrentLocation from '../../../hooks/maps/useCurrentLocation';
+import { useCurrentLocation } from '../../Home/KakaoMap/hooks';
 
 const BottomNav = () => {
   const navigate = useNavigate();
