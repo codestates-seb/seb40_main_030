@@ -1,10 +1,10 @@
-import useSplashScreen from '../../hooks/useSplashScreen';
-import { SplashScreen } from '../../components/@commons';
-import BottomSheet from '../../components/@layout/BottomSheet/BottomSheet';
-import { useRecoilValue } from 'recoil';
-import { navState } from '../../recoil/pagesState';
-import MapArea from '../../components/Home/Maps';
-import Reservation from '../../components/Home/Reservation/Reservation';
+import useSplashScreen from "../../hooks/useSplashScreen";
+import { SplashScreen } from "../../components/@commons";
+import BottomSheet from "../../components/@layout/BottomSheet/BottomSheet";
+import { useRecoilValue } from "recoil";
+import { navState } from "../../recoil/pagesState";
+import MapArea from "../../components/Home/Maps";
+import Reservation from "../../components/Home/Reservation/Reservation";
 
 const Home = () => {
   // Home 은 landing page 의 역할

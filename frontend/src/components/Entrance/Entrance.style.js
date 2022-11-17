@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 const EntranceWrapper = styled.div`
   width: 100%;
   height: 100vh;
