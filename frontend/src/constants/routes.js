@@ -25,6 +25,10 @@ const ROUTES = Object.freeze({
     PATH: "/signup",
     NAME: "Signup",
   },
+  EMPTY: {
+    PATH: '/empty',
+    NAME: 'Empty',
+  },
 });
 
 export default ROUTES;
