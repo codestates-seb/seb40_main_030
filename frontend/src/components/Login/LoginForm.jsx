@@ -1,5 +1,5 @@
 import KakaoLogin from './KakaoLogin';
-import * as S from './LoginStyledComp.style';
+import * as S from '../../pages/Login/Login.style';
 import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
 import { SplashScreen } from '../@commons';
 import { renewTokenDirectly } from '../../apis/auth';
@@ -19,11 +19,17 @@ const LoginForm = () => {
   const gobackHandler = () => {
     navigate('/entrance');
   };
+  const goEmptyHandler = () => {
+    navigate('/empty');
+  };
 
   return (
     <S.LoginContainer>
       <button onClick={gobackHandler} style={{ border: '1px solid black' }}>
         뒤로 가기
+      </button>
+      <button onClick={goEmptyHandler} style={{ border: '1px solid black' }}>
+        empty이동
       </button>
       <button
         style={{
