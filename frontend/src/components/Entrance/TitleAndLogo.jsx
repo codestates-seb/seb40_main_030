@@ -1,5 +1,5 @@
 import { ServiceLogo } from '../../assets';
-import * as S from './EntranceStyledComp.style';
+import * as S from './Entrance.style';
 const TitleAndLogo = () => {
   return (
     <S.TitleAndLogoContainer>

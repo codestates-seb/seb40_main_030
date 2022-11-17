@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useSetRecoilState, useRecoilState } from 'recoil';
-import { navState, currentLocationState } from '../../../recoil/pagesState';
+import { useRecoilState } from 'recoil';
+import { navState } from '../../../recoil/pagesState';
 import {
   MapIcon,
   LogoIcon,
@@ -9,29 +9,20 @@ import {
   MyPageIcon,
 } from '../../../assets';
 import * as S from './BottomNav.style';
-import useCurrentLocation from '../../../hooks/maps/useCurrentLocation';
 
 const BottomNav = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [isActive, setIsActive] = useRecoilState(navState);
-  const { location } = useCurrentLocation();
-  const setCurrentLocation = useSetRecoilState(currentLocationState);
 
   return (
     <S.Wrapper>
-      <S.IconBox
-        onClick={() =>
-          pathname === '/' ? setCurrentLocation(location) : navigate('/')
-        }
-      >
+      <S.IconBox onClick={() => pathname !== '/' && navigate('/')}>
         <MapIcon />
       </S.IconBox>
       <S.IconBox
         className={isActive ? 'active' : null}
-        onClick={() => {
-          setIsActive(!isActive);
-        }}
+        onClick={() => setIsActive(!isActive)}
       >
         <ClockIcon />
       </S.IconBox>

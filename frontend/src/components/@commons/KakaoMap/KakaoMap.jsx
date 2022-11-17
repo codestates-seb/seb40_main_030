@@ -2,10 +2,14 @@ import { Map } from 'react-kakao-maps-sdk';
 import KakaoRoadView from './RoadView';
 import * as S from './KakaoMap.style';
 import { useRecoilValue } from 'recoil';
-import { currentLocationState } from '../../../recoil/pagesState';
+import {
+  currentLocationState,
+  reservationState,
+} from '../../../recoil/pagesState';
 import useGetAllZones from '../../../hooks/maps/useGetAllZones';
 import MarkerContainer from './MarkerContainer';
 import LocationHover from './LocationHover';
+import useGetFilteredZone from '../../../hooks/maps/useGetFilteredZone';
 
 // type Location = {
 //   location: {
@@ -17,6 +21,9 @@ import LocationHover from './LocationHover';
 
 const KakaoMap = ({ toggle }) => {
   const { data: zones, isSuccess } = useGetAllZones();
+  const { filteredZones } = useGetFilteredZone();
+  const { dateFixed } = useRecoilValue(reservationState);
+
   const currentLocation = useRecoilValue(currentLocationState);
   const latitude = currentLocation?.latitude || 37.4965;
   const longitude = currentLocation?.longitude || 127.0248;
@@ -36,9 +43,13 @@ const KakaoMap = ({ toggle }) => {
             style={{ width: '100%', height: '100%' }}
             level={3}
           >
-            {zones.map((content) => (
-              <MarkerContainer key={content.zoneId} content={content} />
-            ))}
+            {dateFixed.date && dateFixed.time
+              ? filteredZones?.map((content) => (
+                  <MarkerContainer key={content.zoneId} content={content} />
+                ))
+              : zones?.map((content) => (
+                  <MarkerContainer key={content.zoneId} content={content} />
+                ))}
           </Map>
         ) : (
           <KakaoRoadView location={{ latitude, longitude }} />

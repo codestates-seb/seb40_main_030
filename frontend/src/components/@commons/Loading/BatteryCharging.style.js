@@ -50,7 +50,7 @@ const Battery = styled.div`
     -webkit-box-shadow: 0 0 5px 5px #888;
     // 배터리 몸통 box-shadow
     box-shadow: -2px 0 5px 2px #222;
-    z-index: 2000;
+    z-index: 100;
   }
 
   ::after {

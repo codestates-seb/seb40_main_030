@@ -3,9 +3,11 @@ import { atom } from 'recoil';
 const initialReservationValue = {
   startTime: { hours: 1, minutes: 0 },
   endTime: { hours: 1, minutes: 0 },
-  startDate: { year: 2022, month: 0, date: 0 },
-  endDate: { year: 2022, month: 0, date: 0 },
+  startDate: { year: 2022, month: null, date: null },
+  endDate: { year: 2022, month: null, date: null },
   dateFixed: { date: false, time: false },
+  hours: 1,
+  minutes: 0,
 };
 
 const localStorageEffect =

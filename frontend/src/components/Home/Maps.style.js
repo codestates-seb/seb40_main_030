@@ -6,6 +6,21 @@ const Wrapper = styled.div`
   overflow: hidden;
 `;
 
+const IndicatorContainer = styled.div`
+  display: flex;
+  position: absolute;
+
+  input {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 20px;
+    left: 350px;
+    z-index: 10;
+    cursor: pointer;
+  }
+`;
+
 const Button = styled.button`
   display: inline-block;
   position: absolute;
@@ -28,4 +43,4 @@ const Button = styled.button`
   }
 `;
 
-export { Wrapper, Button };
+export { Wrapper, IndicatorContainer, Button };

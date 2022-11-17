@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
   currentLocationState,
@@ -9,7 +9,7 @@ const useSetReservation = () => {
   const [reservation, setReservation] = useState(false);
   const [reservationStatus, setReservationStatus] =
     useRecoilState(reservationState);
-  const setLocation = useSetRecoilState(currentLocationState);
+  // const setLocation = useSetRecoilState(currentLocationState);
 
   const handleReservation = (hours, minutes) => {
     if (!reservation) {
@@ -27,7 +27,7 @@ const useSetReservation = () => {
       });
 
       // 로직 세부 분리가 필요한가 ?
-      setLocation({ latitude: 37.5963, longitude: 127.0844 });
+      // setLocation({ latitude: 37.5963, longitude: 127.0844 });
     }
 
     setReservation(!reservation);
