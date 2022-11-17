@@ -6,6 +6,7 @@ const initialReservationValue = {
   startDate: { year: 2022, month: null, date: null },
   endDate: { year: 2022, month: null, date: null },
   dateFixed: { date: false, time: false },
+  singeDate: undefined,
   hours: 1,
   minutes: 0,
 };

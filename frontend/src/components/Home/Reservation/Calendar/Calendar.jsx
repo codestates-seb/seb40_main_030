@@ -1,17 +1,35 @@
-import { useRecoilValue } from 'recoil';
-import { reservationState } from '../../../../recoil/pagesState';
+import { useRecoilState } from 'recoil';
 import HorizontalDatePicker from './HorizontalDatePicker';
 import * as S from './Calendar.style';
+import { useReservation } from '../hooks';
 
 const Calendar = () => {
+  const { reservationStatus, setReservationStatus } = useReservation();
   const { startDate, endDate, startTime, endTime, dateFixed } =
-    useRecoilValue(reservationState);
+    reservationStatus;
 
   return (
+    // 단일예약 복수일 예약하기 따로
     <S.Wrapper>
       {!dateFixed?.date ? (
-        <HorizontalDatePicker />
+        <S.BookingContainer>
+          <button
+            onClick={() =>
+              setReservationStatus({ ...reservationStatus, singeDate: true })
+            }
+          >
+            단일
+          </button>
+          <button
+            onClick={() =>
+              setReservationStatus({ ...reservationStatus, singeDate: false })
+            }
+          >
+            복수일
+          </button>
+        </S.BookingContainer>
       ) : (
+        // <HorizontalDatePicker />
         <S.ReservationContainer>
           <S.ReservationBox>
             <S.DateStatus>대여</S.DateStatus>

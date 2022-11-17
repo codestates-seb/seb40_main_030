@@ -18,6 +18,10 @@ const MapIndicator = ({ toggle, setToggle }) => {
       <S.LocationHover>
         <span>{currentAddress}</span>
       </S.LocationHover>
+      <S.ReservationHover>
+        <span>2시간</span>
+      </S.ReservationHover>
+
       <S.IndicatorContainer>
         <S.Button
           type='button'

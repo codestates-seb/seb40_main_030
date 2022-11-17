@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { reservationState } from '../../../../recoil/pagesState';
 
@@ -6,7 +6,17 @@ const useReservation = () => {
   const [reservation, setReservation] = useState(false);
   const [reservationStatus, setReservationStatus] =
     useRecoilState(reservationState);
+
   // const setLocation = useSetRecoilState(currentLocationState);
+
+  // useEffect(() => {
+  //   if (reservationStatus?.singeDate) {
+  //     setReservationStatus({
+  //       ...reservationStatus,
+  //       dateFixed: { ...reservationStatus.dateFixed, date: true },
+  //     });
+  //   }
+  // }, []);
 
   const handleReservation = (hours, minutes) => {
     if (!reservation) {
@@ -30,7 +40,12 @@ const useReservation = () => {
     setReservation(!reservation);
   };
 
-  return { handleReservation, reservation, reservationStatus };
+  return {
+    handleReservation,
+    reservation,
+    reservationStatus,
+    setReservationStatus,
+  };
 };
 
 export default useReservation;

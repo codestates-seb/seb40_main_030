@@ -51,8 +51,9 @@ const LocationHover = styled.div`
   position: fixed;
   justify-content: center;
   align-items: center;
+  border: 3px solid lightgreen;
 
-  width: 50%;
+  width: 40%;
   height: 40px;
   z-index: 13;
   border-radius: 50px;
@@ -64,4 +65,16 @@ const LocationHover = styled.div`
   }
 `;
 
-export { Wrapper, IndicatorContainer, Button, LocationMarker, LocationHover };
+const ReservationHover = styled(LocationHover)`
+  left: 170px;
+  width: 30%;
+`;
+
+export {
+  Wrapper,
+  IndicatorContainer,
+  Button,
+  LocationMarker,
+  LocationHover,
+  ReservationHover,
+};
