@@ -22,7 +22,7 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping
-    public ResponseEntity<CartResDto> postCart(@PathVariable Long memberId,
+    public ResponseEntity<CartResDto> postCart(@RequestParam Long memberId,
                                                @RequestBody CartPostReqDto cartPostReqDto) {
         Cart cart = cartPostReqDto.toCart();
         Cart createdCart = cartService.createCart(cart, memberId);

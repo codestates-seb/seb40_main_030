@@ -5,6 +5,7 @@ import backend.domain.cart.dto.CartPatchReqDto;
 import backend.domain.cart.dto.CartPostReqDto;
 import backend.domain.cart.entity.Cart;
 import backend.domain.cart.repository.CartRepository;
+import backend.domain.member.entity.Member;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -94,10 +95,8 @@ public class CartControllerTest {
     void patchCart_Test() throws Exception {
         // given
         Long cartId = 1L;
-        int size = 10;
         List<Battery> list = new ArrayList<>();
-        Page<Battery> page = new PageImpl<>(list);
-        Cart cart = new Cart(cartId, page, "2022-11-18T09", "2022-11-18T09");
+        Cart cart = new Cart(cartId, "2022-11-18T09", "2022-11-18T09", list, new Member());
         cart.setCreatedAt(LocalDateTime.now());
         cart.setModifiedAt(LocalDateTime.now());
         orderRepository.save(cart);
