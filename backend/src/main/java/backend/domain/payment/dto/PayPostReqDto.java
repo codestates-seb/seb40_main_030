@@ -1,5 +1,6 @@
 package backend.domain.payment.dto;
 
+import backend.domain.payment.entity.PayStatus;
 import backend.domain.payment.entity.Payment;
 import backend.global.auditing.BaseTime;
 import lombok.Getter;
@@ -19,6 +20,8 @@ public class PayPostReqDto extends BaseTime {
         Payment payment = new Payment().builder()
                 .totalPrice(this.totalPrice)
                 .totalBatteries(this.totalBatteries)
+                .status(PayStatus.IN_PROGRESS)
+                .PayMethod("카카오페이")
                 .build();
         payment.setCreatedAt(LocalDateTime.now());
         payment.setModifiedAt(LocalDateTime.now());
