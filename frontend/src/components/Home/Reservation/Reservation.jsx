@@ -1,11 +1,13 @@
-import TimeTable from './TimeTable/TimeTable';
-import Calendar from './Calendar/Calendar';
-import * as S from './Reservation.style';
 import {
   initialReservationValue,
   reservationState,
 } from '../../../recoil/pagesState';
 import { useRecoilState } from 'recoil';
+
+import Calendar from './Calendar/Calendar';
+import TimeTable from './TimeTable/TimeTable';
+
+import * as S from './Reservation.style';
 
 const Reservation = () => {
   const [reservationStatus, setReservationStatus] =

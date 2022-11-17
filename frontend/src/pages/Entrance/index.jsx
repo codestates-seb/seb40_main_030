@@ -1,4 +1,4 @@
-import { EntranceWrapper } from '../../components/Entrance/EntranceStyledComp.style';
+import { EntranceWrapper } from '../../components/Entrance/Entrance.style';
 import TitleAndLogo from '../../components/Entrance/TitleAndLogo';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ const Entrance = () => {
   const loginPagingHandler = () => {
     navigate('/login');
   };
+
   return (
     <EntranceWrapper>
       <TitleAndLogo />

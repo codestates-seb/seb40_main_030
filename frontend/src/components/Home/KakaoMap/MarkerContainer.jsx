@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { MapMarker, CustomOverlayMap } from 'react-kakao-maps-sdk';
-import Cards from '../CardModal/Cards';
+import { Cards } from '../../@commons';
 
 const MarkerContainer = ({ content }) => {
   const [isOpen, setIsOpen] = useState(false);

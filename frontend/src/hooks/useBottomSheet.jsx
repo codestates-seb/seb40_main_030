@@ -137,15 +137,14 @@ const useBottomSheet = () => {
     sheetRef.current.addEventListener('touchend', handleTouchEnd);
 
     return () => {
-      sheetRef.current.addEventListener('touchstart', handleTouchStart);
-      sheetRef.current.addEventListener('touchmove', handleTouchMove);
+      sheetRef.current.addEventListener('touchstart', handleTouchStart),
+        sheetRef.current.addEventListener('touchmove', handleTouchMove);
       sheetRef.current.addEventListener('touchend', handleTouchEnd);
     };
   }, []);
 
   useEffect(() => {
     const handleTouchStart = (e) => {
-      e.preventDefault();
       metrics.current.isContentAreaTouched = true;
     };
 

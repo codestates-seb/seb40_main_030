@@ -5,6 +5,7 @@ import { ReactComponent as LogoIcon } from './logo.svg';
 import { ReactComponent as MyPageIcon } from './myPage.svg';
 import { ReactComponent as ClockIcon } from './clock.svg';
 import { ReactComponent as ServiceLogo } from './serviceLogo.svg';
+import CurrentLocationIcon from './currentLocation.png';
 import KaKaoLoginImg from './KaKaoLoginImg.png';
 
 import MockImage from './mockImage.png';
@@ -18,4 +19,5 @@ export {
   MockImage,
   ServiceLogo,
   KaKaoLoginImg,
+  CurrentLocationIcon,
 };

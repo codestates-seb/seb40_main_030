@@ -1,4 +1,5 @@
-import useCounter from '../../../hooks/reservation/useCounter';
+import { useCounter } from '../hooks';
+
 import * as S from './Counter.style';
 
 const Counter = ({ type, min, max, range }) => {

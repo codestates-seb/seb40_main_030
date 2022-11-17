@@ -1,11 +1,17 @@
 import { Map } from 'react-kakao-maps-sdk';
-import KakaoRoadView from './RoadView';
-import * as S from './KakaoMap.style';
+import { useState } from 'react';
+import { useGetAllZones, useGetFilteredZone } from './hooks';
 import { useRecoilValue } from 'recoil';
-import { currentLocationState } from '../../../recoil/pagesState';
-import useGetAllZones from '../../../hooks/maps/useGetAllZones';
+import {
+  reservationState,
+  currentLocationState,
+} from '../../../recoil/pagesState';
+
+import KakaoRoadView from './RoadView';
 import MarkerContainer from './MarkerContainer';
-import LocationHover from './LocationHover';
+import MapIndicator from './MapIndicator/MapIndicator';
+
+import * as S from './KakaoMap.style';
 
 // type Location = {
 //   location: {
@@ -15,9 +21,14 @@ import LocationHover from './LocationHover';
 //   toggle: boolean;
 // };
 
-const KakaoMap = ({ toggle }) => {
+const KakaoMap = () => {
+  const [toggle, setToggle] = useState(false);
+
   const { data: zones, isSuccess } = useGetAllZones();
+  const { filteredZones } = useGetFilteredZone();
+  const { dateFixed } = useRecoilValue(reservationState);
   const currentLocation = useRecoilValue(currentLocationState);
+
   const latitude = currentLocation?.latitude || 37.4965;
   const longitude = currentLocation?.longitude || 127.0248;
 
@@ -26,6 +37,7 @@ const KakaoMap = ({ toggle }) => {
   if (isSuccess) {
     return (
       <S.MapWrapper>
+        <MapIndicator toggle={toggle} setToggle={setToggle} />
         {!toggle ? (
           <Map
             center={{
@@ -36,14 +48,17 @@ const KakaoMap = ({ toggle }) => {
             style={{ width: '100%', height: '100%' }}
             level={3}
           >
-            {zones.map((content) => (
-              <MarkerContainer key={content.zoneId} content={content} />
-            ))}
+            {dateFixed.date && dateFixed.time
+              ? filteredZones?.map((content) => (
+                  <MarkerContainer key={content.zoneId} content={content} />
+                ))
+              : zones?.map((content) => (
+                  <MarkerContainer key={content.zoneId} content={content} />
+                ))}
           </Map>
         ) : (
           <KakaoRoadView location={{ latitude, longitude }} />
         )}
-        <LocationHover />
       </S.MapWrapper>
     );
   }
