@@ -1,6 +1,8 @@
 import axios from 'axios';
 import qs from 'qs';
 import { KAKAO_RENEWTOKEN_URL, REDIRECT_URI } from '../constants/auth';
+import { accessTokenVal } from '../recoil/login';
+import { useRecoilState } from 'recoil';
 
 //백엔드로 인증코드 보냄 or mock 서버로 보냄
 const getTokenIndirectly = async (authorizationCode) => {
@@ -45,14 +47,13 @@ const getTokenDirectly = async (path, authorizationCode) => {
 };
 
 //카카오서버로부터 토큰에 맞는 해당 회원정보를 받아온다.
-const getUserInfo = async (path) => {
+const getUserInfo = async (path, accessToken) => {
   console.log('getUserInfo 실행');
-  const token = localStorage.getItem('accessToken');
-  console.log('유저정보받는 토큰', token);
+  console.log('유저정보받는 토큰', accessToken);
   try {
     const res = await axios.get(path, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       }, //엑세스 토큰 헤더에 담아서 요청
     });
@@ -62,15 +63,16 @@ const getUserInfo = async (path) => {
 };
 
 //카카오서버로 로그아웃 요청 보냄 - 토큰을 무효하게 만들어서 인가를 받을 수 없게 만든다.
-const invalidateTokenDirectly = async (path) => {
+const invalidateTokenDirectly = async (path, accessToken) => {
   console.log('invalidateTokenDirectly 실행');
-  const token = localStorage.getItem('accessToken');
+  console.log('엑세스토큰은', accessToken);
+  // const token = localStorage.getItem('accessToken');
   try {
     const res = await axios.post(
       path,
       {},
       {
-        headers: { Authorization: `Bearer ${token}` }, //엑세스 토큰 헤더에 담아서 요청
+        headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
       }
     );
     return res;
@@ -82,10 +84,14 @@ const invalidateTokenDirectly = async (path) => {
 };
 
 //mock api 사용 / 백엔드 서버 우회 사용 로그아웃 요청 보냄
-const invalidateTokenIndirectly = async (path) => {
+const invalidateTokenIndirectly = async (path, accessToken) => {
   console.log('invalidateTokenIndirectly 실행');
+  console.log('엑세스토큰2', accessToken);
   try {
-    const res = await axios.post('/logout', { path: path });
+    const res = await axios.post('/logout', {
+      path: path,
+      accessToken: accessToken,
+    });
 
     return res;
   } catch (error) {
@@ -95,15 +101,23 @@ const invalidateTokenIndirectly = async (path) => {
   }
 };
 
+function getCookie(key) {
+  key = new RegExp(key + '=([^;]*)'); // 쿠키들을 세미콘론으로 구분하는 정규표현식 정의
+  return key.test(document.cookie) ? unescape(RegExp.$1) : ''; // 인자로 받은 키에 해당하는 키가 있으면 값을 반환
+}
+
 //access 토큰 재발급 - 카카오서버로 요청
-const renewTokenDirectly = async () => {
+const renewTokenDirectly = async (refreshToken) => {
   console.log('renewTokenDirectly 실행');
-  const refreshToken = localStorage.getItem('refreshToken');
-  console.log('로컬에서 가져온 리프레쉬 토큰', refreshToken);
+  const realRefreshToken = refreshToken.split('=')[1];
+  console.log('realRefreshToken은', realRefreshToken);
+  console.log('refreshToken는', realRefreshToken);
+  // const refreshToken = localStorage.getItem('refreshToken');
+
   try {
-    if (refreshToken === 'undefined' || !refreshToken) {
-      throw new Error('refresh token이 유효하지 않습니다.');
-    }
+    // if (refreshToken === 'undefined' || !refreshToken) {
+    //   throw new Error('refresh token이 유효하지 않습니다.');
+    // }
     const res = await fetch(KAKAO_RENEWTOKEN_URL, {
       method: 'POST',
       headers: {
@@ -112,7 +126,7 @@ const renewTokenDirectly = async () => {
       body: qs.stringify({
         grant_type: 'refresh_token',
         client_id: import.meta.env.VITE_CLIENT_ID,
-        refresh_token: refreshToken,
+        refresh_token: realRefreshToken,
         client_secret: import.meta.env.VITE_ClIENT_SECRET,
       }),
     });
@@ -126,6 +140,18 @@ const renewTokenDirectly = async () => {
   }
 };
 
+const renewTokenIndirectly = async () => {
+  console.log('renewTokenIndirectly 실행');
+  try {
+    const res = await axios.post('/login/renew', {});
+    console.log('재발급요청후 카카오서버에서 받은 응답은', res);
+    return res;
+  } catch (error) {
+    console.log('renewTokenIndirectly 에러발생', error.message);
+  } finally {
+    console.log('renewTokenIndirectly 실행종료');
+  }
+};
 //
 export {
   getTokenDirectly,
@@ -134,4 +160,5 @@ export {
   invalidateTokenIndirectly,
   renewTokenDirectly,
   getUserInfo,
+  renewTokenIndirectly,
 };

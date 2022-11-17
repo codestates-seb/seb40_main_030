@@ -1,8 +1,17 @@
 import { rest } from 'msw';
 import { mockOrder, mockUser, mockZone } from './data';
-import { KAKAO_TOKENCODE_URL, KAKAO_TOKEN_LOGOUT_URL } from '../constants/auth';
-import { getTokenDirectly, invalidateTokenDirectly } from '../apis/auth';
-
+import {
+  KAKAO_TOKENCODE_URL,
+  KAKAO_TOKEN_LOGOUT_URL,
+  KAKAO_USERINFO_URL,
+} from '../constants/auth';
+import {
+  getTokenDirectly,
+  invalidateTokenDirectly,
+  getUserInfo,
+  renewTokenDirectly,
+} from '../apis/auth';
+import { Headers } from 'headers-polyfill';
 let MockOrder = [...mockOrder];
 let MockUsers = [...mockUser];
 let MockZone = [...mockZone];
@@ -130,16 +139,23 @@ export const handlers = [
   }),
   /**
    * 클라이언트에서 인증코드 받아서
-   * 카카오인증서버로 요청 후 토큰 받아옴
+   * 카카오인증서버로 요청 후 토큰 받아오고
+   * 카카오인증서버에서 다시 사용자정보 받아옴
    */
   rest.post('/login/token', async (req, res, ctx) => {
     const authCode = req.body.authorizationCode;
-    let token = await getTokenDirectly(KAKAO_TOKENCODE_URL, authCode);
+
+    const token = await getTokenDirectly(KAKAO_TOKENCODE_URL, authCode);
+    const accessToken = token.access_token;
+    const refreshToken = token.refresh_token;
+    console.log('처음 받아온 각 토큰은', accessToken, refreshToken);
+    const userInfo = await getUserInfo(KAKAO_USERINFO_URL, accessToken);
+
     return res(
       ctx.delay(200),
-      ctx.cookie('refresh_token', token.refresh_token),
+      ctx.cookie('refresh_token', refreshToken),
       ctx.status(200),
-      ctx.json(token)
+      ctx.json({ access_token: accessToken, userInfo: userInfo })
     );
   }),
 
@@ -148,14 +164,35 @@ export const handlers = [
    * 카카오인증 서버로 로그아웃 요청 보냄
    */
   rest.post('/logout', async (req, res, ctx) => {
-    const logoutRes = await invalidateTokenDirectly(KAKAO_TOKEN_LOGOUT_URL);
-    console.log('moc logout res', logoutRes);
+    const accessToken = req.body.accessToken;
+    console.log('로그아웃 요청의 엑세스토큰은', accessToken);
+    const logoutRes = await invalidateTokenDirectly(
+      KAKAO_TOKEN_LOGOUT_URL,
+      accessToken
+    );
+    console.log('카카오서버로부터 로그아웃 응답은', logoutRes);
+
     return res(
       ctx.delay(200),
-      ctx.cookie('auth-token', 'abc-123'),
+      ctx.cookie('refresh_token', ''),
       ctx.status(200),
       ctx.json(logoutRes)
     );
+  }),
+
+  /**
+   * 클라이언트에서 재발급 요청 받아서 처리
+   * 카카오인증 서버로 재발급 요청 보냄
+   */
+  rest.post('/login/renew', async (req, res, ctx) => {
+    console.log('요청은', req.headers);
+    const header = new Headers(req.headers);
+    const refreshToken = header.get('cookie');
+    console.log('쿠키에 리프레쉬토큰은', refreshToken);
+    const renewRes = await renewTokenDirectly(refreshToken);
+    console.log('카카오서버로부터 재발급응답은', renewRes);
+
+    return res(ctx.delay(200), ctx.status(200), ctx.json(renewRes));
   }),
 ];
 //토큰 헤더[0], 쿠키, 바디

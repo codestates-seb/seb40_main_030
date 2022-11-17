@@ -8,14 +8,14 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
   const navigate = useNavigate();
-  const isLogin = () => {
-    if (isAuthorized) {
-      navigate('/');
-    }
-  };
-  useEffect(() => {
-    isLogin();
-  }, [isAuthorized]);
+  // const isLogin = () => {
+  //   if (isAuthorized) {
+  //     navigate('/');
+  //   }
+  // };
+  // useEffect(() => {
+  //   isLogin();
+  // }, [isAuthorized]);
   return (
     <S.LoginPageWrapper>
       <LoginForm />
