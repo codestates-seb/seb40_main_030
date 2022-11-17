@@ -21,6 +21,7 @@ const getTokenIndirectly = async (authorizationCode) => {
 //쿼리스트링으로 보내야해서 fetch 사용. axios 직렬화 안하고 보내는 방법 찾는중..
 const getTokenDirectly = async (path, authorizationCode) => {
   console.log('getTokenDirectly 실행');
+
   try {
     const res = await fetch(path, {
       method: 'POST',
@@ -43,6 +44,23 @@ const getTokenDirectly = async (path, authorizationCode) => {
   }
 };
 
+//카카오서버로부터 토큰에 맞는 해당 회원정보를 받아온다.
+const getUserInfo = async (path) => {
+  console.log('getUserInfo 실행');
+  const token = localStorage.getItem('accessToken');
+  console.log('유저정보받는 토큰', token);
+  try {
+    const res = await axios.get(path, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      }, //엑세스 토큰 헤더에 담아서 요청
+    });
+    console.log('유저정보 응답은', res);
+    return res;
+  } catch (error) {}
+};
+
 //카카오서버로 로그아웃 요청 보냄 - 토큰을 무효하게 만들어서 인가를 받을 수 없게 만든다.
 const invalidateTokenDirectly = async (path) => {
   console.log('invalidateTokenDirectly 실행');
@@ -53,9 +71,6 @@ const invalidateTokenDirectly = async (path) => {
       {},
       {
         headers: { Authorization: `Bearer ${token}` }, //엑세스 토큰 헤더에 담아서 요청
-      },
-      {
-        withCredentials: true, // 쿠키 cors 통신 설정
       }
     );
     return res;
@@ -70,13 +85,7 @@ const invalidateTokenDirectly = async (path) => {
 const invalidateTokenIndirectly = async (path) => {
   console.log('invalidateTokenIndirectly 실행');
   try {
-    const res = await axios.post(
-      '/logout',
-      { path: path },
-      {
-        withCredentials: true, // 쿠키 cors 통신 설정
-      }
-    );
+    const res = await axios.post('/logout', { path: path });
 
     return res;
   } catch (error) {
@@ -124,4 +133,5 @@ export {
   invalidateTokenDirectly,
   invalidateTokenIndirectly,
   renewTokenDirectly,
+  getUserInfo,
 };

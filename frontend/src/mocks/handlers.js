@@ -134,9 +134,13 @@ export const handlers = [
    */
   rest.post('/login/token', async (req, res, ctx) => {
     const authCode = req.body.authorizationCode;
-    const type = req.body.type;
     let token = await getTokenDirectly(KAKAO_TOKENCODE_URL, authCode);
-    return res(ctx.delay(200), ctx.status(200), ctx.json(token));
+    return res(
+      ctx.delay(200),
+      ctx.cookie('refresh_token', token.refresh_token),
+      ctx.status(200),
+      ctx.json(token)
+    );
   }),
 
   /**

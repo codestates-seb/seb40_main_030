@@ -4,6 +4,8 @@ import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
 import { SplashScreen } from '../@commons';
 import { renewTokenDirectly } from '../../apis/auth';
 import { useNavigate } from 'react-router-dom';
+import GenLogin from './GenLogin';
+import SignUp from './SignUp';
 
 const LoginForm = () => {
   const { loginClickHandler, isAuthorized } = useKakaoLogin();
@@ -56,9 +58,7 @@ const LoginForm = () => {
         <div>
           <GenLogin />
         </div>
-        <div style={{ margin: '20px 0 20px 0' }}>
-          <SignUp />
-        </div>
+        <div style={{ margin: '20px 0 20px 0' }}></div>
       </div>
 
       <KakaoLogin loginClickHandler={loginClickHandler} />
