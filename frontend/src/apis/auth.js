@@ -53,6 +53,9 @@ const invalidateTokenDirectly = async (path) => {
       {},
       {
         headers: { Authorization: `Bearer ${token}` }, //엑세스 토큰 헤더에 담아서 요청
+      },
+      {
+        withCredentials: true, // 쿠키 cors 통신 설정
       }
     );
     return res;
@@ -67,7 +70,14 @@ const invalidateTokenDirectly = async (path) => {
 const invalidateTokenIndirectly = async (path) => {
   console.log('invalidateTokenIndirectly 실행');
   try {
-    const res = await axios.post('/logout', { path: path });
+    const res = await axios.post(
+      '/logout',
+      { path: path },
+      {
+        withCredentials: true, // 쿠키 cors 통신 설정
+      }
+    );
+
     return res;
   } catch (error) {
     console.log('invalidateTokenIndirectly 에러', error);
@@ -82,6 +92,9 @@ const renewTokenDirectly = async () => {
   const refreshToken = localStorage.getItem('refreshToken');
   console.log('로컬에서 가져온 리프레쉬 토큰', refreshToken);
   try {
+    if (refreshToken === 'undefined' || !refreshToken) {
+      throw new Error('refresh token이 유효하지 않습니다.');
+    }
     const res = await fetch(KAKAO_RENEWTOKEN_URL, {
       method: 'POST',
       headers: {
@@ -96,18 +109,15 @@ const renewTokenDirectly = async () => {
     });
     const data = await res.json();
 
-    if (refreshToken === 'undefined' || !refreshToken) {
-      throw new Error('refresh token이 유효하지 않습니다.');
-    }
-
     return data;
   } catch (error) {
-    console.log('renewTokenDirectly 에러발생', error);
+    console.log('renewTokenDirectly 에러발생', error.message);
   } finally {
     console.log('renewTokenDirectly 실행종료');
   }
 };
 
+//
 export {
   getTokenDirectly,
   getTokenIndirectly,

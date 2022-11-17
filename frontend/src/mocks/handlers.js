@@ -1,6 +1,5 @@
 import { rest } from 'msw';
-import { mockOrder, mockUser } from './data';
-import mockZone from './data/zone';
+import { mockOrder, mockUser, mockZone } from './data';
 import { KAKAO_TOKENCODE_URL, KAKAO_TOKEN_LOGOUT_URL } from '../constants/auth';
 import { getTokenDirectly, invalidateTokenDirectly } from '../apis/auth';
 
@@ -147,7 +146,12 @@ export const handlers = [
   rest.post('/logout', async (req, res, ctx) => {
     const logoutRes = await invalidateTokenDirectly(KAKAO_TOKEN_LOGOUT_URL);
     console.log('moc logout res', logoutRes);
-    return res(ctx.delay(200), ctx.status(200), ctx.json(logoutRes));
+    return res(
+      ctx.delay(200),
+      ctx.cookie('auth-token', 'abc-123'),
+      ctx.status(200),
+      ctx.json(logoutRes)
+    );
   }),
 ];
 //토큰 헤더[0], 쿠키, 바디

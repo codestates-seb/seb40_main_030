@@ -18,6 +18,17 @@ const Wrapper = styled(motion.div)`
   transition: transform 150ms ease-out;
 `;
 
+const InfoBox = styled.div`
+  position: absolute;
+  width: 200px;
+  height: 50px;
+  z-index: 10;
+  overflow: auto;
+
+  border-radius: 50px;
+  background-color: #fff;
+`;
+
 const HeaderWrapper = styled.div`
   height: 48px;
   border-top-left-radius: 8px;
@@ -42,4 +53,4 @@ const ContentWrapper = styled.div`
   padding: 10px;
 `;
 
-export { Wrapper, HeaderWrapper, HandleBar, ContentWrapper };
+export { Wrapper, HeaderWrapper, InfoBox, HandleBar, ContentWrapper };

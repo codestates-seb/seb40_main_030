@@ -1,25 +1,35 @@
-import { Datepicker } from '@meinefinsternis/react-horizontal-date-picker';
-import { enUS } from 'date-fns/locale';
-import { useRecoilValue } from 'recoil';
-import useCalendar from '../../../../hooks/reservation/useCalendar';
-import { reservationState } from '../../../../recoil/pagesState';
+import { useRecoilState } from 'recoil';
+import HorizontalDatePicker from './HorizontalDatePicker';
 import * as S from './Calendar.style';
+import { useReservation } from '../hooks';
 
 const Calendar = () => {
-  const { date, handleChange } = useCalendar();
+  const { reservationStatus, setReservationStatus } = useReservation();
   const { startDate, endDate, startTime, endTime, dateFixed } =
-    useRecoilValue(reservationState);
+    reservationStatus;
 
   return (
+    // 단일예약 복수일 예약하기 따로
     <S.Wrapper>
       {!dateFixed?.date ? (
-        <Datepicker
-          onChange={handleChange}
-          locale={enUS}
-          startValue={date.startValue}
-          endValue={date.endValue}
-        />
+        <S.BookingContainer>
+          <button
+            onClick={() =>
+              setReservationStatus({ ...reservationStatus, singeDate: true })
+            }
+          >
+            단일
+          </button>
+          <button
+            onClick={() =>
+              setReservationStatus({ ...reservationStatus, singeDate: false })
+            }
+          >
+            복수일
+          </button>
+        </S.BookingContainer>
       ) : (
+        // <HorizontalDatePicker />
         <S.ReservationContainer>
           <S.ReservationBox>
             <S.DateStatus>대여</S.DateStatus>
