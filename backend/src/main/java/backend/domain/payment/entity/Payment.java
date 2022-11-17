@@ -10,11 +10,16 @@ import javax.persistence.Id;
 @NoArgsConstructor @AllArgsConstructor
 @Entity @Getter @Setter @Builder
 public class Payment extends BaseTime {
+
     @Id @GeneratedValue
     private Long id;
 
     private int totalPrice;
 
     private int totalBatteries;
+
+    private PayStatus status;
+
+    private String PayMethod;
 
 }
