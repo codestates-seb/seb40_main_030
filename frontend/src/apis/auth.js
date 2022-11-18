@@ -1,6 +1,10 @@
 import axios from 'axios';
 import qs from 'qs';
-import { KAKAO_RENEWTOKEN_URL, REDIRECT_URI } from '../constants/auth';
+import {
+  KAKAO_ACCOUNT_LOGOUT_URL,
+  KAKAO_RENEWTOKEN_URL,
+  REDIRECT_URI,
+} from '../constants/auth';
 
 //백엔드로 인증코드 보냄 or mock 서버로 보냄
 const getTokenIndirectly = async (authorizationCode) => {
@@ -129,6 +133,21 @@ const renewTokenDirectly = async (refreshToken) => {
   }
 };
 
+//카카오계정 세션 만료 - 카카오서버로 요청
+const logoutAccountSessionDirectly = async () => {
+  console.log('logoutAccountSessionDirectly 실행');
+  try {
+    const res = await axios.get(KAKAO_ACCOUNT_LOGOUT_URL);
+    console.log('카카오세션만료 응답은', res);
+    return res;
+  } catch (error) {
+    console.log('logoutAccountSessionDirectly 에러발생', error.message);
+  } finally {
+    console.log('logoutAccountSessionDirectly 실행종료');
+  }
+};
+
+//access 토큰 재발급 - msw 거쳐서 카카오서버로 요청
 const renewTokenIndirectly = async () => {
   console.log('renewTokenIndirectly 실행');
   try {
@@ -141,6 +160,12 @@ const renewTokenIndirectly = async () => {
     console.log('renewTokenIndirectly 실행종료');
   }
 };
+//토큰 유효성 체크 임의 로직 , 임시로 만들어놓음
+const checkValidToken = (token) => {
+  let result;
+  result = token.length > 0 ? true : false;
+  return result;
+};
 //
 export {
   getTokenDirectly,
@@ -150,4 +175,6 @@ export {
   renewTokenDirectly,
   getUserInfo,
   renewTokenIndirectly,
+  logoutAccountSessionDirectly,
+  checkValidToken,
 };

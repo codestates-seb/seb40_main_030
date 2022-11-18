@@ -10,6 +10,7 @@ import {
   invalidateTokenDirectly,
   getUserInfo,
   renewTokenDirectly,
+  checkValidToken,
 } from '../apis/auth';
 import { Headers } from 'headers-polyfill';
 let MockOrder = [...mockOrder];
@@ -137,6 +138,34 @@ export const handlers = [
   rest.get('/api/zones', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(MockZone));
   }),
+
+  //요청에서 토큰 유효성 검사
+  rest.all('/test', (req, res, ctx) => {
+    const header = new Headers(req.headers);
+    const tokenInHeader = header.get('authorization').split(' ')[1];
+    console.log('인증헤더는', tokenInHeader);
+    const isValidToken = checkValidToken(tokenInHeader);
+    console.log(isValidToken);
+    if (isValidToken) {
+      console.log('토큰이 유효합니다');
+      return;
+    }
+    return res(
+      ctx.delay(200),
+      ctx.status(200),
+      ctx.json('토큰이 유효하지 않습니다. 재발급요망')
+    );
+  }),
+
+  rest.get('/test', (req, res, ctx) => {
+    console.log('test get 요청 핸들러 실행');
+    return res(
+      ctx.delay(200),
+      ctx.status(200),
+      ctx.json('테스트 api 응답성공')
+    );
+  }),
+
   /**
    * 클라이언트에서 인증코드 받아서
    * 카카오인증서버로 요청 후 토큰 받아오고
@@ -194,5 +223,15 @@ export const handlers = [
 
     return res(ctx.delay(200), ctx.status(200), ctx.json(renewRes));
   }),
+
+  // rest.post('/test', async (req, res, ctx) => {
+  //   console.log('테스트 요청 핸들러 실행');
+
+  //   return res(
+  //     ctx.delay(200),
+  //     ctx.status(200),
+  //     ctx.json('테스트 요청의 응답입니다')
+  //   );
+  // }),
 ];
 //토큰 헤더[0], 쿠키, 바디

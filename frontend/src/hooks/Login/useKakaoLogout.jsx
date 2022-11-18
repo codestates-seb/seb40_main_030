@@ -13,11 +13,11 @@ const useKakaoLogout = () => {
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
   const [isLoading, setIsloading] = useState(false);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
-  const logoutClickHandler = () => {
-    //백엔드로 로그아웃 요청을 보내고(토큰을)
 
+  const logoutClickHandler = () => {
     setIsloading((preVal) => !preVal);
     console.log('엑세스토큰1', accessToken);
+
     invalidateTokenIndirectly(KAKAO_TOKEN_LOGOUT_URL, accessToken).then(
       (res) => {
         console.log('로그아웃 indirectly 응답은', res);
