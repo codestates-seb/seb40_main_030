@@ -7,20 +7,20 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter @Setter
 public class PayPostReqDto extends BaseTime {
 
-    private int totalPrice;
-
-    private int totalBatteries;
+    private String startTime;
+    private String endTime;
 
 
     public Payment toPayment () {
         Payment payment = new Payment().builder()
-                .totalPrice(this.totalPrice)
-                .totalBatteries(this.totalBatteries)
                 .status(PayStatus.IN_PROGRESS)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
                 .PayMethod("카카오페이")
                 .build();
         payment.setCreatedAt(LocalDateTime.now());
