@@ -1,5 +1,6 @@
 package backend.domain.battery.entity;
 
+import backend.domain.cart.entity.Cart;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,6 +35,10 @@ public class Battery {
 //    @ManyToOne
 //    @JoinColumn(name = "ZONE_ID")
 //    private Zone zone;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();

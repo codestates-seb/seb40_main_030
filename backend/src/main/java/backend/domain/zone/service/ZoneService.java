@@ -32,6 +32,7 @@ public class ZoneService {
         Optional.ofNullable(zone.getDetails()).ifPresent(savedZone::setDetails);
         Optional.of(zone.getLatitude()).ifPresent(savedZone::setLatitude);
         Optional.of(zone.getLongitude()).ifPresent(savedZone::setLongitude);
+        Optional.ofNullable(zone.getPhotoURL()).ifPresent(savedZone::setPhotoURL);
 
         return zoneRepository.save(savedZone);
     }

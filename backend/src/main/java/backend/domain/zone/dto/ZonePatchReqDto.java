@@ -14,6 +14,7 @@ public class ZonePatchReqDto {
     private String name;
     private String details;
     private ZoneLocation location;
+    private String photoURL;
 
 
     public Zone toZone(Long zoneId) {
@@ -23,6 +24,7 @@ public class ZonePatchReqDto {
                 .details(this.details)
                 .latitude(this.location.getLatitude())
                 .longitude(this.location.getLongitude())
+                .photoURL(this.photoURL)
                 .build();
         zone.setModifiedAt(LocalDateTime.now());
 

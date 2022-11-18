@@ -1,12 +1,11 @@
 package backend.domain.member.entity;
 
+import backend.domain.cart.entity.Cart;
 import backend.global.auditing.BaseTime;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -17,7 +16,7 @@ import javax.persistence.Id;
 @Entity @Builder @Getter @Setter
 public class Member extends BaseTime {
     @GeneratedValue
-    @Id
+    @Id @Column(name = "member_id")
     private Long id;
 
     @Column(nullable = false)
@@ -76,6 +75,20 @@ public class Member extends BaseTime {
 //    public boolean isEnabled() {
 //        return true;
 //    }
+
+    @OneToMany(mappedBy = "member")
+    private List<Cart> cart;
+
+    public Member(Member member) {
+        setId(member.getId());
+        setEmail(member.getEmail());
+        setPhone(member.getPhone());
+        setNickname(member.getNickname());
+        setAddress(member.getAddress());
+        setPhotoURL(member.getPhotoURL());
+        setCreatedAt(member.getCreatedAt());
+        setModifiedAt(member.getModifiedAt());
+    }
 
 }
 
