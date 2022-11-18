@@ -1,6 +1,10 @@
 import { useRecoilState } from 'recoil';
 import { currentLocationState } from '../../../../recoil/pagesState';
-import { useCurrentLocation, useCurrentAddress } from '../hooks';
+import {
+  useCurrentLocation,
+  useCurrentAddress,
+  useTimeDifference,
+} from '../hooks';
 import { CurrentLocationIcon } from '../../../../assets';
 
 import * as S from './MapIndicator.style';
@@ -12,6 +16,7 @@ const MapIndicator = ({ toggle, setToggle }) => {
   const { currentAddress } = useCurrentAddress(
     location ? location : defaultLocation
   );
+  const { days, hours } = useTimeDifference();
 
   return (
     <S.Wrapper>
@@ -19,7 +24,13 @@ const MapIndicator = ({ toggle, setToggle }) => {
         <span>{currentAddress}</span>
       </S.LocationHover>
       <S.ReservationHover>
-        <span>2시간</span>
+        <span>
+          {days
+            ? `${days}일 ${hours}시간`
+            : isNaN(days) && isNaN(hours)
+            ? `설정시간 없음`
+            : `${hours} 시간`}
+        </span>
       </S.ReservationHover>
 
       <S.IndicatorContainer>

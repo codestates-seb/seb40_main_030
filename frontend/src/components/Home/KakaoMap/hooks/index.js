@@ -5,6 +5,7 @@ import useGetFilteredZone from './useGetFilteredZone';
 import useKakaoMap from './useKakaoMap';
 import useSearchMap from './useSearchMap';
 import useWatchLocation from './useWatchLocation';
+import useTimeDifference from './useTimeDifference';
 
 export {
   useCurrentAddress,
@@ -14,4 +15,5 @@ export {
   useKakaoMap,
   useSearchMap,
   useWatchLocation,
+  useTimeDifference,
 };

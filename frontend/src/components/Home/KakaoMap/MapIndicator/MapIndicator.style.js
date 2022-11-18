@@ -67,7 +67,7 @@ const LocationHover = styled.div`
 
 const ReservationHover = styled(LocationHover)`
   left: 170px;
-  width: 30%;
+  width: 35%;
 `;
 
 export {
