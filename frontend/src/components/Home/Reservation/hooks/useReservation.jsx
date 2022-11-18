@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { reservationState } from '../../../../recoil/pagesState';
 
@@ -6,17 +6,11 @@ const useReservation = () => {
   const [reservation, setReservation] = useState(false);
   const [reservationStatus, setReservationStatus] =
     useRecoilState(reservationState);
+  const { startTime, startDate, endDate, endTime } = reservationStatus;
 
-  // const setLocation = useSetRecoilState(currentLocationState);
-
-  // useEffect(() => {
-  //   if (reservationStatus?.singeDate) {
-  //     setReservationStatus({
-  //       ...reservationStatus,
-  //       dateFixed: { ...reservationStatus.dateFixed, date: true },
-  //     });
-  //   }
-  // }, []);
+  const startPoint = new Date(
+    `${startDate.year}-${startDate.month}-${startDate.date} ${startTime.hours}:${startTime.minutes}`
+  ).getTime();
 
   const handleReservation = (hours, minutes) => {
     if (!reservation) {
@@ -27,6 +21,16 @@ const useReservation = () => {
     }
 
     if (reservation) {
+      const endPoint = new Date(
+        `${endDate.year}-${endDate.month}-${endDate.date} ${hours}:${minutes}`
+      ).getTime();
+
+      if (startPoint >= endPoint) {
+        // modal 로 교체 해야함
+        alert('설정하신 예약시간을 확인해 주세요.');
+        return;
+      }
+
       setReservationStatus({
         ...reservationStatus,
         endTime: { hours, minutes },

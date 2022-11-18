@@ -7,10 +7,12 @@ const Container = styled.div`
 
 const Header = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: 5vh;
+  cursor: pointer;
 
   border-bottom: 1px solid gray;
 `;
@@ -22,13 +24,25 @@ const Title = styled.h2`
   font-weight: 600;
 `;
 
+const TableContainer = styled.div``;
+
+const ReservationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 30px;
+  padding-bottom: 30px;
+
+  border-bottom: 1px solid gray;
+`;
+
 const ResetButton = styled.button`
   width: 100%;
   padding: 13px 0;
   font-size: 18px;
   font-weight: 400;
   border-radius: 10px;
-  background-color: blue;
+  background-color: #1070fc;
   color: white;
   border: none;
   letter-spacing: 5px;
@@ -36,4 +50,11 @@ const ResetButton = styled.button`
   cursor: pointer;
 `;
 
-export { Container, Header, Title, ResetButton };
+export {
+  Container,
+  Header,
+  Title,
+  TableContainer,
+  ReservationContainer,
+  ResetButton,
+};
