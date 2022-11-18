@@ -12,17 +12,12 @@ import java.time.LocalDateTime;
 public class PayPatchReqDto extends BaseTime {
 
     private int totalPrice;
-
-    private int totalBatteries;
-
     private PayStatus payStatus;
-
     private String payMethod;
 
     public Payment toPayment(){
         Payment payment = new Payment().builder()
                 .totalPrice(this.totalPrice)
-                .totalBatteries(this.totalBatteries)
                 .status(this.payStatus)
                 .PayMethod(this.payMethod)
                 .build();

@@ -1,6 +1,7 @@
 package backend.domain.battery.entity;
 
 import backend.domain.cart.entity.Cart;
+import backend.domain.zone.entity.Zone;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,9 +33,9 @@ public class Battery {
     @Column
     private String photoURL;
 
-//    @ManyToOne
-//    @JoinColumn(name = "ZONE_ID")
-//    private Zone zone;
+    @ManyToOne
+    @JoinColumn(name = "zone_id")
+    private Zone zone;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
