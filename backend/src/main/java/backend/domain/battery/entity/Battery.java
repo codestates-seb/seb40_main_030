@@ -36,10 +36,6 @@ public class Battery {
 //    @JoinColumn(name = "ZONE_ID")
 //    private Zone zone;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
-
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 

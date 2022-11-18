@@ -12,6 +12,4 @@ public interface CartRepository extends JpaRepository <Cart, Long>{
 
     Page<Cart> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
-    @Query(value = "select c from Cart c where c.member.id = :memberId")
-    Optional<Cart> findByMemberId(Long memberId);
 }

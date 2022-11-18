@@ -25,7 +25,4 @@ public class Zone extends BaseTime {
 
     private String photoURL;
 
-    @OneToMany(mappedBy = "zone", cascade = CascadeType.REMOVE)
-    private List<Cart> cart;
-
 }
