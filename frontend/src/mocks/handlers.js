@@ -142,17 +142,18 @@ export const handlers = [
   //요청에서 토큰 유효성 검사
   rest.all('/test', (req, res, ctx) => {
     const header = new Headers(req.headers);
-    const tokenInHeader = header.get('authorization').split(' ')[1];
-    console.log('인증헤더는', tokenInHeader);
+    const tokenInHeader = header.get('authorization')?.split(' ')[1];
     const isValidToken = checkValidToken(tokenInHeader);
-    console.log(isValidToken);
+    console.log('인증헤더는', isValidToken);
+
     if (isValidToken) {
       console.log('토큰이 유효합니다');
       return;
     }
+
     return res(
       ctx.delay(200),
-      ctx.status(200),
+      ctx.status(401),
       ctx.json('토큰이 유효하지 않습니다. 재발급요망')
     );
   }),
@@ -214,13 +215,9 @@ export const handlers = [
    * 카카오인증 서버로 재발급 요청 보냄
    */
   rest.post('/login/renew', async (req, res, ctx) => {
-    console.log('요청은', req.headers);
     const header = new Headers(req.headers);
     const refreshToken = header.get('cookie');
-    console.log('쿠키에 리프레쉬토큰은', refreshToken);
     const renewRes = await renewTokenDirectly(refreshToken);
-    console.log('카카오서버로부터 재발급응답은', renewRes);
-
     return res(ctx.delay(200), ctx.status(200), ctx.json(renewRes));
   }),
 
