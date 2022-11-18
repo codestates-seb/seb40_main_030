@@ -106,7 +106,7 @@ const invalidateTokenIndirectly = async (path, accessToken) => {
 //access 토큰 재발급 - 카카오서버로 요청
 const renewTokenDirectly = async (refreshToken) => {
   console.log('renewTokenDirectly 실행');
-  const realRefreshToken = refreshToken.split('=')[1];
+  const realRefreshToken = refreshToken?.split('=')[1];
   console.log('realRefreshToken은', realRefreshToken);
   console.log('refreshToken는', realRefreshToken);
 
@@ -123,6 +123,7 @@ const renewTokenDirectly = async (refreshToken) => {
         client_secret: import.meta.env.VITE_ClIENT_SECRET,
       }),
     });
+
     const data = await res.json();
 
     return data;
@@ -137,6 +138,7 @@ const renewTokenDirectly = async (refreshToken) => {
 const logoutAccountSessionDirectly = async () => {
   console.log('logoutAccountSessionDirectly 실행');
   try {
+    console.log(KAKAO_ACCOUNT_LOGOUT_URL);
     const res = await axios.get(KAKAO_ACCOUNT_LOGOUT_URL);
     console.log('카카오세션만료 응답은', res);
     return res;
@@ -163,7 +165,7 @@ const renewTokenIndirectly = async () => {
 //토큰 유효성 체크 임의 로직 , 임시로 만들어놓음
 const checkValidToken = (token) => {
   let result;
-  result = token.length > 0 ? true : false;
+  result = token?.length > 0 ? true : false;
   return result;
 };
 //

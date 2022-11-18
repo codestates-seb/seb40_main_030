@@ -17,7 +17,6 @@ const LoginForm = () => {
   const getNewTokenHandler = () => {
     //토큰 재발급
     renewTokenDirectly().then((res) => {
-      console.log('getNewTokenHandler 응답', res);
       res?.access_token &&
         localStorage.setItem('accessToken', res.access_token);
     });

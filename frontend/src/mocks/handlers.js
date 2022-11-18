@@ -201,11 +201,11 @@ export const handlers = [
       accessToken
     );
     console.log('카카오서버로부터 로그아웃 응답은', logoutRes);
-
+    document.cookie = 'refresh_token=';
     return res(
       ctx.delay(200),
-      ctx.cookie('refresh_token', ''),
       ctx.status(200),
+      ctx.cookie('refresh_token', ''),
       ctx.json(logoutRes)
     );
   }),
@@ -217,7 +217,14 @@ export const handlers = [
   rest.post('/login/renew', async (req, res, ctx) => {
     const header = new Headers(req.headers);
     const refreshToken = header.get('cookie');
+    console.log('재발급을 위한 리프레쉬 토큰은', refreshToken);
     const renewRes = await renewTokenDirectly(refreshToken);
+    console.log('응답은', renewRes);
+    const userInfo = await getUserInfo(
+      KAKAO_USERINFO_URL,
+      renewRes.access_token
+    );
+    console.log('사용자정보', userInfo);
     return res(ctx.delay(200), ctx.status(200), ctx.json(renewRes));
   }),
 

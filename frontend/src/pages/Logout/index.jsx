@@ -1,8 +1,15 @@
 import KakaoLogout from '../../components/Login/KakaoLogout';
-import useKakaoLogout from '../../hooks/Login/useKakaoLogout';
+
+import { loginState } from '../../recoil/login';
+import { useRecoilState } from 'recoil';
+import { KAKAO_ACCOUNT_LOGOUT_URL } from '../../constants/auth';
 
 const Logout = () => {
-  const { logoutClickHandler, isAuthorized } = useKakaoLogout();
+  const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
+
+  const logoutClickHandler = () => {
+    window.location.assign(KAKAO_ACCOUNT_LOGOUT_URL);
+  };
 
   return (
     <div

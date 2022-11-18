@@ -1,21 +1,22 @@
 import { useRoutes } from 'react-router-dom';
 import PAGES from './pages';
-import { constSelector, useRecoilState } from 'recoil';
-import { loginState, accessTokenVal } from './recoil/login';
+import { useRecoilState } from 'recoil';
+import { loginState, accessTokenVal, sessionState } from './recoil/login';
 import { useEffect } from 'react';
-import axios from 'axios';
-import { renewTokenDirectly, renewTokenIndirectly } from './apis/auth';
+import { renewTokenIndirectly } from './apis/auth';
+
 const App = () => {
   const pages = useRoutes(PAGES);
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
+  const [isSessioned, setIsSessioned] = useRecoilState(sessionState);
   // axios.defaults.withCredentials = true;
 
   const checkLoginState = () => {
-    if (!isAuthorized && !accessToken) {
+    if (!isAuthorized && !isSessioned) {
       renewTokenIndirectly().then((res) => {
-        console.log('재발급 후 받은 응답은', res);
         const errorCode = res.data?.error_code;
+
         if (errorCode) {
           console.log('에러코드', errorCode);
           if (errorCode === 'KOE319') {
