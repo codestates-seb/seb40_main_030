@@ -9,24 +9,14 @@ const App = () => {
   const pages = useRoutes(PAGES);
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
   // axios.defaults.withCredentials = true;
-  // const checkLogin = () => {
-  //   const token = localStorage.getItem('accessToken');
-  //   if (token) {
-  //     setIsAuthorized(true);
-  //   }
-  // };
+
   const checkLogin = () => {
     if (!isAuthorized) {
       renewTokenIndirectly().then((res) => {
         console.log('재발급응답', res);
-        console.log('재발급응답뭐임', !!res.data?.error);
+        console.log('재발급됐음?', !!!res.data?.error);
         !!res.data?.error ? '' : setIsAuthorized(true);
-        // if (!!res.data?.error) {
-        //   console.log('재발급 완료', res.data?.error);
-        //   setIsAuthorized(true);
-        // }
       });
-      // renewTokenDirectly();
     }
   };
 

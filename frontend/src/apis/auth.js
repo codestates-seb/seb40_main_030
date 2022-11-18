@@ -1,8 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
 import { KAKAO_RENEWTOKEN_URL, REDIRECT_URI } from '../constants/auth';
-import { accessTokenVal } from '../recoil/login';
-import { useRecoilState } from 'recoil';
 
 //백엔드로 인증코드 보냄 or mock 서버로 보냄
 const getTokenIndirectly = async (authorizationCode) => {
@@ -101,23 +99,14 @@ const invalidateTokenIndirectly = async (path, accessToken) => {
   }
 };
 
-function getCookie(key) {
-  key = new RegExp(key + '=([^;]*)'); // 쿠키들을 세미콘론으로 구분하는 정규표현식 정의
-  return key.test(document.cookie) ? unescape(RegExp.$1) : ''; // 인자로 받은 키에 해당하는 키가 있으면 값을 반환
-}
-
 //access 토큰 재발급 - 카카오서버로 요청
 const renewTokenDirectly = async (refreshToken) => {
   console.log('renewTokenDirectly 실행');
   const realRefreshToken = refreshToken.split('=')[1];
   console.log('realRefreshToken은', realRefreshToken);
   console.log('refreshToken는', realRefreshToken);
-  // const refreshToken = localStorage.getItem('refreshToken');
 
   try {
-    // if (refreshToken === 'undefined' || !refreshToken) {
-    //   throw new Error('refresh token이 유효하지 않습니다.');
-    // }
     const res = await fetch(KAKAO_RENEWTOKEN_URL, {
       method: 'POST',
       headers: {

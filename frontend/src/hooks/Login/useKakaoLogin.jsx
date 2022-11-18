@@ -24,20 +24,18 @@ const useKakaoLogin = () => {
     if (!isAuthorized) {
       setIsloading(true);
       window.location.assign(KAKAO_AUTHCODE_URL);
+    } else {
+      console.log('이미 로그인되어 있는 상태입니다.');
     }
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken'); //새로고침 후 로컬스토리지에 토큰이 있는지 확인
-    // if (token) {
-    //   setIsAuthorized(true);
-    // } //토큰이 있다면 로그인상태 변경
-
     const url = new URL(window.location.href); // auth code 가져옴
     const authorizationCode = url.searchParams.get('code');
 
-    if (authorizationCode && !token) {
+    if (authorizationCode) {
       //토큰 x 인증코드 o 일때 토큰 발급함
+      console.log('인증코드는', authorizationCode);
       getTokenIndirectly(authorizationCode).then((accessTokenAndUserInfo) => {
         console.log('받은 엑세스토큰과 유저정보', accessTokenAndUserInfo);
         console.log('logout페이지로 이동');
