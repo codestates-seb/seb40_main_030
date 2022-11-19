@@ -1,5 +1,5 @@
 import React from 'react';
-import NotFound from '../../pages/NotFound';
+import NotFound from '../../pages/NotFound/';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -14,13 +14,12 @@ class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, errorInfo) {
     // 에러 리포팅 서비스에 에러를 기록할 수도 있습니다.
-    logErrorToMyService(error, errorInfo);
+    console.log(error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
-      // 폴백 UI를 커스텀하여 렌더링할 수 있습니다.
-      console.log('Something went wrong...');
+      // error 발생시에 NotFound 페이지 렌더링
       return <NotFound />;
     }
 
