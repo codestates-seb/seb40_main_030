@@ -41,6 +41,10 @@ const ROUTES = Object.freeze({
     PATH: '/logout',
     NAME: 'Logout',
   },
+  PAY: {
+    PATH: '/pay',
+    NAME: 'pay',
+  },
 });
 
 export default ROUTES;

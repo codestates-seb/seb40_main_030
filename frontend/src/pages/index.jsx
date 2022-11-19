@@ -7,6 +7,7 @@ import Logout from './Logout/index';
 import Entrance from './Entrance/index';
 import Empty from './Empty/index';
 import SignUp from '../components/Login/SignUp';
+import Pay from './Pay';
 
 const PAGES = [
   {
@@ -32,6 +33,11 @@ const PAGES = [
     element: <NotFound />,
     path: ROUTES.NOT_FOUND.PATH,
     name: ROUTES.NOT_FOUND.NAME,
+  },
+  {
+    element: <Pay />,
+    path: ROUTES.PAY.PATH,
+    name: ROUTES.PAY.NAME 
   },
 ];
 
