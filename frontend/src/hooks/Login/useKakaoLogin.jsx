@@ -35,7 +35,6 @@ const useKakaoLogin = () => {
         setAccessToken(accessTokenAndUserInfo.data.access_token);
         setIsAuthorized(true);
         setIsloading(false); //로그인된 상태
-        localStorage.setItem('kakaoSession', 'true');
         setIsSessioned(true);
         navigate('/logout', { replace: true });
       });
