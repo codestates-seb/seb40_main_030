@@ -5,4 +5,14 @@ const loginState = atom({
   default: false,
 });
 
-export { loginState };
+const accessTokenVal = atom({
+  key: 'accessToken',
+  default: '',
+});
+
+const sessionState = atom({
+  key: 'sessionState',
+  default: false,
+});
+
+export { loginState, accessTokenVal, sessionState };
