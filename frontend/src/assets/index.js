@@ -9,6 +9,7 @@ import CurrentLocationIcon from './currentLocation.png';
 import KaKaoLoginImg from './KaKaoLoginImg.png';
 
 import MockImage from './mockImage.png';
+import UndoIcon from './undo-button.png';
 
 export {
   BatteryIcon,
@@ -20,4 +21,5 @@ export {
   ServiceLogo,
   KaKaoLoginImg,
   CurrentLocationIcon,
+  UndoIcon,
 };

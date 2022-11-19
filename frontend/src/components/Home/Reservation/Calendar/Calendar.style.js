@@ -36,23 +36,4 @@ const DateStatus = styled.div`
   margin-right: 20px;
 `;
 
-const BookingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  button {
-    width: 300px;
-    height: 40px;
-    border: 1px solid black;
-  }
-`;
-
-export {
-  Wrapper,
-  ReservationContainer,
-  ReservationBox,
-  DateStatus,
-  BookingContainer,
-};
+export { Wrapper, ReservationContainer, ReservationBox, DateStatus };

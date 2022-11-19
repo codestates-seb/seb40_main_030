@@ -11,9 +11,14 @@ const useCalendar = () => {
     rangeDates: [],
   });
 
-  const handleChange = (d) => {
-    const [startValue, endValue, rangeDates] = d;
-    setDate((prev) => ({ ...prev, endValue, startValue, rangeDates }));
+  const currentDate = {
+    month: new Date().getMonth(),
+    date: new Date().getDate(),
+  };
+
+  const currentTime = {
+    hours: new Date().getHours(),
+    minutes: new Date().getMinutes(),
   };
 
   const year = new Date().getFullYear();
@@ -22,6 +27,11 @@ const useCalendar = () => {
 
   const startDate = new Date(date.startValue).getDate();
   const endDate = new Date(date.endValue).getDate();
+
+  const handleChange = (d) => {
+    const [startValue, endValue, rangeDates] = d;
+    setDate((prev) => ({ ...prev, endValue, startValue, rangeDates }));
+  };
 
   useEffect(() => {
     if (date.startValue !== null && date.endValue !== null) {
@@ -34,7 +44,7 @@ const useCalendar = () => {
     }
   }, [date]);
 
-  return { reservationStatus, date, handleChange };
+  return { reservationStatus, date, currentDate, currentTime, handleChange };
 };
 
 export default useCalendar;
