@@ -153,7 +153,7 @@ const logoutAccountSessionDirectly = async () => {
 const renewTokenIndirectly = async () => {
   console.log('renewTokenIndirectly 실행');
   try {
-    const res = await axios.post('/login/renew', {});
+    const res = await axios.get('/login/renew', {});
     console.log('재발급요청후 카카오서버에서 받은 응답은', res);
     return res;
   } catch (error) {

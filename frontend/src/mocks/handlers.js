@@ -139,7 +139,7 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(MockZone));
   }),
 
-  //요청에서 토큰 유효성 검사
+  //요청에서 토큰 유효성 검사 - 모든 api요청은 백엔드에서 토큰 유효성 검사를 할예정으로 임시로 /test api에 대해서만 체크후 응답보내줌
   rest.all('/test', (req, res, ctx) => {
     const header = new Headers(req.headers);
     const tokenInHeader = header.get('authorization')?.split(' ')[1];
@@ -214,7 +214,7 @@ export const handlers = [
    * 클라이언트에서 재발급 요청 받아서 처리
    * 카카오인증 서버로 재발급 요청 보냄
    */
-  rest.post('/login/renew', async (req, res, ctx) => {
+  rest.get('/login/renew', async (req, res, ctx) => {
     const header = new Headers(req.headers);
     const refreshToken = header.get('cookie');
     console.log('재발급을 위한 리프레쉬 토큰은', refreshToken);
@@ -225,7 +225,11 @@ export const handlers = [
       renewRes.access_token
     );
     console.log('사용자정보', userInfo);
-    return res(ctx.delay(200), ctx.status(200), ctx.json(renewRes));
+    return res(
+      ctx.delay(200),
+      ctx.status(200),
+      ctx.json({ access_token: renewRes, userInfo: userInfo })
+    );
   }),
 
   // rest.post('/test', async (req, res, ctx) => {
