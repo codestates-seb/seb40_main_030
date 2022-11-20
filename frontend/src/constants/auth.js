@@ -1,6 +1,6 @@
-const REDIRECT_URI = 'http://127.0.0.1:5173/login';
-const LOGOUT_REDIRECT_URI = 'http://127.0.0.1:5173/login';
-const SIGNUP_REDIRECT_URI = 'http://127.0.0.1:5173/login'; // 회원가입완료후 로그인페이지로 리다이렉트해줄 변수;
+const REDIRECT_URI = 'http://localhost:5173/login';
+const LOGOUT_REDIRECT_URI = 'http://localhost:5173/login';
+const SIGNUP_REDIRECT_URI = 'http://localhost:5173/login'; // 회원가입완료후 로그인페이지로 리다이렉트해줄 변수;
 
 const KAKAO_TOKENCODE_URL = 'https://kauth.kakao.com/oauth/token';
 // const KAKAO_TOKEN_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${
