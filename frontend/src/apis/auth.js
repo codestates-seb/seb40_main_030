@@ -54,7 +54,6 @@ const getUserInfo = async (path, accessToken) => {
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       }, //엑세스 토큰 헤더에 담아서 요청
     });
-
     return res;
   } catch (error) {}
 };
@@ -80,7 +79,6 @@ const invalidateTokenDirectly = async (path, accessToken) => {
 //mock api 사용 / 백엔드 서버 우회 사용 로그아웃 요청 보냄
 const invalidateTokenIndirectly = async (path, accessToken) => {
   console.log('invalidateTokenIndirectly 실행');
-  console.log('invalidateTokenIndirectly에서 엑세스토큰', accessToken);
   try {
     const res = await axios.post('/logout', {
       path: path,

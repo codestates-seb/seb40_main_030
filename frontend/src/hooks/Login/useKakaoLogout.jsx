@@ -38,6 +38,8 @@ const useKakaoLogout = () => {
   return {
     isLoading,
     setIsloading,
+    sessionState,
+    setIsSessioned,
   };
 };
 

@@ -1,12 +1,12 @@
 import { atom } from 'recoil';
 
 const initialReservationValue = {
-  startTime: { hours: 1, minutes: 0 },
-  endTime: { hours: 1, minutes: 0 },
-  startDate: { year: 2022, month: null, date: null },
-  endDate: { year: 2022, month: null, date: null },
+  startTime: { hours: null, minutes: null },
+  endTime: { hours: null, minutes: null },
+  startDate: { year: null, month: null, date: null },
+  endDate: { year: null, month: null, date: null },
   dateFixed: { date: false, time: false },
-  singeDate: undefined,
+  bookingType: null,
   hours: 1,
   minutes: 0,
 };

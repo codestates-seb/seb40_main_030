@@ -9,7 +9,6 @@ const useKakaoLogin = () => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
   const [isLoading, setIsloading] = useState(false);
-
   const navigate = useNavigate();
 
   const loginClickHandler = () => {
