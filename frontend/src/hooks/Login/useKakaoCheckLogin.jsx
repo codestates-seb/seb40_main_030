@@ -4,14 +4,17 @@ import { loginState, accessTokenVal, sessionState } from '../../recoil/login';
 import { renewTokenIndirectly } from '../../apis/auth';
 
 const useKakaoCheckLogin = () => {
-  const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
-  const [isSessioned, setIsSessioned] = useRecoilState(sessionState);
-  console.log('app에서 먼저 로그인 체크시작 처리전', isAuthorized);
+  const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
+
   const checkLoginState = () => {
-    if (!isAuthorized && !isSessioned) {
+    //리프레쉬 토큰만 가지고 있는상태에서 새로고침할때 다시 엑세스토큰을 받아옴 = 로컬스토리지 로그인상태가 true인경우
+    const localLogin = JSON.parse(localStorage.getItem('loginState'));
+    console.log('app useeffect 안에서 로컬스토리지값', localLogin);
+    if (localLogin) {
       renewTokenIndirectly().then((res) => {
-        console.log('테스트응답은', res);
+        console.log('체크로그인에서 토큰재발급의 응답은', res);
+        console.log(JSON.parse(localStorage.getItem('loginState')));
         const errorCode = res.data?.access_token?.error_code;
 
         if (errorCode) {
@@ -20,21 +23,20 @@ const useKakaoCheckLogin = () => {
             console.log('리프레시 토큰이 없는 에러');
           }
         } else {
-          console.log('재발급 되었습니다.');
           console.log('재발급받은 토큰', res.data.access_token);
           setAccessToken(res.data.access_token); //재발급받은 엑세스토큰을 리액트 상태에 넣어줘야함
-          setIsAuthorized(true); //재발급되었으면 로그인 상태를 변경
+          setIsAuthorized(true);
         }
       });
     }
-    console.log('app에서 먼저 로그인 체크시작 처리후', isAuthorized);
   };
 
   useEffect(() => {
+    console.log('useEffect 실행');
     checkLoginState();
   }, []);
 
-  return;
+  return { isAuthorized, setIsAuthorized };
 };
 
 export default useKakaoCheckLogin;

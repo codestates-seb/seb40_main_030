@@ -6,38 +6,30 @@ import { useNavigate } from 'react-router-dom';
 import { KAKAO_TOKEN_LOGOUT_URL } from '../../constants/auth';
 
 const useKakaoLogout = () => {
-  const navigate = useNavigate();
-  const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
   const [isLoading, setIsloading] = useState(false);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
-  const [isSessioned, setIsSessioned] = useRecoilState(sessionState);
+  const navigate = useNavigate();
 
   const invalidateToken = () => {
     setIsloading((preVal) => !preVal);
-
     invalidateTokenIndirectly(KAKAO_TOKEN_LOGOUT_URL, accessToken).then(
       (res) => {
-        console.log('로그아웃 indirectly 응답은', res);
+        console.log('로그아웃 요청의 응답은', res);
         setAccessToken('');
-        setIsAuthorized(false);
+        localStorage.setItem('loginState', 'false');
         setIsloading((preVal) => !preVal);
         navigate('/login');
       }
     );
   };
+
   useEffect(() => {
-    console.log('세션 만료시키고 난 다음 useEffect실행');
-    setIsSessioned(false);
     invalidateToken();
   }, []);
-  //isAuth.. 로그인은 되어있지만 세션상태가 false일때가 토큰 무효화를 해야하는 떄임
+
   return {
-    isAuthorized,
-    setIsAuthorized,
     isLoading,
     setIsloading,
-    sessionState,
-    setIsSessioned,
   };
 };
 

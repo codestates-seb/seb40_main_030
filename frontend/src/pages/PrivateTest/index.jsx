@@ -2,7 +2,6 @@ import { loginState } from '../../recoil/login';
 import { useRecoilState } from 'recoil';
 const PrivateTest = () => {
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
-  console.log(isAuthorized);
   return (
     <div
       style={{

@@ -14,15 +14,14 @@ const LoginForm = () => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
   const navigate = useNavigate();
   console.log('login 페이지 렌더링');
+
   const getNewTokenHandler = async () => {
     const res = await axios.get('/login/renew');
-    console.log('토큰 갱신 버튼 누른후 응답은', res);
-
-    //토큰 재발급
-    // renewTokenDirectly().then((res) => {
-    //   res?.access_token &&
-    //     localStorage.setItem('accessToken', res.access_token);
-    // });
+    console.log(
+      '토큰 갱신 버튼 누른후 응답은',
+      res.data.access_token.access_token
+    );
+    setAccessToken(res.data.access_token.access_token);
   };
   const gobackHandler = () => {
     navigate('/entrance');

@@ -1,8 +1,8 @@
 import useKakaoLogout from '../../hooks/Login/useKakaoLogout';
 
 const LogoutSession = () => {
-  const { isAuthorized } = useKakaoLogout();
-
+  useKakaoLogout();
+  const isAuthorized = localStorage.getItem('loginState');
   return (
     <div
       style={{

@@ -201,12 +201,12 @@ export const handlers = [
       accessToken
     );
     console.log('카카오서버로부터 로그아웃 응답은', logoutRes);
-    document.cookie = 'refresh_token=';
     console.log('쿠키 초기화시킨후 값', document.cookie);
     return res(
       ctx.delay(200),
       ctx.status(200),
       ctx.cookie('refresh_token', ''),
+      ctx.set('authorization', ''),
       ctx.json(logoutRes)
     );
   }),
