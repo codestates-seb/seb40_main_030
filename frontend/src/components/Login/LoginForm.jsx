@@ -2,7 +2,7 @@ import KakaoLogin from './KakaoLogin';
 import * as S from '../../pages/Login/Login.style';
 import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
 import { SplashScreen } from '../@commons';
-import { renewTokenDirectly } from '../../apis/auth';
+import { renewTokenDirectly, renewTokenIndirectly } from '../../apis/auth';
 import { useNavigate } from 'react-router-dom';
 import GenLogin from './GenLogin';
 import SignUp from './SignUp';
@@ -16,7 +16,7 @@ const LoginForm = () => {
   console.log('login 페이지 렌더링');
 
   const getNewTokenHandler = async () => {
-    const res = await axios.get('/login/renew');
+    const res = await renewTokenIndirectly();
     console.log(
       '토큰 갱신 버튼 누른후 응답은',
       res.data.access_token.access_token
