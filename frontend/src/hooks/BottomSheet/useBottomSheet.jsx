@@ -1,0 +1,34 @@
+import { useEffect } from 'react';
+import { useAnimation } from 'framer-motion';
+import { useRecoilState } from 'recoil';
+import { navState } from '../../recoil/pagesState';
+import usePreviousValue from './usePrevious';
+
+const useBottomSheet = () => {
+  const [isOpen, setIsOpen] = useRecoilState(navState);
+  const controls = useAnimation();
+  const prevIsOpen = usePreviousValue(isOpen);
+
+  const onDragEnd = (info) => {
+    const shouldClose = info?.y > 20 || (info?.y >= 0 && info.point.y > 45);
+    if (shouldClose) {
+      controls.start('hidden');
+      setIsOpen(false);
+    } else {
+      controls.start('visible');
+      setIsOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    if (prevIsOpen && !isOpen) {
+      controls.start('hidden');
+    } else if (!prevIsOpen && isOpen) {
+      controls.start('visible');
+    }
+  }, [controls, isOpen, prevIsOpen]);
+
+  return { onDragEnd, controls };
+};
+
+export default useBottomSheet;

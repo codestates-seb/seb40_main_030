@@ -28,8 +28,6 @@ const BookingTypeBox = () => {
         }
         content={'하루 이상 빌릴래요'}
       />
-
-      <BatteryCharging chargingSpeed={'5s'} />
     </S.BookingContainer>
   );
 };

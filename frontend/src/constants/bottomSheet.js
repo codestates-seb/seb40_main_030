@@ -5,7 +5,7 @@ const MIN_Y = 300;
 const MAX_Y = window.innerHeight - 80;
 
 // 세로 길이
-const BOTTOM_SHEET_HEIGHT = window.innerHeight - 85;
+const BOTTOM_SHEET_HEIGHT = window.innerHeight - 95;
 
 export { MIN_Y, MAX_Y, BOTTOM_SHEET_HEIGHT };
 

@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import { BOTTOM_SHEET_HEIGHT } from '../../../constants';
 
 const Wrapper = styled(motion.div)`
-  display: ${({ isActive }) => (isActive ? 'flex' : 'none')};
   flex-direction: column;
   position: fixed;
-  z-index: 1;
-  top: 550px;
+  z-index: 10;
+  top: 30vh;
   left: 0;
   right: 0;
   border-top-left-radius: 8px;
@@ -15,21 +14,21 @@ const Wrapper = styled(motion.div)`
   background-color: #fff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
   height: ${BOTTOM_SHEET_HEIGHT}px;
-  transition: transform 150ms ease-out;
+
+  overflow: auto;
 `;
 
 const InfoBox = styled.div`
   position: absolute;
   width: 200px;
   height: 50px;
-  z-index: 10;
   overflow: auto;
 
   border-radius: 50px;
   background-color: #fff;
 `;
 
-const HeaderWrapper = styled.div`
+const HeaderWrapper = styled(motion.div)`
   height: 48px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -38,7 +37,7 @@ const HeaderWrapper = styled.div`
   padding-bottom: 4px;
 `;
 
-const HandleBar = styled.div`
+const HandleBar = styled(motion.div)`
   width: 32px;
   height: 4px;
   border-radius: 2px;
@@ -47,7 +46,6 @@ const HandleBar = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  overflow: auto;
   -webkit-overflow-scrolling: touch;
   height: 80vh;
   padding: 10px;
