@@ -4,7 +4,6 @@ import { useRecoilState } from 'recoil';
 
 const LogoutSession = () => {
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
-  // localStorage.setItem('loginState', 'false'); //로그아웃 세션 페이지 렌더링 하면서 localstorage 로그인값을 false로 미리 셋한다
   useKakaoLogout();
   return (
     <div

@@ -13,7 +13,6 @@ const LoginForm = () => {
   const { loginClickHandler, isAuthorized } = useKakaoLogin();
   const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
   const navigate = useNavigate();
-  console.log('login 페이지 렌더링');
 
   const getNewTokenHandler = async () => {
     const res = await renewTokenIndirectly();
