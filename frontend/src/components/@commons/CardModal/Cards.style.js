@@ -53,7 +53,7 @@ const Image = styled.img`
   width: 100%;
   display: block;
   border-radius: 20px 20px 0 0;
-  z-index: 100;
+  z-index: 1;
 `;
 
 const Details = styled.div`
@@ -85,7 +85,7 @@ const Details = styled.div`
     justify-content: end;
     margin-right: 10px;
     font-size: 20px;
-    z-index: 30;
+    z-index: 1;
   }
 `;
 

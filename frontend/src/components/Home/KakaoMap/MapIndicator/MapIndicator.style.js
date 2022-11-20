@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   position: fixed;
   margin-top: 10px;
-  z-index: 13;
+  z-index: 10;
 `;
 
 const IndicatorContainer = styled.div`
@@ -15,7 +15,6 @@ const IndicatorContainer = styled.div`
   left: 300px;
   width: 100px;
   height: 60px;
-  z-index: 10;
   cursor: pointer;
 `;
 
@@ -38,7 +37,7 @@ const Button = styled.button`
 `;
 
 const LocationMarker = styled.input`
-  z-index: 20;
+  z-index: 1;
   width: 20px;
   height: 20px;
   margin-left: 40px;
@@ -55,7 +54,6 @@ const LocationHover = styled.div`
 
   width: 40%;
   height: 40px;
-  z-index: 13;
   border-radius: 50px;
 
   background-color: #fff;

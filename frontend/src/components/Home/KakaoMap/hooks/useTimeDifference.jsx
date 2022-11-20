@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { reservationState } from '../../../../recoil/pagesState';
 
 const useTimeDifference = () => {
-  const [timeDifference, setTimeDifference] = useState('0');
+  const [timeDifference, setTimeDifference] = useState(0);
   const reservationStatus = useRecoilValue(reservationState);
   const { startDate, startTime, endDate, endTime } = reservationStatus;
 
