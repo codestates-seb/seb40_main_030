@@ -1,13 +1,13 @@
-import Layout from '../components/@layout/Layout';
-import { ROUTES } from '../constants';
-import Home from './Home';
-import NotFound from './NotFound';
-import Login from './Login';
-import Logout from './Logout/index';
-import Entrance from './Entrance/index';
-import Empty from './Empty/index';
-import SignUp from '../components/Login/SignUp';
-import LogoutSession from './LogoutSession/index';
+import Layout from "../components/@layout/Layout";
+import { ROUTES } from "../constants";
+import Home from "./Home";
+import NotFound from "./NotFound";
+import Login from "./Login";
+import Logout from "./Logout/index";
+import Entrance from "./Entrance/index";
+import Empty from "./Empty/index";
+import SignUp from "../components/Login/SignUp/SignUp";
+import LogoutSession from "./LogoutSession/index";
 
 const PAGES = [
   {
