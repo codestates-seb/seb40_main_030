@@ -13,7 +13,7 @@ const LoginForm = () => {
   const { loginClickHandler, isAuthorized } = useKakaoLogin();
   const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
   const navigate = useNavigate();
-
+  console.log('login 페이지 렌더링');
   const getNewTokenHandler = async () => {
     const res = await axios.get('/login/renew');
     console.log('토큰 갱신 버튼 누른후 응답은', res);
@@ -29,6 +29,9 @@ const LoginForm = () => {
   };
   const goEmptyHandler = () => {
     navigate('/empty');
+  };
+  const goPrivateTestHandler = () => {
+    navigate('/privatetest');
   };
 
   const testHandler = async (accessToken) => {
@@ -60,6 +63,12 @@ const LoginForm = () => {
       </button>
       <button onClick={goEmptyHandler} style={{ border: '1px solid black' }}>
         empty이동
+      </button>
+      <button
+        onClick={goPrivateTestHandler}
+        style={{ border: '1px solid black' }}
+      >
+        privatetest이동
       </button>
       <button
         style={{

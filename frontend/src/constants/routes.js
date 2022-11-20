@@ -29,6 +29,10 @@ const ROUTES = Object.freeze({
     PATH: '/empty',
     NAME: 'Empty',
   },
+  PRIVATETEST: {
+    PATH: '/privatetest',
+    NAME: 'Privatetest',
+  },
   ENTRANCE: {
     PATH: '/entrance',
     NAME: 'Entrance',

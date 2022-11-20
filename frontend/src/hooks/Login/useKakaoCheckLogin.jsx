@@ -7,7 +7,7 @@ const useKakaoCheckLogin = () => {
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
   const [isSessioned, setIsSessioned] = useRecoilState(sessionState);
-
+  console.log('app에서 먼저 로그인 체크시작 처리전', isAuthorized);
   const checkLoginState = () => {
     if (!isAuthorized && !isSessioned) {
       renewTokenIndirectly().then((res) => {
@@ -27,6 +27,7 @@ const useKakaoCheckLogin = () => {
         }
       });
     }
+    console.log('app에서 먼저 로그인 체크시작 처리후', isAuthorized);
   };
 
   useEffect(() => {
