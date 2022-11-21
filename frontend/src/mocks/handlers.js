@@ -1,11 +1,11 @@
 import { rest } from 'msw';
-import { mockOrder, mockUser, mockZone } from './data';
+import { mockOrder, mockUser, mockStations } from './data';
 import { KAKAO_TOKENCODE_URL, KAKAO_TOKEN_LOGOUT_URL } from '../constants/auth';
 import { getTokenDirectly, invalidateTokenDirectly } from '../apis/auth';
 
 let MockOrder = [...mockOrder];
 let MockUsers = [...mockUser];
-let MockZone = [...mockZone];
+let MockStations = [...mockStations];
 
 export const handlers = [
   // OAuth
@@ -117,17 +117,31 @@ export const handlers = [
       return res(ctx.delay(), ctx.status(403));
     }
 
-    const index = MockUsers.findIndex((user) => user.memberId === memberId);
+    const index = MockUsers.findIndex(
+      (user) => user.memberId === Number(memberId)
+    );
 
     MockUsers.splice(index, 1);
 
     return res(ctx.delay(), ctx.status(204));
   }),
 
-  // Zone related
-  rest.get('/api/zones', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(MockZone));
+  // Stations related
+  rest.get('/api/stations', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(MockStations));
   }),
+
+  rest.get('/api/stations/:stationId', (req, res, ctx) => {
+    const { stationId } = req.params;
+
+    const index = MockStations.findIndex(
+      (station) => station.id === Number(stationId)
+    );
+
+    return res(ctx.status(200), ctx.json(MockStations[index]));
+  }),
+
+  // Auth
   /**
    * 클라이언트에서 인증코드 받아서
    * 카카오인증서버로 요청 후 토큰 받아옴
