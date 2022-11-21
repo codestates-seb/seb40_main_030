@@ -45,6 +45,10 @@ const ROUTES = Object.freeze({
     PATH: '/search',
     NAME: 'Search',
   },
+  RENTAL: {
+    PATH: '/rental/:stationId',
+    NAME: 'Rental',
+  },
 });
 
 export default ROUTES;

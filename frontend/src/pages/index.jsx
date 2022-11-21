@@ -10,6 +10,7 @@ import SignUp from '../components/Login/SignUp';
 import PrivateRouter from '../components/@helper/router/PrivateRouter';
 import PublicRouter from '../components/@helper/router/PublicRouter';
 import Search from './Search';
+import Rental from './Rental/Rental';
 
 // 예시 입니다.
 const isAuthenticated = true;
@@ -19,6 +20,22 @@ const PAGES = [
     element: <Home />,
     path: ROUTES.HOME.PATH,
     name: ROUTES.HOME.NAME,
+  },
+  {
+    element: <Entrance />,
+    path: ROUTES.ENTRANCE.PATH,
+    name: ROUTES.ENTRANCE.NAME,
+  },
+
+  {
+    element: <NotFound />,
+    path: ROUTES.NOT_FOUND.PATH,
+    name: ROUTES.NOT_FOUND.NAME,
+  },
+  {
+    element: <Rental />,
+    path: ROUTES.RENTAL.PATH,
+    name: ROUTES.RENTAL.NAME,
   },
 
   {
@@ -56,17 +73,6 @@ const PAGES = [
         name: ROUTES.LOGOUT.NAME,
       },
     ],
-  },
-  {
-    element: <Entrance />,
-    path: ROUTES.ENTRANCE.PATH,
-    name: ROUTES.ENTRANCE.NAME,
-  },
-
-  {
-    element: <NotFound />,
-    path: ROUTES.NOT_FOUND.PATH,
-    name: ROUTES.NOT_FOUND.NAME,
   },
 ];
 
