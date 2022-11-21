@@ -1,27 +1,18 @@
-import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { ArrowIcon } from '../../assets';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { currentLocationState } from '../../recoil/pagesState';
 import { ShadowButton } from '../@commons';
 import useSearchMap from './hooks/useSearchMap';
 import * as S from './Search.style';
 
 const SearchPage = () => {
-  const { inputRef, setKeyword, locationData } = useSearchMap();
-
   const navigate = useNavigate();
+  const { inputRef, setKeyword, locationData } = useSearchMap();
+  const setLocation = useSetRecoilState(currentLocationState);
 
   return (
-    <S.MotionWrapper
-      initial={{ opacity: 1, x: '100%', transition: { duration: 1 } }}
-      animate={{ opacity: 1, x: '0%', transition: { duration: 0.5 } }}
-      exit={{ opacity: 1, x: '100%', transition: { duration: 0.5 } }}
-    >
-      <S.Header>
-        <div onClick={() => navigate(-1)}>
-          <ArrowIcon />
-        </div>
+    <>
+      <div>
         <S.SearchInput
           ref={inputRef}
           type='text'
@@ -33,15 +24,28 @@ const SearchPage = () => {
             }
           }}
         />
-
-        <ShadowButton content='지도 이동하기' style={{ marginTop: 100 }} />
-      </S.Header>
+        <ShadowButton
+          content='지도 이동하기'
+          style={{ marginTop: 100 }}
+          onClick={() => {
+            navigate(`/`);
+            setLocation({
+              latitude: locationData[0]?.y,
+              longitude: locationData[0]?.x,
+            });
+          }}
+        />
+      </div>
       <S.Body>
-        {locationData?.map(({ address_name, id }) => {
-          return <div key={id}>{address_name}</div>;
-        })}
+        {locationData.length === 0 ? (
+          <div>검색 결과가 존재하지 않습니다.</div>
+        ) : (
+          locationData?.map(({ address_name, id }) => (
+            <div key={id}>{address_name}</div>
+          ))
+        )}
       </S.Body>
-    </S.MotionWrapper>
+    </>
   );
 };
 
