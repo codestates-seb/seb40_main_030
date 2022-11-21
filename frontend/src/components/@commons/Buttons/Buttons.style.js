@@ -16,6 +16,8 @@ const ShadowButton = styled.a`
   display: inline-block;
   text-decoration: none;
 
+  width: 90%;
+
   letter-spacing: 1px;
 `;
 
