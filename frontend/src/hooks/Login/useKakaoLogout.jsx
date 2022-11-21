@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
   invalidateTokenIndirectly,
   renewTokenIndirectly,
@@ -13,7 +13,7 @@ import {
 
 const useKakaoLogout = () => {
   const [isLoading, setIsloading] = useState(false);
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
+  const setAccessToken = useSetRecoilState(accessTokenVal);
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
   const [isSessioned, setIsSessioned] = useRecoilState(sessionState);
   const navigate = useNavigate();

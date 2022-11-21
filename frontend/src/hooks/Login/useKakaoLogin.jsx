@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { getTokenIndirectly } from '../../apis/auth';
 import { loginState, accessTokenVal, sessionState } from '../../recoil/login';
 import { useEffect, useState } from 'react';
@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { KAKAO_AUTHCODE_URL } from '../../constants/auth';
 
 const useKakaoLogin = () => {
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
+  const setAccessToken = useSetRecoilState(accessTokenVal);
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
-  const [isSessioned, setIsSessioned] = useRecoilState(sessionState);
+  const setIsSessioned = useSetRecoilState(sessionState);
   const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
 

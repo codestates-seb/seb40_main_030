@@ -1,13 +1,14 @@
 import KakaoLogout from '../../components/Login/KakaoLogout';
 
-import { loginState, sessionState } from '../../recoil/login';
-import { useRecoilState } from 'recoil';
+import { accessTokenVal, loginState, sessionState } from '../../recoil/login';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { KAKAO_ACCOUNT_LOGOUT_URL } from '../../constants/auth';
 import useKakaoLogout from '../../hooks/Login/useKakaoLogout';
+import { testHandler } from '../../apis/auth';
 
 const Logout = () => {
   const { isAuthorized, logoutClickHandler } = useKakaoLogout();
-
+  const accessToken = useRecoilValue(accessTokenVal);
   return (
     <div
       style={{
@@ -18,6 +19,12 @@ const Logout = () => {
         alignItems: 'center',
       }}
     >
+      <button
+        onClick={() => testHandler(accessToken)}
+        style={{ border: '1px solid black' }}
+      >
+        test api 테스트
+      </button>
       <div
         style={{
           margin: '30px',

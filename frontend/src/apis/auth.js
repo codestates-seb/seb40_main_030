@@ -153,6 +153,22 @@ const checkValidToken = (token) => {
   return result;
 };
 //
+
+const testHandler = async (accessToken) => {
+  //테스트 api 위한 임시 핸들러
+  try {
+    const res = await axios.get('/test', {
+      headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
+    });
+    console.log('테스트 api 요청의 응답은', res);
+  } catch (error) {
+    if (error.response?.statusText === 'Unauthorized') {
+      console.log('엑세스 토큰이 없습니다. 재발급요망');
+    }
+  } finally {
+    console.log('testHandler 실행완료');
+  }
+};
 export {
   getTokenDirectly,
   getTokenIndirectly,
@@ -163,4 +179,5 @@ export {
   renewTokenIndirectly,
   logoutAccountSessionDirectly,
   checkValidToken,
+  testHandler,
 };
