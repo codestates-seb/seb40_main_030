@@ -9,14 +9,11 @@ import {
   MyPageIcon,
 } from '../../../assets';
 import * as S from './BottomNav.style';
-import { useCurrentLocation } from '../../Home/KakaoMap/hooks';
 
 const BottomNav = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [isActive, setIsActive] = useRecoilState(navState);
-  const { location } = useCurrentLocation();
-  const setCurrentLocation = useSetRecoilState(currentLocationState);
 
   return (
     <S.Wrapper>

@@ -6,7 +6,7 @@ const useReservation = () => {
   const [reservation, setReservation] = useState(false);
   const [reservationStatus, setReservationStatus] =
     useRecoilState(reservationState);
-  const { startTime, startDate, endDate, endTime } = reservationStatus;
+  const { startTime, startDate, endDate } = reservationStatus;
 
   const startPoint = new Date(
     `${startDate.year}-${startDate.month}-${startDate.date} ${startTime.hours}:${startTime.minutes}`
@@ -36,9 +36,6 @@ const useReservation = () => {
         endTime: { hours, minutes },
         dateFixed: { ...reservationStatus.dateFixed, time: true },
       });
-
-      // 로직 세부 분리가 필요한가 ?
-      // setLocation({ latitude: 37.5963, longitude: 127.0844 });
     }
 
     setReservation(!reservation);

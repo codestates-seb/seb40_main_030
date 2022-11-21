@@ -10,10 +10,9 @@ import BatteryInfo from './Features/BatteryInfo';
 const RentalStatus = ({ data }) => {
   // hooks 로 분리
   const navigate = useNavigate();
-  const { name, details, location, batteries } = data;
+  const { location, batteries } = data;
   const { dateFixed } = useRecoilValue(reservationState);
   const { startPoint, endPoint } = useCheckValidReserveTable();
-
   const { addressDetail } = useCurrentAddress(location);
 
   useEffect(() => {

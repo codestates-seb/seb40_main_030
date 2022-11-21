@@ -9,7 +9,7 @@ const useKakaoMap = () => {
     useCurrentLocation(GEOLOCATION_OPTIONS);
   const { location, cancelLocationWatch, error } =
     useWatchLocation(GEOLOCATION_OPTIONS);
-  const [isWatchingForLocation, setIsWatchForLocation] = useState(true); // <boolean>
+  const [isWatchingForLocation, setIsWatchForLocation] = useState(true);
 
   useEffect(() => {
     // location 이 없는경우 early return;

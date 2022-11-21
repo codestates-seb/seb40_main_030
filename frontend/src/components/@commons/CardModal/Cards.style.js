@@ -20,11 +20,6 @@ const Cards = styled(motion.div)`
   cursor: pointer;
   text-decoration: none;
   transition: all 0.3s ease-out;
-
-  /* &:hover {
-    transform: scale(0.7);
-    transition: all 0.3s ease-out;
-  } */
 `;
 
 const Card = styled(motion.div)`

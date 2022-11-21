@@ -1,5 +1,6 @@
 import { Map } from 'react-kakao-maps-sdk';
 import { useState } from 'react';
+import { DEFAULT_LOCATION } from '../../../constants/location';
 import { useGetAllStations } from './hooks';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
@@ -12,7 +13,6 @@ import MarkerContainer from './MarkerContainer';
 import MapIndicator from './MapIndicator/MapIndicator';
 
 import * as S from './KakaoMap.style';
-import { DEFAULT_LOCATION } from '../../../constants/location';
 
 // type Location = {
 //   location: {

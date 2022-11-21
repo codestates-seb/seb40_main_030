@@ -16,7 +16,6 @@ const MapArea = () => {
       exit={{ opacity: 1, transition: { duration: 1 } }}
       style={{ originX: isPresent ? 0 : 1 }}
     >
-      {/* 상단에 검색창 추후 구현시 이자리 */}
       <KakaoMap />
     </S.Wrapper>
   );

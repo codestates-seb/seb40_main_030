@@ -1,4 +1,4 @@
-import { BatteryCharging, ShadowButton } from '../../../@commons';
+import { ShadowButton } from '../../../@commons';
 import { useReservation } from '../hooks';
 import * as S from './BookingTypeBox.style';
 

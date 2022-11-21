@@ -11,6 +11,7 @@ const KAKAO_AUTHCODE_URL = `https://kauth.kakao.com/oauth/authorize?response_typ
 }&redirect_uri=${REDIRECT_URI}&response_type=code`;
 const KAKAO_TOKEN_LOGOUT_URL = 'https://kapi.kakao.com/v1/user/logout';
 const KAKAO_RENEWTOKEN_URL = 'https://kauth.kakao.com/oauth/token';
+
 export {
   KAKAO_AUTHCODE_URL,
   KAKAO_TOKENCODE_URL,
