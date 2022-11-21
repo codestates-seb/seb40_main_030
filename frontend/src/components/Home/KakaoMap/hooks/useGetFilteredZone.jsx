@@ -1,14 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAllZones } from '../../../../apis/zone';
+import { getAllStations } from '../../../../apis/stations';
 
 const useGetFilteredZone = () => {
-  const { data } = useQuery(['zones', 'filteredZones'], getAllZones, {
+  const { data } = useQuery(['zones', 'filteredZones'], getAllStations, {
     refetchOnWindowFocus: false,
   });
 
-  const filteredZones = data?.filter((zone) => zone.status.bookable === true);
-
-  return { filteredZones };
+  return { filteredStations };
 };
 
 export default useGetFilteredZone;

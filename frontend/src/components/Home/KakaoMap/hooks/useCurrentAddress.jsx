@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 const useCurrentAddress = ({ latitude, longitude }) => {
   const [currentAddress, setCurrentAddress] = useState('');
+  const [addressDetail, setAddressDetail] = useState('');
   // 주소-좌표 변환 객체를 생성합니다
   let geocoder = new kakao.maps.services.Geocoder();
 
@@ -17,12 +18,13 @@ const useCurrentAddress = ({ latitude, longitude }) => {
 
       const currentLocation = `${dong} ${main_address_no}-${sub_address_no}`;
 
+      setAddressDetail(fullAddress.address_name);
       setCurrentAddress(currentLocation);
     }
   };
   geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
 
-  return { currentAddress };
+  return { currentAddress, addressDetail };
 };
 
 export default useCurrentAddress;

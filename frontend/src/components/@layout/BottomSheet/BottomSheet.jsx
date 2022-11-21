@@ -1,6 +1,6 @@
 import Header from './Header';
 import * as S from './BottomSheet.style';
-import useBottomSheet from '../../../hooks/BottomSheet/useBottomSheet';
+import useBottomSheet from '../../../hooks/bottomSheet/useBottomSheet';
 
 const BottomSheet = ({ children }) => {
   const { onDragEnd, controls } = useBottomSheet();

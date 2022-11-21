@@ -1,6 +1,6 @@
 import { Map } from 'react-kakao-maps-sdk';
 import { useState } from 'react';
-import { useGetAllZones, useGetFilteredZone } from './hooks';
+import { useGetAllStations } from './hooks';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   reservationState,
@@ -25,8 +25,7 @@ import { DEFAULT_LOCATION } from '../../../constants/location';
 const KakaoMap = () => {
   const [toggle, setToggle] = useState(false);
 
-  const { data: zones, isSuccess } = useGetAllZones();
-  const { filteredZones } = useGetFilteredZone();
+  const { data: stations, isSuccess } = useGetAllStations();
   const { dateFixed } = useRecoilValue(reservationState);
   const [currentLocation, setCurrentLocation] =
     useRecoilState(currentLocationState);
@@ -57,11 +56,11 @@ const KakaoMap = () => {
             level={3}
           >
             {dateFixed.date && dateFixed.time
-              ? filteredZones?.map((content) => (
-                  <MarkerContainer key={content.zoneId} content={content} />
+              ? stations.map((content) => (
+                  <MarkerContainer key={content.id} content={content} />
                 ))
-              : zones?.map((content) => (
-                  <MarkerContainer key={content.zoneId} content={content} />
+              : stations?.map((content) => (
+                  <MarkerContainer key={content.id} content={content} />
                 ))}
           </Map>
         ) : (

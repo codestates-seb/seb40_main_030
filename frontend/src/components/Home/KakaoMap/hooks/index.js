@@ -1,7 +1,6 @@
 import useCurrentAddress from './useCurrentAddress';
 import useCurrentLocation from './useCurrentLocation';
-import useGetAllZones from './useGetAllZones';
-import useGetFilteredZone from './useGetFilteredZone';
+import useGetAllStations from './useGetAllStations';
 import useKakaoMap from './useKakaoMap';
 import useWatchLocation from './useWatchLocation';
 import useTimeDifference from './useTimeDifference';
@@ -9,8 +8,7 @@ import useTimeDifference from './useTimeDifference';
 export {
   useCurrentAddress,
   useCurrentLocation,
-  useGetAllZones,
-  useGetFilteredZone,
+  useGetAllStations,
   useKakaoMap,
   useWatchLocation,
   useTimeDifference,
