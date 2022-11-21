@@ -26,6 +26,7 @@ const SearchPage = () => {
         />
         <ShadowButton
           content='지도 이동하기'
+          width='100%'
           style={{ marginTop: 100 }}
           onClick={() => {
             navigate(`/`);
