@@ -45,7 +45,7 @@ const useKakaoLogout = () => {
     if (!isSessioned) {
       invalidateToken();
     }
-  }, [isSessioned]);
+  }, [isSessioned]); //카카오 인증서버에서 리다이렉트 된후 isSessioned 값 변경으로 실행됨
 
   return {
     isLoading,
