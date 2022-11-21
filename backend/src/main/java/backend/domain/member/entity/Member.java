@@ -76,9 +76,6 @@ public class Member extends BaseTime {
 //        return true;
 //    }
 
-    @OneToMany(mappedBy = "member")
-    private List<Cart> cart;
-
     public Member(Member member) {
         setId(member.getId());
         setEmail(member.getEmail());

@@ -21,9 +21,10 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     @PostMapping
-    public ResponseEntity<PayResDto> postPayment (@RequestBody PayPostReqDto payPostReqDto) {
+    public ResponseEntity<PayResDto> postPayment (@RequestParam Long batteryId,
+                                                  @RequestBody PayPostReqDto payPostReqDto) {
         Payment payment = payPostReqDto.toPayment();
-        Payment savedPayment = paymentService.postPayment(payment);
+        Payment savedPayment = paymentService.postPayment(payment, batteryId);
         PayResDto response = new PayResDto(savedPayment);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);

@@ -24,7 +24,6 @@ public class CartService {
     private final BatteryRepository batteryRepository;
 
     public Cart createCart(Cart cart, Long memberId) {
-//        cart.setBatteries(batteryRepository.findAllByMemberId(memberId)); // 엔티티 매핑 이후 사용
 
         return cartRepository.save(cart);
     }
