@@ -2,7 +2,7 @@ import KakaoLogin from './KakaoLogin';
 import * as S from '../../pages/Login/Login.style';
 import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
 import { SplashScreen } from '../@commons';
-import { renewTokenDirectly } from '../../apis/auth';
+import { renewTokenDirectly, renewTokenIndirectly } from '../../apis/auth';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { accessTokenVal } from '../../recoil/login';
@@ -16,20 +16,21 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const getNewTokenHandler = async () => {
-    const res = await axios.get('/login/renew');
-    console.log('토큰 갱신 버튼 누른후 응답은', res);
-
-    //토큰 재발급
-    // renewTokenDirectly().then((res) => {
-    //   res?.access_token &&
-    //     localStorage.setItem('accessToken', res.access_token);
-    // });
+    const res = await renewTokenIndirectly();
+    console.log(
+      '토큰 갱신 버튼 누른후 응답은',
+      res.data.access_token.access_token
+    );
+    setAccessToken(res.data.access_token.access_token);
   };
   const gobackHandler = () => {
     navigate('/entrance');
   };
   const goEmptyHandler = () => {
     navigate('/empty');
+  };
+  const goPrivateTestHandler = () => {
+    navigate('/privatetest');
   };
 
   const testHandler = async (accessToken) => {
@@ -62,6 +63,12 @@ const LoginForm = () => {
       </button>
       <button onClick={goEmptyHandler} style={{ border: '1px solid black' }}>
         empty이동
+      </button>
+      <button
+        onClick={goPrivateTestHandler}
+        style={{ border: '1px solid black' }}
+      >
+        privatetest이동
       </button>
       <button
         style={{
