@@ -1,6 +1,6 @@
 --더미 Member
 INSERT INTO Member(member_id,createdAt,modifiedAt,address,email,nickname,password,phone,photoURL) VALUES (1,'2022-11-19 17:32:55.325906','2022-11-19 17:32:55.325906','경기도 분당시 엄복동','test@gmail.com','테스트','123411aa','010-1111-2222','http://asd311114f6asd54f6aw');
-INSERT INTO Member(member_id,createdAt,modifiedAt,address,email,nickname,password,phone,photoURL) VALUES (2,'2022-11-19 17:33:04.000228','2022-11-19 17:33:04.000228','서울시 강남구 역삼동','nike@gmail.com','나이키','123411aa','010-1111-2222','http://asd311114f6asd54f6aw');
+INSERT INTO Member(member_id,createdAt,modifiedAt,address,email,nickname,password,phone,photoURL) VALUES (2,'2022-11-19 17:33:04.000228','2022-11-19 17:33:04.000228','서울시 강남구 역삼동','nike@gmail.com','나이키','123411aa','010-1111-2222','http://asd311114f6as3d54f6aw');
 
 --더미 Admin
 INSERT INTO Admin(adminId,createdAt,email,modifiedAt,password,phone) VALUES (1,'2022-11-19 17:33:16.026388','admin@gmail.com','2022-11-19 17:33:16.026388','asdf5t1234*','010-7942-7942');
@@ -22,7 +22,10 @@ INSERT INTO Payment(id,createdAt,modifiedAt,endTime,payMethod,startTime,status,t
 INSERT INTO Payment(id,createdAt,modifiedAt,endTime,payMethod,startTime,status,totalPrice,battery_id,member_id,station_id) VALUES (3,'2022-11-19 17:35:48.372801','2022-11-19 17:35:48.372801','끝나는 시간','카카오페이','시작 시간',0,50000,3,1,1);
 
 -- 더미 Reservation
-
+INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("1","1", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-21T09:52:37.9592711","2022-11-21T09:52:37.9592867");
+INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("2","2", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-21T09:52:37.9592711","2022-11-21T09:52:37.9592867");
+INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("3","3", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-21T09:52:37.9592711","2022-11-21T09:52:37.9592867");
+INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("4","3", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-21T09:52:37.9592711","2022-11-21T09:52:37.9592867");
 
 --더미 cart
 --insert into Cart(cart_id, startTime, endTime, member_id, zone_id, createdAt, modifiedAt) values('101', '2022-11-18T09', '2022-11-20T09','1001', '11', '2022-11-04T19:41:25.505236', '2022-11-15T19:41:25.505236');
