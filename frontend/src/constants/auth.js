@@ -1,5 +1,5 @@
 const REDIRECT_URI = 'http://localhost:5173/login';
-const LOGOUT_REDIRECT_URI = 'http://localhost:5173/logoutsession';
+const LOGOUT_REDIRECT_URI = 'http://localhost:5173/logout';
 const SIGNUP_REDIRECT_URI = 'http://localhost:5173/login'; // 회원가입완료후 로그인페이지로 리다이렉트해줄 변수;
 
 const KAKAO_TOKENCODE_URL = 'https://kauth.kakao.com/oauth/token';

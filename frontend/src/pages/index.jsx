@@ -7,12 +7,9 @@ import Logout from './Logout/index';
 import Entrance from './Entrance/index';
 import Empty from './Empty/index';
 import SignUp from '../components/Login/SignUp';
-import LogoutSession from './LogoutSession/index';
 import PrivateRouter from '../components/Login/PrivateRouter';
-import PrivateTest from './PrivateTest/index';
 import PublicRouter from '../components/Login/PublicRouter';
 
-const isAuthenticated = JSON.parse(localStorage.getItem('loginState'));
 const PAGES = [
   {
     element: <Layout />,
@@ -27,28 +24,18 @@ const PAGES = [
   { element: <SignUp />, path: ROUTES.SIGNUP.PATH, name: ROUTES.SIGNUP.NAME },
 
   {
-    element: <PrivateRouter isAuthenticated={isAuthenticated} />,
+    element: <PrivateRouter />,
     children: [
-      {
-        element: <PrivateTest />,
-        path: ROUTES.PRIVATETEST.PATH,
-        name: ROUTES.PRIVATETEST.NAME,
-      },
       {
         element: <Logout />,
         path: ROUTES.LOGOUT.PATH,
         name: ROUTES.LOGOUT.NAME,
       },
-      {
-        element: <LogoutSession />,
-        path: ROUTES.LOGOUTSESSION.PATH,
-        name: ROUTES.LOGOUTSESSION.NAME,
-      },
     ],
   },
 
   {
-    element: <PublicRouter isAuthenticated={isAuthenticated} />,
+    element: <PublicRouter />,
     children: [
       {
         element: <Entrance />,

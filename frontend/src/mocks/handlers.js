@@ -233,15 +233,4 @@ export const handlers = [
       ctx.json({ access_token: renewRes, userInfo: userInfo })
     );
   }),
-
-  // rest.post('/test', async (req, res, ctx) => {
-  //   console.log('테스트 요청 핸들러 실행');
-
-  //   return res(
-  //     ctx.delay(200),
-  //     ctx.status(200),
-  //     ctx.json('테스트 요청의 응답입니다')
-  //   );
-  // }),
 ];
-//토큰 헤더[0], 쿠키, 바디
