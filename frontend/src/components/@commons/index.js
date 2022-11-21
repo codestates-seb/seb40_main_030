@@ -3,12 +3,13 @@ import BatteryCharging from './Loading/BatteryCharging';
 import Cards from './CardModal/Cards';
 import PageWrapper from './PageWrapper/PageWrapper';
 
-// Buttons
+// Shadow
 
 import ShadowButton from './Buttons/ShadowButton';
+import ShadowCard from './CardModal/ShadowCard';
 
 export { SplashScreen, BatteryCharging, Cards, PageWrapper };
 
-//Buttons
+// Shadow
 
-export { ShadowButton };
+export { ShadowButton, ShadowCard };

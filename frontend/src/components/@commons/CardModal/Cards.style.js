@@ -1,13 +1,14 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
-const Main = styled.div`
+const Main = styled(motion.div)`
   display: grid;
   height: 100vh;
   place-items: center center;
   font-family: 'Poppins', sans-serif;
 `;
 
-const Cards = styled.div`
+const Cards = styled(motion.div)`
   display: grid;
   width: 15rem;
   position: relative;
@@ -26,7 +27,7 @@ const Cards = styled.div`
   } */
 `;
 
-const Card = styled.div`
+const Card = styled(motion.div)`
   width: 13rem;
   background-color: #1c1b29;
   border-radius: 20px;
@@ -49,7 +50,7 @@ const Container = styled.div`
   }
 `;
 
-const Image = styled.img`
+const Image = styled(motion.img)`
   width: 100%;
   display: block;
   border-radius: 20px 20px 0 0;
@@ -89,4 +90,17 @@ const Details = styled.div`
   }
 `;
 
-export { Main, Cards, Card, Container, Image, Details };
+// ShadowCard
+
+const ShadowCard = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+  background: #fff;
+  border-radius: 20px;
+
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+`;
+
+export { Main, Cards, Card, Container, Image, Details, ShadowCard };
