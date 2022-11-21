@@ -9,7 +9,9 @@ import Empty from './Empty/index';
 import SignUp from '../components/Login/SignUp';
 import PrivateRouter from '../components/Login/PrivateRouter';
 import PublicRouter from '../components/Login/PublicRouter';
-
+import { useRecoilState } from 'recoil';
+import { loginState } from '../recoil/login';
+// const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
 const PAGES = [
   {
     element: <Layout />,

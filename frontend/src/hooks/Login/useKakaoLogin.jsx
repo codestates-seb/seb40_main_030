@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { getTokenIndirectly } from '../../apis/auth';
-import { loginState, accessTokenVal } from '../../recoil/login';
+import { loginState, accessTokenVal, sessionState } from '../../recoil/login';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { KAKAO_AUTHCODE_URL } from '../../constants/auth';
@@ -8,6 +8,7 @@ import { KAKAO_AUTHCODE_URL } from '../../constants/auth';
 const useKakaoLogin = () => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
+  const [isSessioned, setIsSessioned] = useRecoilState(sessionState);
   const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
 
@@ -32,8 +33,7 @@ const useKakaoLogin = () => {
         console.log('받은 엑세스토큰과 유저정보', accessTokenAndUserInfo);
         setAccessToken(accessTokenAndUserInfo.data.access_token);
         setIsAuthorized(true);
-        localStorage.setItem('loginState', 'true');
-        localStorage.setItem('sessionState', 'true');
+        setIsSessioned(true);
         setIsloading(false); //로그인된 상태
         navigate('/logout', { replace: true });
       });

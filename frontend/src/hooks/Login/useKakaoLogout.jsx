@@ -4,7 +4,7 @@ import {
   renewTokenIndirectly,
 } from '../../apis/auth';
 import { useState, useEffect } from 'react';
-import { loginState, accessTokenVal } from '../../recoil/login';
+import { loginState, accessTokenVal, sessionState } from '../../recoil/login';
 import { useNavigate } from 'react-router-dom';
 import {
   KAKAO_TOKEN_LOGOUT_URL,
@@ -15,12 +15,12 @@ const useKakaoLogout = () => {
   const [isLoading, setIsloading] = useState(false);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
+  const [isSessioned, setIsSessioned] = useRecoilState(sessionState);
   const navigate = useNavigate();
-  const sessionState = JSON.parse(localStorage.getItem('sessionState'));
 
   const logoutClickHandler = () => {
     //로그아웃 버튼 클릭시 url 이동
-    localStorage.setItem('sessionState', 'false');
+    setIsSessioned(false);
     window.location.assign(KAKAO_ACCOUNT_LOGOUT_URL);
   };
 
@@ -34,7 +34,6 @@ const useKakaoLogout = () => {
       (res) => {
         console.log('로그아웃 요청의 응답은', res);
         setAccessToken('');
-        localStorage.setItem('loginState', 'false');
         setIsAuthorized(false);
         setIsloading((preVal) => !preVal);
         navigate('/login');
@@ -43,10 +42,10 @@ const useKakaoLogout = () => {
   };
 
   useEffect(() => {
-    if (!sessionState) {
+    if (!isSessioned) {
       invalidateToken();
     }
-  }, [sessionState]);
+  }, [isSessioned]);
 
   return {
     isLoading,
