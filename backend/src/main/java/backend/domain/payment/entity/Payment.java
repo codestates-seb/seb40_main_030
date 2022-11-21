@@ -1,7 +1,8 @@
 package backend.domain.payment.entity;
 
 import backend.domain.battery.entity.Battery;
-import backend.domain.zone.entity.Zone;
+import backend.domain.member.entity.Member;
+import backend.domain.station.entity.Station;
 import backend.global.auditing.BaseTime;
 import lombok.*;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity @Getter @Setter @Builder
 public class Payment extends BaseTime {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private int totalPrice;
@@ -22,17 +23,21 @@ public class Payment extends BaseTime {
 
     private String endTime;
 
-    private String PayMethod;
+    private String payMethod;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "battery_id")
     private Battery battery;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zone_id")
-    private Zone zone;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "station_id")
+    private Station station;
 
-//    @OneToMany(mappedBy = "payment", cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+//    @OneToMany(mappedBy = "payment", cascade = CascadeType.REMOVE)  // 예약 테이블과 연관관계 매핑
 //    private List<reservation> reservation;
 
 }

@@ -1,10 +1,10 @@
-package backend.domain.zone.entity;
+package backend.domain.station.entity;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ZoneLocation {
+public class StationLocation {
 
     private long latitude;
 

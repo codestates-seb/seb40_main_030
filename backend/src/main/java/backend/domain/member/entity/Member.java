@@ -1,6 +1,7 @@
 package backend.domain.member.entity;
 
 import backend.domain.cart.entity.Cart;
+import backend.domain.payment.entity.Payment;
 import backend.global.auditing.BaseTime;
 import lombok.*;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity @Builder @Getter @Setter
 public class Member extends BaseTime {
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id @Column(name = "member_id")
     private Long id;
 
@@ -75,6 +76,9 @@ public class Member extends BaseTime {
 //    public boolean isEnabled() {
 //        return true;
 //    }
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Payment> payment;
 
     public Member(Member member) {
         setId(member.getId());

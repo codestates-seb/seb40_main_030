@@ -15,13 +15,14 @@ public class PayPostReqDto extends BaseTime {
     private String startTime;
     private String endTime;
 
+    private Long batteryId;
 
     public Payment toPayment () {
         Payment payment = new Payment().builder()
                 .status(PayStatus.IN_PROGRESS)
                 .startTime(this.startTime)
                 .endTime(this.endTime)
-                .PayMethod("카카오페이")
+                .payMethod("카카오페이")
                 .build();
         payment.setCreatedAt(LocalDateTime.now());
         payment.setModifiedAt(LocalDateTime.now());

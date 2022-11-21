@@ -19,8 +19,8 @@ public enum ExceptionCode {
     ADMIN_NOT_FOUND(400, "해당하는 ID의 관리자가 존재하지 않습니다."),
     ADMIN_EXIST(409, "해당 email의 관리자가 존재합니다."),
     EMAIL_EXIST(401, "중복된 email 입니다."),
-    NICKNAME_EXIST(401, "중복된 nickname 입니다.");
-
+    NICKNAME_EXIST(401, "중복된 nickname 입니다."),
+    NOT_FOUND_STATION(400, "해당하는 ID의 대여소가 존재하지 않습니다.");
 
 
     @Getter

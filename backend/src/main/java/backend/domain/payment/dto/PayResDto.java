@@ -3,12 +3,10 @@ package backend.domain.payment.dto;
 import backend.domain.battery.entity.Battery;
 import backend.domain.payment.entity.PayStatus;
 import backend.domain.payment.entity.Payment;
-import backend.domain.zone.entity.Zone;
+import backend.domain.station.entity.Station;
 import backend.global.auditing.BaseTime;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Getter @Setter
 public class PayResDto extends BaseTime {
@@ -19,8 +17,8 @@ public class PayResDto extends BaseTime {
     private String startTime;
     private String endTime;
     private String payMethod;
-    private Battery battery; // 정상 동작하는지 확인. 안되면 리스트로 변환해서 반환
-//    private Zone zone; // 위와 동일   // zone to battery매핑 이후 적용
+    private Battery battery;
+    private Station station;
 
     public PayResDto(Payment payment) {
         this.paymentId = payment.getId();
@@ -30,8 +28,29 @@ public class PayResDto extends BaseTime {
         this.endTime = payment.getEndTime();
         this.payMethod = payment.getPayMethod();
         this.battery = payment.getBattery();
-//        this.zone = payment.getZone();
         setCreatedAt(payment.getCreatedAt());
         setModifiedAt(payment.getModifiedAt());
+
+        Battery battery = new Battery();
+        battery.setBatteryId(payment.getBattery().getBatteryId());
+        battery.setCapacity(payment.getBattery().getCapacity());
+        battery.setStatus(payment.getBattery().isStatus());
+        battery.setPrice(payment.getBattery().getPrice());
+        battery.setPhotoURL(payment.getBattery().getPhotoURL());
+        battery.setCreatedAt(payment.getBattery().getCreatedAt());
+        battery.setModifiedAt(payment.getBattery().getModifiedAt());
+        this.battery = battery;
+
+        Station station = new Station().builder()
+                .id(payment.getStation().getId())
+                .name(payment.getStation().getName())
+                .details(payment.getStation().getDetails())
+                .latitude(payment.getStation().getLatitude())
+                .longitude(payment.getStation().getLongitude())
+                .photoURL(payment.getStation().getPhotoURL())
+                .build();
+        station.setCreatedAt(payment.getStation().getCreatedAt());
+        station.setModifiedAt(payment.getStation().getModifiedAt());
+        this.station = station;
     }
 }
