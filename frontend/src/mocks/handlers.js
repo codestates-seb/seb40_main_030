@@ -144,7 +144,7 @@ export const handlers = [
     const header = new Headers(req.headers);
     const tokenInHeader = header.get('authorization')?.split(' ')[1];
     const isValidToken = checkValidToken(tokenInHeader);
-    console.log('인증헤더는', isValidToken);
+    // console.log('인증헤더는', isValidToken);
 
     if (isValidToken) {
       console.log('토큰이 유효합니다');
@@ -159,7 +159,7 @@ export const handlers = [
   }),
 
   rest.get('/test', (req, res, ctx) => {
-    console.log('test get 요청 핸들러 실행');
+    // console.log('test get 요청 핸들러 실행');
     return res(
       ctx.delay(200),
       ctx.status(200),
@@ -178,7 +178,7 @@ export const handlers = [
     const token = await getTokenDirectly(KAKAO_TOKENCODE_URL, authCode);
     const accessToken = token.access_token;
     const refreshToken = token.refresh_token;
-    console.log('처음 받아온 각 토큰은', accessToken, refreshToken);
+    // console.log('처음 받아온 각 토큰은', accessToken, refreshToken);
     const userInfo = await getUserInfo(KAKAO_USERINFO_URL, accessToken);
 
     return res(
@@ -202,10 +202,12 @@ export const handlers = [
     );
     console.log('카카오서버로부터 로그아웃 응답은', logoutRes);
     document.cookie = 'refresh_token=';
+    console.log('쿠키 초기화시킨후 값', document.cookie);
     return res(
       ctx.delay(200),
       ctx.status(200),
       ctx.cookie('refresh_token', ''),
+      ctx.set('Authorization', ''),
       ctx.json(logoutRes)
     );
   }),
@@ -217,29 +219,18 @@ export const handlers = [
   rest.get('/login/renew', async (req, res, ctx) => {
     const header = new Headers(req.headers);
     const refreshToken = header.get('cookie');
-    console.log('재발급을 위한 리프레쉬 토큰은', refreshToken);
+    // console.log('재발급을 위한 리프레쉬 토큰은', refreshToken);
     const renewRes = await renewTokenDirectly(refreshToken);
-    console.log('응답은', renewRes);
+    // console.log('응답은', renewRes);
     const userInfo = await getUserInfo(
       KAKAO_USERINFO_URL,
       renewRes.access_token
     );
-    console.log('사용자정보', userInfo);
+    // console.log('사용자정보', userInfo);
     return res(
       ctx.delay(200),
       ctx.status(200),
       ctx.json({ access_token: renewRes, userInfo: userInfo })
     );
   }),
-
-  // rest.post('/test', async (req, res, ctx) => {
-  //   console.log('테스트 요청 핸들러 실행');
-
-  //   return res(
-  //     ctx.delay(200),
-  //     ctx.status(200),
-  //     ctx.json('테스트 요청의 응답입니다')
-  //   );
-  // }),
 ];
-//토큰 헤더[0], 쿠키, 바디

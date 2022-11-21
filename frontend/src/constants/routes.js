@@ -29,22 +29,6 @@ const ROUTES = Object.freeze({
     PATH: '/empty',
     NAME: 'Empty',
   },
-  ENTRANCE: {
-    PATH: '/entrance',
-    NAME: 'Entrance',
-  },
-  LOGIN: {
-    PATH: '/login',
-    NAME: 'Login',
-  },
-  LOGOUT: {
-    PATH: '/logout',
-    NAME: 'Logout',
-  },
-  LOGOUTSESSION: {
-    PATH: '/logoutsession',
-    NAME: 'Logoutsession',
-  },
 });
 
 export default ROUTES;
