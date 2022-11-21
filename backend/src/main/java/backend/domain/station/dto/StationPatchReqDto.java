@@ -1,7 +1,7 @@
-package backend.domain.zone.dto;
+package backend.domain.station.dto;
 
-import backend.domain.zone.entity.Zone;
-import backend.domain.zone.entity.ZoneLocation;
+import backend.domain.station.entity.Station;
+import backend.domain.station.entity.StationLocation;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,25 +9,26 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class ZonePostReqDto {
+public class StationPatchReqDto {
 
     private String name;
     private String details;
-    private ZoneLocation location;
-
+    private StationLocation location;
     private String photoURL;
 
-    public Zone toZone() {
-        Zone zone = new Zone().builder()
+
+    public Station toStation(Long stationId) {
+        Station station = new Station().builder()
+                .id(stationId)
                 .name(this.name)
                 .details(this.details)
                 .latitude(this.location.getLatitude())
                 .longitude(this.location.getLongitude())
                 .photoURL(this.photoURL)
                 .build();
-        zone.setCreatedAt(LocalDateTime.now());
-        zone.setModifiedAt(LocalDateTime.now());
+        station.setModifiedAt(LocalDateTime.now());
 
-        return zone;
+        return station;
     }
+
 }

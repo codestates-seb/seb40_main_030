@@ -1,7 +1,6 @@
-package backend.domain.zone.entity;
+package backend.domain.station.entity;
 
 import backend.domain.battery.entity.Battery;
-import backend.domain.cart.entity.Cart;
 import backend.domain.payment.entity.Payment;
 import backend.global.auditing.BaseTime;
 import lombok.*;
@@ -11,10 +10,10 @@ import java.util.List;
 
 @AllArgsConstructor @NoArgsConstructor
 @Entity @Getter @Setter @Builder
-public class Zone extends BaseTime {
+public class Station extends BaseTime {
 
-    @Id @GeneratedValue
-    @Column(name = "zone_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "station_id")
     private Long id;
 
     private String name;
@@ -27,10 +26,10 @@ public class Zone extends BaseTime {
 
     private String photoURL;
 
-    @OneToMany(mappedBy = "zone", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "station", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Battery> battery;
 
-    @OneToMany(mappedBy = "zone")
+    @OneToMany(mappedBy = "station")
     private List<Payment> payment;
 
 }
