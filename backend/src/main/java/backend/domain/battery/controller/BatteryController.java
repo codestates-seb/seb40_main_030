@@ -36,8 +36,8 @@ public class BatteryController {
     public ResponseEntity postBattery(@Valid @RequestBody BatteryDto.Post requestBody){
         Battery battery = mapper.batteryPostDtoToBattery(requestBody);
         Battery createBattery = batteryService.createBattery(battery);
-        BatteryDto.Response response = mapper.batteryToBatteryResponse(createBattery);
-
+//        BatteryDto.Response response = mapper.batteryToBatteryResponse(createBattery);
+        BatteryDto.Response response = new BatteryDto.Response(createBattery);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -57,14 +57,14 @@ public class BatteryController {
     @GetMapping("/{batteryId}")
     public ResponseEntity getBattery(@PathVariable("batteryId") @Positive long batteryId){
         Battery battery = batteryService.findBattery(batteryId);
-        BatteryDto.Response response = mapper.batteryToBatteryResponse(battery);
-
+//        BatteryDto.Response response = mapper.batteryToBatteryResponse(battery);
+        BatteryDto.Response response = new BatteryDto.Response(battery);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     // 배터리 전체 조회
     @GetMapping
-    public ResponseEntity getBatteries(Pageable pageable){
+    public ResponseEntity<PageInfoDto> getBatteries(Pageable pageable){
         Page<Battery> page = batteryService.findBatteries(pageable);
 
         return new ResponseEntity<>(new PageInfoDto<>(page), HttpStatus.OK);
