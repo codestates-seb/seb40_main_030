@@ -6,6 +6,7 @@ import { ReactComponent as MyPageIcon } from './myPage.svg';
 import { ReactComponent as ClockIcon } from './clock.svg';
 import { ReactComponent as ServiceLogo } from './serviceLogo.svg';
 import { ReactComponent as ArrowIcon } from './arrow.svg';
+import { ReactComponent as SearchIcon } from './search.svg';
 
 import CurrentLocationIcon from './currentLocation.png';
 import KaKaoLoginImg from './KaKaoLoginImg.png';
@@ -25,4 +26,5 @@ export {
   CurrentLocationIcon,
   UndoIcon,
   ArrowIcon,
+  SearchIcon,
 };

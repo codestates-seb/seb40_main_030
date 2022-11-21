@@ -17,16 +17,6 @@ const MapArea = () => {
       style={{ originX: isPresent ? 0 : 1 }}
     >
       {/* 상단에 검색창 추후 구현시 이자리 */}
-      <ShadowButton
-        content='Empty'
-        style={{
-          width: 300,
-          marginTop: 100,
-          position: 'fixed',
-          zIndex: 10,
-        }}
-        onClick={() => navigate(ROUTES.SEARCH.PATH)}
-      />
       <KakaoMap />
     </S.Wrapper>
   );

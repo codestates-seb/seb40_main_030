@@ -51,6 +51,7 @@ const LocationHover = styled.div`
   justify-content: center;
   align-items: center;
   border: 3px solid lightgreen;
+  padding: 10px;
 
   width: 40%;
   height: 40px;
@@ -60,6 +61,13 @@ const LocationHover = styled.div`
 
   span {
     text-align: center;
+    margin-top: 2px;
+  }
+
+  svg {
+    margin-right: 10px;
+    margin-bottom: 2px;
+    fill: gray;
   }
 `;
 

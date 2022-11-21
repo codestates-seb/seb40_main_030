@@ -5,22 +5,25 @@ import {
   useCurrentAddress,
   useTimeDifference,
 } from '../hooks';
-import { CurrentLocationIcon } from '../../../../assets';
+import { CurrentLocationIcon, SearchIcon } from '../../../../assets';
 
 import * as S from './MapIndicator.style';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../../constants';
 
 const MapIndicator = ({ toggle, setToggle }) => {
+  const navigate = useNavigate();
   const { location } = useCurrentLocation();
   const [defaultLocation, setCurrentLocation] =
     useRecoilState(currentLocationState);
-  const { currentAddress } = useCurrentAddress(
-    location ? location : defaultLocation
-  );
+  // 위치값이 변경될 때마다 Indicator의 위치가 변경됨
+  const { currentAddress } = useCurrentAddress(defaultLocation);
   const { days, hours } = useTimeDifference();
 
   return (
     <S.Wrapper>
-      <S.LocationHover>
+      <S.LocationHover onClick={() => navigate(ROUTES.SEARCH.PATH)}>
+        <SearchIcon />
         <span>{currentAddress}</span>
       </S.LocationHover>
       <S.ReservationHover>
@@ -32,7 +35,6 @@ const MapIndicator = ({ toggle, setToggle }) => {
             : `${hours} 시간`}
         </span>
       </S.ReservationHover>
-
       <S.IndicatorContainer>
         <S.Button
           type='button'
