@@ -2,9 +2,12 @@ package backend.domain.payment.service;
 
 import backend.domain.battery.entity.Battery;
 import backend.domain.battery.repository.BatteryRepository;
+import backend.domain.member.entity.Member;
+import backend.domain.member.repository.MemberRepository;
 import backend.domain.payment.entity.Payment;
 import backend.domain.payment.repository.PaymentRepository;
-import backend.domain.zone.repository.ZoneRepository;
+import backend.domain.station.entity.Station;
+import backend.domain.station.repository.StationRepository;
 import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.exceptionCode.ExceptionCode;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service @RequiredArgsConstructor @Transactional(readOnly = true)
@@ -23,18 +25,31 @@ public class PaymentService {
 
     private final BatteryRepository batteryRepository;
 
-    private final ZoneRepository zoneRepository;
+    private final StationRepository stationRepository;
+
+    private final MemberRepository memberRepository;
 
     @Transactional
-    public Payment postPayment (Payment payment, Long batteryId) {
-        Battery battery = batteryRepository.findById(batteryId)
-                .orElseThrow(()-> new BusinessLogicException(ExceptionCode.BATTERY_NOT_FOUND));
-        int totalPrice = battery.getPrice();  // *(endTime - startTime) 로직 추가되야함
-        payment.setBattery(battery);
-        payment.setTotalPrice(totalPrice);
-//        payment.setZone(zoneRepository.findById(battery.getZone().getId()));
+    public Payment postPayment (Payment payment, Long batteryId, Long memberId) {
+        Member member =memberRepository.findById(memberId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND_MEMBER)); // 로그인 한 계정이 존재하는지 확인
 
-        // 결제가 불가능할 경우 예외처리 필요
+        Battery battery = batteryRepository.findById(batteryId)
+                .orElseThrow(()-> new BusinessLogicException(ExceptionCode.BATTERY_NOT_FOUND)); // 예약하는 배터리가 존재하는지 확인
+
+        Station station = stationRepository.findById(battery.getStation().getId())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND_STATION));
+
+//        reservationRepository.find(battery.getReserve().getStartTime(), battery.getReserve().getEndTime())
+//        예약하려던 배터리가 가진 Reservation테이블의 값들 중 between시간이 현재 빌리려는 시간의 Btween시간과 겹치는지 비교하기
+
+        int totalPrice = battery.getPrice();  // *(endTime - startTime) 로직 추가되야함
+        payment.setMember(member);
+        payment.setBattery(battery);
+        payment.setStation(station);
+        payment.setTotalPrice(totalPrice);
+
+//        결제가 불가능할 경우 예외처리 필요
 
         return paymentRepository.save(payment);
     }
@@ -71,7 +86,7 @@ public class PaymentService {
 
     public Page<Payment> getPayments (Pageable pageable) {
 
-        return paymentRepository.findAll(pageable);
+        return paymentRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
 }

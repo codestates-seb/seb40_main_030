@@ -1,6 +1,7 @@
 package backend.domain.member.dto;
 
 import backend.domain.member.entity.Member;
+import backend.domain.payment.entity.Payment;
 import backend.global.auditing.BaseTime;
 import lombok.*;
 import org.hibernate.validator.constraints.URL;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 public class MemberDto {
@@ -70,6 +72,8 @@ public class MemberDto {
 
         private String photoUrl;
 
+        private List<Payment> payment;
+
         private LocalDateTime createdAt;
 
         private LocalDateTime modifiedAt;
@@ -81,6 +85,7 @@ public class MemberDto {
             this.phone = member.getPhone();
             this.address = member.getAddress();
             this.photoUrl = member.getPhotoURL();
+            this.payment = member.getPayment();
             this.createdAt = member.getCreatedAt();
             this.modifiedAt = member.getModifiedAt();
         }

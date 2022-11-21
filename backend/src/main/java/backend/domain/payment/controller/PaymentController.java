@@ -21,10 +21,10 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     @PostMapping
-    public ResponseEntity<PayResDto> postPayment (@RequestParam Long batteryId,
+    public ResponseEntity<PayResDto> postPayment (@RequestParam Long memberId,
                                                   @RequestBody PayPostReqDto payPostReqDto) {
         Payment payment = payPostReqDto.toPayment();
-        Payment savedPayment = paymentService.postPayment(payment, batteryId);
+        Payment savedPayment = paymentService.postPayment(payment, payPostReqDto.getBatteryId() , memberId);
         PayResDto response = new PayResDto(savedPayment);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -52,17 +52,18 @@ public class PaymentController {
 
 
     @GetMapping("/{paymentId}")
-    public ResponseEntity<Payment> getPayment (@PathVariable Long paymentId) {
+    public ResponseEntity<PayResDto> getPayment (@PathVariable Long paymentId) {
         Payment payment = paymentService.getPayment(paymentId);
 
-        return new ResponseEntity<>(payment, HttpStatus.OK);
+        return new ResponseEntity<>(new PayResDto(payment), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<PageInfoDto> getPayments (Pageable pageable) {
         Page<Payment> page = paymentService.getPayments(pageable);
+        Page<PayResDto> dtoPage = page.map(PayResDto::new);
 
-        return new ResponseEntity<>(new PageInfoDto(page), HttpStatus.OK);
+        return new ResponseEntity<>(new PageInfoDto(dtoPage), HttpStatus.OK);
     }
 
 }

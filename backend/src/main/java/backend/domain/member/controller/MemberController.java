@@ -2,6 +2,7 @@ package backend.domain.member.controller;
 
 
 import backend.domain.member.dto.MemberDto;
+import backend.domain.member.dto.MemberResDto;
 import backend.domain.member.entity.Member;
 import backend.domain.member.mapper.MemberMapper;
 import backend.domain.member.service.MemberService;
@@ -38,11 +39,11 @@ public class MemberController {
     }
 
     @GetMapping("/{member-id}")
-    public ResponseEntity<MemberDto.Response> getMember(@Positive @PathVariable("member-id") Long memberId) {
+    public ResponseEntity<MemberResDto> getMember(@Positive @PathVariable("member-id") Long memberId) {
 
         Member findMember = service.findMember(memberId);
 //        MemberDto.Response response = mapper.memberToMemberDtoResponse(findMember);  // 매퍼에서 일부 값을 받지 못해 null값이 반환되어 우선 생성자를 사용한 변환방법으로 사용했습니다
-        MemberDto.Response response = new MemberDto.Response(findMember);
+        MemberResDto response = new MemberResDto(findMember);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
