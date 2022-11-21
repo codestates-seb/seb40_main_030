@@ -84,6 +84,7 @@ const GenLogin = () => {
           if (checkedLogin) {
             localStorage.setItem('accesstoken', accessToken); // 로컬스토리지에 accesstoken 저장
             localStorage.setItem('refreshtoken', refreshtoken);
+
             console.log(
               'localStorage에 넣어진 access_token : ',
               localStorage.getItem('accesstoken')
