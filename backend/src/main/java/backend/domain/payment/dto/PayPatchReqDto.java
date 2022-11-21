@@ -19,7 +19,7 @@ public class PayPatchReqDto extends BaseTime {
         Payment payment = new Payment().builder()
                 .totalPrice(this.totalPrice)
                 .status(this.payStatus)
-                .PayMethod(this.payMethod)
+                .payMethod(this.payMethod)
                 .build();
         payment.setModifiedAt(LocalDateTime.now());
         return payment;
