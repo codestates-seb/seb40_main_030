@@ -1,6 +1,3 @@
-import { KaKaoLoginImg } from '../../assets';
-import useKakaoLogout from '../../hooks/Login/useKakaoLogout';
-
 const KakaoLogout = ({ logoutClickHandler }) => {
   return (
     <button

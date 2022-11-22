@@ -1,8 +1,5 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import {
-  invalidateTokenDirectly,
-  invalidateTokenIndirectly,
-} from '../../apis/auth';
+import { invalidateTokenIndirectly } from '../../apis/auth';
 import { useState } from 'react';
 import { loginState } from '../../recoil/login';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +24,6 @@ const useKakaoLogout = () => {
 
     invalidateTokenIndirectly(KAKAO_TOKEN_LOGOUT_URL, accessToken).then(
       (res) => {
-        console.log('로그아웃 요청의 응답은', res);
         setAccessToken('');
         setIsAuthorized(false);
         setIsLoading((preVal) => !preVal);

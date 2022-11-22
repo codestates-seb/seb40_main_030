@@ -1,5 +1,4 @@
 import { KaKaoLoginImg } from '../../assets';
-import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
 
 const KakaoLogin = ({ loginClickHandler }) => {
   return (

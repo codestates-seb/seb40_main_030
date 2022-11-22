@@ -17,7 +17,6 @@ const useKakaoLogin = () => {
       setIsLoading(true);
       window.location.assign(KAKAO_AUTH_CODE_URL);
     } else {
-      console.log('이미 로그인되어 있는 상태입니다.');
     }
   };
 
@@ -25,14 +24,9 @@ const useKakaoLogin = () => {
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get('code');
 
-    if (authorizationCode && !token) {
-      //토큰 x 인증코드 o 일때 토큰 발급함
-      getTokenIndirectly(authorizationCode).then((data) => {
-        console.log('받은 토큰은', data);
-        localStorage.setItem('accessToken', data.data.access_token);
-        localStorage.setItem('refreshToken', data.data.refresh_token);
-        console.log('logout페이지로 이동');
-        navigate('/logout', { replace: true });
+    if (authorizationCode) {
+      getTokenIndirectly(authorizationCode).then((accessTokenAndUserInfo) => {
+        setAccessToken(accessTokenAndUserInfo.data.access_token);
         setIsAuthorized(true);
         setIsSessioned(true);
         setIsLoading(false);

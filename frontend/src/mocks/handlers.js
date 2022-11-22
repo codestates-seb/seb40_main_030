@@ -1,6 +1,5 @@
 import { rest } from 'msw';
 import { mockOrder, mockUser, mockStations } from './data';
-import { KAKAO_TOKENCODE_URL, KAKAO_TOKEN_LOGOUT_URL } from '../constants/auth';
 import { getTokenDirectly, invalidateTokenDirectly } from '../apis/auth';
 
 let MockOrder = [...mockOrder];
