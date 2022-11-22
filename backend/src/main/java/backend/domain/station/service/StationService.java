@@ -26,7 +26,7 @@ public class StationService {
     @Transactional
     public Station patchStation(Station station) {
         Station savedStation = stationRepository.findById(station.getId())
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
 
         Optional.ofNullable(station.getName()).ifPresent(savedStation::setName);
         Optional.ofNullable(station.getDetails()).ifPresent(savedStation::setDetails);
@@ -40,7 +40,7 @@ public class StationService {
     @Transactional
     public void deleteStation(Long stationId) {
         Station existStation = stationRepository.findById(stationId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
         stationRepository.delete(existStation);
     }
 

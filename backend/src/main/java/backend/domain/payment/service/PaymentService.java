@@ -32,13 +32,13 @@ public class PaymentService {
     @Transactional
     public Payment postPayment (Payment payment, Long batteryId, Long memberId) {
         Member member =memberRepository.findById(memberId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND_MEMBER)); // 로그인 한 계정이 존재하는지 확인
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND)); // 로그인 한 계정이 존재하는지 확인
 
         Battery battery = batteryRepository.findById(batteryId)
                 .orElseThrow(()-> new BusinessLogicException(ExceptionCode.BATTERY_NOT_FOUND)); // 예약하는 배터리가 존재하는지 확인
 
         Station station = stationRepository.findById(battery.getStation().getId())
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND_STATION));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
 
 //        reservationRepository.find(battery.getReserve().getStartTime(), battery.getReserve().getEndTime())
 //        예약하려던 배터리가 가진 Reservation테이블의 값들 중 between시간이 현재 빌리려는 시간의 Btween시간과 겹치는지 비교하기
@@ -58,7 +58,7 @@ public class PaymentService {
     @Transactional
     public Payment patchPayment (Payment payment) {
         Payment savedPayment = paymentRepository.findById(payment.getId())
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
         Optional.of(payment.getTotalPrice()).ifPresent(savedPayment::setTotalPrice);
         Optional.ofNullable(payment.getStatus()).ifPresent(savedPayment::setStatus);
         Optional.of(payment.getPayMethod()).ifPresent(savedPayment::setPayMethod);
@@ -71,7 +71,7 @@ public class PaymentService {
     @Transactional
     public void deletePayment (Long paymentId) {
         Payment savedPayment = paymentRepository.findById(paymentId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
 
         paymentRepository.delete(savedPayment);
     }
@@ -80,7 +80,7 @@ public class PaymentService {
     public Payment getPayment (Long paymentId) {
 
         return paymentRepository.findById(paymentId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
     }
 
 
