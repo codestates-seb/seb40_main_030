@@ -33,6 +33,7 @@ public class StationService {
         Optional.of(station.getLatitude()).ifPresent(savedStation::setLatitude);
         Optional.of(station.getLongitude()).ifPresent(savedStation::setLongitude);
         Optional.ofNullable(station.getPhotoURL()).ifPresent(savedStation::setPhotoURL);
+        Optional.ofNullable(station.getPhone()).ifPresent(savedStation::setPhone);
 
         return stationRepository.save(savedStation);
     }

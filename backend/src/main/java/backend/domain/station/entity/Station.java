@@ -27,6 +27,8 @@ public class Station extends BaseTime {
 
     private String photoURL;
 
+    private String phone;
+
     @OneToMany(mappedBy = "station", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonManagedReference
     private List<Battery> battery;

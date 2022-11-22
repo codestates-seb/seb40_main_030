@@ -7,8 +7,8 @@ INSERT INTO Admin(adminId,createdAt,email,modifiedAt,password,phone) VALUES (1,'
 INSERT INTO Admin(adminId,createdAt,email,modifiedAt,password,phone) VALUES (2,'2022-11-19 17:33:38.289305','admin2@gmail.com','2022-11-19 17:33:38.290304','asdf5t12342*','010-7942-7942');
 
 -- 더미 Station
-INSERT INTO Station(station_id,createdAt,modifiedAt,details,latitude,longitude,name,photoURL) VALUES (1,'2022-11-19 17:33:53.258093','2022-11-19 17:33:53.258093','첫번째 대여소',37.53737528,127.00557633,'인천제일주유소','@#!@DSAF!@#');
-INSERT INTO Station(station_id,createdAt,modifiedAt,details,latitude,longitude,name,photoURL) VALUES (2,'2022-11-19 17:34:05.641588','2022-11-19 17:34:05.641588','두번째 대여소',37.545024,127.03923,'서울제일주유소','@#!@DSAF!@#');
+INSERT INTO Station(station_id,createdAt,modifiedAt,details,latitude,longitude,name,photoURL,phone) VALUES (1,'2022-11-19 17:33:53.258093','2022-11-19 17:33:53.258093','첫번째 대여소',37.53737528,127.00557633,'인천제일주유소','@#!@DSAF!@#','010-1588-1588');
+INSERT INTO Station(station_id,createdAt,modifiedAt,details,latitude,longitude,name,photoURL,phone) VALUES (2,'2022-11-19 17:34:05.641588','2022-11-19 17:34:05.641588','두번째 대여소',37.545024,127.03923,'서울제일주유소','@#!@DSAF!@#','010-2580-2580');
 
 --더미 Battery
 INSERT INTO Battery(batteryId,capacity,createdAt,LAST_MODIFIED_AT,photoURL,price,status,station_id) VALUES (1,'100000mA','2022-11-19 17:34:17.716045','2022-11-19 17:34:17.716045','http://asdfqwer111',50000,false,1);

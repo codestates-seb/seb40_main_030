@@ -20,6 +20,7 @@ public class StationPostReqDto {
     private StationLocation location;
     @NotBlank(message = "이미지는 필수입니다.")
     private String photoURL;
+    private String phone;
 
     public Station toStation() {
         Station station = new Station().builder()
@@ -28,6 +29,7 @@ public class StationPostReqDto {
                 .latitude(this.location.getLatitude())
                 .longitude(this.location.getLongitude())
                 .photoURL(this.photoURL)
+                .phone(this.phone)
                 .battery(new ArrayList<>())
                 .payment(new ArrayList<>())
                 .build();
