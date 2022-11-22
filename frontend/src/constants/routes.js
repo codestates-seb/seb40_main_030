@@ -29,6 +29,10 @@ const ROUTES = Object.freeze({
     PATH: '/empty',
     NAME: 'Empty',
   },
+  BUSSINES: {
+    PATH: 'bussines',
+    NAME: 'Bussines',
+  },
 });
 
 export default ROUTES;

@@ -9,8 +9,8 @@ import Empty from './Empty/index';
 import SignUp from '../components/Login/SignUp';
 import PrivateRouter from '../components/Login/PrivateRouter';
 import PublicRouter from '../components/Login/PublicRouter';
-import { useRecoilState } from 'recoil';
-import { loginState } from '../recoil/login';
+import Bussines from './Business';
+
 // const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
 const PAGES = [
   {
@@ -32,6 +32,11 @@ const PAGES = [
         element: <Logout />,
         path: ROUTES.LOGOUT.PATH,
         name: ROUTES.LOGOUT.NAME,
+      },
+      {
+        element: <Bussines />,
+        path: ROUTES.BUSSINES.PATH,
+        name: ROUTES.BUSSINES.NAME,
       },
     ],
   },
