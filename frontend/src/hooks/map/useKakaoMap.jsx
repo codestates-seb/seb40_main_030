@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { GEOLOCATION_OPTIONS } from '@/constants';
 
 import useCurrentLocation from './useCurrentLocation';

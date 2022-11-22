@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { getAllStations } from '@/apis/stations';
 
 const useGetAllStations = (selector) => {
@@ -8,7 +9,7 @@ const useGetAllStations = (selector) => {
     {
       selector,
       refetchOnWindowFocus: false,
-    }
+    },
   );
 
   return { data, isLoading, isSuccess };

@@ -1,6 +1,6 @@
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { reservationState } from '@/recoil/pagesState';
 
@@ -16,7 +16,7 @@ const useSingleDateReservation = (currentDate) => {
     {
       retry: 1,
       onSuccess: () => queryClient.invalidateQueries(['reservation-status']),
-    }
+    },
   );
 
   // single date reservation 일시에 default date 현재 시점으로 업데이트

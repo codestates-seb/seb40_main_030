@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
+
 import { reservationState } from '@/recoil/pagesState';
 
 const useReservation = () => {
@@ -9,7 +10,7 @@ const useReservation = () => {
   const { startTime, startDate, endDate } = reservationStatus;
 
   const startPoint = new Date(
-    `${startDate.year}-${startDate.month}-${startDate.date} ${startTime.hours}:${startTime.minutes}`
+    `${startDate.year}-${startDate.month}-${startDate.date} ${startTime.hours}:${startTime.minutes}`,
   ).getTime();
 
   const handleReservation = (hours, minutes) => {
@@ -22,7 +23,7 @@ const useReservation = () => {
 
     if (reservation) {
       const endPoint = new Date(
-        `${endDate.year}-${endDate.month}-${endDate.date} ${hours}:${minutes}`
+        `${endDate.year}-${endDate.month}-${endDate.date} ${hours}:${minutes}`,
       ).getTime();
 
       if (startPoint >= endPoint) {

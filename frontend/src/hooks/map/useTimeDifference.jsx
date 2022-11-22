@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
+
 import { reservationState } from '@/recoil/pagesState';
 
 const useTimeDifference = () => {
@@ -13,7 +14,7 @@ const useTimeDifference = () => {
   const timeDiffer = Math.floor(
     (new Date(endPointToString).getTime() -
       new Date(startPointToString).getTime()) /
-      (60 * 60 * 1000)
+      (60 * 60 * 1000),
   );
 
   useEffect(() => {
