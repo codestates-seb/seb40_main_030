@@ -22,10 +22,11 @@ padding: 10px;
 `
 
 const ItemLayout = styled.div`
-margin-top: 10px;
+margin-top: 30px;
+margin-left: 10px;
 display: flex;
-padding: 30px;
 height: 160px;
+width: 100%;
 `
 const ItemLayout1 = styled.div`
 padding: 10px;

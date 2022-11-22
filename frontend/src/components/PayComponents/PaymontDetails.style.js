@@ -5,24 +5,23 @@ display: flex;
 justify-content: space-between;
 margin-left: 10px;
 margin-right: 10px;
+height: 150px;
 `
 const LeftPay = styled.div`
 width: 150px;
-height: 170px;
 `
 const PaymentItem = styled.div`
 font-size: 20px;
-margin-top: 50px;
+margin-top: 30px;
 `
 
 const RightPay = styled.div`
 width: 150px;
-height: 170px;
 text-align: right;
 `
 const PayMoney = styled.div`
 font-size: 20px;
-margin-top: 50px;
+margin-top: 30px;
 font-weight: bold;
 `
 

@@ -2,28 +2,28 @@
 
 const ROUTES = Object.freeze({
   HOME: {
-    PATH: "/",
-    NAME: "Home",
+    PATH: '/',
+    NAME: 'Home',
   },
   NOT_FOUND: {
-    PATH: "*",
-    NAME: "Page Not Found",
+    PATH: '*',
+    NAME: 'Page Not Found',
   },
   ENTRANCE: {
-    PATH: "/entrance",
-    NAME: "Entrance",
+    PATH: '/entrance',
+    NAME: 'Entrance',
   },
   LOGIN: {
-    PATH: "/login",
-    NAME: "Login",
+    PATH: '/login',
+    NAME: 'Login',
   },
   LOGOUT: {
-    PATH: "/logout",
-    NAME: "Logout",
+    PATH: '/logout',
+    NAME: 'Logout',
   },
   SIGNUP: {
-    PATH: "/signup",
-    NAME: "Signup",
+    PATH: '/signup',
+    NAME: 'Signup',
   },
   EMPTY: {
     PATH: '/empty',
@@ -41,10 +41,18 @@ const ROUTES = Object.freeze({
     PATH: '/logout',
     NAME: 'Logout',
   },
+  LOGOUTSESSION: {
+    PATH: '/logoutsession',
+    NAME: 'Logoutsession',
+  },
   PAY: {
-    PATH: '/pay',
+    PATH: '/pay/:paymentId',
     NAME: 'pay',
   },
+  ITEMSLIST: {
+    PATH: '/itemslist',
+    NAME: 'Itemslist',
+  }
 });
 
 export default ROUTES;
