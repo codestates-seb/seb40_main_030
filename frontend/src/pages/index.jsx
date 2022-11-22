@@ -44,6 +44,7 @@ const PAGES = [
       { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
     ],
   },
+
   {
     element: <NotFound />,
     path: ROUTES.NOT_FOUND.PATH,

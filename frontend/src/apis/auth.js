@@ -33,7 +33,7 @@ const getTokenDirectly = async (path, authorizationCode) => {
         client_id: import.meta.env.VITE_CLIENT_ID,
         redirect_uri: REDIRECT_URI,
         code: authorizationCode,
-        client_secret: import.meta.env.VITE_ClIENT_SECRET,
+        client_secret: import.meta.env.VITE_CLIENT_SECRET,
       }),
     });
     return await res.json();
@@ -105,7 +105,7 @@ const renewTokenDirectly = async (refreshToken) => {
         grant_type: 'refresh_token',
         client_id: import.meta.env.VITE_CLIENT_ID,
         refresh_token: realRefreshToken,
-        client_secret: import.meta.env.VITE_ClIENT_SECRET,
+        client_secret: import.meta.env.VITE_CLIENT_SECRET,
       }),
     });
 
@@ -123,7 +123,7 @@ const renewTokenDirectly = async (refreshToken) => {
 const logoutAccountSessionDirectly = async () => {
   try {
     const res = await axios.get(KAKAO_ACCOUNT_LOGOUT_URL);
-
+    console.log('카카오 세션 만료 응답은', res);
     return res;
   } catch (error) {
     console.log('logoutAccountSessionDirectly 에러발생', error.message);
