@@ -12,10 +12,8 @@ const useKakaoCheckLogin = () => {
     renewTokenIndirectly().then((res) => {
       const errorCode = res.data?.access_token?.error_code;
       if (errorCode) {
-        console.log('재발급에러코드는', errorCode);
         setIsAuthorized(false);
         if (errorCode === 'KOE319') {
-          console.log('리프레시 토큰이 없는 에러');
         }
       } else {
         setIsAuthorized(true);

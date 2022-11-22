@@ -204,7 +204,6 @@ export const handlers = [
       KAKAO_USERINFO_URL,
       renewRes.access_token
     );
-    console.log('재발급응답', renewRes);
 
     return res(
       ctx.delay(200),

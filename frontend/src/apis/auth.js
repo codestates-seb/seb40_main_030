@@ -14,7 +14,6 @@ const getTokenIndirectly = async (authorizationCode) => {
     });
     return res;
   } catch (error) {
-    console.log('getTokenIndirectly 에러발생', error);
   } finally {
   }
 };
@@ -38,9 +37,7 @@ const getTokenDirectly = async (path, authorizationCode) => {
     });
     return await res.json();
   } catch (error) {
-    console.log('getTokenDirectly 에러발생', error);
   } finally {
-    console.log('getTokenDirectly 실행종료');
   }
 };
 
@@ -69,15 +66,12 @@ const invalidateTokenDirectly = async (path, accessToken) => {
     );
     return res;
   } catch (error) {
-    console.log('invalidateTokenDirectly 에러발생', error);
   } finally {
-    console.log('invalidateTokenDirectly 실행종료');
   }
 };
 
 //mock api 사용 / 백엔드 서버 우회 사용 로그아웃 요청 보냄
 const invalidateTokenIndirectly = async (path, accessToken) => {
-  console.log('invalidateTokenIndirectly 실행');
   try {
     const res = await axios.post('/logout', {
       path: path,
@@ -86,9 +80,7 @@ const invalidateTokenIndirectly = async (path, accessToken) => {
 
     return res;
   } catch (error) {
-    console.log('invalidateTokenIndirectly 에러', error);
   } finally {
-    console.log('invalidateTokenIndirectly 실행종료');
   }
 };
 
@@ -113,9 +105,7 @@ const renewTokenDirectly = async (refreshToken) => {
 
     return data;
   } catch (error) {
-    console.log('renewTokenDirectly 에러발생', error.message);
   } finally {
-    console.log('renewTokenDirectly 실행종료');
   }
 };
 
@@ -123,12 +113,10 @@ const renewTokenDirectly = async (refreshToken) => {
 const logoutAccountSessionDirectly = async () => {
   try {
     const res = await axios.get(KAKAO_ACCOUNT_LOGOUT_URL);
-    console.log('카카오 세션 만료 응답은', res);
+
     return res;
   } catch (error) {
-    console.log('logoutAccountSessionDirectly 에러발생', error.message);
   } finally {
-    console.log('logoutAccountSessionDirectly 실행종료');
   }
 };
 
@@ -139,15 +127,13 @@ const renewTokenIndirectly = async () => {
 
     return res;
   } catch (error) {
-    console.log('renewTokenIndirectly 에러발생', error.message);
   } finally {
-    console.log('renewTokenIndirectly 실행종료');
   }
 };
 //토큰 유효성 체크 임의 로직 , 임시로 만들어놓음
 const checkValidToken = (token) => {
   let result;
-  console.log('받은 베어러 토큰은', token);
+
   result = token === undefined || token === 'undefined' ? false : true;
   return result;
 };
@@ -159,13 +145,10 @@ const testHandler = async (accessToken) => {
     const res = await axios.get('/test', {
       headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
     });
-    console.log('테스트 api 요청의 응답은', res);
   } catch (error) {
     if (error.response?.statusText === 'Unauthorized') {
-      console.log('엑세스 토큰이 없습니다. 재발급요망');
     }
   } finally {
-    console.log('testHandler 실행완료');
   }
 };
 export {
