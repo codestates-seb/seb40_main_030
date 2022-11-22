@@ -23,7 +23,14 @@ INSERT INTO Payment(id,createdAt,modifiedAt,endTime,payMethod,startTime,status,t
 INSERT INTO Payment(id,createdAt,modifiedAt,endTime,payMethod,startTime,status,totalPrice,battery_id,member_id,station_id) VALUES (3,'2022-11-19 17:35:48.372801','2022-11-19 17:35:48.372801','2022-11-25T09:00','카카오페이','2022-11-23T09:00',0,50000,3,1,1);
 
 -- 더미 Reservation
-INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("1","1", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-21T09:52:37.9592711","2022-11-21T09:52:37.9592867");
-INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("2","2", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-21T09:52:37.9592711","2022-11-21T09:52:37.9592867");
-INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("3","3", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-21T09:52:37.9592711","2022-11-21T09:52:37.9592867");
-INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("4","3", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-21T09:52:37.9592711","2022-11-21T09:52:37.9592867");
+INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("1","1", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-21T13:30","2022-11-21T23:30");  --됨 after
+INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("11","1", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-21T13:30","2022-11-21T23:30");  --됨 after
+INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("2","2", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-21T13:30","2022-11-21T23:30");  --됨 after
+INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("22","2", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-21T13:30","2022-11-21T23:30");  --됨 after
+INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("3","3", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-20T16:30","2022-11-20T23:30");  --안됨
+INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("4","3", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-19T16:30","2022-11-19T23:30");  --됨 before
+INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("5","2", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-20T18:30","2022-11-20T22:30");  --안됨
+INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES ("55","2", "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-20T18:30","2022-11-20T22:30");  --안됨
+-- avail = 1, 2, 3
+-- unavail = 3, 2
+-- final = 1
