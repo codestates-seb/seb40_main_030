@@ -1,6 +1,11 @@
 import { rest } from 'msw';
-import { mockOrder, mockUser, mockStations } from './data';
+
 import { getTokenDirectly, invalidateTokenDirectly } from '../apis/auth';
+import {
+  KAKAO_TOKEN_CODE_URL,
+  KAKAO_TOKEN_LOGOUT_URL,
+} from '../constants/auth';
+import { mockOrder, mockUser, mockStations } from './data';
 
 let MockOrder = [...mockOrder];
 let MockUsers = [...mockUser];
@@ -14,7 +19,7 @@ export const handlers = [
       ctx.delay(),
       ctx.json({ token: 'token', id: 12345 }),
       ctx.status(200),
-      ctx.cookie('shadowToken', 'true')
+      ctx.cookie('shadowToken', 'true'),
     );
   }),
 
@@ -30,7 +35,7 @@ export const handlers = [
     const { orderId } = req.params;
 
     const filteredOrder = MockOrder.find(
-      (mock) => mock.orderId === Number(orderId)
+      (mock) => mock.orderId === Number(orderId),
     );
 
     return res(ctx.delay(200), ctx.status(200), ctx.json(filteredOrder));
@@ -117,7 +122,7 @@ export const handlers = [
     }
 
     const index = MockUsers.findIndex(
-      (user) => user.memberId === Number(memberId)
+      (user) => user.memberId === Number(memberId),
     );
 
     MockUsers.splice(index, 1);
@@ -134,7 +139,7 @@ export const handlers = [
     const { stationId } = req.params;
 
     const index = MockStations.findIndex(
-      (station) => station.id === Number(stationId)
+      (station) => station.id === Number(stationId),
     );
 
     return res(ctx.status(200), ctx.json(MockStations[index]));
@@ -147,8 +152,8 @@ export const handlers = [
    */
   rest.post('/login/token', async (req, res, ctx) => {
     const authCode = req.body.authorizationCode;
-    const type = req.body.type;
-    let token = await getTokenDirectly(KAKAO_TOKENCODE_URL, authCode);
+    // const type = req.body.type;
+    let token = await getTokenDirectly(KAKAO_TOKEN_CODE_URL, authCode);
     return res(ctx.delay(200), ctx.status(200), ctx.json(token));
   }),
 
@@ -160,7 +165,7 @@ export const handlers = [
       ctx.delay(200),
       ctx.cookie('auth-token', 'abc-123'),
       ctx.status(200),
-      ctx.json(logoutRes)
+      ctx.json(logoutRes),
     );
   }),
 ];

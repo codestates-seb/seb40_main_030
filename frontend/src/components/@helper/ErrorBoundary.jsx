@@ -1,5 +1,6 @@
 import React from 'react';
-import NotFound from '../../pages/NotFound/';
+
+import NotFound from '@/pages/NotFound/';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class ErrorBoundary extends React.Component {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError() {
     // 다음 렌더링에서 폴백 UI가 보이도록 상태를 업데이트 합니다.
     return { hasError: true };
   }

@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-import * as S from './PageWrapper.style';
+import { ArrowIcon } from '@/assets';
 
-import { ArrowIcon } from '../../../assets';
+import * as S from './PageWrapper.style';
 
 const PageWrapper = ({ title, path, children }) => {
   const navigate = useNavigate();

@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { PageWrapper } from '../../components/@commons';
-import RentalStatus from '../../components/Rental/RentalStatus';
-import useGetStationById from '../../hooks/stations/useGetStationById';
+
+import { PageWrapper } from '@/components/@commons';
+import RentalStatus from '@/components/Rental/RentalStatus';
+import { useGetStationById } from '@/hooks';
 
 const Rental = () => {
   const { stationId } = useParams();

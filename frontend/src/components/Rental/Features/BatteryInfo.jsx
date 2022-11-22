@@ -1,6 +1,7 @@
+import { ShadowButton, ShadowCard } from '@/components/@commons';
+import { PRICE_REGEX } from '@/constants';
+
 import * as S from './Features.style';
-import { ShadowButton, ShadowCard } from '../../@commons';
-import { PRICE_REGEX } from '../../../constants';
 
 // 주유소 이름과 위치정보 전화번호 ??
 const BatteryInfo = ({ content }) => {

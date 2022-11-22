@@ -1,15 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { currentLocationState } from '../../../../recoil/pagesState';
+
+import { CurrentLocationIcon, SearchIcon } from '@/assets';
+import { ROUTES } from '@/constants';
 import {
   useCurrentLocation,
   useCurrentAddress,
   useTimeDifference,
-} from '../hooks';
-import { CurrentLocationIcon, SearchIcon } from '../../../../assets';
+} from '@/hooks';
+import { currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './MapIndicator.style';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../../../constants';
 
 const MapIndicator = ({ toggle, setToggle }) => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { reservationState } from '../../../../recoil/pagesState';
+import { reservationState } from '@/recoil/pagesState';
 
 const useReservation = () => {
   const [reservation, setReservation] = useState(false);

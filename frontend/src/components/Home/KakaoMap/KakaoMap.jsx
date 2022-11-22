@@ -1,16 +1,13 @@
-import { Map } from 'react-kakao-maps-sdk';
 import { useState } from 'react';
-import { DEFAULT_LOCATION } from '../../../constants/location';
-import { useGetAllStations } from './hooks';
+import { Map } from 'react-kakao-maps-sdk';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-  reservationState,
-  currentLocationState,
-} from '../../../recoil/pagesState';
 
-import KakaoRoadView from './RoadView';
-import MarkerContainer from './MarkerContainer';
-import MapIndicator from './MapIndicator/MapIndicator';
+import MapIndicator from '@/components/Home/KakaoMap/Features/MapIndicator';
+import MarkerContainer from '@/components/Home/KakaoMap/Features/MarkerContainer';
+import KakaoRoadView from '@/components/Home/KakaoMap/Features/RoadView';
+import { DEFAULT_LOCATION } from '@/constants';
+import { useGetAllStations } from '@/hooks';
+import { reservationState, currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './KakaoMap.style';
 

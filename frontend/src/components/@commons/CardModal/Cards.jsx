@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+
 import * as S from './Cards.style';
 
 const Cards = ({ content, setIsOpen }) => {

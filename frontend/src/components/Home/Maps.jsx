@@ -1,14 +1,10 @@
-import { ShadowButton } from '../@commons';
-import KakaoMap from './KakaoMap/KakaoMap';
-import { useNavigate } from 'react-router-dom';
-
-import * as S from './Maps.style';
 import { useIsPresent } from 'framer-motion';
-import { ROUTES } from '../../constants';
+
+import KakaoMap from './KakaoMap/KakaoMap';
+import * as S from './Maps.style';
 
 const MapArea = () => {
   const isPresent = useIsPresent();
-  const navigate = useNavigate();
 
   return (
     <S.Wrapper

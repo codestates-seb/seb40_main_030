@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { reservationState } from '../../../../recoil/pagesState';
+import { reservationState } from '@/recoil/pagesState';
 
 const useCheckValidReserveTable = () => {
   const reservationStatus = useRecoilValue(reservationState);

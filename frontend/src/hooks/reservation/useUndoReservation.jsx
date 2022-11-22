@@ -1,6 +1,5 @@
 import { useSetRecoilState } from 'recoil';
-import { reservationState } from '../../../../recoil/pagesState';
-import { initialReservationValue } from '../../../../recoil/pagesState';
+import { reservationState, initialReservationValue } from '@/recoil/pagesState';
 
 const useUndoReservation = () => {
   const setReservationStatus = useSetRecoilState(reservationState);

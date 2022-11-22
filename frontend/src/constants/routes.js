@@ -29,14 +29,14 @@ const ROUTES = Object.freeze({
     PATH: '/entrance',
     NAME: 'Entrance',
   },
-  LOGIN: {
-    PATH: '/login',
-    NAME: 'Login',
-  },
-  LOGOUT: {
-    PATH: '/logout',
-    NAME: 'Logout',
-  },
+  // LOGIN: {
+  //   PATH: '/login',
+  //   NAME: 'Login',
+  // },
+  // LOGOUT: {
+  //   PATH: '/logout',
+  //   NAME: 'Logout',
+  // },
   SEARCH: {
     PATH: '/search',
     NAME: 'Search',

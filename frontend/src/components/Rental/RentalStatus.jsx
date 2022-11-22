@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { reservationState } from '../../recoil/pagesState';
-import useCurrentAddress from '../Home/KakaoMap/hooks/useCurrentAddress';
-import { useCheckValidReserveTable } from '../Home/Reservation/hooks';
 
+import { useCurrentAddress, useCheckValidReserveTable } from '../../hooks';
+import { reservationState } from '../../recoil/pagesState';
 import BatteryInfo from './Features/BatteryInfo';
 
 const RentalStatus = ({ data }) => {
@@ -14,12 +13,15 @@ const RentalStatus = ({ data }) => {
   const { dateFixed } = useRecoilValue(reservationState);
   const { startPoint, endPoint } = useCheckValidReserveTable();
   const { addressDetail } = useCurrentAddress(location);
+  // 추후 적용될 부분
+  startPoint, endPoint, addressDetail;
 
   useEffect(() => {
     if (!dateFixed.date || !dateFixed.time) {
       navigate('/');
       alert('예약시간 설정을 먼저 해주세요.');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

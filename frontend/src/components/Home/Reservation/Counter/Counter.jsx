@@ -1,4 +1,4 @@
-import { useCounter } from '../hooks';
+import { useCounter } from '@/hooks';
 
 import * as S from './Counter.style';
 

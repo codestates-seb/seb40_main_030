@@ -1,5 +1,6 @@
-import { ShadowButton } from '../../../@commons';
-import { useReservation } from '../hooks';
+import { ShadowButton } from '@/components/@commons';
+import { useReservation } from '@/hooks';
+
 import * as S from './BookingTypeBox.style';
 
 // 단일예약 복수일 예약하기 따로

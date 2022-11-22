@@ -2,6 +2,7 @@ import KakaoLogin from './KakaoLogin';
 import * as S from '../../pages/Login/Login.style';
 import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
 import GenLogin from './GenLogin';
+import SignUp from './SignUp';
 
 const LoginForm = () => {
   const { loginClickHandler, isAuthorized } = useKakaoLogin();

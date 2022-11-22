@@ -1,5 +1,5 @@
 import mockOrder from './order';
-import mockUser from './users';
 import mockStations from './stations';
+import mockUser from './users';
 
 export { mockOrder, mockUser, mockStations };

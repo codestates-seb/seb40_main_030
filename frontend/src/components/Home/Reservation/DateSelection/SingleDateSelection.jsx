@@ -1,6 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
+
+import { useSingleDateReservation } from '@/hooks';
+
 import DateStatus from '../Calendar/DateStatus';
-import { useSingleDateReservation } from '../hooks';
 import * as S from '../Reservation.style';
 
 const SingleDateSelection = ({ currentDate, currentTime }) => {

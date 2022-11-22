@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
+
 import { BOTTOM_SHEET_HEIGHT } from '../../../constants';
 
 const Wrapper = styled(motion.div)`

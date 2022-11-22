@@ -1,8 +1,8 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
-import { reservationState } from '../../../../recoil/pagesState';
-
 import { useQueryClient, useMutation } from '@tanstack/react-query';
+
+import { reservationState } from '@/recoil/pagesState';
 
 const useSingleDateReservation = (currentDate) => {
   const queryClient = useQueryClient();

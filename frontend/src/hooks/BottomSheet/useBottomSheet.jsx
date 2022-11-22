@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useAnimation } from 'framer-motion';
 import { useRecoilState } from 'recoil';
-import { navState } from '../../recoil/pagesState';
+import { navState } from '@/recoil/pagesState';
+
 import usePreviousValue from './usePrevious';
 
 const useBottomSheet = () => {

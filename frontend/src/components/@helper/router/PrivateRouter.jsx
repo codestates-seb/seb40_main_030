@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { ROUTES } from '../../../constants';
+import { ROUTES } from '@/constants';
 
 const PrivateRouter = ({ isAuthenticated }) => {
   useEffect(() => {

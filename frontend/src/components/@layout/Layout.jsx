@@ -1,17 +1,19 @@
-import BottomNav from './BottomNav/BottomNav';
-import * as S from './Layout.style';
-import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
-import BatteryCharging from '../@commons/Loading/BatteryCharging';
+import { Outlet } from 'react-router-dom';
+
+import { PageWrapper } from '@/components/@commons';
+import BatteryCharging from '@/components/@commons';
+
+import BottomNav from './BottomNav/BottomNav';
 
 const Layout = () => {
   return (
-    <S.PageWrapper>
+    <PageWrapper>
       <Suspense fallback={<BatteryCharging />}>
         <Outlet />
       </Suspense>
       <BottomNav />
-    </S.PageWrapper>
+    </PageWrapper>
   );
 };
 

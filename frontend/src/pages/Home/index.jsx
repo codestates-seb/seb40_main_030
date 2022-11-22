@@ -1,14 +1,15 @@
-import MapArea from '../../components/Home/Maps';
-import useSplashScreen from '../../hooks/useSplashScreen';
-import BottomSheet from '../../components/@layout/BottomSheet/BottomSheet';
-import Reservation from '../../components/Home/Reservation/Reservation';
-import { SplashScreen } from '../../components/@commons';
 import { useLocation } from 'react-router-dom';
-import BottomNav from '../../components/@layout/BottomNav/BottomNav';
+
+import { SplashScreen } from '@/components/@commons';
+import BottomNav from '@/components/@layout/BottomNav/BottomNav';
+import BottomSheet from '@/components/@layout/BottomSheet/BottomSheet';
+import MapArea from '@/components/Home/Maps';
+import Reservation from '@/components/Home/Reservation/Reservation';
+import { ROUTES } from '@/constants';
+import { useSplashScreen } from '@/hooks';
 
 const Home = () => {
   const { pathname } = useLocation();
-  // Home 은 landing page 의 역할
   const { isLoading, isSplashed } = useSplashScreen(3000);
 
   return isLoading ? (
@@ -20,7 +21,11 @@ const Home = () => {
       {/* session storage 값으로 검증을 하는 방식이 맞는지 확인이 필요함 */}
       {isSplashed !== null ? (
         <div>
-          {pathname === '/' && <BottomSheet children={<Reservation />} />}
+          {pathname === ROUTES.HOME.PATH && (
+            <BottomSheet>
+              <Reservation />
+            </BottomSheet>
+          )}
         </div>
       ) : null}
       <BottomNav />

@@ -4,7 +4,7 @@ import SearchPage from '../../components/Search/SearchPage';
 const Search = () => {
   return (
     <PageWrapper title='대여장소 검색하기' path={-1}>
-      <SearchPage />;
+      <SearchPage />
     </PageWrapper>
   );
 };

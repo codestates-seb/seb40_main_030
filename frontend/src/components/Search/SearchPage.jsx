@@ -1,8 +1,10 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { currentLocationState } from '../../recoil/pagesState';
-import { ShadowButton } from '../@commons';
-import useSearchMap from './hooks/useSearchMap';
+
+import { ShadowButton } from '@/components/@commons';
+import { useSearchMap } from '@/hooks';
+import { currentLocationState } from '@/recoil/pagesState';
+
 import * as S from './Search.style';
 
 const SearchPage = () => {
