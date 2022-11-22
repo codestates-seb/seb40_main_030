@@ -1,19 +1,10 @@
-import Layout from '../components/@layout/Layout';
 import { ROUTES } from '../constants';
 import Home from './Home';
 import NotFound from './NotFound';
 import Login from './Login';
-import Logout from './Logout/index';
-import Entrance from './Entrance/index';
-import Empty from './Empty/index';
-import SignUp from '../components/Login/SignUp';
 import PrivateRouter from '../components/@helper/router/PrivateRouter';
 import PublicRouter from '../components/@helper/router/PublicRouter';
-import Search from './Search';
-import Rental from './Rental/Rental';
-
-// 예시 입니다.
-const isAuthenticated = true;
+import Bussines from './Business';
 
 const PAGES = [
   {
@@ -49,11 +40,10 @@ const PAGES = [
         name: ROUTES.EMPTY.NAME,
       },
       {
-        element: <Search />,
-        path: ROUTES.SEARCH.PATH,
-        name: ROUTES.SEARCH.NAME,
+        element: <Bussines />,
+        path: ROUTES.BUSSINES.PATH,
+        name: ROUTES.BUSSINES.NAME,
       },
-      // { element: <Empty />, path: ROUTES.EMPTY.PATH, name: ROUTES.EMPTY.NAME },
     ],
   },
   {
@@ -62,16 +52,6 @@ const PAGES = [
     element: <PublicRouter isAuthenticated={isAuthenticated} />,
     children: [
       { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
-      {
-        element: <SignUp />,
-        path: ROUTES.SIGNUP.PATH,
-        name: ROUTES.SIGNUP.NAME,
-      },
-      {
-        element: <Logout />,
-        path: ROUTES.LOGOUT.PATH,
-        name: ROUTES.LOGOUT.NAME,
-      },
     ],
   },
 ];

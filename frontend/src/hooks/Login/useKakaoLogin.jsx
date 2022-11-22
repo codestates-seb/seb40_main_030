@@ -1,30 +1,28 @@
-import { useRecoilState } from 'recoil';
-import { getTokenDirectly, getTokenIndirectly } from '../../apis/auth';
-import { loginState } from '../../recoil/login';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { getTokenIndirectly } from '../../apis/auth';
+import { loginState, accessTokenVal, sessionState } from '../../recoil/login';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { KAKAO_AUTHCODE_URL, KAKAO_TOKENCODE_URL } from '../../constants/auth';
+import { KAKAO_AUTH_CODE_URL } from '../../constants/auth';
 
 const useKakaoLogin = () => {
+  const setAccessToken = useSetRecoilState(accessTokenVal);
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
-  const [isLoading, setIsloading] = useState(false);
+  const setIsSessioned = useSetRecoilState(sessionState);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const loginClickHandler = () => {
-    //카카오로그인 -> 리다이렉트 with auth code
     if (!isAuthorized) {
-      setIsloading(true);
-      window.location.assign(KAKAO_AUTHCODE_URL);
+      setIsLoading(true);
+      window.location.assign(KAKAO_AUTH_CODE_URL);
+    } else {
+      console.log('이미 로그인되어 있는 상태입니다.');
     }
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken'); //새로고침 후 로컬스토리지에 토큰이 있는지 확인
-    if (token) {
-      setIsAuthorized(true);
-    } //토큰이 있다면 로그인상태 변경
-
-    const url = new URL(window.location.href); // auth code 가져옴
+    const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get('code');
 
     if (authorizationCode && !token) {
@@ -36,7 +34,9 @@ const useKakaoLogin = () => {
         console.log('logout페이지로 이동');
         navigate('/logout', { replace: true });
         setIsAuthorized(true);
-        setIsloading(false); //로그인된 상태
+        setIsSessioned(true);
+        setIsLoading(false);
+        navigate('/logout', { replace: true });
       });
 
       // getTokenDirectly(KAKAO_TOKENCODE_URL, authorizationCode).then((data) => {
@@ -53,7 +53,8 @@ const useKakaoLogin = () => {
     setIsAuthorized,
     loginClickHandler,
     isLoading,
-    setIsloading,
+    setIsLoading,
+    isAuthorized,
   };
 };
 

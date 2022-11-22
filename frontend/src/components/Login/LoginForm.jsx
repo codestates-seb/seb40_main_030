@@ -1,46 +1,22 @@
 import KakaoLogin from './KakaoLogin';
 import * as S from '../../pages/Login/Login.style';
 import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
-import { renewTokenDirectly } from '../../apis/auth';
-import { useNavigate } from 'react-router-dom';
 import GenLogin from './GenLogin';
 import SignUp from './SignUp';
-
+import { useRecoilValue } from 'recoil';
+import { accessTokenVal } from '../../recoil/login';
+import { testHandler } from '../../apis/auth';
 const LoginForm = () => {
   const { loginClickHandler, isAuthorized } = useKakaoLogin();
-  const navigate = useNavigate();
-  const getNewTokenHandler = () => {
-    //토큰 재발급
-    renewTokenDirectly().then((res) => {
-      console.log('getNewTokenHandler 응답', res);
-      res?.access_token &&
-        localStorage.setItem('accessToken', res.access_token);
-    });
-  };
-  const gobackHandler = () => {
-    navigate('/entrance');
-  };
-  const goEmptyHandler = () => {
-    navigate('/empty');
-  };
+  const accessToken = useRecoilValue(accessTokenVal);
 
   return (
     <S.LoginContainer>
-      <button onClick={gobackHandler} style={{ border: '1px solid black' }}>
-        뒤로 가기
-      </button>
-      <button onClick={goEmptyHandler} style={{ border: '1px solid black' }}>
-        empty이동
-      </button>
       <button
-        style={{
-          border: '1px solid black',
-          backgroundColor: 'yellow',
-          margin: '10px',
-        }}
-        onClick={getNewTokenHandler}
+        onClick={() => testHandler(accessToken)}
+        style={{ border: '1px solid black' }}
       >
-        토큰 갱신하기 버튼
+        test api 테스트
       </button>
       <div
         style={{

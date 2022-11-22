@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import { KAKAO_RENEWTOKEN_URL, REDIRECT_URI } from '../constants/auth';
+import { KAKAO_RENEW_TOKEN_URL, REDIRECT_URI } from '../constants/auth';
 
 //백엔드로 인증코드 보냄 or mock 서버로 보냄
 const getTokenIndirectly = async (authorizationCode) => {
@@ -13,7 +13,6 @@ const getTokenIndirectly = async (authorizationCode) => {
   } catch (error) {
     console.log('getTokenIndirectly 에러발생', error);
   } finally {
-    console.log('getTokenIndirectly 실행종료');
   }
 };
 
@@ -92,10 +91,7 @@ const renewTokenDirectly = async () => {
   const refreshToken = localStorage.getItem('refreshToken');
   console.log('로컬에서 가져온 리프레쉬 토큰', refreshToken);
   try {
-    if (refreshToken === 'undefined' || !refreshToken) {
-      throw new Error('refresh token이 유효하지 않습니다.');
-    }
-    const res = await fetch(KAKAO_RENEWTOKEN_URL, {
+    const res = await fetch(KAKAO_RENEW_TOKEN_URL, {
       method: 'POST',
       headers: {
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
@@ -118,10 +114,27 @@ const renewTokenDirectly = async () => {
 };
 
 //
+
+const testHandler = async (accessToken) => {
+  //테스트 api 위한 임시 핸들러
+  try {
+    const res = await axios.get('/test', {
+      headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
+    });
+    console.log('테스트 api 요청의 응답은', res);
+  } catch (error) {
+    if (error.response?.statusText === 'Unauthorized') {
+      console.log('엑세스 토큰이 없습니다. 재발급요망');
+    }
+  } finally {
+    console.log('testHandler 실행완료');
+  }
+};
 export {
   getTokenDirectly,
   getTokenIndirectly,
   invalidateTokenDirectly,
   invalidateTokenIndirectly,
   renewTokenDirectly,
+  testHandler,
 };

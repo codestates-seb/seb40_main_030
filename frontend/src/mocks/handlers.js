@@ -153,10 +153,7 @@ export const handlers = [
     return res(ctx.delay(200), ctx.status(200), ctx.json(token));
   }),
 
-  /**
-   * 클라이언트에서 로그아웃 요청 받아서 처리
-   * 카카오인증 서버로 로그아웃 요청 보냄
-   */
+  //카카오인증 서버로 로그아웃 요청 보냄
   rest.post('/logout', async (req, res, ctx) => {
     const logoutRes = await invalidateTokenDirectly(KAKAO_TOKEN_LOGOUT_URL);
     console.log('moc logout res', logoutRes);

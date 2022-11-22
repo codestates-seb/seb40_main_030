@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
   invalidateTokenDirectly,
   invalidateTokenIndirectly,
@@ -9,34 +9,40 @@ import { useNavigate } from 'react-router-dom';
 import { KAKAO_TOKEN_LOGOUT_URL } from '../../constants/auth';
 
 const useKakaoLogout = () => {
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const setAccessToken = useSetRecoilState(accessTokenVal);
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
-  const [isLoading, setIsloading] = useState(false);
+  const [isSessioned, setIsSessioned] = useRecoilState(sessionState);
+  const navigate = useNavigate();
+
   const logoutClickHandler = () => {
-    //백엔드로 로그아웃 요청을 보내고(토큰을)
-    // invalidateTokenIndirectly(KAKAO_TOKEN_LOGOUT_URL).then((res) => {
-    //   localStorage.setItem('accessToken', '');
-    // localStorage.setItem('refreshToken', '');
-    //   navigate('/login');
-    //   setIsAuthorized(false);
-    // });
-    setIsloading((preVal) => !preVal);
-    //클라이언트에서 카카오 서버로 바로 통신
-    invalidateTokenDirectly(KAKAO_TOKEN_LOGOUT_URL).then((res) => {
-      console.log('로그아웃 응답은', res);
-      localStorage.setItem('accessToken', '');
-      localStorage.setItem('refreshToken', '');
-      setIsAuthorized(false);
-      setIsloading((preVal) => !preVal);
-      navigate('/login', { replace: true });
-    });
+    setIsSessioned(false);
+    window.location.assign(KAKAO_ACCOUNT_LOGOUT_URL);
+  };
+
+  const invalidateToken = async () => {
+    setIsLoading((preVal) => !preVal);
+    const response = await renewTokenIndirectly();
+    const accessToken = response.data?.access_token.access_token;
+
+    invalidateTokenIndirectly(KAKAO_TOKEN_LOGOUT_URL, accessToken).then(
+      (res) => {
+        console.log('로그아웃 요청의 응답은', res);
+        setAccessToken('');
+        setIsAuthorized(false);
+        setIsLoading((preVal) => !preVal);
+        navigate('/login');
+      }
+    );
   };
   return {
     isAuthorized,
     setIsAuthorized,
     logoutClickHandler,
     isLoading,
-    setIsloading,
+    setIsLoading,
+    logoutClickHandler,
+    isAuthorized,
   };
 };
 
