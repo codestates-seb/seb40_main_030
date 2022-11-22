@@ -12,9 +12,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@RequiredArgsConstructor
+import javax.validation.Valid;
+
+@RequiredArgsConstructor @Validated
 @RestController @RequestMapping("/payments")
 public class PaymentController {
 
@@ -22,9 +25,9 @@ public class PaymentController {
 
     @PostMapping
     public ResponseEntity<PayResDto> postPayment (@RequestParam Long memberId,
-                                                  @RequestBody PayPostReqDto payPostReqDto) {
+                                                  @Valid @RequestBody PayPostReqDto payPostReqDto) {
         Payment payment = payPostReqDto.toPayment();
-        Payment savedPayment = paymentService.postPayment(payment, payPostReqDto.getBatteryId() , memberId);
+        Payment savedPayment = paymentService.postPayment(payment, payPostReqDto.getBatteryId(), memberId);
         PayResDto response = new PayResDto(savedPayment);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
