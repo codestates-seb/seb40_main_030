@@ -4,7 +4,6 @@ const localStorageEffect =
   (key) =>
   ({ setSelf, onSet }) => {
     const savedValue = localStorage.getItem(key);
-    console.log('초기 세션스토리지값 값은', savedValue);
 
     if (savedValue != null) {
       setSelf(JSON.parse(savedValue));

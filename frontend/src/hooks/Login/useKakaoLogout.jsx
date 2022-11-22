@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
   invalidateTokenIndirectly,
   renewTokenIndirectly,
@@ -12,21 +12,19 @@ import {
 } from '../../constants/auth';
 
 const useKakaoLogout = () => {
-  const [isLoading, setIsloading] = useState(false);
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
+  const [isLoading, setIsLoading] = useState(false);
+  const setAccessToken = useSetRecoilState(accessTokenVal);
   const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
   const [isSessioned, setIsSessioned] = useRecoilState(sessionState);
   const navigate = useNavigate();
 
   const logoutClickHandler = () => {
-    //로그아웃 버튼 클릭시 url 이동
     setIsSessioned(false);
     window.location.assign(KAKAO_ACCOUNT_LOGOUT_URL);
   };
 
   const invalidateToken = async () => {
-    //토큰 만료 함수
-    setIsloading((preVal) => !preVal);
+    setIsLoading((preVal) => !preVal);
     const response = await renewTokenIndirectly();
     const accessToken = response.data?.access_token.access_token;
 
@@ -35,7 +33,7 @@ const useKakaoLogout = () => {
         console.log('로그아웃 요청의 응답은', res);
         setAccessToken('');
         setIsAuthorized(false);
-        setIsloading((preVal) => !preVal);
+        setIsLoading((preVal) => !preVal);
         navigate('/login');
       }
     );
@@ -49,7 +47,7 @@ const useKakaoLogout = () => {
 
   return {
     isLoading,
-    setIsloading,
+    setIsLoading,
     logoutClickHandler,
     isAuthorized,
   };
