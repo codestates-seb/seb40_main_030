@@ -1,16 +1,18 @@
 import batteryData from '../../components/Business/Battery/batteryData';
 import BatteryList from '../../components/Business/Battery/BatteryList';
 import Filter from '../../components/Business/Filter/Filter';
-import { BodyWrapper, PageWrapper } from './Business.style';
+import Management from '../../components/Business/Management/ManageMent';
+import * as S from './Business.style';
 
 const Business = () => {
   return (
-    <PageWrapper>
-      <BodyWrapper>
+    <S.PageWrapper>
+      <S.BodyWrapper>
+        <Management />
         <Filter />
         <BatteryList batteryList={batteryData} />
-      </BodyWrapper>
-    </PageWrapper>
+      </S.BodyWrapper>
+    </S.PageWrapper>
   );
 };
 

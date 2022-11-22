@@ -5,7 +5,7 @@ import BatteryStatus from './BatteryStatus';
 const BatteryCard = ({ imgUrl, details, status }) => {
   return (
     <S.BatteryContainer>
-      <S.BatteryImgContaioner src={imgUrl}></S.BatteryImgContaioner>
+      <S.BatteryImgContainer src={imgUrl}></S.BatteryImgContainer>
       <BatteryDetails details={details} />
       <BatteryStatus status={status} />
     </S.BatteryContainer>

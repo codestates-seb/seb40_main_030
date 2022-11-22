@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const BatteryImgContaioner = styled.img`
+const BatteryImgContainer = styled.img`
   width: 45px;
   height: 45px;
 `;
@@ -18,8 +18,10 @@ const BatteryStatusContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: ${({ status }) => (status ? '#7BEB5F' : '#DADADA')};
 
+  background-color: ${({ status }) =>
+    status === undefined ? '#DADADA' : status ? '#7BEB5F' : '#EEDA25'};
+  cursor: ${({ count }) => (count ? 'pointer' : null)};
   width: ${({ count }) => (count ? '65px' : null)};
   height: ${({ count }) => (count ? '65px' : null)};
   border-radius: ${({ count }) => (count ? '100px' : null)};
@@ -56,5 +58,5 @@ export {
   BatteryStatusContainer,
   BatteryContainer,
   BatteryListContainer,
-  BatteryImgContaioner,
+  BatteryImgContainer,
 };
