@@ -1,20 +1,16 @@
 import batteryData from '../../components/Business/Battery/batteryData';
 import BatteryList from '../../components/Business/Battery/BatteryList';
-
 import Filter from '../../components/Business/Filter/Filter';
+import { BodyWrapper, PageWrapper } from './Business.style';
 
 const Business = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-      }}
-    >
-      <Filter />
-      <BatteryList batteryList={batteryData} />
-    </div>
+    <PageWrapper>
+      <BodyWrapper>
+        <Filter />
+        <BatteryList batteryList={batteryData} />
+      </BodyWrapper>
+    </PageWrapper>
   );
 };
 

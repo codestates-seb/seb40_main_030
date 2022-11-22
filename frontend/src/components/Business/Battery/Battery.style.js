@@ -42,8 +42,13 @@ const BatteryListContainer = styled.ul`
   height: 500px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
   overflow: scroll;
+
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
 `;
 
 export {

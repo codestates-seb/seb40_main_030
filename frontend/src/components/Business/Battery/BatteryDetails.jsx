@@ -3,9 +3,9 @@ import * as S from './Battery.style';
 const BatteryDetails = ({ details }) => {
   return (
     <S.BatteryDetailsContainer>
-      <div>{`주유소 : ${details.station}`}</div>
-      <div>{`가 격 : ${details.price}`}</div>
-      <div>{`용 량 : ${details.capacity}`}</div>
+      <li>{`주유소 : ${details.station}`}</li>
+      <li>{`가 격 : ${details.price}`}</li>
+      <li>{`용 량 : ${details.capacity}`}</li>
     </S.BatteryDetailsContainer>
   );
 };
