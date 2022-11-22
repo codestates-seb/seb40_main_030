@@ -8,6 +8,7 @@ const SelectionHistory = () => {
     const batteryAAA = location.battery;
     const stationAAA = location.sation;
     const { paymentId } = useParams();
+    console.log(paymentId)
     //보증금 금액은 아직 미정이므로 수정 필요
     let deposit = 50000;
     let total = deposit

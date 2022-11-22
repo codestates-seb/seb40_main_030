@@ -46,7 +46,7 @@ const ROUTES = Object.freeze({
     NAME: 'Logoutsession',
   },
   PAY: {
-    PATH: '/pay/:paymentId',
+    PATH: '/pay/:paymentId/:memberId',
     NAME: 'pay',
   },
   ITEMSLIST: {
