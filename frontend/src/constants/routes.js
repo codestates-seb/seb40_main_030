@@ -9,10 +9,6 @@ const ROUTES = Object.freeze({
     PATH: '*',
     NAME: 'Page Not Found',
   },
-  ENTRANCE: {
-    PATH: '/entrance',
-    NAME: 'Entrance',
-  },
   LOGIN: {
     PATH: '/login',
     NAME: 'Login',
@@ -25,25 +21,9 @@ const ROUTES = Object.freeze({
     PATH: '/signup',
     NAME: 'Signup',
   },
-  EMPTY: {
-    PATH: '/empty',
-    NAME: 'Empty',
-  },
-  ENTRANCE: {
-    PATH: '/entrance',
-    NAME: 'Entrance',
-  },
-  LOGIN: {
-    PATH: '/login',
-    NAME: 'Login',
-  },
-  LOGOUT: {
-    PATH: '/logout',
-    NAME: 'Logout',
-  },
-  LOGOUTSESSION: {
-    PATH: '/logoutsession',
-    NAME: 'Logoutsession',
+  BUSSINES: {
+    PATH: 'bussines',
+    NAME: 'Bussines',
   },
   PAY: {
     PATH: '/pay/:paymentId/:memberId',
