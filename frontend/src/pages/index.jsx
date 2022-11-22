@@ -7,7 +7,7 @@ import Logout from './Logout/index';
 import SignUp from '../components/Login/SignUp';
 import PrivateRouter from '../components/Login/PrivateRouter';
 import PublicRouter from '../components/Login/PublicRouter';
-import Bussines from './Business';
+import Business from './Business';
 
 const PAGES = [
   {
@@ -31,9 +31,9 @@ const PAGES = [
         name: ROUTES.LOGOUT.NAME,
       },
       {
-        element: <Bussines />,
-        path: ROUTES.BUSSINES.PATH,
-        name: ROUTES.BUSSINES.NAME,
+        element: <Business />,
+        path: ROUTES.BUSINESS.PATH,
+        name: ROUTES.BUSINESS.NAME,
       },
     ],
   },
@@ -44,6 +44,7 @@ const PAGES = [
       { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
     ],
   },
+
   {
     element: <NotFound />,
     path: ROUTES.NOT_FOUND.PATH,
