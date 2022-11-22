@@ -15,9 +15,14 @@ const BatteryStatusContainer = styled.div`
   border: 2px solid black;
   border-radius: 15px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: ${({ status }) => (status ? '#7BEB5F' : '#DADADA')};
+
+  width: ${({ count }) => (count ? '65px' : null)};
+  height: ${({ count }) => (count ? '65px' : null)};
+  border-radius: ${({ count }) => (count ? '100px' : null)};
 `;
 
 const BatteryContainer = styled.div`

@@ -2,7 +2,7 @@ import axios from 'axios';
 import qs from 'qs';
 import {
   KAKAO_ACCOUNT_LOGOUT_URL,
-  KAKAO_RENEWTOKEN_URL,
+  KAKAO_RENEW_TOKEN_URL,
   REDIRECT_URI,
 } from '../constants/auth';
 
@@ -16,7 +16,6 @@ const getTokenIndirectly = async (authorizationCode) => {
   } catch (error) {
     console.log('getTokenIndirectly 에러발생', error);
   } finally {
-    console.log('getTokenIndirectly 실행종료');
   }
 };
 
@@ -97,7 +96,7 @@ const invalidateTokenIndirectly = async (path, accessToken) => {
 const renewTokenDirectly = async (refreshToken) => {
   const realRefreshToken = refreshToken?.split('=')[1];
   try {
-    const res = await fetch(KAKAO_RENEWTOKEN_URL, {
+    const res = await fetch(KAKAO_RENEW_TOKEN_URL, {
       method: 'POST',
       headers: {
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8',

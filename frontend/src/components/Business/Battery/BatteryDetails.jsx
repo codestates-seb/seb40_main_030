@@ -1,11 +1,11 @@
 import * as S from './Battery.style';
 
-const BatteryDetails = ({ station, price, capacity }) => {
+const BatteryDetails = ({ details }) => {
   return (
     <S.BatteryDetailsContainer>
-      <div>{`주유소 : ${station}`}</div>
-      <div>{`가 격 : ${price}`}</div>
-      <div>{`용 량 : ${capacity}`}</div>
+      <div>{`주유소 : ${details.station}`}</div>
+      <div>{`가 격 : ${details.price}`}</div>
+      <div>{`용 량 : ${details.capacity}`}</div>
     </S.BatteryDetailsContainer>
   );
 };

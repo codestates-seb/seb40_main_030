@@ -4,14 +4,11 @@ import Home from './Home';
 import NotFound from './NotFound';
 import Login from './Login';
 import Logout from './Logout/index';
-import Entrance from './Entrance/index';
-import Empty from './Empty/index';
 import SignUp from '../components/Login/SignUp';
 import PrivateRouter from '../components/Login/PrivateRouter';
 import PublicRouter from '../components/Login/PublicRouter';
 import Bussines from './Business';
 
-// const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
 const PAGES = [
   {
     element: <Layout />,
@@ -44,13 +41,7 @@ const PAGES = [
   {
     element: <PublicRouter />,
     children: [
-      {
-        element: <Entrance />,
-        path: ROUTES.ENTRANCE.PATH,
-        name: ROUTES.ENTRANCE.NAME,
-      },
       { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
-      { element: <Empty />, path: ROUTES.EMPTY.PATH, name: ROUTES.EMPTY.NAME },
     ],
   },
   {

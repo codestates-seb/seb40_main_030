@@ -9,9 +9,11 @@ const BatteryList = ({ batteryList }) => {
           <li key={battery.batteryId}>
             <BatteryCard
               imgUrl={battery.photoURL}
-              station={battery.station}
-              price={battery.price}
-              capacity={battery.capacity}
+              details={{
+                station: battery.station,
+                price: battery.price,
+                capacity: battery.capacity,
+              }}
               status={battery.status}
             />
           </li>

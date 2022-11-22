@@ -1,8 +1,6 @@
 import KakaoLogout from '../../components/Login/KakaoLogout';
-
-import { accessTokenVal, loginState, sessionState } from '../../recoil/login';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { KAKAO_ACCOUNT_LOGOUT_URL } from '../../constants/auth';
+import { accessTokenVal } from '../../recoil/login';
+import { useRecoilValue } from 'recoil';
 import useKakaoLogout from '../../hooks/Login/useKakaoLogout';
 import { testHandler } from '../../apis/auth';
 
