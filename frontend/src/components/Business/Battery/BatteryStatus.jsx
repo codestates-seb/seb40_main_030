@@ -5,7 +5,7 @@ const BatteryStatus = ({ status, count }) => {
     <>
       <S.BatteryStatusContainer status={status} count={count}>
         <div>
-          {status === undefined ? '전체' : status ? '대여가능' : '사용중'}
+          {status === 'total' ? '전체' : status ? '대여가능' : '사용중'}
         </div>
         {count ? <div>{`${count}개`}</div> : null}
       </S.BatteryStatusContainer>

@@ -1,13 +1,13 @@
 import BatteryStatus from '../Battery/BatteryStatus';
 import * as S from './Filter.style';
 
-const Filter = () => {
+const Filter = ({ countList }) => {
   return (
     <>
       <S.FilterContainer>
-        <BatteryStatus count={17} />
-        <BatteryStatus status={true} count={12} />
-        <BatteryStatus status={false} count={5} />
+        <BatteryStatus status='total' count={countList.total} />
+        <BatteryStatus status={true} count={countList.available} />
+        <BatteryStatus status={false} count={countList.unavailable} />
       </S.FilterContainer>
     </>
   );

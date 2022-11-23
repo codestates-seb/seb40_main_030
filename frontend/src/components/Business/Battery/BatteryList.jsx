@@ -2,6 +2,7 @@ import * as S from './Battery.style';
 import BatteryCard from './BatteryCard';
 
 const BatteryList = ({ batteryList }) => {
+  console.log('안', batteryList);
   return (
     <S.BatteryListContainer>
       {batteryList.map((battery) => {
@@ -10,7 +11,7 @@ const BatteryList = ({ batteryList }) => {
             <BatteryCard
               imgUrl={battery.photoURL}
               details={{
-                station: battery.station,
+                stationId: battery.stationId,
                 price: battery.price,
                 capacity: battery.capacity,
               }}

@@ -30,7 +30,7 @@ const useKakaoLogin = () => {
         setIsAuthorized(true);
         setIsSessioned(true);
         setIsLoading(false);
-        navigate('/logout', { replace: true });
+        navigate('/', { replace: true });
       });
     }
   }, []);

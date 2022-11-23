@@ -13,6 +13,8 @@ import {
   checkValidToken,
 } from '../apis/auth';
 import { Headers } from 'headers-polyfill';
+import mockAdmin from './data/admin';
+
 let MockOrder = [...mockOrder];
 let MockUsers = [...mockUser];
 let MockZone = [...mockZone];
@@ -137,6 +139,12 @@ export const handlers = [
   // Zone related
   rest.get('/api/zones', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(MockZone));
+  }),
+
+  //단일 관리자 조회
+  rest.get('admins/:adminId', (req, res, ctx) => {
+    const adminInfo = mockAdmin;
+    return res(ctx.status(200), ctx.json(adminInfo));
   }),
 
   //요청에서 토큰 유효성 검사 - 모든 api요청은 백엔드에서 토큰 유효성 검사를 할예정으로 임시로 /test api에 대해서만 체크후 응답보내줌

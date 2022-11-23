@@ -20,7 +20,7 @@ const BatteryStatusContainer = styled.div`
   align-items: center;
 
   background-color: ${({ status }) =>
-    status === undefined ? '#DADADA' : status ? '#7BEB5F' : '#EEDA25'};
+    status === 'total' ? '#DADADA' : status ? '#7BEB5F' : '#EEDA25'};
   cursor: ${({ count }) => (count ? 'pointer' : null)};
   width: ${({ count }) => (count ? '65px' : null)};
   height: ${({ count }) => (count ? '65px' : null)};
