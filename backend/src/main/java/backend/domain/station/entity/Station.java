@@ -1,8 +1,10 @@
 package backend.domain.station.entity;
 
+import backend.domain.admin.entity.Admin;
 import backend.domain.battery.entity.Battery;
 import backend.domain.payment.entity.Payment;
 import backend.global.auditing.BaseTime;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -36,4 +38,15 @@ public class Station extends BaseTime {
     @OneToMany(mappedBy = "station")
     private List<Payment> payment;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
+    @JsonBackReference
+    private Admin admin;
+
+    public void addAdmin(Admin admin){
+        this.admin = admin;
+        if(!this.admin.getStationList().contains(this)){
+            this.admin.getStationList().add(this);
+        }
+    }
 }

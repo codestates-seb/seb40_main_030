@@ -35,8 +35,8 @@ public class AdminController {
     public ResponseEntity postAdmin(@Valid @RequestBody AdminDto.Post requestBody){
         Admin admin = mapper.adminPostDtoToAdmin(requestBody);
         Admin createAdmin = adminService.createAdmin(admin);
-        AdminDto.Response response = mapper.adminToAdminResponse(createAdmin);
-
+//        AdminDto.Response response = mapper.adminToAdminResponse(createAdmin);
+        AdminDto.Response response = new AdminDto.Response(createAdmin);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -56,8 +56,8 @@ public class AdminController {
     @GetMapping("/{adminId}")
     public ResponseEntity getAdmin(@PathVariable("adminId") @Positive long adminId){
         Admin admin = adminService.findAdmin(adminId);
-        AdminDto.Response response = mapper.adminToAdminResponse(admin);
-
+//        AdminDto.Response response = mapper.adminToAdminResponse(admin);
+        AdminDto.Response response = new AdminDto.Response(admin);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -65,8 +65,9 @@ public class AdminController {
     @GetMapping
     public ResponseEntity<PageInfoDto> getAdmins (Pageable pageable){
         Page<Admin> page = adminService.findAdmins(pageable);
+        Page<AdminDto.Response> dtoPage = page.map(AdminDto.Response::new);
 
-        return new ResponseEntity<>(new PageInfoDto<>(page), HttpStatus.OK);
+        return new ResponseEntity<>(new PageInfoDto<>(dtoPage), HttpStatus.OK);
     }
 
     // 해당 ID 관리자 삭제

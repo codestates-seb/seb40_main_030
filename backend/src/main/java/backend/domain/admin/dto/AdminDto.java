@@ -1,5 +1,7 @@
 package backend.domain.admin.dto;
 
+import backend.domain.admin.entity.Admin;
+import backend.domain.station.entity.Station;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +10,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminDto {
     @Getter
@@ -49,5 +53,30 @@ public class AdminDto {
         private String phone;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+        private List<Station> stationList;
+
+        public Response(Admin admin){
+            this.adminId = admin.getAdminId();
+            this.email = admin.getEmail();
+            this.password = admin.getPassword();
+            this.phone = admin.getPhone();
+            this.createdAt = admin.getCreatedAt();
+            this.modifiedAt = admin.getModifiedAt();
+
+            List<Station> list = new ArrayList<>();
+            for(int i = 0; i < admin.getStationList().size(); i++){
+                Station adminStation = new Station();
+                adminStation.setId(admin.getStationList().get(i).getId());
+                adminStation.setName(admin.getStationList().get(i).getName());
+                adminStation.setDetails(admin.getStationList().get(i).getDetails());
+                adminStation.setLatitude(admin.getStationList().get(i).getLatitude());
+                adminStation.setLongitude(admin.getStationList().get(i).getLongitude());
+                adminStation.setPhotoURL(admin.getStationList().get(i).getPhotoURL());
+                //배터리 추가해야함
+                adminStation.setBattery(admin.getStationList().get(i).getBattery());
+                list.add(adminStation);
+            }
+            this.stationList = list;
+        }
     }
 }

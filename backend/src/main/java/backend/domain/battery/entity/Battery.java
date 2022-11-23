@@ -32,6 +32,9 @@ public class Battery {
     @Column
     private int price;
 
+    @Column
+    private String batteryName;
+
     @URL
     @Column
     private String photoURL;
