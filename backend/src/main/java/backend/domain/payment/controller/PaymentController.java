@@ -1,5 +1,6 @@
 package backend.domain.payment.controller;
 
+import backend.domain.payment.dto.PayBillsResDto;
 import backend.domain.payment.dto.PayPatchReqDto;
 import backend.domain.payment.dto.PayPostReqDto;
 import backend.domain.payment.dto.PayResDto;
@@ -55,10 +56,10 @@ public class PaymentController {
 
 
     @GetMapping("/{paymentId}")
-    public ResponseEntity<PayResDto> getPayment (@PathVariable Long paymentId) {
+    public ResponseEntity<PayBillsResDto> getPayment (@PathVariable Long paymentId) {
         Payment payment = paymentService.getPayment(paymentId);
 
-        return new ResponseEntity<>(new PayResDto(payment), HttpStatus.OK);
+        return new ResponseEntity<>(new PayBillsResDto(payment), HttpStatus.OK);
     }
 
     @GetMapping
