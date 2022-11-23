@@ -44,7 +44,9 @@ public class AdminService {
 
     // 관리자 전체 조회
     public Page<Admin> findAdmins(Pageable pageable){
-        return adminRepository.findAllByOrderByCreatedAtDesc(pageable);
+        Page<Admin> page = adminRepository.findAllByOrderByCreatedAtDesc(pageable);
+//        return adminRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return page;
     }
 
     // 해당 ID 관리자 삭제
