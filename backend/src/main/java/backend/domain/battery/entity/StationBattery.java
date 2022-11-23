@@ -17,6 +17,8 @@ public class StationBattery extends BaseTime {
 
     private int price;
 
+    private String batteryName;
+
     private String photoURL;
 
 }

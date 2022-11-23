@@ -41,6 +41,7 @@ public class StationResDto {
             filteredbattery.setPhotoURL(station.getBattery().get(i).getPhotoURL());
             filteredbattery.setCreatedAt(station.getBattery().get(i).getCreatedAt());
             filteredbattery.setModifiedAt(station.getBattery().get(i).getModifiedAt());
+            filteredbattery.setBatteryName(station.getBattery().get(i).getBatteryName());
             list.add(filteredbattery);
         }
         this.batteries = list;
