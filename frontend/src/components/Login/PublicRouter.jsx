@@ -1,8 +1,13 @@
 import { Outlet } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
-
-const PublicRouter = ({ isAuthorized }) => {
-  return <>{isAuthorized ? <Navigate to='/' replace={true} /> : <Outlet />} </>;
+import { useEffect } from 'react';
+const PublicRouter = ({ when, message, path }) => {
+  useEffect(() => {
+    if (when) {
+      alert(message);
+    }
+  }, [when]);
+  return <>{when ? <Navigate to={path} replace={true} /> : <Outlet />} </>;
 };
 
 export default PublicRouter;

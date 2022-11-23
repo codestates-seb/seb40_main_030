@@ -24,7 +24,13 @@ const PAGES = [
   { element: <SignUp />, path: ROUTES.SIGNUP.PATH, name: ROUTES.SIGNUP.NAME },
 
   {
-    element: <PrivateRouter isAuthorized={isAuthorized} />,
+    element: (
+      <PrivateRouter
+        when={isAuthorized}
+        message={'로그인해주세요.'}
+        path={'/login'}
+      />
+    ),
     children: [
       {
         element: <Logout />,
@@ -40,7 +46,13 @@ const PAGES = [
   },
 
   {
-    element: <PublicRouter isAuthorized={isAuthorized} />,
+    element: (
+      <PublicRouter
+        when={isAuthorized}
+        message={'로그인되어있습니다.'}
+        path={'/'}
+      />
+    ),
     children: [
       { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
     ],
