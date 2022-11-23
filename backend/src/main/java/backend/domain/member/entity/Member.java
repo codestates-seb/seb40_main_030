@@ -1,6 +1,7 @@
 package backend.domain.member.entity;
 import backend.domain.payment.entity.Payment;
 import backend.global.auditing.BaseTime;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,6 +38,7 @@ public class Member extends BaseTime {
     List<String> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private List<Payment> payment;
 
     public Member(Member member) {

@@ -2,7 +2,6 @@ package backend.domain.station.dto;
 
 import backend.domain.battery.entity.Battery;
 import backend.domain.station.entity.Station;
-import backend.domain.battery.entity.StationBattery;
 import backend.domain.station.entity.StationLocation;
 import lombok.Getter;
 import lombok.Setter;
