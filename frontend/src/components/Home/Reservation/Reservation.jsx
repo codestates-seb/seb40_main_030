@@ -1,12 +1,12 @@
-import { initialReservationValue } from '../../../recoil/pagesState';
-import Calendar from './Calendar/Calendar';
-import TimeTable from './TimeTable/TimeTable';
-import { UndoIcon } from '../../../assets';
+import { UndoIcon } from '@/assets';
+import { useCalendar, useReservation, useUndoReservation } from '@/hooks';
+import { initialReservationValue } from '@/recoil/pagesState';
 
-import * as S from './Reservation.style';
-import { useCalendar, useReservation, useUndoReservation } from './hooks';
-import SingleDateSelection from './DateSelection/SingleDateSelection';
 import BookingTypeBox from './BookingTypeBox/BookingTypeBox';
+import Calendar from './Calendar/Calendar';
+import SingleDateSelection from './DateSelection/SingleDateSelection';
+import * as S from './Reservation.style';
+import TimeTable from './TimeTable/TimeTable';
 
 const Reservation = () => {
   const { reservationStatus, setReservationStatus } = useReservation();

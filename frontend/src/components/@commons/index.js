@@ -1,13 +1,12 @@
-import SplashScreen from './SplashScreen/SplashScreen';
-import BatteryCharging from './Loading/BatteryCharging';
-import Cards from './CardModal/Cards';
-
-// Buttons
-
 import ShadowButton from './Buttons/ShadowButton';
+import Cards from './CardModal/Cards';
+import ShadowCard from './CardModal/ShadowCard';
+import BatteryCharging from './Loading/BatteryCharging';
+import PageWrapper from './PageWrapper/PageWrapper';
+import SplashScreen from './SplashScreen/SplashScreen';
 
-export { SplashScreen, BatteryCharging, Cards };
+export { SplashScreen, BatteryCharging, Cards, PageWrapper };
 
-//Buttons
+// Shadow
 
-export { ShadowButton };
+export { ShadowButton, ShadowCard };

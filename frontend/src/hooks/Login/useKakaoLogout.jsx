@@ -1,15 +1,9 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import {
-  invalidateTokenIndirectly,
-  renewTokenIndirectly,
-} from '../../apis/auth';
-import { useState, useEffect } from 'react';
-import { loginState, accessTokenVal, sessionState } from '../../recoil/login';
+import { invalidateTokenIndirectly } from '../../apis/auth';
+import { useState } from 'react';
+import { loginState } from '../../recoil/login';
 import { useNavigate } from 'react-router-dom';
-import {
-  KAKAO_TOKEN_LOGOUT_URL,
-  KAKAO_ACCOUNT_LOGOUT_URL,
-} from '../../constants/auth';
+import { KAKAO_TOKEN_LOGOUT_URL } from '../../constants/auth';
 
 const useKakaoLogout = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,14 +31,10 @@ const useKakaoLogout = () => {
       }
     );
   };
-
-  useEffect(() => {
-    if (!isSessioned) {
-      invalidateToken();
-    }
-  }, [isSessioned]);
-
   return {
+    isAuthorized,
+    setIsAuthorized,
+    logoutClickHandler,
     isLoading,
     setIsLoading,
     logoutClickHandler,

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
+
 import {
   KAKAO_ACCOUNT_LOGOUT_URL,
   KAKAO_RENEW_TOKEN_URL,
@@ -14,7 +15,7 @@ const getTokenIndirectly = async (authorizationCode) => {
     });
     return res;
   } catch (error) {
-  } finally {
+    console.log(error);
   }
 };
 
@@ -37,7 +38,7 @@ const getTokenDirectly = async (path, authorizationCode) => {
     });
     return await res.json();
   } catch (error) {
-  } finally {
+    console.log(error);
   }
 };
 
@@ -51,7 +52,9 @@ const getUserInfo = async (path, accessToken) => {
       }, //엑세스 토큰 헤더에 담아서 요청
     });
     return res;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 //카카오서버로 로그아웃 요청 보냄 - 토큰을 무효하게 만들어서 인가를 받을 수 없게 만든다.
@@ -62,11 +65,11 @@ const invalidateTokenDirectly = async (path, accessToken) => {
       {},
       {
         headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
-      }
+      },
     );
     return res;
   } catch (error) {
-  } finally {
+    console.log(error);
   }
 };
 
@@ -80,7 +83,7 @@ const invalidateTokenIndirectly = async (path, accessToken) => {
 
     return res;
   } catch (error) {
-  } finally {
+    console.log(error);
   }
 };
 
@@ -105,7 +108,7 @@ const renewTokenDirectly = async (refreshToken) => {
 
     return data;
   } catch (error) {
-  } finally {
+    console.log(error);
   }
 };
 
@@ -116,7 +119,7 @@ const logoutAccountSessionDirectly = async () => {
 
     return res;
   } catch (error) {
-  } finally {
+    console.log(error);
   }
 };
 
@@ -127,7 +130,7 @@ const renewTokenIndirectly = async () => {
 
     return res;
   } catch (error) {
-  } finally {
+    console.log(error);
   }
 };
 //토큰 유효성 체크 임의 로직 , 임시로 만들어놓음
@@ -142,13 +145,13 @@ const checkValidToken = (token) => {
 const testHandler = async (accessToken) => {
   //테스트 api 위한 임시 핸들러
   try {
-    const res = await axios.get('/test', {
+    return await axios.get('/test', {
       headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
     });
   } catch (error) {
     if (error.response?.statusText === 'Unauthorized') {
+      console.log(error);
     }
-  } finally {
   }
 };
 export {

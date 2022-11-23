@@ -32,9 +32,19 @@ const useKakaoLogin = () => {
         setIsLoading(false);
         navigate('/logout', { replace: true });
       });
+
+      // getTokenDirectly(KAKAO_TOKENCODE_URL, authorizationCode).then((data) => {
+      //   console.log('받은 asdasd토큰은', data);
+      //   localStorage.setItem('accessToken', data.access_token);
+      // localStorage.setItem('refreshToken', data.data.refresh_token);
+      //   navigate('/logout');
+      //   setIsAuthorized(true);
+      // });
     }
   }, []);
   return {
+    isAuthorized,
+    setIsAuthorized,
     loginClickHandler,
     isLoading,
     setIsLoading,
