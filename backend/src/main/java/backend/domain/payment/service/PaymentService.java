@@ -86,9 +86,7 @@ public class PaymentService {
 
     public Page<Payment> getPayments (Pageable pageable) {
 
-        Page<Payment> page = paymentRepository.findAllByOrderByCreatedAtDesc(pageable);
-
-        return page;
+        return paymentRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
 }
