@@ -6,6 +6,7 @@ import backend.global.auditing.BaseTime;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -39,8 +40,8 @@ public class Member extends BaseTime {
     private String photoURL;
 
 
-//    @ElementCollection(fetch = FetchType.EAGER)     현재 시큐리티 미적용 상태이므로 주석처리 해두었습니다
-//    List<String> roles = new ArrayList<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    List<String> roles = new ArrayList<>();
 
 
 //    public Collection<? extends GrantedAuthority> getAuthorities() {   현재 시큐리티 미적용 상태이므로 주석처리 해두었습니다

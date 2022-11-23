@@ -18,7 +18,8 @@ public enum ExceptionCode {
     BATTERY_NOT_FOUND(404, "해당 배터리가 존재하지 않습니다."),
     ADMIN_NOT_FOUND(404, "해당 관리자가 존재하지 않습니다."),
     STATION_NOT_FOUND(404, "해당 대여소가 존재하지 않습니다."),
-    PAY_NOT_FOUND(404, "해당 결제가 존재하지 않습니다.");
+    PAY_NOT_FOUND(404, "해당 결제가 존재하지 않습니다."),
+    AUTHENTICATION_FAIL(400, "인증을 실패했습니다.");
 
 
     @Getter
