@@ -7,15 +7,20 @@ import backend.global.exception.dto.BusinessLogicException;
 //import backend.global.exception.exceptionCode.BusinessException;
 import backend.global.exception.exceptionCode.ExceptionCode;
 //import backend.global.security.jwt.JwtTokenizer;
+import backend.global.security.jwt.JwtTokenizer;
+import backend.global.security.utils.CustomAuthorityUtil;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.data.redis.core.RedisTemplate;
 //import org.springframework.data.redis.core.ValueOperations;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
@@ -23,16 +28,18 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-//    private final PasswordEncoder passwordEncoder;          // 현재 시큐리티 미적용 상태이므로 주석처리해두었습니다.
-//    private final CustomAuthorityUtil customAuthorityUtil;
-//    private final JwtTokenizer jwtTokenizer;
-//    private final RedisTemplate redisTemplate;
+    private final PasswordEncoder passwordEncoder;          // 현재 시큐리티 미적용 상태이므로 주석처리해두었습니다.
+    private final CustomAuthorityUtil customAuthorityUtil;
+    private final JwtTokenizer jwtTokenizer;
+    private final RedisTemplate redisTemplate;
 
     @Transactional
     public Member createMember(Member member) {
         verifyNotExistsMember(member);
-//        member.setPassword(passwordEncoder.encode(member.getPassword()));  // 현재 시큐리티 미적용으로 주석처리 해두었습니다.
-//        member.setRoles(customAuthorityUtil.getRole());
+        member.setPassword(passwordEncoder.encode(member.getPassword()));  // 현재 시큐리티 미적용으로 주석처리 해두었습니다.
+
+        List<String> roles = customAuthorityUtil.createRoles(member.getEmail());
+        member.setRoles(roles);
         member.setCreatedAt(LocalDateTime.now());
         member.setModifiedAt(LocalDateTime.now());
         Member savedMember = memberRepository.save(member);
