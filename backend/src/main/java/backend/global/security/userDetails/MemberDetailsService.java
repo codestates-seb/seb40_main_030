@@ -1,4 +1,4 @@
-package backend.domain.member.service;
+package backend.global.security.userDetails;
 
 import backend.domain.member.entity.Member;
 import backend.domain.member.repository.MemberRepository;
