@@ -4,34 +4,35 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { mockUser } from '../../../mocks/data';
 import { useNavigate } from 'react-router-dom';
-import {
-  HomeIcon,
-  SignUpContainer,
-  SignUpText,
-  SignUpTopContainer,
-  SignUpMidContainer,
-  SignUpPhoto,
-  SignUpEmailInputDiv,
-  SignUpPasswordInputDiv,
-  SignUpEmailSuccessMsgDiv,
-  SignUpEmailFailMsgDiv,
-  SignUpCheckPasswordInputDiv,
-  SignUpPasswordSuccessMsgDiv,
-  SignUpPasswordFailMsgDiv,
-  SignUpCheckPasswordSuccessMsgDiv,
-  SignUpCheckPasswordFailMsgDiv,
-  SignUpNickInputDiv,
-  SignUpNickSuccessMsgDiv,
-  SignUpNickFailMsgDiv,
-  SignUpPhoneInputDiv,
-  SignUpPhoneSuccessMsgDiv,
-  SignUpPhoneFailMsgDiv,
-  SignUpAddressContainer,
-  SignUpAddressInputDiv,
-  SignUpAddressInputAddDiv,
-  SignUpSubmitBtn,
-  SignUpBottomContainer,
-} from './SignUp.style';
+import * as S from './SignUp.style';
+// import {
+//   HomeIcon,
+//   SignUpContainer,
+//   SignUpText,
+//   SignUpTopContainer,
+//   SignUpMidContainer,
+//   SignUpPhoto,
+//   SignUpEmailInputDiv,
+//   SignUpPasswordInputDiv,
+//   SignUpEmailSuccessMsgDiv,
+//   SignUpEmailFailMsgDiv,
+//   SignUpCheckPasswordInputDiv,
+//   SignUpPasswordSuccessMsgDiv,
+//   SignUpPasswordFailMsgDiv,
+//   SignUpCheckPasswordSuccessMsgDiv,
+//   SignUpCheckPasswordFailMsgDiv,
+//   SignUpNickInputDiv,
+//   SignUpNickSuccessMsgDiv,
+//   SignUpNickFailMsgDiv,
+//   SignUpPhoneInputDiv,
+//   SignUpPhoneSuccessMsgDiv,
+//   SignUpPhoneFailMsgDiv,
+//   SignUpAddressContainer,
+//   SignUpAddressInputDiv,
+//   SignUpAddressInputAddDiv,
+//   SignUpSubmitBtn,
+//   SignUpBottomContainer,
+// } from './SignUp.style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 // 해야할것
@@ -155,18 +156,18 @@ const SignUp = () => {
   };
 
   return (
-    <SignUpContainer>
-      <SignUpTopContainer>
-        <HomeIcon>
+    <S.SignUpContainer>
+      <S.SignUpTopContainer>
+        <S.HomeIcon>
           <FontAwesomeIcon icon={faArrowLeft} />
-        </HomeIcon>
-        <SignUpText>회원가입</SignUpText>
-      </SignUpTopContainer>
-      <SignUpMidContainer>
-        <SignUpPhoto>
+        </S.HomeIcon>
+        <S.SignUpText>회원가입</S.SignUpText>
+      </S.SignUpTopContainer>
+      <S.SignUpMidContainer>
+        <S.SignUpPhoto>
           <input type='file' />
-        </SignUpPhoto>
-        <SignUpEmailInputDiv>
+        </S.SignUpPhoto>
+        <S.SignUpEmailInputDiv>
           <input
             type='text'
             value={signEmail}
@@ -176,13 +177,13 @@ const SignUp = () => {
             placeholder='Email'
           />
           <button onClick={checkedEmail}>중복확인</button>
-        </SignUpEmailInputDiv>
+        </S.SignUpEmailInputDiv>
         {emailMsg === '사용 가능 email입니다.' ? (
-          <SignUpEmailSuccessMsgDiv>{emailMsg}</SignUpEmailSuccessMsgDiv>
+          <S.SignUpEmailSuccessMsgDiv>{emailMsg}</S.SignUpEmailSuccessMsgDiv>
         ) : (
-          <SignUpEmailFailMsgDiv>{emailMsg}</SignUpEmailFailMsgDiv>
+          <S.SignUpEmailFailMsgDiv>{emailMsg}</S.SignUpEmailFailMsgDiv>
         )}
-        <SignUpPasswordInputDiv>
+        <S.SignUpPasswordInputDiv>
           <input
             type='text'
             value={signPassword}
@@ -192,15 +193,15 @@ const SignUp = () => {
             onKeyUp={validPasswordMsg}
             placeholder='비밀번호(9~15자)'
           />
-        </SignUpPasswordInputDiv>
+        </S.SignUpPasswordInputDiv>
         {passwordMsg === '적합한 비밀번호.' ? (
-          <SignUpPasswordSuccessMsgDiv>
+          <S.SignUpPasswordSuccessMsgDiv>
             {passwordMsg}
-          </SignUpPasswordSuccessMsgDiv>
+          </S.SignUpPasswordSuccessMsgDiv>
         ) : (
-          <SignUpPasswordFailMsgDiv>{passwordMsg}</SignUpPasswordFailMsgDiv>
+          <S.SignUpPasswordFailMsgDiv>{passwordMsg}</S.SignUpPasswordFailMsgDiv>
         )}
-        <SignUpCheckPasswordInputDiv>
+        <S.SignUpCheckPasswordInputDiv>
           <input
             type='text'
             value={signCheckPw}
@@ -210,17 +211,17 @@ const SignUp = () => {
             onKeyUp={validPasswordMsg}
             placeholder='비밀번호 재확인'
           />
-        </SignUpCheckPasswordInputDiv>
+        </S.SignUpCheckPasswordInputDiv>
         {checkPasswordMsg === '비밀번호 일치함.' ? (
-          <SignUpCheckPasswordSuccessMsgDiv>
+          <S.SignUpCheckPasswordSuccessMsgDiv>
             {checkPasswordMsg}
-          </SignUpCheckPasswordSuccessMsgDiv>
+          </S.SignUpCheckPasswordSuccessMsgDiv>
         ) : (
-          <SignUpCheckPasswordFailMsgDiv>
+          <S.SignUpCheckPasswordFailMsgDiv>
             {checkPasswordMsg}
-          </SignUpCheckPasswordFailMsgDiv>
+          </S.SignUpCheckPasswordFailMsgDiv>
         )}
-        <SignUpNickInputDiv>
+        <S.SignUpNickInputDiv>
           <input
             type='text'
             value={signNick}
@@ -230,13 +231,13 @@ const SignUp = () => {
             placeholder='닉네임을 입력하세요'
           />
           <button onClick={checkedNick}>중복확인</button>
-        </SignUpNickInputDiv>
+        </S.SignUpNickInputDiv>
         {nickMsg === '사용가능 닉네임.' ? (
-          <SignUpNickSuccessMsgDiv>{nickMsg}</SignUpNickSuccessMsgDiv>
+          <S.SignUpNickSuccessMsgDiv>{nickMsg}</S.SignUpNickSuccessMsgDiv>
         ) : (
-          <SignUpNickFailMsgDiv>{nickMsg}</SignUpNickFailMsgDiv>
+          <S.SignUpNickFailMsgDiv>{nickMsg}</S.SignUpNickFailMsgDiv>
         )}
-        <SignUpPhoneInputDiv>
+        <S.SignUpPhoneInputDiv>
           <input
             type='text'
             value={signPhone}
@@ -246,14 +247,14 @@ const SignUp = () => {
             onKeyUp={phoneVaildMsg}
             placeholder='Phone Number (- 생략)'
           />
-        </SignUpPhoneInputDiv>
+        </S.SignUpPhoneInputDiv>
         {phoneMsg === '' ? (
-          <SignUpPhoneSuccessMsgDiv>{phoneMsg}</SignUpPhoneSuccessMsgDiv>
+          <S.SignUpPhoneSuccessMsgDiv>{phoneMsg}</S.SignUpPhoneSuccessMsgDiv>
         ) : (
-          <SignUpPhoneFailMsgDiv>{phoneMsg}</SignUpPhoneFailMsgDiv>
+          <S.SignUpPhoneFailMsgDiv>{phoneMsg}</S.SignUpPhoneFailMsgDiv>
         )}
-        <SignUpAddressContainer>
-          <SignUpAddressInputDiv>
+        <S.SignUpAddressContainer>
+          <S.SignUpAddressInputDiv>
             <input
               type='text'
               value={signAddress}
@@ -263,16 +264,18 @@ const SignUp = () => {
               placeholder='Address'
             />
             <button>주소찾기</button>
-          </SignUpAddressInputDiv>
-          <SignUpAddressInputAddDiv>
+          </S.SignUpAddressInputDiv>
+          <S.SignUpAddressInputAddDiv>
             <input type='text' placeholder='상세주소 입력' />
-          </SignUpAddressInputAddDiv>
-        </SignUpAddressContainer>
-      </SignUpMidContainer>
-      <SignUpBottomContainer>
-        <SignUpSubmitBtn onClick={signUpSubmit}>회원가입 완료</SignUpSubmitBtn>
-      </SignUpBottomContainer>
-    </SignUpContainer>
+          </S.SignUpAddressInputAddDiv>
+        </S.SignUpAddressContainer>
+      </S.SignUpMidContainer>
+      <S.SignUpBottomContainer>
+        <S.SignUpSubmitBtn onClick={signUpSubmit}>
+          회원가입 완료
+        </S.SignUpSubmitBtn>
+      </S.SignUpBottomContainer>
+    </S.SignUpContainer>
   );
 };
 
