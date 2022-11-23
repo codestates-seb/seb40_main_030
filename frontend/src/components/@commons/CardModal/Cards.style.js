@@ -8,7 +8,7 @@ const Main = styled(motion.div)`
   font-family: 'Poppins', sans-serif;
 `;
 
-const Cards = styled(motion.div)`
+const CardWrapper = styled(motion.div)`
   display: grid;
   width: 15rem;
   position: relative;
@@ -98,4 +98,4 @@ const ShadowCard = styled.div`
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 `;
 
-export { Main, Cards, Card, Container, Image, Details, ShadowCard };
+export { Main, CardWrapper, Card, Container, Image, Details, ShadowCard };

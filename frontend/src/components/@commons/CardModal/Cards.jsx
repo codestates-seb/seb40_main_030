@@ -8,7 +8,7 @@ const Cards = ({ content, setIsOpen }) => {
   // 예약시간을 주소값에 포함?
 
   return (
-    <S.Cards>
+    <S.CardWrapper>
       <S.Card>
         <Link to={`/rental/${id}`}>
           <S.Container>
@@ -26,7 +26,7 @@ const Cards = ({ content, setIsOpen }) => {
           </div>
         </S.Details>
       </S.Card>
-    </S.Cards>
+    </S.CardWrapper>
   );
 };
 
