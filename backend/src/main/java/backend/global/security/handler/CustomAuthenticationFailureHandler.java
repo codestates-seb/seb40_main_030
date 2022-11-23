@@ -22,11 +22,14 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+                                        AuthenticationException exception) throws IOException {
 
+        log.error("# Authentication failed: {}", exception.getMessage());
+        sendErrorResponse(response);
         //존재하지 않는 이메일일 경우
         //비밀번호가 틀린 경우 모두 진입함.
-        throw new BusinessLogicException(ExceptionCode.AUTHENTICATION_FAIL);
+//        throw new BusinessLogicException(ExceptionCode.AUTHENTICATION_FAIL); // 이 코드 적용시 IOException 제거하기
     }
 
     private void sendErrorResponse(HttpServletResponse response) throws IOException {

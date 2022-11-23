@@ -2,17 +2,12 @@ package backend.domain.member.service;
 
 import backend.domain.member.entity.Member;
 import backend.domain.member.repository.MemberRepository;
-//import backend.domain.member.utils.CustomAuthorityUtil;
 import backend.global.exception.dto.BusinessLogicException;
-//import backend.global.exception.exceptionCode.BusinessException;
 import backend.global.exception.exceptionCode.ExceptionCode;
-//import backend.global.security.jwt.JwtTokenizer;
 import backend.global.security.jwt.JwtTokenizer;
-import backend.global.security.utils.CustomAuthorityUtil;
+
+import backend.global.security.utils.CustomAuthorityUtils;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.data.redis.core.RedisTemplate;
-//import org.springframework.data.redis.core.ValueOperations;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -29,22 +24,24 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;          // 현재 시큐리티 미적용 상태이므로 주석처리해두었습니다.
-    private final CustomAuthorityUtil customAuthorityUtil;
+    private final CustomAuthorityUtils customAuthorityUtils;
     private final JwtTokenizer jwtTokenizer;
     private final RedisTemplate redisTemplate;
 
     @Transactional
     public Member createMember(Member member) {
         verifyNotExistsMember(member);
-        member.setPassword(passwordEncoder.encode(member.getPassword()));  // 현재 시큐리티 미적용으로 주석처리 해두었습니다.
 
-        List<String> roles = customAuthorityUtil.createRoles(member.getEmail());
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
+
+        List<String> roles = customAuthorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
+
         member.setCreatedAt(LocalDateTime.now());
         member.setModifiedAt(LocalDateTime.now());
-        Member savedMember = memberRepository.save(member);
-        return savedMember;
 
+        return memberRepository.save(member);
     }
 
     @Transactional
@@ -76,17 +73,7 @@ public class MemberService {
         return page.map(Member::new);
     }
 
-//    public void outMember(HttpServletRequest request) {      현재 시큐리티 미적용으로 주석처리 했습니다.
-//
-//        String authentication = request.getHeader("Authorization");
-//        String jws = authentication.replace("bearer", "");
-//        registerJws(jws);
-//    }
 
-
-
-//
-//
     private void verifyNotExistsMember(Member member) {
         Optional<Member> optionalEmail = memberRepository.findByMemberEmail(member.getEmail());
         if (optionalEmail.isPresent()) {

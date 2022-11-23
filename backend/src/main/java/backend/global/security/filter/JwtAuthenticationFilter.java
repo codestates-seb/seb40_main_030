@@ -9,6 +9,7 @@ import backend.global.security.jwt.JwtTokenizer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,25 +32,25 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
 
-    private final MemberMapper memberMapper;
-    private final Gson gson;
-
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    @SneakyThrows @Override
+    public Authentication attemptAuthentication (HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
         LoginDto loginDto;
         try {
             loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
 
         return authenticationManager.authenticate(usernamePasswordAuthenticationToken);
     }
+
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
@@ -59,52 +60,44 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         Member authenticatedMember = (Member) authResult.getPrincipal();
 
-        String accessToken = delegateGenerateAccessToken(authenticatedMember);
-        String refreshToken = delegateGenerateRefreshToken(authenticatedMember.getNickname());
+        String accessToken = delegateAccessToken(authenticatedMember);
+        String refreshToken = delegateRefreshToken(authenticatedMember);
 
+        response.setHeader("AccessToken", "bearer"+accessToken);
+        response.setHeader("RefreshToken", refreshToken);
 
-        response.setHeader("Authorization", "bearer"+accessToken);
-        response.setHeader("Refresh", refreshToken);
-
-        setResponseBody(response, authenticatedMember);
-//        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);  // 추가
+        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);  // 추가
     }
 
-    private void setResponseBody(HttpServletResponse httpServletResponse, Member authenticatedMember) throws IOException {
-
-        MemberDto.Response response = memberMapper.memberToMemberDtoResponse(authenticatedMember);
-        SingleResDto singleResponseDto = new SingleResDto(response);
-        String content = gson.toJson(singleResponseDto);
-        httpServletResponse.getWriter().write(content);
-    }
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                              AuthenticationException failed) throws IOException, ServletException {
 
         super.unsuccessfulAuthentication(request, response, failed);
     }
 
-    private String delegateGenerateAccessToken(Member member) {
+    private String delegateAccessToken(Member member) {
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", member.getEmail());
         claims.put("memberId", member.getId());
-
-        Date currentDate = jwtTokenizer.getCurrentDate();
-        Date accessTokenExpDate = jwtTokenizer.getAccessTokenExpDate();
-        String subject = member.getNickname();
+        claims.put("password", member.getPassword());
+        String subject = member.getEmail();
+//        String subject = member.getNickname();
+        Date accessTokenExpDate = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
         String secretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
-        return jwtTokenizer.createAccessToken(claims, currentDate, accessTokenExpDate, subject, secretKey);
+        return jwtTokenizer.createAccessToken(claims, subject, accessTokenExpDate, secretKey);
     }
 
-    private String delegateGenerateRefreshToken(String memberName) {
 
-        Date currentDate = jwtTokenizer.getCurrentDate();
-        Date refreshTokenExpDate = jwtTokenizer.getRefreshTokenExpDate();
-        String subject = memberName;
-        String secretKey =  jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+    private  String delegateRefreshToken(Member member) {
+        String subject = member.getEmail();
+        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
-        return jwtTokenizer.createRefreshToken(currentDate, refreshTokenExpDate, subject, secretKey);
+        return jwtTokenizer.createRefreshToken(subject, expiration, base64EncodedSecretKey);
     }
+
 }
