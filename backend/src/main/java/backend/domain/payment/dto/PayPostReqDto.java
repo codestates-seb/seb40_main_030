@@ -6,13 +6,16 @@ import backend.global.auditing.BaseTime;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter @Setter
 public class PayPostReqDto extends BaseTime {
 
+    @NotBlank(message = "시작시간을 지정해주세요.")
     private String startTime;
+    @NotBlank(message = "반납시간을 지정해주세요.")
     private String endTime;
 
     private Long batteryId;

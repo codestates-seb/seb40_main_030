@@ -1,5 +1,7 @@
 package backend.domain.station.controller;
 
+import backend.domain.battery.entity.StationBattery;
+import backend.domain.station.dto.StationBatteryReqDto;
 import backend.domain.station.dto.StationPatchReqDto;
 import backend.domain.station.dto.StationPostReqDto;
 import backend.domain.station.dto.StationResDto;
@@ -63,5 +65,13 @@ public class StationController {
         Page<StationResDto> dtoPage = page.map(StationResDto::new);
 
         return new ResponseEntity<>(new PageInfoDto(dtoPage), HttpStatus.OK);
+    }
+
+    @GetMapping("/batteries/{stationId}")
+    public ResponseEntity<StationResDto> getStationBattery (@PathVariable Long stationId,
+                                                            @RequestBody StationBatteryReqDto stationBatteryReqDto) {
+        Station station = stationService.getStationBattery(stationId, stationBatteryReqDto);
+        StationResDto response = new StationResDto(station);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

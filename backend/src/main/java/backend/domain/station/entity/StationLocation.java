@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter @Setter
 public class StationLocation {
 
-    private long latitude;
+    private double latitude;
 
-    private long longitude;
+    private double longitude;
 
 }

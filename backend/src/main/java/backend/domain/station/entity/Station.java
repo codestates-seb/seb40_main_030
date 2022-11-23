@@ -21,11 +21,13 @@ public class Station extends BaseTime {
 
     private String details;
 
-    private long latitude;
+    private double latitude;
 
-    private long longitude;
+    private double longitude;
 
     private String photoURL;
+
+    private String phone;
 
     @OneToMany(mappedBy = "station", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonManagedReference

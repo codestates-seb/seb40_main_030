@@ -15,7 +15,7 @@ public class StationPatchReqDto {
     private String details;
     private StationLocation location;
     private String photoURL;
-
+    private String phone;
 
     public Station toStation(Long stationId) {
         Station station = new Station().builder()
@@ -25,6 +25,7 @@ public class StationPatchReqDto {
                 .latitude(this.location.getLatitude())
                 .longitude(this.location.getLongitude())
                 .photoURL(this.photoURL)
+                .phone(this.phone)
                 .build();
         station.setModifiedAt(LocalDateTime.now());
 

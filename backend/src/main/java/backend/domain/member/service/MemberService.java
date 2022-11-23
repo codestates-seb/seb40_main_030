@@ -96,7 +96,7 @@ public class MemberService {
     private Member verifyExistsMember(Long memberId) {
 
         return memberRepository.findById(memberId).orElseThrow(()->
-        {throw new BusinessLogicException(ExceptionCode.NOT_FOUND_MEMBER);});
+        {throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);});
 
     }
 

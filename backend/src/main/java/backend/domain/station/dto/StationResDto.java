@@ -17,6 +17,7 @@ public class StationResDto {
     private String details;
     private StationLocation location;
     private String photoURL;
+    private String phone;
     private List<StationBattery> batteries;
 
     public StationResDto(Station station) {
@@ -28,6 +29,7 @@ public class StationResDto {
         location.setLongitude(station.getLongitude());
         this.location = location;
         this.photoURL = station.getPhotoURL();
+        this.phone = station.getPhone();
 
         List<StationBattery> list = new ArrayList<>();
         for(int i=0 ; i< station.getBattery().size() ; i++) {
