@@ -30,7 +30,6 @@ const useKakaoLogout = () => {
 
     invalidateTokenIndirectly(KAKAO_TOKEN_LOGOUT_URL, accessToken).then(
       (res) => {
-        console.log('로그아웃 요청의 응답은', res);
         setAccessToken('');
         setIsAuthorized(false);
         setIsLoading((preVal) => !preVal);

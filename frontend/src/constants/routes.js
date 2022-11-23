@@ -21,12 +21,12 @@ const ROUTES = Object.freeze({
     PATH: '/signup',
     NAME: 'Signup',
   },
-  BUSSINES: {
-    PATH: 'bussines',
-    NAME: 'Bussines',
+  BUSINESS: {
+    PATH: 'business',
+    NAME: 'Business',
   },
   PAY: {
-    PATH: '/pay/:paymentId/:memberId',
+    PATH: '/pay/:paymentId',
     NAME: 'pay',
   },
   ITEMSLIST: {

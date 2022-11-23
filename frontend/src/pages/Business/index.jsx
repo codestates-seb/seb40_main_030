@@ -3,7 +3,7 @@ import BatteryList from '../../components/Business/Battery/BatteryList';
 
 import Filter from '../../components/Business/Filter/Filter';
 
-const Bussines = () => {
+const Business = () => {
   return (
     <div
       style={{
@@ -18,4 +18,4 @@ const Bussines = () => {
   );
 };
 
-export default Bussines;
+export default Business;

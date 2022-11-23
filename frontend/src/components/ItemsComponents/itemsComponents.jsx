@@ -6,18 +6,12 @@ import * as S from './ItemList';
 const ItemCompo = () => {
     const [data, setData] = useState([]);
     const [userId, setUserId] = useState([]);
-    const {paymentId, memberId} = useParams();
+    const { paymentId } = useParams();
     // 목데이터 를 가져옴 추후에 삭제
     useEffect(() => {
         axios.get('/api/itemlist')
         .then((data) => setData(data.data))
     }, [])
-    
-    // useEffect(() => {
-    //     axios.get('/api/members')
-    //     .then((userId) => setData(setUserId))
-    //     console.log(userId)
-    // }, [])
 
     //pay 페이지로 데이터 전달
     const navigate = useNavigate();
