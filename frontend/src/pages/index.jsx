@@ -9,6 +9,7 @@ import PrivateRouter from '../components/Login/PrivateRouter';
 import PublicRouter from '../components/Login/PublicRouter';
 import Business from './Business';
 
+const isAuthorized = JSON.parse(localStorage.getItem('loginState'));
 const PAGES = [
   {
     element: <Layout />,
@@ -23,7 +24,7 @@ const PAGES = [
   { element: <SignUp />, path: ROUTES.SIGNUP.PATH, name: ROUTES.SIGNUP.NAME },
 
   {
-    element: <PrivateRouter />,
+    element: <PrivateRouter isAuthorized={isAuthorized} />,
     children: [
       {
         element: <Logout />,
@@ -39,7 +40,7 @@ const PAGES = [
   },
 
   {
-    element: <PublicRouter />,
+    element: <PublicRouter isAuthorized={isAuthorized} />,
     children: [
       { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
     ],

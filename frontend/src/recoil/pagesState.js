@@ -47,4 +47,5 @@ export {
   navState,
   currentLocationState,
   reservationState,
+  localStorageEffect,
 };

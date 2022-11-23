@@ -1,11 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
-import { loginState } from '../../recoil/login';
-import { useRecoilValue } from 'recoil';
 
-const PrivateRouter = () => {
-  const isAuthorized = useRecoilValue(loginState);
-
+const PrivateRouter = ({ isAuthorized }) => {
   return (
     <>{isAuthorized ? <Outlet /> : <Navigate to='/login' replace={true} />}</>
   );
