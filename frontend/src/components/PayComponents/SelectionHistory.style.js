@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Button } from '../Home/KakaoMap/Features/MapIndicator.style';
 
 const SelectLayout = styled.div`
 height: 640px;
@@ -20,7 +19,7 @@ margin-left: 20px;
 
 const Product = styled.div`
 font-size: 25px;
-background-color: ${({ theme }) => theme.main_color_1};
+background-color: ${({ theme }) => theme.COLOR_MAIN};
 color: white;
 height: 50px;
 padding: 12px;

@@ -39,7 +39,7 @@ font-size: 20px;
 padding-top: 10px;
 font-size: 25px;
 font-weight: bold;
-color: ${({ theme }) => theme.font_color_1};
+color: ${({ theme }) => theme.COLOR_FONT};
 
 `
 const TotalPayRightLayout = styled.div`
@@ -53,7 +53,7 @@ color: red;
 const PayButton = styled.button`
 font-size: 30px;
 font-weight: bold;
-background-color: ${({ theme }) => theme.main_color_1};
+background-color: ${({ theme }) => theme.COLOR_MAIN};
 color: white;
 width: 300px;
 height: 70px;

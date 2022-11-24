@@ -6,8 +6,8 @@ import { ArrowIcon } from '@/assets';
 
 const SelectionHistory = () => {
     const {state} = useLocation();
-    let deposit = 50000;
-    let navigate = useNavigate();
+    const deposit = 50000;
+    const navigate = useNavigate();
 
     function aClick() {
         navigate(-1)

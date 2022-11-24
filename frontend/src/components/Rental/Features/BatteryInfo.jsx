@@ -8,7 +8,7 @@ import * as S from './Features.style';
 
 // 주유소 이름과 위치정보 전화번호 ??
 const BatteryInfo = ({ content, station }) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const { startPoint, endPoint } = useCheckValidReserveTable();
   const { capacity, status, price, photoURL, batteryId, batteryName } = content;
   

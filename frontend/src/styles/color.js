@@ -30,14 +30,11 @@ const COLOR = {
 };
 
 const SIGNATURE_COLOR = {
-  main_color_1: '#558fac',
-  main_color_2: '#22577e',
-  main_color_3: '#95d1cc',
-  main_color_4: '#f6f2d4',
+  COLOR_MAIN: '#558fac',
+  COLOR_BLUE: '#22577e',
+  COLOR_CREAM: '#f6f2d4',
 
-  font_color_1: '#7b8c9f',
-  font_color_2: '#7f8ea1',
-  font_color_3: '#808fa0',
+  COLOR_FONT: '#7b8c9f'
 }
 
 export { COLOR, SIGNATURE_COLOR };
