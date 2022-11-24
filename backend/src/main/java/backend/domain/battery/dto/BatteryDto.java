@@ -31,9 +31,6 @@ public class BatteryDto {
 
         @URL
         private String photoURL;
-
-//        @NotNull(message ="ZONE ID 를 입력해주세요.")
-//        private long zoneId;
     }
 
     @Getter
@@ -53,7 +50,6 @@ public class BatteryDto {
         private int price;
         private String batteryName;
         private String photoURL;
-//        private long zoneId;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private List<BatteryReservation> reservations;
