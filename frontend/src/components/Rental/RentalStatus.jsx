@@ -1,34 +1,35 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useGetStationById } from '@/hooks';
+import NotFound from '@/pages/NotFound';
 
-import { useCurrentAddress, useCheckValidReserveTable } from '../../hooks';
-import { reservationState } from '../../recoil/pagesState';
+import { useCurrentAddress } from '../../hooks';
 import BatteryInfo from './Features/BatteryInfo';
 
-const RentalStatus = ({ data }) => {
+const RentalStatus = ({ id }) => {
+  const { data } = useGetStationById(id);
+
   // hooks 로 분리
-  const navigate = useNavigate();
   const { location, batteries } = data;
-  const { dateFixed } = useRecoilValue(reservationState);
-  const { startPoint, endPoint } = useCheckValidReserveTable();
   const { addressDetail } = useCurrentAddress(location);
   // 추후 적용될 부분
-  startPoint, endPoint, addressDetail;
+  addressDetail;
 
-  useEffect(() => {
-    if (!dateFixed.date || !dateFixed.time) {
-      navigate('/');
-      alert('예약시간 설정을 먼저 해주세요.');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  console.log(batteries);
+
+  // 필요한 정보 주유소 이름 , 예약시간 , 유저 Id, 배터리 Id
 
   return (
     <>
-      {batteries.map((content) => (
-        <BatteryInfo key={content.batteryId} content={content} />
-      ))}
+      {batteries.length === 0 ? (
+        <NotFound message='배터리가 없어요 ' />
+      ) : (
+        batteries.map((content) => (
+          <BatteryInfo
+            key={content.batteryId}
+            station={data}
+            content={content}
+          />
+        ))
+      )}
     </>
   );
 };

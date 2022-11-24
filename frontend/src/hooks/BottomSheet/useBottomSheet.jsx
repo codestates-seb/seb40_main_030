@@ -30,7 +30,7 @@ const useBottomSheet = () => {
     }
   }, [controls, isOpen, prevIsOpen]);
 
-  return { onDragEnd, controls };
+  return { onDragEnd, controls, setIsOpen, isOpen };
 };
 
 export default useBottomSheet;

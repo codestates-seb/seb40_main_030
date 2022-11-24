@@ -3,19 +3,16 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 import { ROUTES } from '@/constants';
 
-const PrivateRouter = ({ isAuthenticated }) => {
+const PrivateRouter = () => {
+  const isAuth = localStorage.getItem('loginState');
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isAuth) {
       //  추후에 모달로 변경되야함
-      alert('로그인 후 사용해주세요');
+      alert('로그인 후 이용 가능한 서비스 입니다.');
     }
-  }, [isAuthenticated]);
+  }, [isAuth]);
 
-  return isAuthenticated ? (
-    <Outlet />
-  ) : (
-    <Navigate to={ROUTES.LOGIN.PATH} replace />
-  );
+  return isAuth ? <Outlet /> : <Navigate to={ROUTES.LOGIN.PATH} replace />;
 };
 
 export default PrivateRouter;
