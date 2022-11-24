@@ -1,8 +1,8 @@
 import * as S from './Management.style';
 import ManagementButton from './ManagementButton';
-import { useMutation } from '@tanstack/react-query';
 import { addBattery } from '../../../apis/admin';
-import { queryClient } from '../../../main';
+import { useMutation } from '@tanstack/react-query';
+import queryClient from '../../../query';
 
 const Management = ({ deleteHandler }) => {
   const { mutate: addMutate, data } = useMutation((body) => addBattery(body), {
