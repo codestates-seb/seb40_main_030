@@ -1,10 +1,18 @@
+import { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ArrowIcon } from '@/assets';
 
+import { BatteryCharging } from '..';
 import * as S from './PageWrapper.style';
 
-const PageWrapper = ({ title, path, children }) => {
+const PageWrapper = ({
+  title,
+  path,
+  loadingMessage,
+  loadingDelay,
+  children,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -20,7 +28,16 @@ const PageWrapper = ({ title, path, children }) => {
         </div>
         <S.Title>{title}</S.Title>
       </S.Header>
-      {children}
+      <Suspense
+        fallback={
+          <BatteryCharging
+            message={loadingMessage}
+            BatteryCharging={loadingDelay}
+          />
+        }
+      >
+        {children}
+      </Suspense>
     </S.MotionWrapper>
   );
 };

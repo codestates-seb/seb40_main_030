@@ -132,7 +132,7 @@ export const handlers = [
 
   // Stations related
   rest.get('/api/stations', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(MockStations));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(MockStations));
   }),
 
   rest.get('/api/stations/:stationId', (req, res, ctx) => {
@@ -142,7 +142,7 @@ export const handlers = [
       (station) => station.id === Number(stationId),
     );
 
-    return res(ctx.status(200), ctx.json(MockStations[index]));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(MockStations[index]));
   }),
 
   // Auth

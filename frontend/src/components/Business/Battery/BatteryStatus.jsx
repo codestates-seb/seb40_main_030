@@ -1,7 +1,6 @@
 import * as S from './Battery.style';
 
 const BatteryStatus = ({ status, count }) => {
-  console.log(count);
   return (
     <>
       <S.BatteryStatusContainer status={status} count={count}>

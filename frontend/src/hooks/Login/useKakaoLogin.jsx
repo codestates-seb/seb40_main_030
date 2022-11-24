@@ -1,9 +1,10 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { getTokenIndirectly } from '../../apis/auth';
-import { loginState, accessTokenVal, sessionState } from '../../recoil/login';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+
+import { getTokenIndirectly } from '../../apis/auth';
 import { KAKAO_AUTH_CODE_URL } from '../../constants/auth';
+import { loginState, accessTokenVal, sessionState } from '../../recoil/login';
 
 const useKakaoLogin = () => {
   const setAccessToken = useSetRecoilState(accessTokenVal);
@@ -16,7 +17,6 @@ const useKakaoLogin = () => {
     if (!isAuthorized) {
       setIsLoading(true);
       window.location.assign(KAKAO_AUTH_CODE_URL);
-    } else {
     }
   };
 
@@ -48,7 +48,6 @@ const useKakaoLogin = () => {
     loginClickHandler,
     isLoading,
     setIsLoading,
-    isAuthorized,
   };
 };
 
