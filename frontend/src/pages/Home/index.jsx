@@ -7,8 +7,7 @@ import BottomSheet from '@/components/@layout/BottomSheet/BottomSheet';
 import MapArea from '@/components/Home/Maps';
 import Reservation from '@/components/Home/Reservation/Reservation';
 import { ROUTES } from '@/constants';
-import { useSplashScreen } from '@/hooks';
-import useSnackBar from '@/hooks/commons/useSnackBar';
+import { useSplashScreen, useSnackBar } from '@/hooks';
 
 const Home = () => {
   const { pathname } = useLocation();

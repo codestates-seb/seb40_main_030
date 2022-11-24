@@ -27,9 +27,9 @@ const Wrapper = styled(motion.div)`
   width: 100vw;
   height: 100vh;
 
-  color: ${({ color, theme }) => (color ? color : theme.NOT_FOUND_GRAY)};
+  color: ${({ color, theme }) => (color ? color : theme.NOT_FOUND.GRAY)};
   background-color: ${({ bgColor }) =>
-    bgColor ? bgColor : theme.NOT_FOUND_BG};
+    bgColor ? bgColor : theme.NOT_FOUND.BG_COLOR};
 `;
 
 const Message = styled.p`
@@ -39,6 +39,7 @@ const Message = styled.p`
   margin: 0 auto;
   border-right: 2px solid rgba(255, 255, 255, 0.75);
   font-size: 180%;
+
   text-align: center;
   white-space: nowrap;
   overflow: hidden;

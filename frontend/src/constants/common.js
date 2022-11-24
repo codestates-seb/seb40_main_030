@@ -1,3 +1,4 @@
+// BottomSheet
 const GEOLOCATION_OPTIONS = {
   enableHighAccuracy: true,
   timeout: 1000 * 60 * 1, // 1 min (1000 ms * 60 sec * 1 minute = 60000ms)
@@ -9,4 +10,13 @@ const DEFAULT_LOCATION = {
   longitude: 127.0248,
 };
 
+// Reservation
+
+const TIME = {
+  HOUR: 3600000,
+  PERCENTAGE: 100,
+};
+
 export { GEOLOCATION_OPTIONS, DEFAULT_LOCATION };
+
+export { TIME };

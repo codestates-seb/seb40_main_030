@@ -1,10 +1,12 @@
-import { useBottomSheet } from '@/hooks';
+import { SnackBar } from '@/components/@commons';
+import { useBottomSheet, useSnackBar } from '@/hooks';
 
 import * as S from './BottomSheet.style';
 import Header from './Header';
 
 const BottomSheet = ({ children }) => {
   const { onDragEnd, controls } = useBottomSheet();
+  const { isActive, message } = useSnackBar();
 
   return (
     <S.Wrapper
@@ -26,6 +28,7 @@ const BottomSheet = ({ children }) => {
     >
       <Header />
       <S.ContentWrapper>{children}</S.ContentWrapper>
+      <SnackBar isActive={isActive} message={message} />
     </S.Wrapper>
   );
 };

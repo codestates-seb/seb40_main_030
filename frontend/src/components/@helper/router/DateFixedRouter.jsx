@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 import { ROUTES } from '@/constants';
-import { useBottomSheet, useCheckDateFixed } from '@/hooks';
-import useSnackBar from '@/hooks/commons/useSnackBar';
+import { useBottomSheet, useCheckDateFixed, useSnackBar } from '@/hooks';
 
 const DateFixedRouter = () => {
   const { openSnackBar } = useSnackBar();
