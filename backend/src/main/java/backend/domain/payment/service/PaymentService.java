@@ -1,7 +1,9 @@
 package backend.domain.payment.service;
 
 import backend.domain.battery.entity.Battery;
+import backend.domain.battery.entity.Reservation;
 import backend.domain.battery.repository.BatteryRepository;
+import backend.domain.battery.repository.ReservationRepository;
 import backend.domain.member.entity.Member;
 import backend.domain.member.repository.MemberRepository;
 import backend.domain.payment.entity.Payment;
@@ -28,6 +30,8 @@ public class PaymentService {
     private final StationRepository stationRepository;
 
     private final MemberRepository memberRepository;
+
+    private final ReservationRepository reservationRepository;
 
     @Transactional
     public Payment postPayment (Payment payment, Long batteryId, Long memberId) {
@@ -63,6 +67,18 @@ public class PaymentService {
         Optional.ofNullable(payment.getStatus()).ifPresent(savedPayment::setStatus);
         Optional.of(payment.getPayMethod()).ifPresent(savedPayment::setPayMethod);
         savedPayment.setModifiedAt(payment.getModifiedAt());
+        Reservation reservation = new Reservation();
+        if(savedPayment.getStatus().getCode() == 1){
+            reservation.setStartTime(savedPayment.getStartTime());
+            reservation.setEndTime(savedPayment.getEndTime());
+            reservation.setPayment(savedPayment);
+            reservation.setBattery(savedPayment.getBattery());
+            reservation.setStationId(savedPayment.getStation().getId());
+            reservation.setCreatedAt(savedPayment.getCreatedAt());
+            reservation.setModifiedAt(savedPayment.getModifiedAt());
+            reservation.setPayStatus(savedPayment.getStatus());
+            reservationRepository.save(reservation);
+        }
 
         return paymentRepository.save(savedPayment);
     }
