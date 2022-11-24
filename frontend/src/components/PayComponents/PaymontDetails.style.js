@@ -39,7 +39,8 @@ font-size: 20px;
 padding-top: 10px;
 font-size: 25px;
 font-weight: bold;
-color: var(--font-01);
+color: ${({ theme }) => theme.font_color_1};
+
 `
 const TotalPayRightLayout = styled.div`
 font-size: 20px;
@@ -52,7 +53,7 @@ color: red;
 const PayButton = styled.button`
 font-size: 30px;
 font-weight: bold;
-background-color: var(--main-01);
+background-color: ${({ theme }) => theme.main_color_1};
 color: white;
 width: 300px;
 height: 70px;
@@ -62,5 +63,6 @@ justify-content: center;
 align-items: center;
 border-radius: 10px;
 margin: auto;
+cursor: pointer;
 `
 export { PayLayout, LeftPayLayout, RightPayLayout, PaymentItem, ItemDeposit, TotalPayLeftLayout, TotalPayRightLayout, PayButton, PayMoney, TotalPayLayout };

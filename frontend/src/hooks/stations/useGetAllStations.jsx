@@ -9,6 +9,7 @@ const useGetAllStations = (selector) => {
     {
       selector,
       refetchOnWindowFocus: false,
+      suspense: true,
     },
   );
 

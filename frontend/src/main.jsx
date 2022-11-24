@@ -20,7 +20,14 @@ if (process.env.NODE_ENV === 'development') {
 
 // react query
 // 세부 사항 (default options)은 추후 추가 예정
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      useErrorBoundary: true,
+      suspense: true,
+    },
+  },
+});
 
 const container = document.getElementById('root');
 

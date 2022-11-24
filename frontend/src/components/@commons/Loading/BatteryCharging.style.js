@@ -1,11 +1,15 @@
+import { motion } from 'framer-motion';
 import styled, { keyframes } from 'styled-components';
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  width: 200px;
-  margin: 30px auto;
   justify-content: center;
+
+  margin: 0 auto;
+
+  width: 200px;
+  height: 100vh;
 `;
 
 const Title = styled.h2`
@@ -23,7 +27,6 @@ const BatteryAnimation = keyframes`
       }
       to {
         width: 72px;
-        /* background: #0f0; */
         background: #1070fc;
         border-radius: 3px;
 

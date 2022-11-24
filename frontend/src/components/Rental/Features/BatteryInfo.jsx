@@ -1,11 +1,9 @@
 import { ShadowButton, ShadowCard } from '@/components/@commons';
 import { PRICE_REGEX } from '@/constants';
-import { useCheckValidReserveTable } from '@/hooks';
 import { useNavigate } from 'react-router-dom';
-import { useCallback, useEffect } from 'react';
+import { useCheckValidReserveTable } from '@/hooks';
 
 import * as S from './Features.style';
-import { useDeprecatedAnimatedState } from 'framer-motion';
 
 
 // 주유소 이름과 위치정보 전화번호 ??

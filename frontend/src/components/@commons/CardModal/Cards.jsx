@@ -10,7 +10,7 @@ const Cards = ({ content, setIsOpen }) => {
     <S.CardWrapper>
       <S.Card>
         <Link to={`/rental/${id}`}>
-          <S.Container>
+          <S.Container onClick={() => setIsOpen(false)}>
             <S.Image src={photoURL} alt={name} />
           </S.Container>
         </Link>

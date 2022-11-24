@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from '../Home/KakaoMap/Features/MapIndicator.style';
 
 const SelectLayout = styled.div`
 height: 640px;
@@ -19,7 +20,7 @@ margin-left: 20px;
 
 const Product = styled.div`
 font-size: 25px;
-background-color: var(--main-01);
+background-color: ${({ theme }) => theme.main_color_1};
 color: white;
 height: 50px;
 padding: 12px;
@@ -27,10 +28,10 @@ padding: 12px;
 
 const ItemLayout = styled.div`
 display: flex;
-height: 160px;
+height: 200px;
 padding-left: 10px;
 margin-top: 50px;
-margin-bottom: 50px;
+margin-bottom: 30px;
 width: 100%;
 `
 const ItemLayout1 = styled.div`
@@ -46,17 +47,17 @@ flex-wrap: wrap;
 `
 
 const ItemDate = styled.div`
-font-size: 15px;
+font-size: 18px;
 margin-top: 25px;
 `
 const ItemRight = styled.div`
-font-size: 15px;
+font-size: 18px;
 margin-top: 20px;
 text-align: right;
 `
 
 const ItemLeft = styled.div`
-font-size: 15px;
+font-size: 18px;
 margin-top: 20px;
 `
 

@@ -9,14 +9,6 @@ const ROUTES = Object.freeze({
     PATH: '*',
     NAME: 'Page Not Found',
   },
-  LOGIN: {
-    PATH: '/login',
-    NAME: 'Login',
-  },
-  LOGOUT: {
-    PATH: '/logout',
-    NAME: 'Logout',
-  },
   SIGNUP: {
     PATH: '/signup',
     NAME: 'Signup',
@@ -25,17 +17,13 @@ const ROUTES = Object.freeze({
     PATH: 'business',
     NAME: 'Business',
   },
-  PAYMENTS: {
-    PATH: '/payments/:batteryId',
-    NAME: 'Payments',
+  LOGIN: {
+    PATH: '/login',
+    NAME: 'Login',
   },
-  ITEMSLIST: {
-    PATH: '/itemslist',
-    NAME: 'Itemslist',
-  },
-  ENTRANCE: {
-    PATH: '/entrance',
-    NAME: 'Entrance',
+  LOGOUT: {
+    PATH: '/logout',
+    NAME: 'Logout',
   },
   SEARCH: {
     PATH: '/search',
@@ -44,6 +32,10 @@ const ROUTES = Object.freeze({
   RENTAL: {
     PATH: '/rental/:stationId',
     NAME: 'Rental',
+  },
+  PAYMENTS: {
+    PATH: '/payments/:batteryId',
+    NAME: 'Payments',
   },
 });
 
