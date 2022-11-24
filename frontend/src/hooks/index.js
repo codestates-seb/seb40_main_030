@@ -4,6 +4,7 @@ import usePreviousValue from './bottomSheet/usePrevious';
 import useMediaQuery from './commons/useMediaQuery';
 import useSplashScreen from './commons/useSplashScreen';
 // maps
+import useCardModal from './map/useCardModal';
 import useCurrentAddress from './map/useCurrentAddress';
 import useCurrentLocation from './map/useCurrentLocation';
 import useKakaoMap from './map/useKakaoMap';
@@ -12,6 +13,7 @@ import useTimeDifference from './map/useTimeDifference';
 import useWatchLocation from './map/useWatchLocation';
 // reservation
 import useCalendar from './reservation/useCalendar';
+import useCheckDateFixed from './reservation/useCheckDateFixed';
 import useCheckValidReserveTable from './reservation/useCheckValidReserveTable';
 import useCounter from './reservation/useCounter';
 import useReservation from './reservation/useReservation';
@@ -34,6 +36,7 @@ export {
   useTimeDifference,
   useWatchLocation,
   useSearchMap,
+  useCardModal,
 };
 
 export {
@@ -43,4 +46,5 @@ export {
   useReservation,
   useSingleDateReservation,
   useUndoReservation,
+  useCheckDateFixed,
 };

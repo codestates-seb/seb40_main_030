@@ -3,14 +3,17 @@ import { useSetRecoilState } from 'recoil';
 
 import { ShadowButton } from '@/components/@commons';
 import { useSearchMap } from '@/hooks';
+import useSnackBar from '@/hooks/commons/useSnackBar';
 import { currentLocationState } from '@/recoil/pagesState';
 
+import SnackBar from '../@commons/SnackBar/SnackBar';
 import * as S from './Search.style';
 
 const SearchPage = () => {
   const navigate = useNavigate();
   const { inputRef, setKeyword, locationData } = useSearchMap();
   const setLocation = useSetRecoilState(currentLocationState);
+  const { isActive, message, openSnackBar } = useSnackBar();
 
   return (
     <>
@@ -38,6 +41,13 @@ const SearchPage = () => {
             });
           }}
         />
+        <ShadowButton
+          content='SnackBar'
+          width='100%'
+          style={{ marginTop: 200 }}
+          onClick={() => openSnackBar('오류 메시지')}
+        />
+        <SnackBar isActive={isActive} message={message} />
       </div>
       <S.Body>
         {locationData.length === 0 ? (
