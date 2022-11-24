@@ -55,6 +55,7 @@ const BatteryListContainer = styled.ul`
 
 const deleteButtonContainer = styled.button`
   position: relative;
+  left: 13px;
   width: 20px;
   height: 20px;
   border: 1px solid black;
@@ -64,7 +65,7 @@ const deleteButtonContainer = styled.button`
   align-items: center;
 
   visibility: ${({ deleteState, status }) =>
-    deleteState === true && status === false ? '' : 'hidden'};
+    deleteState === true && status === true ? '' : 'hidden'};
 `;
 
 export {

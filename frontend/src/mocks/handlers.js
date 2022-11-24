@@ -154,6 +154,24 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(mockAdmin));
   }),
 
+  //배터리 삭제
+  rest.delete('/batteries/:batteryId', (req, res, ctx) => {
+    const { batteryId } = req.params;
+
+    const deleteBattery = (batteryId) => {
+      mockAdmin.stationList[0].battery =
+        mockAdmin.stationList[0].battery.filter((battery) => {
+          console.log(typeof battery.batteryId, typeof +batteryId);
+          return battery.batteryId !== +batteryId;
+        });
+      console.log(mockAdmin.stationList[0].battery);
+    };
+
+    deleteBattery(batteryId);
+
+    return res(ctx.status(200), ctx.json(mockAdmin));
+  }),
+
   //요청에서 토큰 유효성 검사 - 모든 api요청은 백엔드에서 토큰 유효성 검사를 할예정으로 임시로 /test api에 대해서만 체크후 응답보내줌
   rest.all('/test', (req, res, ctx) => {
     const header = new Headers(req.headers);

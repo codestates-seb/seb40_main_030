@@ -16,6 +16,7 @@ const BatteryList = ({ batteryList, deleteState }) => {
               }}
               deleteState={deleteState}
               status={battery.status}
+              batteryId={battery.batteryId}
             />
           </li>
         );
