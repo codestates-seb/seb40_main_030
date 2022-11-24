@@ -13,23 +13,26 @@ const Business = () => {
   let batteryList;
   let countList;
   const {
-    data: adminInfo,
+    data: batteryInfo,
     isLoading,
     isSuccess,
     isError,
   } = useQuery(['adminInfo'], () => getAdminById('1'));
 
-  if (isSuccess) {
-    batteryList = filterBatteryInfo(adminInfo.data);
-    countList = getEachStateNum(batteryList);
-  }
-
   return (
     <S.PageWrapper>
       <S.BodyWrapper>
         <Management />
-        {isSuccess ? <Filter countList={countList} /> : <p>로딩중</p>}
-        {isSuccess ? <BatteryList batteryList={batteryList} /> : <p>로딩중</p>}
+        {isSuccess ? (
+          <Filter countList={batteryInfo.countList} />
+        ) : (
+          <p>로딩중</p>
+        )}
+        {isSuccess ? (
+          <BatteryList batteryList={batteryInfo.batteryList} />
+        ) : (
+          <p>로딩중</p>
+        )}
       </S.BodyWrapper>
     </S.PageWrapper>
   );

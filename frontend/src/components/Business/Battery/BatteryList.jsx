@@ -2,7 +2,6 @@ import * as S from './Battery.style';
 import BatteryCard from './BatteryCard';
 
 const BatteryList = ({ batteryList }) => {
-  console.log('안', batteryList);
   return (
     <S.BatteryListContainer>
       {batteryList.map((battery) => {
