@@ -25,9 +25,13 @@ public class BatteryService {
     }
 
     // 배터리 수정
-    public Battery updateBattery(Battery battery){
-        Battery findBattery = findVerifiedBattery(battery.getBatteryId());
-        findBattery.setStatus(battery.isStatus());
+    public Battery updateBattery(long batteryId){
+        Battery findBattery = findVerifiedBattery(batteryId);
+        if(!findBattery.isStatus()){
+            findBattery.setStatus(true);
+        }else{
+            findBattery.setStatus(false);
+        }
         findBattery.setModifiedAt(LocalDateTime.now());
 
         return batteryRepository.save(findBattery);

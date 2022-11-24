@@ -2,6 +2,8 @@ package backend.domain.battery.dto;
 
 import backend.domain.battery.entity.Battery;
 import backend.domain.battery.entity.Reservation;
+import backend.domain.payment.entity.PayStatus;
+import backend.domain.station.entity.Station;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,9 +31,6 @@ public class BatteryDto {
 
         @URL
         private String photoURL;
-
-//        @NotNull(message ="ZONE ID 를 입력해주세요.")
-//        private long zoneId;
     }
 
     @Getter
@@ -51,7 +50,6 @@ public class BatteryDto {
         private int price;
         private String batteryName;
         private String photoURL;
-//        private long zoneId;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private List<BatteryReservation> reservations;
@@ -75,6 +73,8 @@ public class BatteryDto {
             private String endTime;
             private LocalDateTime reservationCreatedAt;
             private LocalDateTime reservationModifiedAt;
+            private PayStatus payStatus;
+            private Long stationId;
 
             public static List<BatteryReservation> batteryReservation(List<Reservation> reservations){
                 List<BatteryReservation> list = new ArrayList<>();
@@ -89,6 +89,8 @@ public class BatteryDto {
                 this.endTime = reservation.getEndTime();
                 this.reservationCreatedAt = reservation.getCreatedAt();
                 this.reservationModifiedAt = reservation.getModifiedAt();
+                this.payStatus = reservation.getPayStatus();
+                this.stationId = reservation.getStationId();
             }
         }
     }

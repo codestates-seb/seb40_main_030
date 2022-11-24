@@ -43,13 +43,9 @@ public class BatteryController {
 
     // 해당 ID 배터리 수정
     @PatchMapping("/{batteryId}")
-    public ResponseEntity patchBattery(@PathVariable("batteryId") @Positive long batteryId,
-                                       @Valid @RequestBody BatteryDto.Patch requestBody){
-        requestBody.setBatteryId(batteryId);
-        Battery battery = mapper.batteryPatchDtoToBattery(requestBody);
-        Battery updateBattery = batteryService.updateBattery(battery);
-        BatteryDto.Response response = mapper.batteryToBatteryResponse(updateBattery);
-
+    public ResponseEntity patchBattery(@PathVariable("batteryId") @Positive long batteryId){
+        Battery updateBattery = batteryService.updateBattery(batteryId);
+        BatteryDto.Response response = new BatteryDto.Response(updateBattery);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
