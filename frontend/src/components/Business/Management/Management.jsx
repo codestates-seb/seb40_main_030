@@ -1,10 +1,10 @@
 import * as S from './Management.style';
 import ManagementButton from './ManagementButton';
 import { addBattery } from '../../../apis/admin';
-import { useMutation } from '@tanstack/react-query';
-import queryClient from '../../../query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const Management = ({ deleteHandler }) => {
+  const queryClient = useQueryClient();
   const { mutate: addMutate, data } = useMutation((body) => addBattery(body), {
     onSuccess: () => {
       queryClient.invalidateQueries(['adminInfo']);

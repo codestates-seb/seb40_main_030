@@ -1,9 +1,9 @@
 import { deleteBattery } from '../../../apis/admin';
 import * as S from './Battery.style';
-import { useMutation } from '@tanstack/react-query';
-import queryClient from '../../../query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const BatteryDeleteButton = ({ deleteState, status, batteryId }) => {
+  const queryClient = useQueryClient();
   const { mutate: deleteMutate } = useMutation(
     (batteryId) => deleteBattery(batteryId),
     {

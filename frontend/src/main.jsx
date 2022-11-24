@@ -9,7 +9,6 @@ import { RecoilRoot } from 'recoil';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { worker } from './mocks/browser';
 import ErrorBoundary from './components/@helper/ErrorBoundary';
-import queryClient from './query';
 
 // MSW가 develop 환경에서만 구동됨
 if (process.env.NODE_ENV === 'development') {
@@ -20,7 +19,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // react query
 // 세부 사항 (default options)은 추후 추가 예정
-// export const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 const container = document.getElementById('root');
 
