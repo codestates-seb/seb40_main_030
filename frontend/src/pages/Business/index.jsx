@@ -3,36 +3,23 @@ import Filter from '../../components/Business/Filter/Filter';
 import Management from '../../components/Business/Management/ManageMent';
 import * as S from './Business.style';
 import { useQuery } from '@tanstack/react-query';
-import {
-  filterBatteryInfo,
-  getEachStateNum,
-} from '../../components/Business/utils';
 import { getAdminById } from '../../apis/admin';
 
 const Business = () => {
-  let batteryList;
-  let countList;
-  const {
-    data: batteryInfo,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useQuery(['adminInfo'], () => getAdminById('1'));
+  const { data: batteryInfo, isLoading } = useQuery(['adminInfo'], () =>
+    getAdminById('1')
+  );
 
+  if (isLoading) {
+    return <p>로딩중</p>;
+  }
+  console.log('business');
   return (
     <S.PageWrapper>
       <S.BodyWrapper>
         <Management />
-        {isSuccess ? (
-          <Filter countList={batteryInfo.countList} />
-        ) : (
-          <p>로딩중</p>
-        )}
-        {isSuccess ? (
-          <BatteryList batteryList={batteryInfo.batteryList} />
-        ) : (
-          <p>로딩중</p>
-        )}
+        <Filter countList={batteryInfo.countList} />
+        <BatteryList batteryList={batteryInfo.batteryList} />
       </S.BodyWrapper>
     </S.PageWrapper>
   );

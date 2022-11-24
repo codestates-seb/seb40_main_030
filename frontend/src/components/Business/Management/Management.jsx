@@ -1,7 +1,7 @@
 import * as S from './Management.style';
 import ManagementButton from './ManagementButton';
 
-const Management = ({ action }) => {
+const Management = () => {
   return (
     <S.ButtonWrapper>
       <ManagementButton action={'add'} />
