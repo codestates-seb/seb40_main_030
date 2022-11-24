@@ -1,4 +1,5 @@
-import BatteryCharging from '../../@commons/Loading/BatteryCharging';
+import BatteryCharging from '@/components/@commons/Loading/BatteryCharging';
+
 import * as S from './SplashScreen.style';
 
 const SplashScreen = () => {

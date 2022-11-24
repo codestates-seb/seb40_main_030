@@ -1,7 +1,8 @@
-import HorizontalDatePicker from './HorizontalDatePicker';
+import { useReservation } from '@/hooks';
+
 import * as S from './Calendar.style';
-import { useReservation } from '../hooks';
 import DateStatus from './DateStatus';
+import HorizontalDatePicker from './HorizontalDatePicker';
 
 const Calendar = () => {
   const { reservationStatus } = useReservation();

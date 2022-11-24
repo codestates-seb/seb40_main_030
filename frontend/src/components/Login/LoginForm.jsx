@@ -12,42 +12,6 @@ import LoginTopNav from '../@layout/LoginLayout/LoginTopNav';
 import LoginBottomNav from '../@layout/LoginLayout/LoginBottomNav';
 const LoginForm = () => {
   const { loginClickHandler, isAuthorized } = useKakaoLogin();
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenVal);
-  const navigate = useNavigate();
-
-  const getNewTokenHandler = async () => {
-    const res = await renewTokenIndirectly();
-    console.log(
-      '토큰 갱신 버튼 누른후 응답은',
-      res.data.access_token.access_token
-    );
-    setAccessToken(res.data.access_token.access_token);
-  };
-  const gobackHandler = () => {
-    navigate('/entrance');
-  };
-  const goEmptyHandler = () => {
-    navigate('/empty');
-  };
-  const goPrivateTestHandler = () => {
-    navigate('/privatetest');
-  };
-
-  const testHandler = async (accessToken) => {
-    //테스트 api 위한 임시 핸들러
-    try {
-      const res = await axios.get('/test', {
-        headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
-      });
-      console.log('테스트 api 요청의 응답은', res);
-    } catch (error) {
-      if (error.response?.statusText === 'Unauthorized') {
-        console.log('엑세스 토큰이 없습니다. 재발급요망');
-      }
-    } finally {
-      console.log('testHandler 실행완료');
-    }
-  };
 
   return (
     <div>

@@ -1,8 +1,4 @@
 import KakaoLogout from '../../components/Login/KakaoLogout';
-
-import { loginState, sessionState } from '../../recoil/login';
-import { useRecoilState } from 'recoil';
-import { KAKAO_ACCOUNT_LOGOUT_URL } from '../../constants/auth';
 import useKakaoLogout from '../../hooks/Login/useKakaoLogout';
 
 const Logout = () => {

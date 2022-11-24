@@ -4,7 +4,14 @@ import { atom } from 'recoil';
 // 회원정보 api에 요청할떄 id만 빼서 api/memberid로 서버로부터 데이터 받아올 예정
 const userInfoState = atom({
   key: 'userInfoState',
-  default: { email: '', nickname: '', phone: '', address: '', photourl: '' },
+  default: {
+    email: '',
+    password: '',
+    nickname: '',
+    phone: '',
+    address: '',
+    photoURL: '',
+  },
 });
 const userMemberId = atom({
   key: 'userMemberId',

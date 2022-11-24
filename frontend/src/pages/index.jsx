@@ -1,57 +1,62 @@
-import Layout from '../components/@layout/Layout';
-import { ROUTES } from '../constants';
+import { PrivateRouter, PublicRouter } from '@/components/@helper';
+import { ROUTES } from '@/constants';
+
+import Business from './Business';
 import Home from './Home';
+// import Login from './Login';
 import NotFound from './NotFound';
-import Login from './Login';
-import Logout from './Logout/index';
-import Entrance from './Entrance/index';
-import Empty from './Empty/index';
-import SignUp from '../components/Login/SignUp/SignUp';
-import PrivateRouter from '../components/Login/PrivateRouter';
-import PublicRouter from '../components/Login/PublicRouter';
-import { useRecoilState } from 'recoil';
-import { loginState } from '../recoil/login';
-// const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
+import Rental from './Rental';
+import Search from './Search';
+import SignUp from './SignUp';
+
+// 당장은 Layout 컴포넌트는 없고
+// BottomNav 가 필요한 페이지는 해당 페이지에 import 해주시면 됩니다.
+
 const PAGES = [
   {
-    element: <Layout />,
-    children: [
-      {
-        element: <Home />,
-        path: ROUTES.HOME.PATH,
-        name: ROUTES.HOME.NAME,
-      },
-    ],
+    element: <Home />,
+    path: ROUTES.HOME.PATH,
+    name: ROUTES.HOME.NAME,
   },
-  { element: <SignUp />, path: ROUTES.SIGNUP.PATH, name: ROUTES.SIGNUP.NAME },
-
   {
-    element: <PrivateRouter />,
-    children: [
-      {
-        element: <Logout />,
-        path: ROUTES.LOGOUT.PATH,
-        name: ROUTES.LOGOUT.NAME,
-      },
-    ],
+    element: <Search />,
+    path: ROUTES.SEARCH.PATH,
+    name: ROUTES.SEARCH.NAME,
   },
-
   {
-    element: <PublicRouter />,
-    children: [
-      {
-        element: <Entrance />,
-        path: ROUTES.ENTRANCE.PATH,
-        name: ROUTES.ENTRANCE.NAME,
-      },
-      { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
-      { element: <Empty />, path: ROUTES.EMPTY.PATH, name: ROUTES.EMPTY.NAME },
-    ],
+    element: <Rental />,
+    path: ROUTES.RENTAL.PATH,
+    name: ROUTES.RENTAL.NAME,
   },
   {
     element: <NotFound />,
     path: ROUTES.NOT_FOUND.PATH,
     name: ROUTES.NOT_FOUND.NAME,
+  },
+  {
+    element: <SignUp />,
+    path: ROUTES.SIGNUP.PATH,
+    name: ROUTES.SIGNUP.NAME,
+  },
+  {
+    // PrivateRouter의 children Element들은 로그인이 완료된 유저에게만 보이는 페이지
+    // 비로그인 유저가 접근시에는 /login 으로 리다이렉팅
+    element: <PrivateRouter isAuthenticated={false} />,
+    children: [
+      {
+        element: <Business />,
+        path: ROUTES.BUSINESS.PATH,
+        name: ROUTES.BUSINESS.NAME,
+      },
+    ],
+  },
+  {
+    // 이미 로그인된 유저는 /signup , /login , /logout 접근 불가능
+    // '/' 으로 리다이렉팅
+    element: <PublicRouter isAuthenticated={false} />,
+    children: [
+      // { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
+    ],
   },
 ];
 

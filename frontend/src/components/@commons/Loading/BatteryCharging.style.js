@@ -54,7 +54,7 @@ const Battery = styled.div`
     -webkit-box-shadow: 0 0 5px 5px #888;
     // 배터리 몸통 box-shadow
     box-shadow: -2px 0 5px 2px #222;
-    z-index: 100;
+    z-index: 1;
   }
 
   ::after {
@@ -71,7 +71,7 @@ const Battery = styled.div`
     -moz-box-shadow: 0 0 5px 5px #888;
     -webkit-box-shadow: 0 0 5px 5px #888;
     box-shadow: 0px 0px 3px 3px lightgrey;
-    z-index: 0;
+    z-index: 1;
   }
 
   // 배터리 차징 속도

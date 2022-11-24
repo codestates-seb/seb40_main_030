@@ -30,14 +30,6 @@ const GenLogin = () => {
   const [userId, setUserId] = useRecoilState(userMemberId);
   const navigate = useNavigate();
   console.log('최상단 Genlogin-> recoil  userId :', userId);
-  // Email value값 변경 함수
-  const changeInputEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  // Password  value값 변경 함수
-  const changeInputPassword = (e) => {
-    setPassword(e.target.value);
-  };
 
   const onClickGenLogin = () => {
     const loginData = { email, password };
@@ -60,10 +52,13 @@ const GenLogin = () => {
         .then((res) => {
           console.log('/genlogin post요청으로 받아온 res.data : ', res.data);
           const accessToken = res.data.accesstoken;
+          // res.headers.Athoafasfap.split(' ')[1];
 
           // 마이페이지를 위한 유저정보를 일단 recoil로 담아둠
           // -> 하지만 유저정보도 서버로부터 memberid만 있으면 가져올 수 있기에
           // memberId만 따로 전역상태로 관리하던가 or useParams() 사용하든 하면됨.
+          // 자주 쓰이는 애들이면 전역상태저장 하는게 더 좋음!
+
           // const info = res.data.body[0];
           // setUserInfo((prev) => {
           //   const userInfo = { ...prev };
@@ -77,7 +72,7 @@ const GenLogin = () => {
           // });
           console.log(
             'Genlogin-> 로그인-> 응답 -> res.data.body[0].memberId : ',
-            res.data.body[0].memberId
+            res.data.body[0].memberId,
           );
           setUserId(res.data.body[0].memberId);
           console.log('GenLogin에서 로그인 axios요청으로 오는 res -> : ', res);
@@ -87,7 +82,7 @@ const GenLogin = () => {
 
             console.log(
               'localStorage에 넣어진 access_token : ',
-              localStorage.getItem('accesstoken')
+              localStorage.getItem('accesstoken'),
             );
           }
           console.log('recoil userInfo의 값 : ', userInfo); // 여기서는 안읽힘. 이 함수가 끝나고 나서야 나중에 전역상태로 저장!
@@ -97,7 +92,7 @@ const GenLogin = () => {
         .catch((err) => {
           console.log(
             'Genlogin-> 로그인 실패시 err.response.data :  ',
-            err.response.data
+            err.response.data,
           );
           setFailMsg(err.response.data);
 
@@ -116,7 +111,9 @@ const GenLogin = () => {
         <input
           type='text'
           value={email}
-          onChange={changeInputEmail}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
           placeholder='이메일을 입력하세요.'
         />
       </EmailInputDiv>
@@ -124,7 +121,9 @@ const GenLogin = () => {
         <input
           type='text' // 추후에 type='password' 로 바꿀 예정
           value={password}
-          onChange={changeInputPassword}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
           placeholder='비밀번호를 입력하세요.'
         />
       </PasswordInputDiv>

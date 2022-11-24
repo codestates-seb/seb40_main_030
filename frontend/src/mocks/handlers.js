@@ -25,7 +25,7 @@ export const handlers = [
       ctx.delay(),
       ctx.json({ token: 'token', id: 12345 }),
       ctx.status(200),
-      ctx.cookie('shadowToken', 'true')
+      ctx.cookie('shadowToken', 'true'),
     );
   }),
 
@@ -41,7 +41,7 @@ export const handlers = [
     const { orderId } = req.params;
 
     const filteredOrder = MockOrder.find(
-      (mock) => mock.orderId === Number(orderId)
+      (mock) => mock.orderId === Number(orderId),
     );
 
     return res(ctx.delay(200), ctx.status(200), ctx.json(filteredOrder));
@@ -158,7 +158,7 @@ export const handlers = [
     return res(
       ctx.delay(200),
       ctx.status(401),
-      ctx.json('토큰이 유효하지 않습니다. 재발급요망')
+      ctx.json('토큰이 유효하지 않습니다. 재발급요망'),
     );
   }),
 
@@ -167,7 +167,7 @@ export const handlers = [
     return res(
       ctx.delay(200),
       ctx.status(200),
-      ctx.json('테스트 api 응답성공')
+      ctx.json('테스트 api 응답성공'),
     );
   }),
 
@@ -189,7 +189,7 @@ export const handlers = [
       ctx.delay(200),
       ctx.cookie('refresh_token', refreshToken),
       ctx.status(200),
-      ctx.json({ access_token: accessToken, userInfo: userInfo })
+      ctx.json({ access_token: accessToken, userInfo: userInfo }),
     );
   }),
 
@@ -202,7 +202,7 @@ export const handlers = [
     console.log('로그아웃 요청의 엑세스토큰은', accessToken);
     const logoutRes = await invalidateTokenDirectly(
       KAKAO_TOKEN_LOGOUT_URL,
-      accessToken
+      accessToken,
     );
     console.log('카카오서버로부터 로그아웃 응답은', logoutRes);
     document.cookie = 'refresh_token=';
@@ -212,7 +212,7 @@ export const handlers = [
       ctx.status(200),
       ctx.cookie('refresh_token', ''),
       ctx.set('Authorization', ''),
-      ctx.json(logoutRes)
+      ctx.json(logoutRes),
     );
   }),
 
@@ -228,13 +228,13 @@ export const handlers = [
     // console.log('응답은', renewRes);
     const userInfo = await getUserInfo(
       KAKAO_USERINFO_URL,
-      renewRes.access_token
+      renewRes.access_token,
     );
     // console.log('사용자정보', userInfo);
     return res(
       ctx.delay(200),
       ctx.status(200),
-      ctx.json({ access_token: renewRes, userInfo: userInfo })
+      ctx.json({ access_token: renewRes, userInfo: userInfo }),
     );
   }),
 

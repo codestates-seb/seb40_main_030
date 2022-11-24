@@ -1,8 +1,9 @@
 import axios from 'axios';
 import qs from 'qs';
+
 import {
   KAKAO_ACCOUNT_LOGOUT_URL,
-  KAKAO_RENEWTOKEN_URL,
+  KAKAO_RENEW_TOKEN_URL,
   REDIRECT_URI,
 } from '../constants/auth';
 
@@ -14,9 +15,7 @@ const getTokenIndirectly = async (authorizationCode) => {
     });
     return res;
   } catch (error) {
-    console.log('getTokenIndirectly 에러발생', error);
-  } finally {
-    console.log('getTokenIndirectly 실행종료');
+    console.log(error);
   }
 };
 
@@ -34,14 +33,12 @@ const getTokenDirectly = async (path, authorizationCode) => {
         client_id: import.meta.env.VITE_CLIENT_ID,
         redirect_uri: REDIRECT_URI,
         code: authorizationCode,
-        client_secret: import.meta.env.VITE_ClIENT_SECRET,
+        client_secret: import.meta.env.VITE_CLIENT_SECRET,
       }),
     });
     return await res.json();
   } catch (error) {
-    console.log('getTokenDirectly 에러발생', error);
-  } finally {
-    console.log('getTokenDirectly 실행종료');
+    console.log(error);
   }
 };
 
@@ -55,7 +52,9 @@ const getUserInfo = async (path, accessToken) => {
       }, //엑세스 토큰 헤더에 담아서 요청
     });
     return res;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 //카카오서버로 로그아웃 요청 보냄 - 토큰을 무효하게 만들어서 인가를 받을 수 없게 만든다.
@@ -66,19 +65,16 @@ const invalidateTokenDirectly = async (path, accessToken) => {
       {},
       {
         headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
-      }
+      },
     );
     return res;
   } catch (error) {
-    console.log('invalidateTokenDirectly 에러발생', error);
-  } finally {
-    console.log('invalidateTokenDirectly 실행종료');
+    console.log(error);
   }
 };
 
 //mock api 사용 / 백엔드 서버 우회 사용 로그아웃 요청 보냄
 const invalidateTokenIndirectly = async (path, accessToken) => {
-  console.log('invalidateTokenIndirectly 실행');
   try {
     const res = await axios.post('/logout', {
       path: path,
@@ -87,9 +83,7 @@ const invalidateTokenIndirectly = async (path, accessToken) => {
 
     return res;
   } catch (error) {
-    console.log('invalidateTokenIndirectly 에러', error);
-  } finally {
-    console.log('invalidateTokenIndirectly 실행종료');
+    console.log(error);
   }
 };
 
@@ -97,7 +91,7 @@ const invalidateTokenIndirectly = async (path, accessToken) => {
 const renewTokenDirectly = async (refreshToken) => {
   const realRefreshToken = refreshToken?.split('=')[1];
   try {
-    const res = await fetch(KAKAO_RENEWTOKEN_URL, {
+    const res = await fetch(KAKAO_RENEW_TOKEN_URL, {
       method: 'POST',
       headers: {
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
@@ -106,7 +100,7 @@ const renewTokenDirectly = async (refreshToken) => {
         grant_type: 'refresh_token',
         client_id: import.meta.env.VITE_CLIENT_ID,
         refresh_token: realRefreshToken,
-        client_secret: import.meta.env.VITE_ClIENT_SECRET,
+        client_secret: import.meta.env.VITE_CLIENT_SECRET,
       }),
     });
 
@@ -114,9 +108,7 @@ const renewTokenDirectly = async (refreshToken) => {
 
     return data;
   } catch (error) {
-    console.log('renewTokenDirectly 에러발생', error.message);
-  } finally {
-    console.log('renewTokenDirectly 실행종료');
+    console.log(error);
   }
 };
 
@@ -127,9 +119,7 @@ const logoutAccountSessionDirectly = async () => {
 
     return res;
   } catch (error) {
-    console.log('logoutAccountSessionDirectly 에러발생', error.message);
-  } finally {
-    console.log('logoutAccountSessionDirectly 실행종료');
+    console.log(error);
   }
 };
 
@@ -140,19 +130,30 @@ const renewTokenIndirectly = async () => {
 
     return res;
   } catch (error) {
-    console.log('renewTokenIndirectly 에러발생', error.message);
-  } finally {
-    console.log('renewTokenIndirectly 실행종료');
+    console.log(error);
   }
 };
 //토큰 유효성 체크 임의 로직 , 임시로 만들어놓음
 const checkValidToken = (token) => {
   let result;
-  console.log('받은 베어러 토큰은', token);
+
   result = token === undefined || token === 'undefined' ? false : true;
   return result;
 };
 //
+
+const testHandler = async (accessToken) => {
+  //테스트 api 위한 임시 핸들러
+  try {
+    return await axios.get('/test', {
+      headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
+    });
+  } catch (error) {
+    if (error.response?.statusText === 'Unauthorized') {
+      console.log(error);
+    }
+  }
+};
 export {
   getTokenDirectly,
   getTokenIndirectly,
@@ -163,4 +164,5 @@ export {
   renewTokenIndirectly,
   logoutAccountSessionDirectly,
   checkValidToken,
+  testHandler,
 };
