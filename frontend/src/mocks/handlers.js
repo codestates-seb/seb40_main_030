@@ -147,6 +147,13 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(adminInfo));
   }),
 
+  //배터리 등록
+  rest.post('/batteries', (req, res, ctx) => {
+    const body = req.body;
+    mockAdmin.stationList[0].battery.push(body);
+    return res(ctx.status(200), ctx.json(mockAdmin));
+  }),
+
   //요청에서 토큰 유효성 검사 - 모든 api요청은 백엔드에서 토큰 유효성 검사를 할예정으로 임시로 /test api에 대해서만 체크후 응답보내줌
   rest.all('/test', (req, res, ctx) => {
     const header = new Headers(req.headers);

@@ -1,9 +1,9 @@
-import BatteryList from '../../components/Business/Battery/BatteryList';
-import Filter from '../../components/Business/Filter/Filter';
-import Management from '../../components/Business/Management/ManageMent';
 import * as S from './Business.style';
 import { useQuery } from '@tanstack/react-query';
 import { getAdminById } from '../../apis/admin';
+import Management from '../../components/Business/Management/Management';
+import Filter from '../../components/Business/Filter/Filter';
+import BatteryList from '../../components/Business/Battery/BatteryList';
 
 const Business = () => {
   const { data: batteryInfo, isLoading } = useQuery(['adminInfo'], () =>
@@ -13,7 +13,8 @@ const Business = () => {
   if (isLoading) {
     return <p>로딩중</p>;
   }
-  console.log('business');
+  console.log('businessㅇㅇ');
+
   return (
     <S.PageWrapper>
       <S.BodyWrapper>

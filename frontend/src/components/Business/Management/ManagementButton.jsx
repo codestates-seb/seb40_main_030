@@ -1,8 +1,8 @@
 import * as S from './Management.style';
 
-const ManagementButton = ({ action }) => {
+const ManagementButton = ({ onClick, action }) => {
   return (
-    <S.ButtonContainer action={action}>
+    <S.ButtonContainer onClick={onClick} action={action}>
       {action === 'add'
         ? '배터리 등록'
         : action === 'remove'

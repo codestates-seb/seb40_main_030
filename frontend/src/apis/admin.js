@@ -11,5 +11,9 @@ const getAdminById = async (adminId) => {
 
   return { batteryList, countList };
 };
+const addBattery = async (batteryInfo) => {
+  const res = await apiClient.post('/batteries', batteryInfo);
 
-export { getAdminById };
+  return res;
+};
+export { getAdminById, addBattery };
