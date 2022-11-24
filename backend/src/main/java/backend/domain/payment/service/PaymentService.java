@@ -68,13 +68,17 @@ public class PaymentService {
         payment.setTotalPrice(totalPrice);
 
         return paymentRepository.save(payment);
+
     }
 
 
     @Transactional
-    public Payment patchPayment (Payment payment) {
+    public Payment patchPayment (Payment payment, Long memberId) {
         Payment savedPayment = paymentRepository.findById(payment.getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
+
+        if (savedPayment.getMember().getId() != memberId) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY);
+
         Optional.of(payment.getTotalPrice()).ifPresent(savedPayment::setTotalPrice);
         Optional.ofNullable(payment.getStatus()).ifPresent(savedPayment::setStatus);
         Optional.of(payment.getPayMethod()).ifPresent(savedPayment::setPayMethod);
@@ -97,18 +101,22 @@ public class PaymentService {
 
 
     @Transactional
-    public void deletePayment (Long paymentId) {
+    public void deletePayment (Long paymentId, Long memberId) {
         Payment savedPayment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
+
+        if (savedPayment.getMember().getId() != memberId) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY);
 
         paymentRepository.delete(savedPayment);
     }
 
 
-    public Payment getPayment (Long paymentId) {
-
-        return paymentRepository.findById(paymentId)
+    public Payment getPayment (Long paymentId, Long memberId) {
+        Payment savedPayment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
+        if (savedPayment.getMember().getId() != memberId) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY);
+
+        return savedPayment;
     }
 
 

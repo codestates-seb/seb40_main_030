@@ -8,7 +8,6 @@ import backend.domain.payment.entity.Payment;
 import backend.domain.payment.service.PaymentService;
 import backend.global.dto.PageInfoDto;
 import backend.global.dto.SingleResDto;
-import backend.global.security.jwt.JwtTokenizer;
 import backend.global.security.utils.JwtExtractUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Validated
@@ -45,11 +43,13 @@ public class PaymentController {
 
 
     @PatchMapping("/{paymentId}")
-    public ResponseEntity<PayResDto> patchPayment(@PathVariable Long paymentId,
+    public ResponseEntity<PayResDto> patchPayment(HttpServletRequest request,
+                                                  @PathVariable Long paymentId,
                                                   @RequestBody PayPatchReqDto payPatchReqDto) {
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         Payment payment = payPatchReqDto.toPayment();
         payment.setId(paymentId);
-        Payment modifiedPayment = paymentService.patchPayment(payment);
+        Payment modifiedPayment = paymentService.patchPayment(payment, memberId);
         PayResDto response = new PayResDto(modifiedPayment);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -57,16 +57,20 @@ public class PaymentController {
 
 
     @DeleteMapping("/{paymentId}")
-    public ResponseEntity<SingleResDto<String>> deletePayment(@PathVariable Long paymentId) {
-        paymentService.deletePayment(paymentId);
+    public ResponseEntity<SingleResDto<String>> deletePayment(HttpServletRequest request,
+                                                              @PathVariable Long paymentId) {
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
+        paymentService.deletePayment(paymentId, memberId);
 
         return new ResponseEntity<>(new SingleResDto<>("Success Delete"), HttpStatus.OK);
     }
 
 
     @GetMapping("/{paymentId}")
-    public ResponseEntity<PayBillsResDto> getPayment(@PathVariable Long paymentId) {
-        Payment payment = paymentService.getPayment(paymentId);
+    public ResponseEntity<PayBillsResDto> getPayment(HttpServletRequest request,
+                                                     @PathVariable Long paymentId) {
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
+        Payment payment = paymentService.getPayment(paymentId, memberId);
 
         return new ResponseEntity<>(new PayBillsResDto(payment), HttpStatus.OK);
     }
