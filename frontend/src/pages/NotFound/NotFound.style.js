@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import styled, { keyframes } from 'styled-components';
 
+import { theme } from '@/styles';
+
 const TypeWriter = keyframes`
   from {
     width: 0;
@@ -25,8 +27,9 @@ const Wrapper = styled(motion.div)`
   width: 100vw;
   height: 100vh;
 
-  color: rgba(255, 255, 255, 0.75);
-  background-color: rgb(25, 25, 25);
+  color: ${({ color, theme }) => (color ? color : theme.NOT_FOUND_GRAY)};
+  background-color: ${({ bgColor }) =>
+    bgColor ? bgColor : theme.NOT_FOUND_BG};
 `;
 
 const Message = styled.p`

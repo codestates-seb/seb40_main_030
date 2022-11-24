@@ -26,6 +26,9 @@ const COLOR = {
   GOLD: '#ffcf40',
   SILVER: '#c0c0c0',
   COPPER: '#cd7f32',
+
+  NOT_FOUND_GRAY: 'rgba(255, 255, 255, 0.75)',
+  NOT_FOUND_BG: 'rgb(25, 25, 25)',
 };
 
 export default COLOR;

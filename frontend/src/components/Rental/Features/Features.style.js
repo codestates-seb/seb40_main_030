@@ -48,8 +48,21 @@ const Price = styled.div`
   margin-bottom: 10px;
 `;
 
+const AddressDetail = styled.span`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 5%;
+
+  span {
+    font-size: 25px;
+    font-weight: 600;
+    color: #1070fc;
+  }
+`;
+
 export { BatteryContainer };
 
 export { ImageContainer, BatteryImage };
 
-export { PriceContainer, ProductInfoContainer, Capacity, Price };
+export { PriceContainer, ProductInfoContainer, Capacity, Price, AddressDetail };
