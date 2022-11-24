@@ -1,17 +1,19 @@
 import { Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { BatteryCharging, SplashScreen } from '@/components/@commons';
+import { BatteryCharging, SnackBar, SplashScreen } from '@/components/@commons';
 import BottomNav from '@/components/@layout/BottomNav/BottomNav';
 import BottomSheet from '@/components/@layout/BottomSheet/BottomSheet';
 import MapArea from '@/components/Home/Maps';
 import Reservation from '@/components/Home/Reservation/Reservation';
 import { ROUTES } from '@/constants';
 import { useSplashScreen } from '@/hooks';
+import useSnackBar from '@/hooks/commons/useSnackBar';
 
 const Home = () => {
   const { pathname } = useLocation();
-  const { isLoading, isSplashed } = useSplashScreen(3000);
+  const { isLoading, isSplashed } = useSplashScreen();
+  const { isActive, message } = useSnackBar();
 
   return isLoading ? (
     <SplashScreen />
@@ -30,6 +32,7 @@ const Home = () => {
             )}
           </div>
         ) : null}
+        <SnackBar isActive={isActive} message={message} />
         <BottomNav />
       </Suspense>
     </>
