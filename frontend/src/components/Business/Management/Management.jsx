@@ -4,19 +4,19 @@ import { useMutation } from '@tanstack/react-query';
 import { addBattery } from '../../../apis/admin';
 import { queryClient } from '../../../main';
 
-const Management = () => {
+const Management = ({ deleteHandler }) => {
   const { mutate: addMutate, data } = useMutation((body) => addBattery(body), {
     onSuccess: () => {
       queryClient.invalidateQueries(['adminInfo']);
     },
   });
   const addHandler = () => {
-    console.log('클릭ㅇㅇ');
+    console.log('클릭');
     const body = {
       batteryId: Math.random(),
       capacity: '99999mA',
       status: Math.random() > 0.5 ? true : false,
-      price: 99999,
+      price: 123124,
       photoURL: '',
       stationId: 1,
     };
@@ -26,7 +26,7 @@ const Management = () => {
   return (
     <S.ButtonWrapper>
       <ManagementButton onClick={addHandler} action={'add'} />
-      <ManagementButton action={'remove'} />
+      <ManagementButton onClick={deleteHandler} action={'remove'} />
     </S.ButtonWrapper>
   );
 };

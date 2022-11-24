@@ -53,10 +53,25 @@ const BatteryListContainer = styled.ul`
   border-bottom: 1px solid gray;
 `;
 
+const deleteButtonContainer = styled.button`
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  visibility: ${({ deleteState, status }) =>
+    deleteState === true && status === false ? '' : 'hidden'};
+`;
+
 export {
   BatteryDetailsContainer,
   BatteryStatusContainer,
   BatteryContainer,
   BatteryListContainer,
   BatteryImgContainer,
+  deleteButtonContainer,
 };

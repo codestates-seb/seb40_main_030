@@ -4,8 +4,13 @@ import { getAdminById } from '../../apis/admin';
 import Management from '../../components/Business/Management/Management';
 import Filter from '../../components/Business/Filter/Filter';
 import BatteryList from '../../components/Business/Battery/BatteryList';
+import { useState } from 'react';
 
 const Business = () => {
+  const [deleteState, setDeleteState] = useState(false);
+  const deleteHandler = () => {
+    setDeleteState((preState) => !preState);
+  };
   const { data: batteryInfo, isLoading } = useQuery(['adminInfo'], () =>
     getAdminById('1')
   );
@@ -18,9 +23,12 @@ const Business = () => {
   return (
     <S.PageWrapper>
       <S.BodyWrapper>
-        <Management />
+        <Management deleteHandler={deleteHandler} />
         <Filter countList={batteryInfo.countList} />
-        <BatteryList batteryList={batteryInfo.batteryList} />
+        <BatteryList
+          batteryList={batteryInfo.batteryList}
+          deleteState={deleteState}
+        />
       </S.BodyWrapper>
     </S.PageWrapper>
   );
