@@ -1,4 +1,8 @@
-import { PrivateRouter, PublicRouter } from '@/components/@helper';
+import {
+  DateFixedRouter,
+  PrivateRouter,
+  PublicRouter,
+} from '@/components/@helper';
 import { ROUTES } from '@/constants';
 
 import Business from './Business';
@@ -22,19 +26,23 @@ const PAGES = [
     path: ROUTES.SEARCH.PATH,
     name: ROUTES.SEARCH.NAME,
   },
-  {
-    element: <Rental />,
-    path: ROUTES.RENTAL.PATH,
-    name: ROUTES.RENTAL.NAME,
-  },
+
   {
     element: <NotFound />,
     path: ROUTES.NOT_FOUND.PATH,
     name: ROUTES.NOT_FOUND.NAME,
   },
   {
-    // PrivateRouter의 children Element들은 로그인이 완료된 유저에게만 보이는 페이지
-    // 비로그인 유저가 접근시에는 /login 으로 리다이렉팅
+    element: <DateFixedRouter />,
+    children: [
+      {
+        element: <Rental />,
+        path: ROUTES.RENTAL.PATH,
+        name: ROUTES.RENTAL.NAME,
+      },
+    ],
+  },
+  {
     element: <PrivateRouter />,
     children: [
       {
@@ -45,8 +53,6 @@ const PAGES = [
     ],
   },
   {
-    // 이미 로그인된 유저는 /signup , /login , /logout 접근 불가능
-    // '/' 으로 리다이렉팅
     element: <PublicRouter />,
     children: [
       { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
