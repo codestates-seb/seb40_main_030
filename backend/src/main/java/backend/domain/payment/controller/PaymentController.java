@@ -29,10 +29,7 @@ import java.util.Map;
 public class PaymentController {
 
     private final PaymentService paymentService;
-
     private final JwtExtractUtils jwtExtractUtils;
-
-    private final JwtTokenizer jwtTokenizer;
 
     @PostMapping
     public ResponseEntity<PayResDto> postPayment(HttpServletRequest request,
