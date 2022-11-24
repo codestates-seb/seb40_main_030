@@ -110,4 +110,22 @@ public class StationService {
         return station;
     }
 
+    public Page<Station> getStationsSearch (Pageable pageable, Station station) {
+        // 기본 주소는 코드스테이츠
+        Station defaultStation = new Station().builder()
+                .latitude(127.02475418)
+                .longitude(127.02475418)
+//                .confirmId(1615822138)  // 건물 Id
+                .build();
+
+        // 만약 위경도 값이나 confirmId가 들어오면 그 값으로 객체 필드값 변경
+        Optional.of(station.getLatitude()).ifPresent(defaultStation::setLatitude);
+        Optional.of(station.getLongitude()).ifPresent(defaultStation::setLongitude);
+//        Optional.of(station.getLongitude()).ifPresent(defaultStation::setConfirmId);
+
+        // 객체 필드값을 중점으로 해서 반경검색 구현하기
+
+        return null;
+    }
+
 }

@@ -1,9 +1,6 @@
 package backend.domain.station.controller;
 
-import backend.domain.station.dto.StationBatteryReqDto;
-import backend.domain.station.dto.StationPatchReqDto;
-import backend.domain.station.dto.StationPostReqDto;
-import backend.domain.station.dto.StationResDto;
+import backend.domain.station.dto.*;
 import backend.domain.station.entity.Station;
 import backend.domain.station.service.StationService;
 import backend.global.dto.PageInfoDto;
@@ -72,5 +69,14 @@ public class StationController {
         Station station = stationService.getStationBattery(stationId, stationBatteryReqDto);
         StationResDto response = new StationResDto(station);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<SingleResDto<String>> getStationsSearch (Pageable pageable,
+                                                                  @RequestBody StationSearchReqDto stationSearchReqDto) {
+
+        Page<Station> page = stationService.getStationsSearch(pageable, stationSearchReqDto.toStation());
+
+        return new ResponseEntity<>(new SingleResDto<>("Success Get"), HttpStatus.OK);
     }
 }
