@@ -13,8 +13,6 @@ const useSearchMap = () => {
     qs.keywordSearch(keyword || '코드스테이츠', (data, status) => {
       if (status === kakao.maps.services.Status.OK) {
         setLocationData(data);
-
-        console.log(data);
       }
     });
   }, [keyword]);

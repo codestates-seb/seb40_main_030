@@ -13,8 +13,6 @@ const RentalStatus = ({ id }) => {
   // 추후 적용될 부분
   addressDetail;
 
-  console.log(batteries);
-
   // 필요한 정보 주유소 이름 , 예약시간 , 유저 Id, 배터리 Id
 
   return (
