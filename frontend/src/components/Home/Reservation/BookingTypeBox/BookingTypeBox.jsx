@@ -1,5 +1,6 @@
-import { BatteryCharging, ShadowButton } from '../../../@commons';
-import { useReservation } from '../hooks';
+import { ShadowButton } from '@/components/@commons';
+import { useReservation } from '@/hooks';
+
 import * as S from './BookingTypeBox.style';
 
 // 단일예약 복수일 예약하기 따로
@@ -28,8 +29,6 @@ const BookingTypeBox = () => {
         }
         content={'하루 이상 빌릴래요'}
       />
-
-      <BatteryCharging chargingSpeed={'5s'} />
     </S.BookingContainer>
   );
 };

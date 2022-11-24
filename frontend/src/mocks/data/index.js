@@ -1,6 +1,5 @@
 import mockOrder from './order';
+import mockStations from './stations';
 import mockUser from './users';
-import mockZone from './zone';
-import mockItems from './items';
 
-export { mockOrder, mockUser, mockZone, mockItems };
+export { mockOrder, mockUser, mockStations };

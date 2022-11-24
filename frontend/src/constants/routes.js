@@ -25,14 +25,26 @@ const ROUTES = Object.freeze({
     PATH: 'business',
     NAME: 'Business',
   },
-  PAY: {
-    PATH: '/pay/:paymentId',
-    NAME: 'pay',
+  PAYMENTS: {
+    PATH: '/payments/:batteryId',
+    NAME: 'Payments',
   },
   ITEMSLIST: {
     PATH: '/itemslist',
     NAME: 'Itemslist',
-  }
+  },
+  ENTRANCE: {
+    PATH: '/entrance',
+    NAME: 'Entrance',
+  },
+  SEARCH: {
+    PATH: '/search',
+    NAME: 'Search',
+  },
+  RENTAL: {
+    PATH: '/rental/:stationId',
+    NAME: 'Rental',
+  },
 });
 
 export default ROUTES;

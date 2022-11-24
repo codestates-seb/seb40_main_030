@@ -3,14 +3,18 @@ import styled from 'styled-components';
 const SelectLayout = styled.div`
 height: 640px;
 margin: 0 auto;
-margin-top: 20px;
+margin-top: 30px;
 `;
 
-const ItemTitle = styled.div`
+const ItemOrder = styled.div`
 font-size: 30px;
 font-weight: bold;
 text-align: center;
-margin-bottom: 10px;
+margin-bottom: 30px;
+`
+const BackButton = styled.button`
+position: absolute;
+margin-left: 20px;
 `
 
 const Product = styled.div`
@@ -18,31 +22,50 @@ font-size: 25px;
 background-color: var(--main-01);
 color: white;
 height: 50px;
-padding: 10px;
+padding: 12px;
 `
 
 const ItemLayout = styled.div`
-margin-top: 30px;
-margin-left: 10px;
 display: flex;
 height: 160px;
+padding-left: 10px;
+margin-top: 50px;
+margin-bottom: 50px;
 width: 100%;
 `
 const ItemLayout1 = styled.div`
-padding: 10px;
-height: 135px;
 display: flex;
 flex-direction: column;
 flex-wrap: wrap;
 `
+
+const ItemLayout2 = styled.div`
+display: flex;
+flex-direction: column;
+flex-wrap: wrap;
+`
+
+const ItemDate = styled.div`
+font-size: 15px;
+margin-top: 25px;
+`
+const ItemRight = styled.div`
+font-size: 15px;
+margin-top: 20px;
+text-align: right;
+`
+
+const ItemLeft = styled.div`
+font-size: 15px;
+margin-top: 20px;
+`
+
 const ItemImg = styled.img`
 width: 100px;
 margin-left: 10px;
 margin-right: 40px;
 `
-const ItemName = styled.div`
-font-size: 20px;
-`
+
 
 const ItemPlace = styled.div`
 font-size: 15px;
@@ -50,9 +73,5 @@ padding-top: 10px;
 text-align: right;
 `
 
-const ItemDate = styled.div`
-text-align: center;
-padding-top: 10px;
-`
 
-export { SelectLayout, ItemTitle, Product, ItemLayout, ItemImg, ItemLayout1, ItemName, ItemPlace, ItemDate, };
+export { SelectLayout, BackButton, ItemOrder, Product, ItemLayout, ItemImg, ItemLayout1, ItemLayout2, ItemRight, ItemLeft, ItemPlace, ItemDate, };

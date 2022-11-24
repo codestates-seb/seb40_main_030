@@ -1,7 +1,8 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
-import { loginState, accessTokenVal } from '../../recoil/login';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+
 import { renewTokenIndirectly } from '../../apis/auth';
+import { loginState, accessTokenVal } from '../../recoil/login';
 
 const useKakaoCheckLogin = () => {
   const setAccessToken = useSetRecoilState(accessTokenVal);
@@ -10,10 +11,12 @@ const useKakaoCheckLogin = () => {
     setIsAuthorized(isAuthorized);
 
     renewTokenIndirectly().then((res) => {
-      const errorCode = res.data?.access_token?.error_code;
+      const errorCode = res?.data?.access_token?.error_code;
+
       if (errorCode) {
         setIsAuthorized(false);
         if (errorCode === 'KOE319') {
+          console.log('error');
         }
       } else {
         setIsAuthorized(true);

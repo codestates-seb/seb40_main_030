@@ -1,9 +1,11 @@
 import { useRecoilValue } from 'recoil';
-import { reservationState } from '../../../../recoil/pagesState';
-import { useReservation } from '../hooks';
+
+import { ShadowButton } from '@/components/@commons';
+import { useReservation } from '@/hooks';
+import { reservationState } from '@/recoil/pagesState';
+
 import Counter from '../Counter/Counter';
 import * as S from './TimeTable.style';
-import { ShadowButton } from '../../../@commons';
 
 const TimeTable = () => {
   const { hours, minutes } = useRecoilValue(reservationState);

@@ -1,22 +1,21 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { currentLocationState, navState } from '../../../recoil/pagesState';
+import { useRecoilState } from 'recoil';
+
 import {
   MapIcon,
   LogoIcon,
   BatteryIcon,
   ClockIcon,
   MyPageIcon,
-} from '../../../assets';
+} from '@/assets';
+import { navState } from '@/recoil/pagesState';
+
 import * as S from './BottomNav.style';
-import { useCurrentLocation } from '../../Home/KakaoMap/hooks';
 
 const BottomNav = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [isActive, setIsActive] = useRecoilState(navState);
-  const { location } = useCurrentLocation();
-  const setCurrentLocation = useSetRecoilState(currentLocationState);
 
   return (
     <S.Wrapper>

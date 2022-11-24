@@ -3,11 +3,11 @@ import styled from 'styled-components';
 const PayLayout = styled.div`
 display: flex;
 justify-content: space-between;
-margin-left: 10px;
-margin-right: 10px;
+margin-left: 30px;
+margin-right: 30px;
 height: 150px;
 `
-const LeftPay = styled.div`
+const LeftPayLayout = styled.div`
 width: 150px;
 `
 const PaymentItem = styled.div`
@@ -15,7 +15,7 @@ font-size: 20px;
 margin-top: 30px;
 `
 
-const RightPay = styled.div`
+const RightPayLayout = styled.div`
 width: 150px;
 text-align: right;
 `
@@ -31,17 +31,17 @@ margin-top: 30px;
 const TotalPayLayout = styled.div`
 display: flex;
 justify-content: space-between;
-padding: 30px 10px 30px 10px;
+padding: 50px 30px 50px 30px;
 border-top: 1px solid gray;
 `
-const TotalPayLeft = styled.div`
+const TotalPayLeftLayout = styled.div`
 font-size: 20px;
 padding-top: 10px;
 font-size: 25px;
 font-weight: bold;
 color: var(--font-01);
 `
-const TotlaPayRight = styled.div`
+const TotalPayRightLayout = styled.div`
 font-size: 20px;
 padding-left: 10px;
 padding-top: 10px;
@@ -63,4 +63,4 @@ align-items: center;
 border-radius: 10px;
 margin: auto;
 `
-export { PayLayout, LeftPay, RightPay, PaymentItem, ItemDeposit, TotalPayLeft, TotlaPayRight, PayButton, PayMoney, TotalPayLayout };
+export { PayLayout, LeftPayLayout, RightPayLayout, PaymentItem, ItemDeposit, TotalPayLeftLayout, TotalPayRightLayout, PayButton, PayMoney, TotalPayLayout };

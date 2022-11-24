@@ -143,8 +143,6 @@ ${({ theme }) => css`
   }
   body {
     font-family: 'Source Sans Pro', sans-serif;
-    background-color: ${theme.background};
-    color: ${theme.onBackground};
   }
   a {
     text-decoration: none;
