@@ -12,12 +12,10 @@ import java.io.IOException;
 @Slf4j
 public class CustomAuthenticationSuccesshandler implements AuthenticationSuccessHandler {
 
-
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-
-        log.info("success");
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                        Authentication authentication) throws IOException {
+        log.info("success login");
     }
-
 
 }

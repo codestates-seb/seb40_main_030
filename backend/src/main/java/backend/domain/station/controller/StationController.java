@@ -1,6 +1,5 @@
 package backend.domain.station.controller;
 
-import backend.domain.battery.entity.StationBattery;
 import backend.domain.station.dto.StationBatteryReqDto;
 import backend.domain.station.dto.StationPatchReqDto;
 import backend.domain.station.dto.StationPostReqDto;

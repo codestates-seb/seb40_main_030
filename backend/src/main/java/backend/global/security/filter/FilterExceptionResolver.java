@@ -1,14 +1,10 @@
 package backend.global.security.filter;
 
-import backend.global.exception.dto.ErrorResponse;
 import backend.global.exception.exceptionCode.AuthException;
 import backend.global.exception.exceptionCode.ExceptionCode;
 import com.google.gson.Gson;
-import io.jsonwebtoken.MalformedJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -17,8 +13,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class FilterExceptionResolver {
 
-    private final Gson gson;
     private String contentType = "application/json;charset=UTF-8";
+    private final Gson gson;
+
     public void handleException(RuntimeException e,HttpServletResponse response) throws IOException {
 
         if (e instanceof AuthException) {
@@ -26,20 +23,18 @@ public class FilterExceptionResolver {
 
             AuthException authException = (AuthException) e;
             sendErrorResponse(response,authException.getExceptionCode());
-
         }
         else {
-
             log.warn(e.getMessage());
             response.getWriter().write(e.getMessage());
-
         }
+
     }
 
+
     private void sendErrorResponse(HttpServletResponse response, ExceptionCode exceptionCode) throws IOException {
-
-
         response.setContentType(contentType);
         response.setStatus(exceptionCode.getStatus());
     }
+
 }

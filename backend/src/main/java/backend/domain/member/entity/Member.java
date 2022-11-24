@@ -1,17 +1,12 @@
 package backend.domain.member.entity;
-
-import backend.domain.cart.entity.Cart;
 import backend.domain.payment.entity.Payment;
 import backend.global.auditing.BaseTime;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,46 +34,11 @@ public class Member extends BaseTime {
     @Column(nullable = false)
     private String photoURL;
 
-
     @ElementCollection(fetch = FetchType.EAGER)
     List<String> roles = new ArrayList<>();
 
-
-//    public Collection<? extends GrantedAuthority> getAuthorities() {   현재 시큐리티 미적용 상태이므로 주석처리 해두었습니다
-//        List<GrantedAuthority> authorities = this.getRoles().stream().map(strAuth -> new SimpleGrantedAuthority("ROLE_" + strAuth)).collect(Collectors.toList());
-//        return authorities;
-//    }
-
-//    public String getPassword() {
-//        return this.getPassword();
-//    }
-//
-//
-//    public String getUsername() {
-//        return this.getEmail();
-//    }
-//
-//
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//
-//    public boolean isEnabled() {
-//        return true;
-//    }
-
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private List<Payment> payment;
 
     public Member(Member member) {

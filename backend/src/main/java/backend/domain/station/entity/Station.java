@@ -36,6 +36,7 @@ public class Station extends BaseTime {
     private List<Battery> battery;
 
     @OneToMany(mappedBy = "station")
+    @JsonManagedReference
     private List<Payment> payment;
 
     @ManyToOne(fetch = FetchType.LAZY)

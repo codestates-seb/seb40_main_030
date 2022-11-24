@@ -1,7 +1,7 @@
 package backend.domain.station.dto;
 
+import backend.domain.battery.entity.Battery;
 import backend.domain.station.entity.Station;
-import backend.domain.battery.entity.StationBattery;
 import backend.domain.station.entity.StationLocation;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ public class StationResDto {
     private StationLocation location;
     private String photoURL;
     private String phone;
-    private List<StationBattery> batteries;
+    private List<Battery> batteries;
 
     public StationResDto(Station station) {
         this.id = station.getId();
@@ -31,9 +31,9 @@ public class StationResDto {
         this.photoURL = station.getPhotoURL();
         this.phone = station.getPhone();
 
-        List<StationBattery> list = new ArrayList<>();
+        List<Battery> list = new ArrayList<>();
         for(int i=0 ; i< station.getBattery().size() ; i++) {
-            StationBattery filteredbattery = new StationBattery();
+            Battery filteredbattery = new Battery();
             filteredbattery.setBatteryId(station.getBattery().get(i).getBatteryId());
             filteredbattery.setCapacity(station.getBattery().get(i).getCapacity());
             filteredbattery.setStatus(station.getBattery().get(i).isStatus());
@@ -42,6 +42,7 @@ public class StationResDto {
             filteredbattery.setCreatedAt(station.getBattery().get(i).getCreatedAt());
             filteredbattery.setModifiedAt(station.getBattery().get(i).getModifiedAt());
             filteredbattery.setBatteryName(station.getBattery().get(i).getBatteryName());
+            filteredbattery.setReservations(station.getBattery().get(i).getReservations());
             list.add(filteredbattery);
         }
         this.batteries = list;

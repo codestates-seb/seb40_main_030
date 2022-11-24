@@ -36,9 +36,11 @@ public class PayResDto extends BaseTime {
         battery.setCapacity(payment.getBattery().getCapacity());
         battery.setStatus(payment.getBattery().isStatus());
         battery.setPrice(payment.getBattery().getPrice());
+        battery.setBatteryName(payment.getBattery().getBatteryName());
         battery.setPhotoURL(payment.getBattery().getPhotoURL());
         battery.setCreatedAt(payment.getBattery().getCreatedAt());
         battery.setModifiedAt(payment.getBattery().getModifiedAt());
+        battery.setReservations(payment.getBattery().getReservations());
         this.battery = battery;
 
         Station station = new Station().builder()
@@ -48,6 +50,7 @@ public class PayResDto extends BaseTime {
                 .latitude(payment.getStation().getLatitude())
                 .longitude(payment.getStation().getLongitude())
                 .photoURL(payment.getStation().getPhotoURL())
+                .phone(payment.getStation().getPhone())
                 .build();
         station.setCreatedAt(payment.getStation().getCreatedAt());
         station.setModifiedAt(payment.getStation().getModifiedAt());
