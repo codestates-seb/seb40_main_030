@@ -35,7 +35,7 @@ public class PaymentService {
 
     @Transactional
     public Payment postPayment (Payment payment, Long batteryId, Long memberId) {
-        Member member =memberRepository.findById(memberId)
+        Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND)); // 로그인 한 계정이 존재하는지 확인
 
         Battery battery = batteryRepository.findById(batteryId)
