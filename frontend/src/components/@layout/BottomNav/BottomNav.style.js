@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   width: 90%;
   background: transparent;
 
-  z-index: 10;
+  z-index: 12;
 
   .active {
     border: 1px solid red;

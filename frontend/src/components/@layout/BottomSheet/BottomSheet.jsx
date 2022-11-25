@@ -1,18 +1,33 @@
-import Header from './Header';
+import { useBottomSheet } from '@/hooks';
+
 import * as S from './BottomSheet.style';
-import useBottomSheet from '../../../hooks/useBottomSheet';
+import Header from './Header';
 
-const BottomSheet = ({ isActive, children }) => {
-  const { sheetRef, contentRef } = useBottomSheet();
+const BottomSheet = ({ children }) => {
+  const { onDragEnd, controls } = useBottomSheet();
 
-  if (sheetRef !== undefined && contentRef !== undefined)
-    return (
-      // sheetRef 가 BottomSheet 의 최상위를 가리켜야함
-      <S.Wrapper isActive={isActive} ref={sheetRef}>
-        <Header />
-        <S.ContentWrapper ref={contentRef}>{children}</S.ContentWrapper>
-      </S.Wrapper>
-    );
+  return (
+    <S.Wrapper
+      drag='y'
+      onDragEnd={onDragEnd}
+      initial='hidden'
+      animate={controls}
+      transition={{
+        type: 'spring',
+        damping: 40,
+        stiffness: 400,
+      }}
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: '100%' },
+      }}
+      dragConstraints={{ top: 0 }}
+      dragElastic={0.2}
+    >
+      <Header />
+      <S.ContentWrapper>{children}</S.ContentWrapper>
+    </S.Wrapper>
+  );
 };
 
 export default BottomSheet;

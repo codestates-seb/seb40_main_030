@@ -17,7 +17,7 @@ const Business = () => {
     }
   };
   const { data: batteryInfo, isLoading } = useQuery(['adminInfo'], () =>
-    getAdminById('1')
+    getAdminById('1'),
   );
 
   if (isLoading) {
