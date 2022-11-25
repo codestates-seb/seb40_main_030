@@ -1,27 +1,17 @@
-import { deleteBattery } from '../../../apis/admin';
+import useDelBattery from '../../../hooks/Business/useDelBattery';
 import * as S from './Battery.style';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const BatteryDeleteButton = ({ deleteState, status, batteryId }) => {
-  const queryClient = useQueryClient();
-  const { mutate: deleteMutate } = useMutation(
-    (batteryId) => deleteBattery(batteryId),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['adminInfo']);
-      },
-    }
-  );
-
-  const deleterHandler = () => {
-    console.log('삭제클릭', batteryId);
+const BatteryDeleteButton = ({ status, batteryId }) => {
+  const { deleteMutate, isDeleteMode } = useDelBattery();
+  const deleteHandler = () => {
     deleteMutate(batteryId);
   };
+
   return (
     <S.deleteButtonContainer
-      onClick={() => deleterHandler()}
-      deleteState={deleteState}
       status={status}
+      onClick={(batteryId) => deleteHandler(batteryId)}
+      deleteState={isDeleteMode}
     >
       X
     </S.deleteButtonContainer>

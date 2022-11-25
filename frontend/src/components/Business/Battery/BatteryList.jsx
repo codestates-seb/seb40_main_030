@@ -1,7 +1,7 @@
 import * as S from './Battery.style';
 import BatteryCard from './BatteryCard';
 
-const BatteryList = ({ batteryList, deleteState }) => {
+const BatteryList = ({ batteryList }) => {
   return (
     <S.BatteryListContainer>
       {batteryList.map((battery) => {
@@ -14,7 +14,6 @@ const BatteryList = ({ batteryList, deleteState }) => {
                 price: battery.price,
                 capacity: battery.capacity,
               }}
-              deleteState={deleteState}
               status={battery.status}
               batteryId={battery.batteryId}
             />
