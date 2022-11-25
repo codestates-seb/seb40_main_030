@@ -1,5 +1,5 @@
 import { AnimatePresence } from 'framer-motion';
-import { cloneElement } from 'react';
+import { cloneElement, useEffect } from 'react';
 import { useLocation, useRoutes } from 'react-router-dom';
 
 import PAGES from './pages';
@@ -10,6 +10,10 @@ const App = () => {
   const pages = useRoutes(PAGES);
 
   // useKakaoCheckLogin();
+
+  useEffect(() => {
+    localStorage.setItem('loginState', true);
+  }, []);
 
   return (
     <AnimatePresence>
