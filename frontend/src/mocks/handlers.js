@@ -150,7 +150,7 @@ export const handlers = [
   //배터리 등록
   rest.post('/batteries', (req, res, ctx) => {
     const body = req.body;
-    mockAdmin.stationList[0].battery.push(body);
+    mockAdmin.stationList[0].battery.unshift(body);
     return res(ctx.status(200), ctx.json(mockAdmin));
   }),
 

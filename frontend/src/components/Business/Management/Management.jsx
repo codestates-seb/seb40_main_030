@@ -3,7 +3,7 @@ import ManagementButton from './ManagementButton';
 import { addBattery } from '../../../apis/admin';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const Management = ({ deleteHandler }) => {
+const Management = ({ deleteHandler, changeDelStateHandler }) => {
   const queryClient = useQueryClient();
   const { mutate: addMutate, data } = useMutation((body) => addBattery(body), {
     onSuccess: () => {
@@ -11,7 +11,7 @@ const Management = ({ deleteHandler }) => {
     },
   });
   const addHandler = () => {
-    console.log('클릭');
+    changeDelStateHandler();
     const body = {
       batteryId: Math.random(),
       capacity: '99999mA',

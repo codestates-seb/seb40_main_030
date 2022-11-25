@@ -11,6 +11,11 @@ const Business = () => {
   const deleteHandler = () => {
     setDeleteState((preState) => !preState);
   };
+  const changeDelStateHandler = () => {
+    if (deleteState) {
+      setDeleteState(false);
+    }
+  };
   const { data: batteryInfo, isLoading } = useQuery(['adminInfo'], () =>
     getAdminById('1')
   );
@@ -23,7 +28,10 @@ const Business = () => {
   return (
     <S.PageWrapper>
       <S.BodyWrapper>
-        <Management deleteHandler={deleteHandler} />
+        <Management
+          deleteHandler={deleteHandler}
+          changeDelStateHandler={changeDelStateHandler}
+        />
         <Filter countList={batteryInfo.countList} />
         <BatteryList
           batteryList={batteryInfo.batteryList}
