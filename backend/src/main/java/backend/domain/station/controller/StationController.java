@@ -72,11 +72,11 @@ public class StationController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<SingleResDto<String>> getStationsSearch (Pageable pageable,
+    public ResponseEntity<PageInfoDto> getStationsSearch (Pageable pageable,
                                                                   @RequestBody StationSearchReqDto stationSearchReqDto) {
-
         Page<Station> page = stationService.getStationsSearch(pageable, stationSearchReqDto.toStation());
 
-        return new ResponseEntity<>(new SingleResDto<>("Success Get"), HttpStatus.OK);
+        return new ResponseEntity<>(new PageInfoDto<>(page), HttpStatus.OK);
     }
+
 }

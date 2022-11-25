@@ -9,6 +9,7 @@ import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.exceptionCode.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -113,7 +114,7 @@ public class StationService {
         // 기본 주소는 코드스테이츠
         Station defaultStation = new Station().builder()
                 .latitude(127.02475418)
-                .longitude(127.02475418)
+                .longitude(37.49655445)
                 .confirmId(1615822138)  // 건물 Id
                 .build();
 
@@ -123,8 +124,19 @@ public class StationService {
         Optional.ofNullable(station.getConfirmId()).ifPresent(defaultStation::setConfirmId);
 
         // 객체 필드값을 중점으로 해서 반경검색 구현하기
+        Double minLat = defaultStation.getLatitude() - 0.01171529;  // 위/아래 역 하나정도의 거리차이 = 0.00912237 == 0.01
+        Double maxLat = defaultStation.getLatitude() + 0.01171529;
+        Double minLog = defaultStation.getLongitude() - 0.01171529;  // 좌/우 역 하나정도의 거리차이 = 0.01171529 == 0.01
+        Double maxLog = defaultStation.getLongitude() + 0.01171529;
 
-        return null;
+        List<Station> originList = stationRepository.findAllByOrderByCreatedAtDesc();
+        List<Station> filteredList = originList.stream()
+                .filter(a -> a.getLatitude()>=minLat && a.getLatitude()<=maxLat)
+                .filter(b -> b.getLongitude()>=minLog && b.getLongitude()<=maxLog)
+                .collect(Collectors.toList());
+        Page<Station> page = new PageImpl<>(filteredList, pageable, filteredList.size());
+
+        return page;
     }
 
 }
