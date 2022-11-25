@@ -16,7 +16,7 @@ public class StationSearchReqDto {
         return new Station().builder()
                 .latitude(this.latitude)
                 .longitude(this.longitude)
-//                .confirmId(this.itemId)
+                .confirmId(this.confirmId)
                 .build();
     }
 

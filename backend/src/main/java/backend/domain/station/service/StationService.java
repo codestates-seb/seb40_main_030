@@ -26,8 +26,6 @@ public class StationService {
 
     private final StationRepository stationRepository;
 
-    private final BatteryRepository batteryRepository;
-
     @Transactional
     public Station postStation(Station station) {
 
@@ -45,6 +43,7 @@ public class StationService {
         Optional.of(station.getLongitude()).ifPresent(savedStation::setLongitude);
         Optional.ofNullable(station.getPhotoURL()).ifPresent(savedStation::setPhotoURL);
         Optional.ofNullable(station.getPhone()).ifPresent(savedStation::setPhone);
+        Optional.ofNullable(station.getConfirmId()).ifPresent(savedStation::setConfirmId);
 
         return stationRepository.save(savedStation);
     }
@@ -115,13 +114,13 @@ public class StationService {
         Station defaultStation = new Station().builder()
                 .latitude(127.02475418)
                 .longitude(127.02475418)
-//                .confirmId(1615822138)  // 건물 Id
+                .confirmId(1615822138)  // 건물 Id
                 .build();
 
         // 만약 위경도 값이나 confirmId가 들어오면 그 값으로 객체 필드값 변경
         Optional.of(station.getLatitude()).ifPresent(defaultStation::setLatitude);
         Optional.of(station.getLongitude()).ifPresent(defaultStation::setLongitude);
-//        Optional.of(station.getLongitude()).ifPresent(defaultStation::setConfirmId);
+        Optional.ofNullable(station.getConfirmId()).ifPresent(defaultStation::setConfirmId);
 
         // 객체 필드값을 중점으로 해서 반경검색 구현하기
 
