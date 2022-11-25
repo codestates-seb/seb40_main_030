@@ -1,11 +1,13 @@
-import { useGetStationById, useCurrentAddress } from '@/hooks';
+import { useGetStationById, useCurrentAddress, useSnackBar } from '@/hooks';
 import NotFound from '@/pages/NotFound';
 
+import { SnackBar } from '../@commons';
 import BatteryInfo from './Features/BatteryInfo';
 import * as S from './Features/Features.style';
 
 const RentalStatus = ({ id }) => {
   const { data } = useGetStationById(id);
+  const { isActive, message } = useSnackBar();
 
   const { location, batteries } = data;
   const { addressDetail } = useCurrentAddress(location);
@@ -31,6 +33,7 @@ const RentalStatus = ({ id }) => {
               content={content}
             />
           ))}
+          <SnackBar isActive={isActive} message={message} />
         </>
       )}
     </>

@@ -1,6 +1,5 @@
 import batteryData from '../../components/Business/Battery/batteryData';
 import BatteryList from '../../components/Business/Battery/BatteryList';
-
 import Filter from '../../components/Business/Filter/Filter';
 
 const Business = () => {
