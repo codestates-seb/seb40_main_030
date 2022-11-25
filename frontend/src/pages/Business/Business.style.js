@@ -9,8 +9,7 @@ const BodyWrapper = styled.div`
   flex-direction: column;
   justify-content: space-around;
   gap: 15px;
-
-  padding-top: 15px;
+  z-index: 1;
 `;
 
 export { PageWrapper, BodyWrapper };

@@ -5,12 +5,16 @@ import {
 import { apiClient } from './order';
 
 //관리자 정보 가져옴
+// const getAdminById = async (adminId) => {
+//   const res = await apiClient.get(`/admins/${adminId}`);
+//   const batteryList = filterBatteryInfo(res.data);
+//   const countList = getEachStateNum(batteryList);
+//   return { batteryList, countList };
+// };
+
 const getAdminById = async (adminId) => {
   const res = await apiClient.get(`/admins/${adminId}`);
-  const batteryList = filterBatteryInfo(res.data);
-  const countList = getEachStateNum(batteryList);
-
-  return { batteryList, countList };
+  return res.data;
 };
 
 //관리자 배터리 추가

@@ -1,11 +1,31 @@
+import { useSetRecoilState } from 'recoil';
+
+import { filterState } from '@/recoil/business';
+
 import * as S from './Battery.style';
 
 const BatteryStatus = ({ status, count }) => {
+  const setSelectedFilter = useSetRecoilState(filterState);
+
+  const clickHandler = () => {
+    setSelectedFilter(status);
+  };
+
   return (
     <>
-      <S.BatteryStatusContainer status={status} count={count}>
+      <S.BatteryStatusContainer
+        onClick={clickHandler}
+        status={status}
+        count={count}
+      >
         <div>
-          {status === 'total' ? '전체' : status ? '대여가능' : '사용중'}
+          {status === 'total'
+            ? '전체'
+            : status === true
+            ? '대여가능'
+            : status === false
+            ? '사용중'
+            : null}
         </div>
         {count ? <div>{`${count}개`}</div> : null}
       </S.BatteryStatusContainer>

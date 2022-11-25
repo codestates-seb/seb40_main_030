@@ -3,7 +3,8 @@ import * as S from './Management.style';
 import ManagementButton from './ManagementButton';
 
 const Management = () => {
-  const { addMutate, isDeleteMode, setIsDeleteMode } = useAddBattery();
+  const { addMutate, isAddMode, setIsAddMode, isDeleteMode, setIsDeleteMode } =
+    useAddBattery();
 
   const batteryInfo = {
     //임시 데이터
@@ -16,7 +17,9 @@ const Management = () => {
   };
   const addHandler = (batteryInfo) => {
     if (isDeleteMode) setIsDeleteMode(false);
-    addMutate(batteryInfo);
+    // if (!isAddMode) setIsAddMode(true);
+    setIsAddMode((pre) => !pre);
+    addMutate(batteryInfo); //모달창안만든 상태에서 바로 임의 값넣을때 사용
   };
   const deleteHandler = () => {
     setIsDeleteMode((preState) => !preState);

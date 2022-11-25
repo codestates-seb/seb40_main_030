@@ -16,13 +16,20 @@ const filterBatteryInfo = (data) => {
   return batteries;
 };
 
-const getEachStateNum = (batteryList) => {
-  const result = { total: 0, available: 0, unavailable: 0 };
-  batteryList.forEach((el) => {
-    el.status ? result.available++ : result.unavailable++;
+const filterByBatteryState = (batteryList, status) => {
+  const listFiltedByBatteryState = batteryList.filter((battery) => {
+    return battery.status === status;
   });
-  result.total = batteryList.length;
+  return listFiltedByBatteryState;
+};
+
+const getEachStateNum = (batteryList) => {
+  const result = [0, 0, 0];
+  batteryList.forEach((el) => {
+    el.status ? result[1]++ : result[2]++;
+  });
+  result[0] = batteryList.length;
   return result;
 };
 
-export { filterBatteryInfo, getEachStateNum };
+export { filterBatteryInfo, getEachStateNum, filterByBatteryState };
