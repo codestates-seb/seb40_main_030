@@ -1,28 +1,33 @@
-import { useNavigate } from 'react-router-dom';
-
 import { ShadowButton, ShadowCard } from '@/components/@commons';
 import { PRICE_REGEX } from '@/constants';
+import { useNavigate } from 'react-router-dom';
 import { useCheckValidReserveTable } from '@/hooks';
 
 import * as S from './Features.style';
+
 
 // 주유소 이름과 위치정보 전화번호 ??
 const BatteryInfo = ({ content, station }) => {
   const navigate = useNavigate();
   const { startPoint, endPoint } = useCheckValidReserveTable();
-  const { capacity, status, price, photoURL, batteryId } = content;
-
-  const reservationInformation = {
-    name: station.name,
-    price,
-    batteryId,
-    capacity,
-    status,
-    photoURL,
-    startPoint,
-    endPoint,
-  };
-
+  const { capacity, status, price, photoURL, batteryId, batteryName } = content;
+  
+  const handleClick = () => {
+    navigate(`/payments/${batteryId}`, { 
+      state: {
+            name: station.name,
+            price,
+            batteryId,
+            capacity,
+            status,
+            photoURL,
+            startPoint,
+            endPoint,
+            batteryName,
+          },
+    });
+  }
+  
   return (
     <S.BatteryContainer>
       <ShadowCard width='100%' height='200px'>
@@ -44,12 +49,13 @@ const BatteryInfo = ({ content, station }) => {
             padding='10px 5px'
             content='예약하기'
             style={{ fontSize: 15 }}
-            onClick={() =>
-              navigate(`/payments/${batteryId}`, {
-                state: reservationInformation,
-              })
+            onClick={() => 
+              status
+                ? handleClick()
+                : alert('이미 예약된 상품입니다.') 
             }
           />
+          
         </S.ProductInfoContainer>
       </ShadowCard>
     </S.BatteryContainer>

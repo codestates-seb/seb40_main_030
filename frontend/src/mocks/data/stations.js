@@ -22,7 +22,8 @@ const mockStations = [
         batteryId: 5,
         capacity: '103000mA',
         status: true,
-        price: 12400,
+        price: 12300,
+        batteryName: '조금큰 베터리',
         photoURL:
           'https://freepngimg.com/thumb/battery/37152-2-automotive-battery-file.png',
       },
@@ -43,6 +44,7 @@ const mockStations = [
         capacity: '40000mA',
         status: true,
         price: 30293,
+        batteryName: '용량큰 베터리',
         photoURL:
           'https://freepngimg.com/thumb/battery/37398-7-automotive-battery-image.png',
       },
@@ -62,6 +64,7 @@ const mockStations = [
         batteryId: 8,
         capacity: '40000mA',
         status: true,
+        batteryName: '많이큰 베터리',
         price: 30293,
         photoURL:
           'https://freepngimg.com/thumb/battery/37398-7-automotive-battery-image.png',

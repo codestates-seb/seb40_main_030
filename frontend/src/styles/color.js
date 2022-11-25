@@ -33,4 +33,12 @@ const COLOR = {
   },
 };
 
-export default COLOR;
+const SIGNATURE_COLOR = {
+  COLOR_MAIN: '#558fac',
+  COLOR_BLUE: '#22577e',
+  COLOR_CREAM: '#f6f2d4',
+
+  COLOR_FONT: '#7b8c9f',
+};
+
+export { COLOR, SIGNATURE_COLOR };
