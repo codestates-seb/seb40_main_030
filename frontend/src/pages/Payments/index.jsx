@@ -1,8 +1,6 @@
-import { useParams } from 'react-router-dom'
-import SelectionHistory from '@/components/PayComponents/SelectionHistory';
+import SelectionHistory from '@/components/Payments/SelectionHistory';
 
 const Payments = () => {
-    const {batteryId} = useParams();
 
     return <SelectionHistory />
 }
