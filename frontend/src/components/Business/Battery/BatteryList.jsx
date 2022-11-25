@@ -13,6 +13,8 @@ const BatteryList = ({ batteryList }) => {
                 station: battery.station,
                 price: battery.price,
                 capacity: battery.capacity,
+                //배터리 이름 추가
+                batteryName: battery.batteryName,
               }}
               status={battery.status}
             />

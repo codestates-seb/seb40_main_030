@@ -4,9 +4,8 @@ import * as S from './Cards.style';
 
 const Cards = ({ content, setIsOpen }) => {
   const { name, details, photoURL, batteries, id } = content;
-
+  
   // 예약시간을 주소값에 포함?
-
   return (
     <S.CardWrapper>
       <S.Card>

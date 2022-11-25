@@ -26,6 +26,15 @@ const COLOR = {
   GOLD: '#ffcf40',
   SILVER: '#c0c0c0',
   COPPER: '#cd7f32',
+
 };
 
-export default COLOR;
+const SIGNATURE_COLOR = {
+  COLOR_MAIN: '#558fac',
+  COLOR_BLUE: '#22577e',
+  COLOR_CREAM: '#f6f2d4',
+
+  COLOR_FONT: '#7b8c9f'
+}
+
+export { COLOR, SIGNATURE_COLOR };
