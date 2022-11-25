@@ -38,7 +38,7 @@ const ROUTES = Object.freeze({
     NAME: 'Payments',
   },
   ORDER_LIST: {
-    PATH: '/order/list/:memberId',
+    PATH: '/order/list',
     NAME: 'OrderList',
   },
 });

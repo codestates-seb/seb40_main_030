@@ -14,9 +14,6 @@ import Payments from './Payments';
 import Rental from './Rental';
 import Search from './Search';
 
-// 당장은 Layout 컴포넌트는 없고
-// BottomNav 가 필요한 페이지는 해당 페이지에 import 해주시면 됩니다.
-
 const PAGES = [
   {
     element: <Home />,

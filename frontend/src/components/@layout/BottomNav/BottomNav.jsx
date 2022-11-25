@@ -16,9 +16,6 @@ const BottomNav = () => {
   const { pathname } = useLocation();
   const [isActive, setIsActive] = useRecoilState(navState);
 
-  // 임시
-  const memberId = 3;
-
   return (
     <S.Wrapper>
       <Link to={pathname !== '/' && '/'}>
@@ -35,7 +32,7 @@ const BottomNav = () => {
       <S.IconBox>
         <LogoIcon />
       </S.IconBox>
-      <Link to={`/order/list/${memberId}`}>
+      <Link to={'/order/list'}>
         <S.IconBox>
           <BatteryIcon />
         </S.IconBox>
