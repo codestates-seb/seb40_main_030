@@ -23,7 +23,6 @@ public class CustomFilterConfig extends AbstractHttpConfigurer<CustomFilterConfi
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils customAuthorityUtils;
     private final RedisTemplate redisTemplate;
-    // 매퍼와 Gson 사용시 역직렬화 과정에서 에러 발생하여 제거했습니다.
 
 
     @Override
@@ -34,7 +33,7 @@ public class CustomFilterConfig extends AbstractHttpConfigurer<CustomFilterConfi
         // 인증 처리 필터
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
         // 로그인 url
-        jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login"); // 노션 페이지 공지에 맞춤
+        jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login");
         jwtAuthenticationFilter.setAuthenticationSuccessHandler(new CustomAuthenticationSuccesshandler());
         jwtAuthenticationFilter.setAuthenticationFailureHandler(new CustomAuthenticationFailureHandler());
 

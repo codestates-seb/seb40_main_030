@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class CustomAuthorityUtils {
-    @Value("${mail.address.admin}")
-    private String adminMailAddress;
+    @Value("${mail.address.admin.list}")
+    private List<String> adminMailAddress;
 
     private final List<GrantedAuthority> ADMIN_ROLES = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_USER");
     private final List<GrantedAuthority> USER_ROLES = AuthorityUtils.createAuthorityList("ROLE_USER");
@@ -38,7 +38,7 @@ public class CustomAuthorityUtils {
     // DB 저장 용
     public List<String> createRoles(String email) {
         // 이 로직에 따라 ADMIN이 될지 USER가 될지 결정됨
-        if (email.equals(adminMailAddress)) {
+        if(adminMailAddress.contains(email)) {
             return ADMIN_ROLES_STRING;
         }
         return USER_ROLES_STRING;

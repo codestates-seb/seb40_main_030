@@ -4,23 +4,38 @@ import backend.domain.admin.entity.Admin;
 import backend.domain.admin.repository.AdminRepository;
 import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.exceptionCode.ExceptionCode;
+import backend.global.security.utils.CustomAuthorityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AdminService {
     private final AdminRepository adminRepository;
-    public AdminService(AdminRepository adminRepository){
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils customAuthorityUtils;
+
+    public AdminService(AdminRepository adminRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils customAuthorityUtils){
         this.adminRepository = adminRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.customAuthorityUtils = customAuthorityUtils;
     }
+
 
     // 관리자회원 생성
     public Admin createAdmin(Admin admin){
         verifyExistsEmail(admin.getEmail());
+
+        String encryptedPassword = passwordEncoder.encode(admin.getPassword());
+        admin.setPassword(encryptedPassword);
+
+        List<String> roles = customAuthorityUtils.createRoles(admin.getEmail());
+        admin.setRoles(roles);
 
         return adminRepository.save(admin);
     }

@@ -30,6 +30,9 @@ public class Admin {
     @Column
     private String phone;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    List<String> roles = new ArrayList<>();
+
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
