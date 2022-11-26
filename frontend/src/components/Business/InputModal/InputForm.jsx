@@ -15,12 +15,13 @@ const InputForm = () => {
     const message = '유효성이 일치합니다';
     openSnackBar(message);
   };
-  console.log(errors);
+
   const onInvalidHandler = (errors) => {
     console.log(errors.capacity);
     const message = `${
       errors.capacity ? `capacity : ${errors.capacity.message}` : ''
-    } ${errors.price ? `price : ${errors.price.message}` : ''}`;
+    } 
+    ${errors.price ? `price : ${errors.price.message}` : ''}`;
     openSnackBar(message);
   };
 
@@ -28,7 +29,7 @@ const InputForm = () => {
     <>
       <form onSubmit={handleSubmit(onValidHandler, onInvalidHandler)}>
         <div>
-          <label htmlFor='capacity'>용 량</label>
+          <label htmlFor='capacity'>배터리종류</label>
           <input
             id='capacity'
             type='number'
@@ -41,7 +42,7 @@ const InputForm = () => {
           />
         </div>
         <div>
-          <label htmlFor='price'>금 액</label>
+          <label htmlFor='price'>배터리금액</label>
           <input
             id='price'
             type='number'
@@ -53,7 +54,7 @@ const InputForm = () => {
           />
         </div>
         <div>
-          <label htmlFor='station'>주유소</label>
+          <label htmlFor='station'>주유소위치</label>
           <select {...register('station')}>
             <option value='1번주유소'>1번주유소</option>
             <option value='2번주유소'>2번주유소</option>
@@ -62,7 +63,9 @@ const InputForm = () => {
             <option value='3번주유소'>5번주유소</option>
           </select>
         </div>
-        <input type='submit' />
+        <div className='submit-container'>
+          <input type='submit' />
+        </div>
       </form>
       <SnackBar isActive={isActive} message={message} />
     </>

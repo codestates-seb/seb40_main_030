@@ -1,10 +1,21 @@
+import { useRecoilState } from 'recoil';
+
+import { addModeState } from '@/recoil/business';
+
 import InputForm from './InputForm';
 import * as S from './InputModal.style';
 const InputModal = () => {
+  const [isAddMode, setIsAddMode] = useRecoilState(addModeState);
+  {
+    /* <div className={isAddMode ? `modal open` : `modal close`}></div> */
+  }
   return (
-    <S.InputModalWrapper>
-      <InputForm />
-    </S.InputModalWrapper>
+    <S.ModalWrapper isAddMode={isAddMode}>
+      <S.ModalBackground onClick={() => setIsAddMode(false)} />
+      <S.InputModalContainer>
+        <InputForm />
+      </S.InputModalContainer>
+    </S.ModalWrapper>
   );
 };
 

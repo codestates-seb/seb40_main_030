@@ -14,7 +14,7 @@ const BatteryStatus = ({ status, count }) => {
   return (
     <>
       <S.BatteryStatusContainer
-        onClick={clickHandler}
+        onClick={count ? clickHandler : ''}
         status={status}
         count={count}
       >
