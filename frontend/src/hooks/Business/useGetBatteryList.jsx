@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { getAdminById } from '@/apis/admin';

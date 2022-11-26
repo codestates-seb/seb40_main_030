@@ -1,17 +1,6 @@
-import {
-  filterBatteryInfo,
-  getEachStateNum,
-} from '../components/Business/utils';
 import { apiClient } from './order';
 
 //관리자 정보 가져옴
-// const getAdminById = async (adminId) => {
-//   const res = await apiClient.get(`/admins/${adminId}`);
-//   const batteryList = filterBatteryInfo(res.data);
-//   const countList = getEachStateNum(batteryList);
-//   return { batteryList, countList };
-// };
-
 const getAdminById = async (adminId) => {
   const res = await apiClient.get(`/admins/${adminId}`);
   return res.data;

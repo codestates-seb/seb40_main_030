@@ -19,7 +19,7 @@ const Management = () => {
     if (isDeleteMode) setIsDeleteMode(false);
     // if (!isAddMode) setIsAddMode(true);
     setIsAddMode((pre) => !pre);
-    addMutate(batteryInfo); //모달창안만든 상태에서 바로 임의 값넣을때 사용
+    // addMutate(batteryInfo); //모달창안만든 상태에서 바로 임의 값넣을때 사용
   };
   const deleteHandler = () => {
     setIsDeleteMode((preState) => !preState);
