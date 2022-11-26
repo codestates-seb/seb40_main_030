@@ -5,8 +5,9 @@ import BatteryCharging from './Loading/BatteryCharging';
 import PageWrapper from './PageWrapper/PageWrapper';
 import SnackBar from './SnackBar/SnackBar';
 import SplashScreen from './SplashScreen/SplashScreen';
+import Stepper from './Stepper/Stepper';
 
-export { SplashScreen, BatteryCharging, Cards, PageWrapper, SnackBar };
+export { SplashScreen, BatteryCharging, Cards, PageWrapper, SnackBar, Stepper };
 
 // Shadow
 

@@ -10,6 +10,7 @@ const FadeIn = keyframes`
 `;
 
 const SnackBar = styled.div`
+  position: fixed;
   visibility: ${({ isActive }) => (isActive ? 'visible' : 'hidden')};
   min-width: 250px;
   margin-left: -125px;
@@ -18,7 +19,6 @@ const SnackBar = styled.div`
   text-align: center;
   border-radius: 5px;
   padding: 16px;
-  position: fixed;
   z-index: 1100;
   left: 50%;
   bottom: 30px;

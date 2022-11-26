@@ -89,6 +89,7 @@ const Details = styled.div`
 
 const ShadowCard = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   width: ${({ width }) => width};
   height: ${({ height }) => height};

@@ -1,5 +1,7 @@
+import * as S from './Content.style';
+
 const Content = () => {
-  return <div>content</div>;
+  return <S.Wrapper>content</S.Wrapper>;
 };
 
 export default Content;

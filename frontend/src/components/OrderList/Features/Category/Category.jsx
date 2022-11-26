@@ -1,5 +1,13 @@
+import * as S from './Category.style';
+
 const Category = () => {
-  return <div>카테고리</div>;
+  return (
+    <S.Header>
+      <S.CategoryButton>예약중</S.CategoryButton>
+      <S.CategoryButton>사용중</S.CategoryButton>
+      <S.CategoryButton>과거 내역</S.CategoryButton>
+    </S.Header>
+  );
 };
 
 export default Category;
