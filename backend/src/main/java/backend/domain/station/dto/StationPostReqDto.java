@@ -21,6 +21,7 @@ public class StationPostReqDto {
     @NotBlank(message = "이미지는 필수입니다.")
     private String photoURL;
     private String phone;
+    private Integer confirmId;
 
     public Station toStation() {
         Station station = new Station().builder()
@@ -30,6 +31,7 @@ public class StationPostReqDto {
                 .longitude(this.location.getLongitude())
                 .photoURL(this.photoURL)
                 .phone(this.phone)
+                .confirmId(this.confirmId)
                 .battery(new ArrayList<>())
                 .payment(new ArrayList<>())
                 .build();

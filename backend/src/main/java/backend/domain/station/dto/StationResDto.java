@@ -18,6 +18,7 @@ public class StationResDto {
     private StationLocation location;
     private String photoURL;
     private String phone;
+    private Integer confirmId;
     private List<Battery> batteries;
 
     public StationResDto(Station station) {
@@ -30,6 +31,7 @@ public class StationResDto {
         this.location = location;
         this.photoURL = station.getPhotoURL();
         this.phone = station.getPhone();
+        this.confirmId = station.getConfirmId();
 
         List<Battery> list = new ArrayList<>();
         for(int i=0 ; i< station.getBattery().size() ; i++) {

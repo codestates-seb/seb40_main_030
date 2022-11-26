@@ -23,10 +23,8 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;          // 현재 시큐리티 미적용 상태이므로 주석처리해두었습니다.
+    private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils customAuthorityUtils;
-    private final JwtTokenizer jwtTokenizer;
-    private final RedisTemplate redisTemplate;
 
     @Transactional
     public Member createMember(Member member) {
