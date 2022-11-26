@@ -127,8 +127,8 @@ public class StationService {
 //        LocalDateTime inputEndTime = LocalDateTime.parse(search.getEndTime());
 
         // 만약 위경도 값 or confirmId or 시간변경값 들어오면 그 값으로 객체 필드값 변경
-        Optional.of(search.getLatitude()).ifPresent(defaultStation::setLatitude);
-        Optional.of(search.getLongitude()).ifPresent(defaultStation::setLongitude);
+        Optional.ofNullable(search.getLatitude()).ifPresent(defaultStation::setLatitude);
+        Optional.ofNullable(search.getLongitude()).ifPresent(defaultStation::setLongitude);
         Optional.ofNullable(search.getConfirmId()).ifPresent(defaultStation::setConfirmId);
         Optional.ofNullable(search.getStartTime()).ifPresent(defaultStation::setStartTime);
         Optional.ofNullable(search.getEndTime()).ifPresent(defaultStation::setEndTime);
@@ -141,8 +141,8 @@ public class StationService {
 
         List<Station> originList = stationRepository.findAllByOrderByCreatedAtDesc();
         List<Station> filteredList = originList.stream()
-                .filter(a -> a.getLatitude() >= minLat || a.getLatitude() <= maxLat)
-                .filter(b -> b.getLongitude() >= minLog || b.getLongitude() <= maxLog)
+                .filter(a -> a.getLatitude() >= minLat && a.getLatitude() <= maxLat)
+                .filter(b -> b.getLongitude() >= minLog && b.getLongitude() <= maxLog)
                 .collect(Collectors.toList());
 
         // Station을 StationSearch로 변환
