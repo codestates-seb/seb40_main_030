@@ -1,3 +1,4 @@
+
 const mockStations = [
   {
     id: 1,
@@ -25,7 +26,7 @@ const mockStations = [
         price: 12300,
         batteryName: '조금큰 베터리',
         photoURL:
-          'https://freepngimg.com/thumb/battery/37152-2-automotive-battery-file.png',
+          'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSka6Ydzuqqujs3gMzXmMCyHBTUDrqnK36uCA3vQ2VBudIx0glgOObzWWewlZJAt6NiFvaXqtbpT_k-&usqp=CAc',
       },
       {
         createdAt: '2022-11-19T17:34:23',

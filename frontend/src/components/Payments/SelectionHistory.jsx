@@ -1,18 +1,17 @@
 import * as S from './SelectionHistory.style';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import {useState, useEffect} from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowIcon } from '@/assets';
 import ProductDetail from './Product/ProductDetail';
 import PayDetail from './Product/PayDetail'
 const SelectionHistory = () => {
-    // const {state} = useLocation();
-    const deposit = 50000;
+    const {state} = useLocation();
     const navigate = useNavigate();
-
+    console.log(state)
     function aClick() {
         navigate(-1)
       }
-    
+      
     return (
         <S.SelectLayout>
             <S.BackButton onClick={aClick} ><ArrowIcon /></S.BackButton>
@@ -20,9 +19,7 @@ const SelectionHistory = () => {
         <S.Product>주문 상품</S.Product>
         <ProductDetail />  
         <PayDetail />
-        <form method='post' action='/kakaoPay'>
-            <S.PayButton>구매하기</S.PayButton>
-        </form>
+        <S.PayButton>구매하기</S.PayButton>
         </S.SelectLayout>
     );
 };

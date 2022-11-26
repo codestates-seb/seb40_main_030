@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 const PayDetail = () => {
     const {state} = useLocation();
     const deposit = 50000;
-
+    const total = state?.price + deposit;
     return (
             <S.PayLayout>
                 <S.PayInformationLayout>
@@ -19,7 +19,7 @@ const PayDetail = () => {
                 <S.PayDetailLayout>
                     <S.PayInformationLayout>
                         <S.TotalPay>결제 예정 금액</S.TotalPay>
-                        <S.TotalPayDetail>{state?.price + deposit}원</S.TotalPayDetail>
+                        <S.TotalPayDetail>{total}원</S.TotalPayDetail>
                     </S.PayInformationLayout>
                 </S.PayDetailLayout>
             </S.PayLayout>

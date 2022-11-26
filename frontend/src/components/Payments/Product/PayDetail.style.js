@@ -40,4 +40,4 @@ const TotalPayDetail = styled.div`
 color: red;
 `
 
-export { PayLayout, PayInformationLayout, PayInformation, PayDetails, TotalPay, TotalPayDetail, PayDetailLayout};
+export { PayLayout, PayInformationLayout, PayInformation, PayDetails, TotalPay, TotalPayDetail, PayDetailLayout };
