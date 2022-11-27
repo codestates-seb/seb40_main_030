@@ -167,28 +167,28 @@ public class StationService {
         for (int i = 0; i < searchList.size(); i++) {
             List<Battery> availableBatteryList = searchList.get(i).getBatteryList();
             List<Battery> unavailableBatteryList = new ArrayList<>();
+
             for (int j = 0; j < searchList.get(i).getBatteryList().size(); j++) {
                 Battery battery = searchList.get(i).getBatteryList().get(j);
+
                 for (int k = 0; k < searchList.get(i).getBatteryList().get(j).getReservations().size(); k++) {
                     Reservation reservation = searchList.get(i).getBatteryList().get(j).getReservations().get(k);
-                    if (startT.isBefore(LocalDateTime.parse(reservation.getStartTime()))
-                            && endT.isAfter(LocalDateTime.parse(reservation.getStartTime()))) {
+                    LocalDateTime reserveStart = LocalDateTime.parse(reservation.getStartTime());
+                    LocalDateTime reserveEnd = LocalDateTime.parse(reservation.getStartTime());
+
+                    if (startT.isBefore(reserveStart) && endT.isAfter(reserveStart)) {
                         if (!unavailableBatteryList.contains(battery)) {
                             unavailableBatteryList.add(battery);
                         }
-                    } else if (startT.isAfter(LocalDateTime.parse(reservation.getStartTime()))
-                            && startT.isBefore(LocalDateTime.parse(reservation.getEndTime()))
-                            && endT.isAfter(LocalDateTime.parse(reservation.getEndTime()))) {
+                    } else if (startT.isAfter(reserveStart) && startT.isBefore(reserveEnd) && endT.isAfter(reserveEnd)) {
                         if (!unavailableBatteryList.contains(battery)) {
                             unavailableBatteryList.add(battery);
                         }
-                    } else if (startT.isBefore(LocalDateTime.parse(reservation.getStartTime()))
-                            && endT.isAfter(LocalDateTime.parse(reservation.getEndTime()))) {
+                    } else if (startT.isBefore(reserveStart) && endT.isAfter(reserveEnd)) {
                         if (!unavailableBatteryList.contains(battery)) {
                             unavailableBatteryList.add(battery);
                         }
-                    } else if (startT.isAfter(LocalDateTime.parse(reservation.getStartTime()))
-                            && endT.isBefore(LocalDateTime.parse(reservation.getEndTime()))) {
+                    } else if (startT.isAfter(reserveStart) && endT.isBefore(reserveEnd)) {
                         if (!unavailableBatteryList.contains(battery)) {
                             unavailableBatteryList.add(battery);
                         }

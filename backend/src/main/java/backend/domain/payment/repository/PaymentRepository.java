@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
-    @EntityGraph(attributePaths = {"battery","station","reservation"})
+    @EntityGraph(attributePaths = {"battery", "member", "station"})
     Page<Payment> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
 }
