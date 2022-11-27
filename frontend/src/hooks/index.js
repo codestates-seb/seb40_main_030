@@ -2,6 +2,7 @@
 import useBottomSheet from './bottomSheet/useBottomSheet';
 import usePreviousValue from './bottomSheet/usePrevious';
 import useMediaQuery from './commons/useMediaQuery';
+import useSearchBar from './commons/useSearchBar';
 import useSnackBar from './commons/useSnackBar';
 import useSplashScreen from './commons/useSplashScreen';
 // maps
@@ -32,6 +33,7 @@ export {
   useSnackBar,
   useMediaQuery,
   useSplashScreen,
+  useSearchBar,
 };
 
 export {

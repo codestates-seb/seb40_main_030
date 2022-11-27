@@ -17,6 +17,16 @@ const TIME = {
   PERCENTAGE: 100,
 };
 
-export { GEOLOCATION_OPTIONS, DEFAULT_LOCATION };
+const SEARCH_LOCATION_SUGGESTIONS = [
+  '이태원',
+  '삼성동',
+  '상봉동',
+  '노량진',
+  '청량리',
+  '중곡',
+  '이태리',
+];
+
+export { GEOLOCATION_OPTIONS, DEFAULT_LOCATION, SEARCH_LOCATION_SUGGESTIONS };
 
 export { TIME };

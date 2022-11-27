@@ -6,16 +6,17 @@ import { useSearchMap } from '@/hooks';
 import { currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './Search.style';
+import SearchBar from './SearchBar/SearchBar';
 
 const SearchPage = () => {
   const navigate = useNavigate();
-  const { inputRef, setKeyword, locationData } = useSearchMap();
+  const { locationData } = useSearchMap();
   const setLocation = useSetRecoilState(currentLocationState);
 
   return (
     <>
       <div>
-        <S.SearchInput
+        {/* <S.SearchInput
           ref={inputRef}
           type='text'
           placeholder='어디에서 빌리시나요 ?'
@@ -25,7 +26,8 @@ const SearchPage = () => {
               setKeyword(e.target.value);
             }
           }}
-        />
+        /> */}
+        <SearchBar />
         <ShadowButton
           content='지도 이동하기'
           width='100%'
