@@ -21,6 +21,10 @@ const ROUTES = Object.freeze({
     PATH: '/signup',
     NAME: 'Signup',
   },
+  MYPAGE: {
+    PATH: '/mypage',
+    NAME: 'Mypage',
+  },
   BUSINESS: {
     PATH: 'business',
     NAME: 'Business',
@@ -44,6 +48,10 @@ const ROUTES = Object.freeze({
   RENTAL: {
     PATH: '/rental/:stationId',
     NAME: 'Rental',
+  },
+  SEARCH_ADDRESS: {
+    PATH: '/searchaddress',
+    NAME: 'Searchaddress',
   },
 });
 

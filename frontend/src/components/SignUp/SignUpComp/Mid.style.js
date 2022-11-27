@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import '@kfonts/bm-dohyeon'; // 배민 도현체 설치후 import
 // ⚠
@@ -171,6 +172,13 @@ export const SignUpAddressInputDiv = styled.div`
     background-color: #7b8c9f;
     border-radius: 3px;
   }
+`;
+
+export const SearchAddressBtn = styled.button`
+  height: 100%;
+  color: white;
+  background-color: #7b8c9f;
+  border-radius: 3px;
 `;
 
 export const SignUpAddressInputAddDiv = styled.div`

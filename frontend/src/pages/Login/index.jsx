@@ -1,9 +1,10 @@
 import LoginForm from '../../components/Login/LoginForm';
-import * as S from './Login.style';
+// import * as S from './Login.style';
 import { useRecoilValue } from 'recoil';
 import { loginState } from '../../recoil/login';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PageWrapper } from '../../components/@commons';
 
 const Login = () => {
   const isAuthorized = useRecoilValue(loginState);
@@ -19,9 +20,9 @@ const Login = () => {
   }, [isAuthorized]);
 
   return (
-    <S.LoginPageWrapper>
+    <PageWrapper title={'로그인'} path={'/'}>
       <LoginForm />
-    </S.LoginPageWrapper>
+    </PageWrapper>
   );
 };
 

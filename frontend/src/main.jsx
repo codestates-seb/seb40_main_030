@@ -30,9 +30,9 @@ ReactDOM.createRoot(container).render(
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <Router>
-          {/* <ErrorBoundary> */}
-          <App />
-          {/* </ErrorBoundary> */}
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
         </Router>
       </QueryClientProvider>
     </RecoilRoot>

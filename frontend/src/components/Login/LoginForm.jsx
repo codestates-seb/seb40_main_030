@@ -7,9 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { accessTokenVal } from '../../recoil/login';
 import axios from 'axios';
-import LoginMidNav from '../@layout/LoginLayout/LoginMidNav';
-import LoginTopNav from '../@layout/LoginLayout/LoginTopNav';
-import LoginBottomNav from '../@layout/LoginLayout/LoginBottomNav';
+// import LoginMidNav from '../@layout/LoginLayout/LoginMidNav';
+
+// import LoginBottomNav from '../@layout/LoginLayout/LoginBottomNav';
+import GenLogin from './GenLogin/GenLogin';
 const LoginForm = () => {
   const { loginClickHandler, isAuthorized } = useKakaoLogin();
 
@@ -55,9 +56,9 @@ const LoginForm = () => {
           ? `로그인상태창 : ${isAuthorized}`
           : `로그인상태창 : ${isAuthorized}`}
       </div> */}
-      <LoginTopNav />
-      <LoginMidNav />
-      <LoginBottomNav />
+      <GenLogin />
+      {/* <LoginMidNav />
+      <LoginBottomNav /> */}
       {/* LoginBottomNav 컴포넌트에 아래 KaKaoLogin 컴포넌트 넣어주세요! */}
       <KakaoLogin loginClickHandler={loginClickHandler} />
 

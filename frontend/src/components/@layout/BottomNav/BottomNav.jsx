@@ -35,7 +35,11 @@ const BottomNav = () => {
         <BatteryIcon />
       </S.IconBox>
       <S.IconBox>
-        <MyPageIcon />
+        <MyPageIcon
+          onClick={() => {
+            navigate('/mypage');
+          }}
+        />
       </S.IconBox>
     </S.Wrapper>
   );

@@ -5,12 +5,13 @@ import '@kfonts/bm-dohyeon';
 /* main-01 : #5584AC
   font-01 : #7b8c9f */
 export const LoginMidContainer = styled.div`
-  padding: 100px 10px 0 10px;
+  padding: 70px 10px 0 10px;
+  border: 1px solid black;
 `;
 export const LoginTypeDiv = styled.div`
   display: flex;
   padding: 15px 0 10px 0;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   font-family: 'bm-dohyeon';
   /* border: 1px solid black; */
@@ -69,10 +70,11 @@ export const LoginBtn = styled.button`
 `;
 export const SearchAndSignUpDiv = styled.div`
   display: flex;
-  width: 80%;
-  padding-left: 60px;
+  width: 100%;
+  /* padding-left: 60px; */
   justify-content: space-between;
   margin-bottom: 50px;
+  gap: 15px;
   font-size: 13px;
 `;
 export const SearchIdText = styled.div``;
@@ -81,6 +83,11 @@ export const SearchPasswordText = styled.div``;
 export const SignUpDiv = styled(Link)`
   color: red;
 `;
+export const EmailFailMsgDiv = styled.div`
+  font-size: 12px;
+  color: red;
+`;
+
 export const FailMsgDiv = styled.div`
   padding: 5px 0 5px 0;
   text-align: center;

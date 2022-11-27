@@ -13,9 +13,27 @@ const userInfoState = atom({
     photoURL: '',
   },
 });
+const isOverLapEmail = atom({
+  key: 'isOverLapEmail',
+  default: false,
+});
+const isOverLapNick = atom({
+  key: 'isOverLapNick',
+  default: false,
+});
 const userMemberId = atom({
   key: 'userMemberId',
   default: 0,
 });
+const recoilPostAddress = atom({
+  key: 'recoilPostAddress',
+  default: '',
+});
 
-export { userInfoState, userMemberId };
+export {
+  userInfoState,
+  userMemberId,
+  recoilPostAddress,
+  isOverLapEmail,
+  isOverLapNick,
+};

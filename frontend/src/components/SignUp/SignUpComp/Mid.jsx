@@ -1,86 +1,174 @@
-import { useState } from 'react';
-import useSignUp from '../../../hooks/SignUp/useSignUp';
+import { useState, useEffect } from 'react';
 import * as S from './Mid.style';
 import { mockUser } from '../../../mocks/data';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import ExistBtn from './ExistBtn';
+import {
+  recoilPostAddress,
+  userInfoState,
+  isOverLapEmail,
+  isOverLapNick,
+} from '../../../recoil/userInfoState';
 import { useRecoilState } from 'recoil';
-import { userInfoState, userMemberId } from '../../../recoil/userInfoState';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpMid = () => {
-  const [signEmail, setSignEmail] = useRecoilState(userInfoState);
+  const navigate = useNavigate();
+  const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
+  const [inputState, setInputState] = useRecoilState(userInfoState); // input value 값들을 전역에 저장해둘 상태변수
 
-  // setUserInfo((prev) => {
-  //   const userInfo = { ...prev };
-  //   userInfo.email = info.email;
-  //   userInfo.nickname = info.nickname;
-  //   userInfo.phone = info.phone;
-  //   userInfo.address = info.address;
-  //   userInfo.photourl = info.photourl;
+  // ----- email,nickname이 올바른 or 중복이 없는 사용가능한 value인지 boolean 상태
+  const [isEmail, setIsEmail] = useRecoilState(isOverLapEmail);
+  const [isNick, setIsNick] = useRecoilState(isOverLapNick);
 
-  //   return { ...userInfo };
-  // });
+  // ----- email, nickname 중복오류 메시지 상태
+  const [nickMsg, setNickMsg] = useState('');
+  const [emailMsg, setEmailMsg] = useState('');
 
-  const {
-    checkedEmail,
-    checkedNick,
-    phoneVaildMsg,
-    // signEmail,
-    // setSignEmail,
-    signNick,
-    setSignNick,
-    signPhone,
-    setSignPhone,
-    signAddress,
-    setSignAddress,
-    emailMsg,
-    nickMsg,
-    phoneMsg,
-    signPassword,
-    setSignPassword,
-    signCheckPw,
-    setSignCheckPw,
-    passwordMsg,
-    checkPasswordMsg,
-    validPasswordMsg,
-    signUpSubmit,
-  } = useSignUp();
+  // ---- react-hook-form -----
   const {
     register,
     handleSubmit,
     watch,
+    getValues,
+    setValue,
     formState: { errors, isSubmitting },
-  } = useForm({ mode: 'onChange' }); // 제출버튼 누른적없어도 input value가 바뀔때마다 ->
+  } = useForm({
+    mode: 'onChange',
+    defaultValues: {
+      email: '',
+      password: '',
+      nickname: '',
+      phone: '',
+      address: '',
+      photoURL: '',
+    },
+  }); // 제출버튼 누른적없어도 input value가 바뀔때마다 ->
   // -> 바로바로 유효성 errors 메시지를 화면에 출력할 수 있음 <- onchange 모드 설정을 안해주면 한번 제출버튼을 누르고 나서야 에러메시지가 화면에 바뀔때마다 출력댐
 
-  // const validatePw = (value) => {
-  //   if (value.length < 6) {
-  //     return '6보다 크게 입력바람';
-  //   }
-  //   return true;
-  // };
+  // 주소찾기 마치고 다시 SignUp 페이지로 리다이렉션될때(렌더링) 이전 input value들 전역상태에서 가져오기
+  // recoil 즉, 전역상태는 컴포넌트 생명주기와는 별도로 동작하기때문에 페이지이동(랜더링)을해도 그 상태가 유지!
+  // 새로고침이나 서비스 종료를 하면 전역상태도 초기화!
+  useEffect(() => {
+    setValue('email', inputState.email);
+    setValue('password', inputState.password);
+    setValue('checkpassword', inputState.checkpassword);
+    setValue('nickname', inputState.nickname);
+    setValue('phone', inputState.phone);
+    setValue('address', inSignAddress);
+    setValue('photoURL', inputState.photoURL);
+  }, []);
 
+  console.log('inputState : ', inputState);
+
+  const checkedEmail = () => {
+    // e.preventDefault();
+    if (!watch('email')) {
+      alert('E-mail을 입력해주세요.');
+    } else {
+      axios
+        .get('https://5e7b-222-233-138-154.jp.ngrok.io/members', {
+          // withCredentials: true,
+
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'ngrok-skip-browser-warning': '111',
+            // 'Content-Type': 'application/json;charset=UTF-8',
+          },
+        })
+        .then((res) => {
+          console.log('SignUp-> eamil중복확인-> res.data : ', res.data);
+          let existEmail = res.data.content.find(
+            (user) => user.email === watch('email'),
+          );
+
+          console.log('existEmail: ', existEmail);
+          if (existEmail) {
+            setEmailMsg('⚠ 이미 가입된 E-mail입니다.');
+            setIsEmail(false);
+          } else {
+            setEmailMsg('✅ 사용 가능 E-mail입니다.');
+            setIsEmail(true);
+          }
+        })
+        .catch((err) => {
+          console.log('Mid/checkedEmail함수내부->axios 에러 err: ', err);
+        });
+    }
+  };
+
+  const checkedNick = () => {
+    // e.preventDefault();
+
+    axios
+      .get('https://5e7b-222-233-138-154.jp.ngrok.io/members', {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'ngrok-skip-browser-warning': '111',
+        },
+      })
+      .then((res) => {
+        let existNick = res.data.content.find(
+          (user) => user.nickname === watch('nickname'),
+        );
+        console.log('existNick : ', existNick);
+        if (existNick) {
+          setNickMsg('⚠ 중복된 닉네임입니다.');
+          setIsNick(false);
+        } else {
+          setNickMsg('✅ 사용가능 닉네임입니다.');
+          setIsNick(true);
+        }
+      })
+      .catch((err) => {
+        console.log('에러: ', err);
+      });
+  };
+
+  console.log('useForm watch() : ', watch());
   // console.log(watch()); // watch()를 사용하여 인자와(watch('eamil')) name이 일치하거나 watch() -> 객체형태의  input value값을 알 수 있다.
   const onValid = async (data) => {
-    return new Promise((r) =>
-      setTimeout(() => {
-        console.log('setTimeout data: ', data);
-        axios.post('/api/members', data).then((res) => {
-          console.log('setTimeout-> axios-> res.data', res.data);
-        });
-      }, 2000),
-    );
+    // checkedEmail();
+    // checkedNick();
+    console.log('isEmail : ', isEmail);
+    console.log('isNick : ', isNick);
+    if (
+      isEmail &&
+      isNick &&
+      !errors.password?.message &&
+      watch('password') === watch('checkpassword')
+    ) {
+      return new Promise(() =>
+        setTimeout(() => {
+          console.log('setTimeout data: ', data);
+          data.address = inSignAddress + ' ' + getValues('detailAddress');
+          axios
+            .post('https://5e7b-222-233-138-154.jp.ngrok.io/members', data)
+            .then((res) => {
+              console.log('setTimeout-> axios-> res.data', res.data);
+              console.log('setTimeOut-> res : ', res);
+              navigate('/login');
+            })
+            .catch((err) => {
+              console.log('err : ', err);
+            });
+        }, 1000),
+      );
+    }
+    alert('email / nickname 이 중복되었는지 확인하세요.');
   };
   const onInValid = (data) => {
+    const errorlist = Object.keys(data).join(' / ');
+    alert(errorlist + ' 입력폼의 입력방식을 확인하세요.');
     console.log('onInValid : ', data);
   };
+
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit(onValid, onInValid)}>
         <S.SignUpMidContainer>
           <S.SignUpPhoto>
-            <input type='file' />
+            <input type='file' name='photoURL' />
           </S.SignUpPhoto>
           <S.SignUpEmailInputDiv>
             <input
@@ -88,79 +176,90 @@ const SignUpMid = () => {
               name='email'
               placeholder='Email'
               {...register('email', {
-                required: '⚠ email 필수',
+                required: '⚠ E-mail 필수입력',
                 pattern: {
                   value:
                     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
-                  message: '⚠ email형식에 맞춰 입력하세요.',
+                  message: '⚠ E-mail형식에 맞지 않습니다.',
                 },
               })}
             />
-            <ExistBtn email={watch().email} />
-            {/* 중복확인버튼 누를때 email형식에 맞게 썻을때만 실행되게끔!  */}
+            <button type='button' onClick={checkedEmail}>
+              중복확인
+            </button>
           </S.SignUpEmailInputDiv>
-          {errors && (
+          {errors.email?.message && (
             <S.SignUpEmailFailMsgDiv>
               {errors.email?.message}
             </S.SignUpEmailFailMsgDiv>
           )}
-          {!errors && emailMsg === 'v 사용 가능 email입니다.' ? (
+          {emailMsg === '✅ 사용 가능 E-mail입니다.' ? (
             <S.SignUpEmailSuccessMsgDiv>{emailMsg}</S.SignUpEmailSuccessMsgDiv>
           ) : (
             <S.SignUpEmailFailMsgDiv>{emailMsg}</S.SignUpEmailFailMsgDiv>
           )}
           <S.SignUpPasswordInputDiv>
             <input
-              type='text'
-              value={signPassword}
-              onChange={(e) => {
-                setSignPassword(e.target.value);
-              }}
-              onKeyUp={validPasswordMsg}
-              placeholder='비밀번호(9~15자)'
+              type='password'
+              name='password'
+              placeholder='password...'
+              {...register('password', {
+                required: '⚠ 비밀번호 입력',
+                pattern: {
+                  value:
+                    /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+                  message:
+                    '⚠ 특수문자 / 문자 / 숫자 포함 형태의 8~15자리 입력하세요.',
+                },
+              })}
             />
           </S.SignUpPasswordInputDiv>
-          {passwordMsg === '적합한 비밀번호.' ? (
-            <S.SignUpPasswordSuccessMsgDiv>
-              {passwordMsg}
-            </S.SignUpPasswordSuccessMsgDiv>
-          ) : (
+          {errors.password?.message && (
             <S.SignUpPasswordFailMsgDiv>
-              {passwordMsg}
+              {errors.password?.message}
             </S.SignUpPasswordFailMsgDiv>
           )}
           <S.SignUpCheckPasswordInputDiv>
             <input
-              type='text'
-              value={signCheckPw}
-              onChange={(e) => {
-                setSignCheckPw(e.target.value);
-              }}
-              onKeyUp={validPasswordMsg}
-              placeholder='비밀번호 재확인'
+              type='password'
+              name='checkpassword'
+              placeholder='비밀번호 확인'
+              {...register('checkpassword', {
+                required: '⚠ 비밀번호 확인',
+              })}
             />
           </S.SignUpCheckPasswordInputDiv>
-          {checkPasswordMsg === '비밀번호 일치함.' ? (
-            <S.SignUpCheckPasswordSuccessMsgDiv>
-              {checkPasswordMsg}
-            </S.SignUpCheckPasswordSuccessMsgDiv>
-          ) : (
-            <S.SignUpCheckPasswordFailMsgDiv>
-              {checkPasswordMsg}
-            </S.SignUpCheckPasswordFailMsgDiv>
-          )}
+          {!errors.checkpassword?.message &&
+            watch('password') !== watch('checkpassword') &&
+            watch('checkpassword') && (
+              <S.SignUpCheckPasswordFailMsgDiv>
+                ⚠ 일치하지 않음
+              </S.SignUpCheckPasswordFailMsgDiv>
+            )}
           <S.SignUpNickInputDiv>
             <input
               type='text'
-              value={signNick}
-              onChange={(e) => {
-                setSignNick(e.target.value);
-              }}
-              placeholder='닉네임을 입력하세요'
+              name='nickname'
+              placeholder='닉네임'
+              {...register('nickname', {
+                required: '⚠ 사용할 닉네임을 입력하세요.',
+                pattern: {
+                  value: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/,
+                  message:
+                    '⚠ 영어(소문자) / 숫자 / 한글 포함 형태의 2~16자리 입력하세요.',
+                },
+              })}
             />
-            <button onClick={checkedNick}>중복확인</button>
+            <button type='button' onClick={checkedNick}>
+              중복확인
+            </button>
           </S.SignUpNickInputDiv>
-          {nickMsg === '사용가능 닉네임.' ? (
+          {errors.nickname?.message && (
+            <S.SignUpNickFailMsgDiv>
+              {errors.nickname?.message}
+            </S.SignUpNickFailMsgDiv>
+          )}
+          {nickMsg === '✅ 사용가능 닉네임입니다.' ? (
             <S.SignUpNickSuccessMsgDiv>{nickMsg}</S.SignUpNickSuccessMsgDiv>
           ) : (
             <S.SignUpNickFailMsgDiv>{nickMsg}</S.SignUpNickFailMsgDiv>
@@ -168,128 +267,56 @@ const SignUpMid = () => {
           <S.SignUpPhoneInputDiv>
             <input
               type='text'
-              value={signPhone}
-              onChange={(e) => {
-                setSignPhone(e.target.value);
-              }}
-              onKeyUp={phoneVaildMsg}
+              name='phone'
               placeholder='Phone Number (- 생략)'
+              {...register('phone', {
+                required: '⚠ 휴대폰번호 입력',
+                pattern: {
+                  value: /^\d{3}\d{3,4}\d{4}$/,
+                  message: '⚠ 숫자만 입력하세요.',
+                },
+              })}
             />
           </S.SignUpPhoneInputDiv>
-          {phoneMsg === '' ? (
-            <S.SignUpPhoneSuccessMsgDiv>{phoneMsg}</S.SignUpPhoneSuccessMsgDiv>
-          ) : (
-            <S.SignUpPhoneFailMsgDiv>{phoneMsg}</S.SignUpPhoneFailMsgDiv>
+          {errors.phone?.message && (
+            <S.SignUpPhoneFailMsgDiv>
+              {errors.phone?.message}
+            </S.SignUpPhoneFailMsgDiv>
           )}
           <S.SignUpAddressContainer>
             <S.SignUpAddressInputDiv>
               <input
                 type='text'
-                value={signAddress}
-                onChange={(e) => {
-                  setSignAddress(e.target.value);
-                }}
+                value={inSignAddress}
                 placeholder='Address'
+                onChange={(e) => setInSignAddress(e.target.value)}
               />
-              <button>주소찾기</button>
+              <S.SearchAddressBtn
+                type='button' // 버튼에 type을 지정을 안해주면 디폴트값은 'submit'이다 그래서 이렇게 지정해줌!
+                onClick={() => {
+                  setInputState(watch());
+                  navigate('/searchaddress');
+                }}
+              >
+                주소찾기
+              </S.SearchAddressBtn>
             </S.SignUpAddressInputDiv>
             <S.SignUpAddressInputAddDiv>
-              <input type='text' placeholder='상세주소 입력' />
+              <input
+                type='text'
+                name='detailAddress'
+                placeholder='상세주소 입력'
+                {...register('detailAddress')}
+              />
             </S.SignUpAddressInputAddDiv>
           </S.SignUpAddressContainer>
         </S.SignUpMidContainer>
         <S.SignUpBottomContainer>
-          <S.SignUpSubmitBtn onClick={signUpSubmit}>
+          <S.SignUpSubmitBtn type='submit' disabled={isSubmitting}>
             회원가입 완료
           </S.SignUpSubmitBtn>
         </S.SignUpBottomContainer>
       </form>
-      {/* <form onSubmit={handleSubmit(onValid, onInValid)}>
-        <S.SignUpEmailInputDiv>
-          <input
-            type='email'
-            name='email'
-            {...register('email', {
-              required: 'email은 필수 입력값 입니다.',
-              pattern: {
-                value:
-                  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
-                message: 'email형식으로 입력하시오.',
-              },
-            })}
-          />
-        </S.SignUpEmailInputDiv>
-        {errors.email?.message}
-        <div>
-          <input
-            type='text'
-            name='nickname'
-            placeholder='nickname'
-            {...register('nickname', {
-              required: 'name은 필수 입력값 입니다.', // 아무것도 안넣었을때 나오는값 필수값!
-              minLength: {
-                value: 5,
-                message: '5글자 이상', // 뭐라도 넣긴했는데 유효성에 안맞을때 나오는 값! 에러메시지!
-              },
-              maxLength: {
-                value: 10,
-                message: '10글자 이하',
-              },
-              pattern: {
-                value:
-                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$/,
-                message: '8자이상, 문자, 숫자 및 특수문자 포함!',
-              },
-            })}
-          />
-          {console.log('errors : ', errors.username?.message)}
-          {errors.username?.message}
-        </div>
-        <div>
-          <input
-            type='text'
-            name='phone'
-            placeholder='phone...'
-            {...register('phone', {
-              required: 'phone 필수',
-              pattern: {
-                value: /^\d{3}\d{3,4}\d{4}$/,
-                message: '- 생략 phone Number 형식으로 입력하세요.',
-              },
-            })}
-          />
-          {errors.phone?.message}
-        </div>
-        <div>
-          <input
-            type='file'
-            name='photoURL'
-            placeholder='사진'
-            {...register('photoURL')}
-          />
-          {/* {console.log(watch().img)} */}
-      {/* </div>
-        <div>
-          <input
-            type='password'
-            name='password'
-            placeholder='password...'
-            {...register('password', {
-              required: '비밀번호 필수',
-              pattern: {
-                value:
-                  /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
-                message:
-                  '특수문자 / 문자 / 숫자 포함 형태의 8~15자리 입력하세요.',
-              },
-            })}
-          />
-          {errors.password && <p>{errors.password.message}</p>}
-          <button type='submit' disabled={isSubmitting}>
-            제출
-          </button>
-        </div>
-      </form> */}
     </div>
   );
 };

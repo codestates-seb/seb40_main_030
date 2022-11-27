@@ -3,11 +3,13 @@ import { ROUTES } from '@/constants';
 
 import Business from './Business';
 import Home from './Home';
-// import Login from './Login';
+import Login from './Login';
 import NotFound from './NotFound';
 import Rental from './Rental';
 import Search from './Search';
 import SignUp from './SignUp';
+import SearchAddress from './SearchAddress';
+import MyPage from './MyPage';
 
 // 당장은 Layout 컴포넌트는 없고
 // BottomNav 가 필요한 페이지는 해당 페이지에 import 해주시면 됩니다.
@@ -34,9 +36,24 @@ const PAGES = [
     name: ROUTES.NOT_FOUND.NAME,
   },
   {
+    element: <Login />,
+    path: ROUTES.LOGIN.PATH,
+    name: ROUTES.LOGIN.NAME,
+  },
+  {
     element: <SignUp />,
     path: ROUTES.SIGNUP.PATH,
     name: ROUTES.SIGNUP.NAME,
+  },
+  {
+    element: <SearchAddress />,
+    path: ROUTES.SEARCH_ADDRESS.PATH,
+    name: ROUTES.SEARCH_ADDRESS.NAME,
+  },
+  {
+    element: <MyPage />,
+    path: ROUTES.MYPAGE.PATH,
+    name: ROUTES.MYPAGE.NAME,
   },
   {
     // PrivateRouter의 children Element들은 로그인이 완료된 유저에게만 보이는 페이지

@@ -1,11 +1,11 @@
-import GenLogin from '../../Login/GenLogin/GenLogin';
+// import GenLogin from '../../Login/GenLogin/GenLogin';
 
-const LoginMidNav = () => {
-  return (
-    <div>
-      <GenLogin />
-    </div>
-  );
-};
+// const LoginMidNav = () => {
+//   return (
+//     <div>
+//       <GenLogin />
+//     </div>
+//   );
+// };
 
-export default LoginMidNav;
+// export default LoginMidNav;

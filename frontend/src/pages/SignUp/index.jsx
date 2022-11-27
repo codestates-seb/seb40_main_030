@@ -3,7 +3,7 @@ import SignUpForm from '../../components/SignUp/SignUpForm';
 
 const SignUp = () => {
   return (
-    <PageWrapper title={'회원가입'}>
+    <PageWrapper title={'회원가입'} path={'/login'}>
       <SignUpForm />
     </PageWrapper>
   );
