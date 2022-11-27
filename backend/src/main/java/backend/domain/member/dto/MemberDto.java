@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MemberDto {
 
-    @NoArgsConstructor @AllArgsConstructor
+
     @Getter @Setter
     public static class Post {
 
@@ -38,7 +38,7 @@ public class MemberDto {
         private String photoURL;
     }
 
-    @NoArgsConstructor @AllArgsConstructor
+
     @Getter @Setter
     public static class Patch {
 
@@ -56,7 +56,7 @@ public class MemberDto {
         private String photoURL;
     }
 
-    @NoArgsConstructor @AllArgsConstructor
+
     @Getter @Setter
     public static class Response{
 
@@ -88,6 +88,38 @@ public class MemberDto {
             this.payment = member.getPayment();
             this.createdAt = member.getCreatedAt();
             this.modifiedAt = member.getModifiedAt();
+        }
+    }
+
+
+    @Getter @Setter
+    public static class PostResDto{
+        private Long memberId;
+        private String email;
+        private String nickname;
+
+        public PostResDto(Member member) {
+            this.memberId = member.getId();
+            this.email = member.getEmail();
+            this.nickname = member.getNickname();
+        }
+    }
+
+    @Getter @Setter
+    public static class PatchResDto{
+        private String email;
+        private String nickname;
+        private String phone;
+        private String address;
+        private String photoURL;
+
+
+        public PatchResDto(Member member) {
+            this.email = member.getEmail();
+            this.nickname = member.getNickname();
+            this.phone = member.getPhone();
+            this.address = member.getAddress();
+            this.photoURL = member.getPhotoURL();
         }
     }
 }

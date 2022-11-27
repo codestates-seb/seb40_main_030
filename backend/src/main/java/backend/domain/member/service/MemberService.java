@@ -66,9 +66,8 @@ public class MemberService {
     }
 
     public Page<Member> findMembers(Pageable pageable) {
-        Page<Member> page = memberRepository.findAllByOrderByCreatedAtDesc(pageable);
 
-        return page.map(Member::new);
+        return memberRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
 
