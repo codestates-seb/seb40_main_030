@@ -12,12 +12,14 @@ const BatteryDetailsContainer = styled.ul`
 const BatteryStatusContainer = styled.div`
   width: 76px;
   height: 27px;
-  border: 2px solid black;
+  font-size: 15px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
 
   background-color: ${({ status }) =>
     status === 'total' ? '#DADADA' : status ? '#7BEB5F' : '#EEDA25'};
@@ -40,21 +42,25 @@ const RightAlignWrapper = styled.div`
 const BatteryContainer = styled.div`
   width: 358px;
   height: 70px;
-  border: 2px solid black;
-  border-radius: 30px;
 
+  border-radius: 30px;
   padding: 0 17px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  border-radius: 20px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 `;
 
 const BatteryListContainer = styled.ul`
-  height: 500px;
+  height: 527px;
+  width: 370px;
   display: flex;
   flex-direction: column;
-
+  padding-top: 15px;
+  padding-bottom: 15px;
   align-items: center;
   gap: 15px;
   overflow: auto;

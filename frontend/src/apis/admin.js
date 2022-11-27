@@ -14,7 +14,6 @@ const axiosAdminInstance = axios.create({
 const getAdminById = async (adminId) => {
   const res = await axiosAdminInstance.get(`/admins/${adminId}`);
   // console.log('응답은', res.headers.get('content-type'));
-  // console.log('응답은', Object.keys(res.headers));
   console.log('get요청 응답은', res.data);
   return res.data;
 };
