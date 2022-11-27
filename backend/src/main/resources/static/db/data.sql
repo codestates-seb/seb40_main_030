@@ -1,7 +1,7 @@
 --더미 Member
 INSERT INTO Member(member_id,createdAt,modifiedAt,address,email,nickname,password,phone,photoURL) VALUES
-(1,'2022-11-19 17:32:55.325906','2022-11-19 17:32:55.325906','경기도 분당시 엄복동','test@gmail.com','테스트','123411aa','010-1111-2222','http://asd311114f6asd54f6aw'),
-(2,'2022-11-19 17:33:04.000228','2022-11-19 17:33:04.000228','서울시 강남구 역삼동','nike@gmail.com','나이키','123411aa','010-1111-2222','http://asd311114f6as3d54f6aw');
+(1,'2022-11-27 19:46:44.346140','2022-11-27 19:46:44.346140','경기도 분당시 엄복동','test@gmail.com','테스트','{bcrypt}$2a$10$XGotgfCnYqJ/kVeDoiD1KeS7fIidoyrr8kbjXNxRKGfGxPNQhmzXy','010-1111-2222','http://asd311114f6asd54f6aw'),
+(2,'2022-11-27 19:47:10.850315','2022-11-27 19:47:10.850315','서울시 강남구 역삼동','nike@gmail.com','나이키','{bcrypt}$2a$10$.vHhhPbb7F1hgmRD5Cxkb.d97nem9ApMGHDQbatnjxnelVpcBg.p6','010-1111-2222','http://asd311114f6asd54f6aw');
 
 --더미 Admin
 INSERT INTO Admin(admin_id,createdAt,email,modifiedAt,password,phone) VALUES
@@ -39,3 +39,7 @@ INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startT
 (4,3, "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-19T16:30","2022-11-19T23:30"),
 (5,2, "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-20T18:30","2022-11-20T22:30"),
 (55,2, "2022-11-15T09:52:37.9592711","2022-11-15T09:52:37.9592867", "2022-11-20T18:30","2022-11-20T22:30");
+
+INSERT INTO member_roles(Member_member_id,roles) values
+(1,'USER'),
+(2,'USER');
