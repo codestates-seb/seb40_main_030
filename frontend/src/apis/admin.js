@@ -3,7 +3,7 @@ import axios from 'axios';
 import { BASE_URL } from '@/constants/admin';
 const LOCAL_BASE_URL = import.meta.env.REACT_APP_BASE_URL;
 const axiosAdminInstance = axios.create({
-  baseURL: LOCAL_BASE_URL,
+  baseURL: BASE_URL,
   headers: {
     // 'Access-Control-Allow-Origin': '*',
     'ngrok-skip-browser-warning': '111',
@@ -31,4 +31,11 @@ const deleteBattery = async (batteryId) => {
   console.log('deleteBattery실행 res', res);
   return res;
 };
-export { getAdminById, addBattery, deleteBattery };
+
+//관리자 주유소 조회
+const getStation = async () => {
+  const res = await axiosAdminInstance.get(`/stations?size=10&page=1`);
+  console.log('주유소 get요청 응답은', res.data);
+  return res.data;
+};
+export { getAdminById, addBattery, deleteBattery, getStation };

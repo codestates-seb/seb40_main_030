@@ -1,6 +1,6 @@
-import * as S from './Management.style';
+import * as S from './BatteryManagement.style';
 
-const ManagementButton = ({ onClick, action }) => {
+const BatteryManagementButton = ({ onClick, action }) => {
   return (
     <S.ButtonContainer onClick={onClick} action={action}>
       {action === 'add'
@@ -12,4 +12,4 @@ const ManagementButton = ({ onClick, action }) => {
   );
 };
 
-export default ManagementButton;
+export default BatteryManagementButton;

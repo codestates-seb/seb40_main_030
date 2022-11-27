@@ -2,10 +2,10 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { addModeState, deleteModeState } from '@/recoil/business';
 
-import * as S from './Management.style';
-import ManagementButton from './ManagementButton';
+import * as S from './StationManagement.style';
+import StationManagementButton from './StationManagementButton';
 
-const Management = () => {
+const StationManagement = () => {
   const [isDeleteMode, setIsDeleteMode] = useRecoilState(deleteModeState);
   const setIsAddMode = useSetRecoilState(addModeState);
 
@@ -18,10 +18,10 @@ const Management = () => {
   };
   return (
     <S.ButtonWrapper>
-      <ManagementButton onClick={() => addHandler()} action={'add'} />
-      <ManagementButton onClick={deleteHandler} action={'remove'} />
+      <StationManagementButton onClick={() => addHandler()} action={'add'} />
+      <StationManagementButton onClick={deleteHandler} action={'remove'} />
     </S.ButtonWrapper>
   );
 };
 
-export default Management;
+export default StationManagement;

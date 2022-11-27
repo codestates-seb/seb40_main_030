@@ -4,14 +4,14 @@ import { useRecoilValue } from 'recoil';
 import { deleteBattery } from '@/apis/admin';
 import { deleteModeState } from '@/recoil/business';
 
-const useDelBattery = () => {
+const useDelBattery = (queryKeyName) => {
   const isDeleteMode = useRecoilValue(deleteModeState);
   const queryClient = useQueryClient();
   const { mutate: deleteMutate } = useMutation(
     (batteryId) => deleteBattery(batteryId),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['adminInfo']);
+        queryClient.invalidateQueries([queryKeyName]);
       },
     },
   );

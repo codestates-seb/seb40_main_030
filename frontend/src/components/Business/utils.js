@@ -32,4 +32,24 @@ const getEachStateNum = (batteryList) => {
   return result;
 };
 
-export { filterBatteryInfo, getEachStateNum, filterByBatteryState };
+const filterStationInfo = (data) => {
+  const stations = [];
+  data.content.forEach((station) => {
+    const eachStation = {
+      stationId: station.id,
+      stationName: station.name,
+      photoURL: station.photoURL,
+      batteryCount: station.batteries.length,
+      phone: station.phone,
+    };
+    stations.unshift(eachStation);
+  });
+  return stations;
+};
+
+export {
+  filterBatteryInfo,
+  getEachStateNum,
+  filterByBatteryState,
+  filterStationInfo,
+};
