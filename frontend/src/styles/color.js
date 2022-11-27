@@ -34,9 +34,7 @@ const SIGNATURE_COLOR = {
   COLOR_BLUE: '#22577e',
   COLOR_CREAM: '#f6f2d4',
 
-  FONT_COLOR_1: '#7b8c9f',
-  FONT_COLOR_2: '#7f8ea1',
-  FONT_COLOR_3: '#808fa0',
+  COLOR_FONT: '#7b8c9f'
 }
 
 export { COLOR, SIGNATURE_COLOR };
