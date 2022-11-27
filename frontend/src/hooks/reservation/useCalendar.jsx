@@ -22,6 +22,12 @@ const useCalendar = () => {
     minutes: new Date().getMinutes(),
   };
 
+  const addMonths = (numOfMonths, date = new Date()) => {
+    date.setMonth(date.getMonth() + numOfMonths);
+
+    return date;
+  };
+
   const year = new Date().getFullYear();
   const startMonth = new Date(date.startValue).getMonth();
   const endMonth = new Date(date.endValue).getMonth();
@@ -45,7 +51,13 @@ const useCalendar = () => {
     }
   }, [date]);
 
-  return { reservationStatus, date, currentDate, currentTime, handleChange };
+  return {
+    date,
+    currentDate,
+    currentTime,
+    handleChange,
+    addMonths,
+  };
 };
 
 export default useCalendar;

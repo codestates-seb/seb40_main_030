@@ -27,6 +27,10 @@ const COLOR = {
   SILVER: '#c0c0c0',
   COPPER: '#cd7f32',
 
+  NOT_FOUND: {
+    GRAY: 'rgba(255, 255, 255, 0.75)',
+    BG_COLOR: 'rgb(25, 25, 25)',
+  },
 };
 
 const SIGNATURE_COLOR = {
@@ -34,7 +38,7 @@ const SIGNATURE_COLOR = {
   COLOR_BLUE: '#22577e',
   COLOR_CREAM: '#f6f2d4',
 
-  COLOR_FONT: '#7b8c9f'
-}
+  COLOR_FONT: '#7b8c9f',
+};
 
 export { COLOR, SIGNATURE_COLOR };

@@ -1,5 +1,5 @@
 import { BOTTOM_SHEET_HEIGHT, MIN_Y, MAX_Y } from './bottomSheet';
-import { DEFAULT_LOCATION, GEOLOCATION_OPTIONS } from './location';
+import { DEFAULT_LOCATION, GEOLOCATION_OPTIONS, TIME } from './common';
 import { PRICE_REGEX } from './regex';
 import ROUTES from './routes';
 
@@ -14,3 +14,6 @@ export { DEFAULT_LOCATION, GEOLOCATION_OPTIONS };
 
 // Regex
 export { PRICE_REGEX };
+
+// TIME
+export { TIME };

@@ -7,7 +7,7 @@ const Counter = ({ type, min, max, range }) => {
     type,
     min,
     max,
-    range
+    range,
   );
 
   return (

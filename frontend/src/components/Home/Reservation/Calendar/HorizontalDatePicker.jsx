@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useCalendar } from '@/hooks';
 
 const HorizontalDatePicker = () => {
-  const { date, handleChange } = useCalendar();
+  const { date, handleChange, addMonths } = useCalendar();
 
   const buttons = document.querySelectorAll('.Kq');
 
@@ -20,6 +20,8 @@ const HorizontalDatePicker = () => {
       locale={enUS}
       startValue={date.startValue}
       endValue={date.endValue}
+      startDate={new Date()}
+      endDate={addMonths(1)}
     />
   );
 };

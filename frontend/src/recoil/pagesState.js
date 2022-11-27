@@ -42,9 +42,17 @@ const currentLocationState = atom({
   default: { latitude: 37.4965, longitude: 127.0248 },
 });
 
+const snackBarState = atom({
+  key: 'snackbarState',
+  default: {
+    isActive: false,
+    message: '',
+  },
+});
 export {
   initialReservationValue,
   navState,
   currentLocationState,
   reservationState,
+  snackBarState,
 };
