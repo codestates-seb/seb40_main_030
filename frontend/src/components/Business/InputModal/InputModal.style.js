@@ -8,6 +8,7 @@ const ModalWrapper = styled.div`
   height: 100vh;
   position: fixed;
   z-index: 99999;
+  top: 0;
 
   display: flex;
   justify-content: center;
@@ -61,6 +62,13 @@ const InputModalContainer = styled.div`
     width: 166px;
     padding: 8px;
   }
+
+  & .error-box {
+    color: red;
+    margin-left: auto;
+    height: 13px;
+  }
+
   & .submit-container {
     display: flex;
     justify-content: end;

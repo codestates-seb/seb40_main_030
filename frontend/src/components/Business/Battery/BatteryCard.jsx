@@ -6,10 +6,14 @@ import BatteryStatus from './BatteryStatus';
 const BatteryCard = ({ imgUrl, details, status, batteryId }) => {
   return (
     <S.BatteryContainer>
-      <S.BatteryImgContainer src={imgUrl}></S.BatteryImgContainer>
-      <BatteryDetails details={details} />
-      <BatteryDeleteButton status={status} batteryId={batteryId} />
-      <BatteryStatus status={status} />
+      <S.LeftAlignWrapper>
+        <S.BatteryImgContainer src={imgUrl}></S.BatteryImgContainer>
+        <BatteryDetails details={details} />
+      </S.LeftAlignWrapper>
+      <S.RightAlignWrapper>
+        <BatteryDeleteButton status={status} batteryId={batteryId} />
+        <BatteryStatus status={status} />
+      </S.RightAlignWrapper>
     </S.BatteryContainer>
   );
 };

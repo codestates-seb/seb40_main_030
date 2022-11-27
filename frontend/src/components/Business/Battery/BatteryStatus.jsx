@@ -14,7 +14,7 @@ const BatteryStatus = ({ status, count }) => {
   return (
     <>
       <S.BatteryStatusContainer
-        onClick={count ? clickHandler : ''}
+        onClick={count ? clickHandler : null}
         status={status}
         count={count}
       >
@@ -27,7 +27,7 @@ const BatteryStatus = ({ status, count }) => {
             ? '사용중'
             : null}
         </div>
-        {count ? <div>{`${count}개`}</div> : null}
+        {typeof count === 'number' ? <div>{count}개</div> : null}
       </S.BatteryStatusContainer>
     </>
   );

@@ -22,9 +22,19 @@ const BatteryStatusContainer = styled.div`
   background-color: ${({ status }) =>
     status === 'total' ? '#DADADA' : status ? '#7BEB5F' : '#EEDA25'};
   cursor: ${({ count }) => (count ? 'pointer' : null)};
-  width: ${({ count }) => (count ? '65px' : null)};
-  height: ${({ count }) => (count ? '65px' : null)};
-  border-radius: ${({ count }) => (count ? '100px' : null)};
+  width: ${({ count }) => (typeof count === 'number' ? '65px' : null)};
+  height: ${({ count }) => (typeof count === 'number' ? '65px' : null)};
+  border-radius: ${({ count }) => (typeof count === 'number' ? '100px' : null)};
+`;
+
+const LeftAlignWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const RightAlignWrapper = styled.div`
+  display: flex;
+  gap: 20px;
 `;
 
 const BatteryContainer = styled.div`
@@ -75,4 +85,6 @@ export {
   BatteryListContainer,
   BatteryImgContainer,
   deleteButtonContainer,
+  LeftAlignWrapper,
+  RightAlignWrapper,
 };

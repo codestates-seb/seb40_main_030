@@ -6,9 +6,7 @@ import InputForm from './InputForm';
 import * as S from './InputModal.style';
 const InputModal = () => {
   const [isAddMode, setIsAddMode] = useRecoilState(addModeState);
-  {
-    /* <div className={isAddMode ? `modal open` : `modal close`}></div> */
-  }
+
   return (
     <S.ModalWrapper isAddMode={isAddMode}>
       <S.ModalBackground onClick={() => setIsAddMode(false)} />
