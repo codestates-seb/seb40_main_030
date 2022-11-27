@@ -5,6 +5,7 @@ import lombok.Getter;
 public enum ExceptionCode {
 
     NON_ACCESS_MODIFY(401, "수정권한이 없습니다."),
+    NON_ACCESS_AUTH(401, "권한이 없습니다"),
 
     ACCESS_TOKEN_EXPIRATION(401, "재 로그인이 필요합니다."),
     LOGIN_FAILURE(401, "아이디 혹은 비밀번호가 옳지 않습니다."),

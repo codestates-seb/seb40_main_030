@@ -67,6 +67,7 @@ public class StationController {
         return new ResponseEntity<>(new PageInfoDto(dtoPage), HttpStatus.OK);
     }
 
+
     @GetMapping("/batteries/{stationId}")
     public ResponseEntity<StationResDto> getStationBattery (@PathVariable Long stationId,
                                                             @RequestBody StationBatteryReqDto stationBatteryReqDto) {
@@ -75,9 +76,10 @@ public class StationController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+
     @GetMapping("/search")
     public ResponseEntity<PageInfoDto> getStationsSearch (Pageable pageable,
-                                                                  @RequestBody StationSearchReqDto stationSearchReqDto) {
+                                                          @RequestBody StationSearchReqDto stationSearchReqDto) {
         List<StationSearch> list = stationService.getStationsSearch(stationSearchReqDto.toStationSearch());
         Page<StationSearch> page = new PageImpl<>(list, pageable,list.size());
         Page<StationSearchResDto> dtoPage = page.map(StationSearchResDto::new);

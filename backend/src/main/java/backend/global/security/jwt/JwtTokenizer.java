@@ -1,5 +1,6 @@
 package backend.global.security.jwt;
 
+import backend.domain.member.entity.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -106,4 +107,28 @@ public class JwtTokenizer {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
+    public String delegateAccessToken(Member member) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("username", member.getEmail());
+        claims.put("role", member.getRoles());
+        claims.put("id", member.getId());   //claim에 id 넣는게 좋을까? subject 대신에
+
+        String subject = String.valueOf(member.getId());
+        Date expiration = getTokenExpiration(getAccessTokenExpirationMinutes());
+        String base64EncodedSecretKey = encodeBase64SecretKey(getSecretKey());
+
+        String accessToken = createAccessToken(claims, subject, expiration, base64EncodedSecretKey);
+
+        return accessToken;
+    }
+
+    public String delegateRefreshToken(Member member) {
+        String subject = String.valueOf(member.getId());
+        Date expiration = getTokenExpiration(getRefreshTokenExpirationMinutes());
+        String base64EncodedSecretKey = encodeBase64SecretKey(getSecretKey());
+
+        String refreshToken = createRefreshToken(subject, expiration, base64EncodedSecretKey);
+
+        return refreshToken;
+    }
 }
