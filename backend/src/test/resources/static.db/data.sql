@@ -5,8 +5,8 @@ INSERT INTO Member(member_id,createdAt,modifiedAt,address,email,nickname,passwor
 
 --더미 Admin
 INSERT INTO Admin(admin_id,createdAt,email,modifiedAt,password,phone) VALUES
-(1,'2022-11-19 17:33:16.026388','admin@gmail.com','2022-11-19 17:33:16.026388','asdf5t1234*','010-7942-7942'),
-(2,'2022-11-19 17:33:38.289305','admin2@gmail.com','2022-11-19 17:33:38.290304','asdf5t12342*','010-7942-7942');
+(1,'2022-11-27 20:00:14.671605','admin@gmail.com','2022-11-27 20:00:14.671605','{bcrypt}$2a$10$RdZBTco1TMcJRM8Q6xxWEOsJ0/dzgj3vJQokgaJ5YrHvcSjPfcmcW','010-7942-7942'),
+(2,'2022-11-27 20:00:54.366883','admin2@gmail.com','2022-11-27 20:00:54.366883','{bcrypt}$2a$10$cT9O3nABoMQc2CxolXzJFu0.OQrSL7HTUMzShY0G49h/FijolcfZq','010-7942-7942');
 
 -- 더미 Station
 INSERT INTO Station(station_id, admin_id, createdAt,modifiedAt,details,latitude,longitude,name,photoURL,phone,confirmId) VALUES
@@ -43,3 +43,7 @@ INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startT
 INSERT INTO member_roles(Member_member_id,roles) values
 (1,'USER'),
 (2,'USER');
+
+INSERT INTO admin_roles(Admin_admin_id,roles) values
+(1,'ADMIN'), (1,'USER'),
+(2,'ADMIN'), (2,'USER');
