@@ -5,16 +5,13 @@ import { useRecoilState } from 'recoil';
 import { userMemberId } from '../../recoil/userInfoState';
 import styled from 'styled-components';
 import * as S from './Top.style';
+import { MyPageIcon } from '../../assets';
 
 const Top = () => {
   const [id, setId] = useRecoilState(userMemberId);
   const [photo, setPhoto] = useState('');
   const [nickName, setNickName] = useState('');
   const [email, setEmail] = useState('');
-  // 사용중 상태 (예약현환)
-  const [inProgress, setInProgress] = useState([]);
-  // 사용완료 상태 (사용현황)
-  const [success, setSuccess] = useState([]);
 
   useEffect(() => {
     axios
@@ -33,20 +30,25 @@ const Top = () => {
   }, []);
 
   const ImgDiv = styled.div`
+    display: block;
+    margin: auto; // display: block 주고 마진 오토로 하면 이미지를 가운데정렬할수있다.
     border: 1px solid black;
+    width: 50px;
     height: 50px;
-    background-image: url(${photo});
+    /* background-image: url(${photo}); */
+    /* background-image: url(${MyPageIcon}); */
+    border-radius: 50%;
   `;
 
   return (
     <S.MyPageTopContainer>
       <ImgDiv></ImgDiv>
-      <div>{nickName}</div>
-      <div>{email}</div>
-      <div>
-        <div>내정보</div>
+      <S.NickNameDiv>{nickName} 님</S.NickNameDiv>
+      <S.EmailDiv>{email}</S.EmailDiv>
+      <S.MyInfoAndLogoutDiv>
+        <S.MyInfoDiv>My Profile</S.MyInfoDiv>
         <GenLogout />
-      </div>
+      </S.MyInfoAndLogoutDiv>
     </S.MyPageTopContainer>
   );
 };

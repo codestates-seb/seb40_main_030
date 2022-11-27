@@ -2,6 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userMemberId } from '../../../recoil/userInfoState';
+import { LogoutBtn } from './GenLogout.style';
 
 const GenLogout = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const GenLogout = () => {
     navigate('/');
   };
 
-  return <button onClick={onClickLogout}>로그아웃</button>;
+  return <LogoutBtn onClick={onClickLogout}>로그아웃</LogoutBtn>;
 };
 
 export default GenLogout;

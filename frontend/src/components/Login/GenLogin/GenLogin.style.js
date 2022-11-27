@@ -103,10 +103,10 @@ export const LoginBtn = styled.button`
 export const SearchAndSignUpDiv = styled.div`
   display: flex;
   width: 100%;
-  /* padding-left: 60px; */
+  padding: 0 20px 0 20px;
   justify-content: space-between;
   margin-bottom: 50px;
-  gap: 15px;
+  gap: 10px;
   font-size: 13px;
 `;
 export const SearchIdText = styled.div``;
