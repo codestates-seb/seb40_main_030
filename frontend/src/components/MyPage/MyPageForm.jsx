@@ -1,15 +1,15 @@
 import Top from './Top';
 import Mid from './Mid';
 import Bottom from './Bottom';
+import * as S from './MyPageForm.style';
 
 const MyPageForm = () => {
   return (
-    <div>
-      MyPageForm
+    <S.MyPageFormContainer>
       <Top />
       <Mid />
       <Bottom />
-    </div>
+    </S.MyPageFormContainer>
   );
 };
 export default MyPageForm;

@@ -6,30 +6,50 @@ import '@kfonts/bm-dohyeon';
   font-01 : #7b8c9f */
 export const LoginMidContainer = styled.div`
   padding: 70px 10px 0 10px;
-  border: 1px solid black;
 `;
 export const LoginTypeDiv = styled.div`
   display: flex;
-  padding: 15px 0 10px 0;
+  padding: 0px 0 15px 0;
   font-size: 15px;
   font-weight: bold;
   font-family: 'bm-dohyeon';
-  /* border: 1px solid black; */
 `; // 로그인타입을 선택하면 진한검정폰트, 선택안된 타입은 연한회색폰트
 export const UserTypeLogin = styled.div`
   margin-right: 10px;
   border-bottom: 3px solid black;
 `;
+export const NoUserType = styled.div`
+  margin-right: 10px;
+  color: gray;
+`;
+
 export const AdminTypeLogin = styled.div`
   margin-right: 10px;
-  border-bottom: 3px solid black;
+  color: #5584ac;
+  border-bottom: 3px solid #5584ac;
+`;
+export const NoAdminType = styled.div`
+  margin-right: 10px;
+  color: gray;
 `;
 
 export const EmailInputDiv = styled.div`
   width: 100%;
-  height: 30px;
-  padding: 5px;
+  height: 35px;
+  padding: 7px 5px 5px 5px;
   border: 1px solid #d6d9dc;
+  border-radius: 3px;
+  margin-bottom: 7px;
+  input {
+    width: 100%;
+    border: 0 solid white;
+  }
+`;
+export const AdminEmailInputDiv = styled.div`
+  width: 100%;
+  height: 35px;
+  padding: 7px 5px 5px 5px;
+  border: 1px solid #5584ac;
   border-radius: 3px;
   margin-bottom: 7px;
   input {
@@ -39,9 +59,21 @@ export const EmailInputDiv = styled.div`
 `;
 export const PasswordInputDiv = styled.div`
   width: 100%;
-  height: 30px;
-  padding: 5px;
+  height: 35px;
+  padding: 7px 5px 5px 5px;
   border: 1px solid #d6d9dc;
+  border-radius: 3px;
+  margin-bottom: 3px;
+  input {
+    width: 100%;
+    border: 0 solid white;
+  }
+`;
+export const AdminPasswordInputDiv = styled.div`
+  width: 100%;
+  height: 35px;
+  padding: 7px 5px 5px 5px;
+  border: 1px solid #5584ac;
   border-radius: 3px;
   margin-bottom: 3px;
   input {

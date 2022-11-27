@@ -3,7 +3,7 @@ import MyPageForm from '../../components/MyPage/MyPageForm';
 
 const MyPage = () => {
   return (
-    <PageWrapper title={'마이페이지'}>
+    <PageWrapper title={'마이페이지'} path={-1}>
       <MyPageForm />
     </PageWrapper>
   );
