@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
+import { TIME } from '@/constants';
 import { reservationState } from '@/recoil/pagesState';
+
+import { useSnackBar } from '..';
 
 const useReservation = () => {
   const [reservation, setReservation] = useState(false);
+  const { openSnackBar } = useSnackBar();
   const [reservationStatus, setReservationStatus] =
     useRecoilState(reservationState);
   const { startTime, startDate, endDate } = reservationStatus;
@@ -14,6 +18,13 @@ const useReservation = () => {
   ).getTime();
 
   const handleReservation = (hours, minutes) => {
+    const currentHour = new Date().getHours();
+
+    if (currentHour >= hours + minutes / TIME.PERCENTAGE) {
+      openSnackBar('현재시간보다 이전 입니다.');
+      return;
+    }
+
     if (!reservation) {
       setReservationStatus({
         ...reservationStatus,
@@ -28,7 +39,12 @@ const useReservation = () => {
 
       if (startPoint >= endPoint) {
         // modal 로 교체 해야함
-        alert('설정하신 예약시간을 확인해 주세요.');
+        openSnackBar('설정하신 예약시간을 확인해 주세요.');
+        return;
+      }
+
+      if (endPoint - startPoint < TIME.HOUR) {
+        openSnackBar('최소 대여시간은 한시간입니다.');
         return;
       }
 

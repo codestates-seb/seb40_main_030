@@ -2,6 +2,7 @@
 import useBottomSheet from './bottomSheet/useBottomSheet';
 import usePreviousValue from './bottomSheet/usePrevious';
 import useMediaQuery from './commons/useMediaQuery';
+import useSnackBar from './commons/useSnackBar';
 import useSplashScreen from './commons/useSplashScreen';
 // maps
 import useCardModal from './map/useCardModal';
@@ -25,9 +26,13 @@ import useGetStationById from './stations/useGetStationById';
 
 export { useGetAllStations, useGetStationById };
 
-export { useMediaQuery, useSplashScreen };
-
-export { useBottomSheet, usePreviousValue };
+export {
+  useBottomSheet,
+  usePreviousValue,
+  useSnackBar,
+  useMediaQuery,
+  useSplashScreen,
+};
 
 export {
   useCurrentAddress,

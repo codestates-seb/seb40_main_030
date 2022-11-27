@@ -17,7 +17,6 @@ const MapIndicator = ({ toggle, setToggle }) => {
   const { location } = useCurrentLocation();
   const [defaultLocation, setCurrentLocation] =
     useRecoilState(currentLocationState);
-  // 위치값이 변경될 때마다 Indicator의 위치가 변경됨
   const { currentAddress } = useCurrentAddress(defaultLocation);
   const { days, hours } = useTimeDifference();
 

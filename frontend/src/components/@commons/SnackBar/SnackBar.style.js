@@ -1,31 +1,34 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+const FadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
 
 const SnackBar = styled.div`
-  visibility: hidden;
+  visibility: ${({ isActive }) => (isActive ? 'visible' : 'hidden')};
   min-width: 250px;
   margin-left: -125px;
   background-color: #333;
   color: #fff;
   text-align: center;
-  border-radius: 2px;
+  border-radius: 5px;
   padding: 16px;
   position: fixed;
   z-index: 1100;
   left: 50%;
   bottom: 30px;
-  font-size: 1rem;
+  font-size: 15px;
+
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      animation: ${FadeIn} 1s;
+    `}
 `;
 
-const FadeIn = styled(SnackBar)`
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0s linear 0s, opacity 300ms;
-`;
-
-const FadeOut = styled(SnackBar)`
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s linear 300ms, opacity 300ms;
-`;
-
-export { SnackBar, FadeIn, FadeOut };
+export { SnackBar };
