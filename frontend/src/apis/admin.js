@@ -38,16 +38,16 @@ const getStation = async () => {
 };
 
 //관리자 주유소 추가
-const addStation = async () => {
-  const res = await axiosAdminInstance.get(`/stations?size=10&page=1`);
-  console.log('주유소 get요청 응답은', res.data);
+const addStation = async (batteryInfo) => {
+  const res = await axiosAdminInstance.post(`/stations`, batteryInfo);
+  console.log('주유소 post요청 응답은', res.data);
   return res.data;
 };
 
 //관리자 주유소 삭제
-const deleteStation = async () => {
-  const res = await axiosAdminInstance.get(`/stations?size=10&page=1`);
-  console.log('주유소 get요청 응답은', res.data);
+const deleteStation = async (batteryId) => {
+  const res = await axiosAdminInstance.delete(`/stations/${batteryId}`);
+  console.log('주유소 delete요청 응답은', res.data);
   return res.data;
 };
 

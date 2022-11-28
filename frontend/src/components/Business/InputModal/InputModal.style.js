@@ -9,6 +9,7 @@ const ModalWrapper = styled.div`
   position: fixed;
   z-index: 99999;
   top: 0;
+  right: 0;
 
   display: flex;
   justify-content: center;
@@ -19,6 +20,7 @@ const ModalBackground = styled.div`
   width: 100%;
   height: 100vh;
   top: 0;
+  right: 0;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
   z-index: 888;

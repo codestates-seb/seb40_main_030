@@ -37,7 +37,7 @@ const BatteryStatusContainer = styled.div`
 
 const LeftAlignWrapper = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 10px;
 `;
 
 const RightAlignWrapper = styled.div`
@@ -47,7 +47,7 @@ const RightAlignWrapper = styled.div`
 `;
 
 const BatteryContainer = styled.div`
-  width: 358px;
+  width: 320px;
   height: 70px;
 
   border-radius: 30px;
@@ -63,7 +63,7 @@ const BatteryContainer = styled.div`
 
 const BatteryListContainer = styled.ul`
   height: 527px;
-  width: 370px;
+  width: 330px;
   display: flex;
   flex-direction: column;
   padding-top: 15px;

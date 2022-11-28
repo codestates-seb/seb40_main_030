@@ -25,14 +25,14 @@ const StationStatus = ({ batteryCount, totalStateCnt, status }) => {
           {status === 'total'
             ? `전체`
             : status === true
-            ? '수량있는 주유소'
+            ? '배터리있는'
             : status === false
-            ? '수량없는 주유소'
+            ? '배터리없는'
             : null}
           {typeof batteryCount === 'number' &&
-            (batteryCount === 0 ? '수량없음' : `수량 ${batteryCount}개`)}
+            (batteryCount === 0 ? '배터리없음' : `배터리 ${batteryCount}개`)}
         </div>
-        {totalStateCnt && `${totalStateCnt}개`}
+        {totalStateCnt && `${totalStateCnt}곳`}
       </S.StationStatusContainer>
     </>
   );

@@ -4,6 +4,7 @@ import * as S from './Station.style';
 const StationDeleteButton = ({ batteryCount, stationId }) => {
   const { deleteMutate, isDeleteMode } = useDelStation('stationInfo');
   const deleteHandler = () => {
+    console.log('stationId', stationId);
     deleteMutate(stationId);
   };
 

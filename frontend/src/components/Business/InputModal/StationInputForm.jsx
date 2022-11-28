@@ -1,11 +1,12 @@
 import { useForm } from 'react-hook-form';
 
 import useAddBattery from '../../../hooks/Business/useAddBattery';
+import useAddStation from '../../../hooks/Business/useAddStation';
 import useSnackBar from '../../../hooks/commons/useSnackBar';
 import SnackBar from '../../@commons/SnackBar/SnackBar';
 
 const StationInputForm = () => {
-  const { addMutate, setIsAddMode } = useAddBattery();
+  const { addMutate, setIsAddMode } = useAddStation();
   const {
     register,
     handleSubmit,
@@ -19,14 +20,16 @@ const StationInputForm = () => {
     openSnackBar(message);
 
     const body = {
-      //mock서버로 보내는 임시 데이터
-      status: true,
-      // status: Math.random() > 0.5 ? true : false,
-      photoURL: '',
-      // batteryId: Math.random(),
-      ...data,
-      // stationID: 1,
+      name: '테스트 주유소',
+      details: '테스트 주유소',
+      location: {
+        latitude: 12344567,
+        longitude: 987654321,
+      },
+      photoURL: '@#!@DSAF!@#',
+      phone: '010-1588-1588',
     };
+
     console.log('입력폼 data는', body);
     addMutate(body);
     reset();

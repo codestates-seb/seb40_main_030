@@ -1,6 +1,5 @@
 import axios from 'axios';
 import qs from 'qs';
-import { constSelector } from 'recoil';
 
 import { BASE_URL } from '@/constants/admin';
 

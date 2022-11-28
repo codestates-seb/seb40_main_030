@@ -12,7 +12,8 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
   const onlyOneBatteryNames = removeDuplicatedBatteryName(batteryList);
   const onlyOneStationNames = removeDuplicatedStationName(stationList);
   // console.log('onlyOneBatteryNames', onlyOneBatteryNames);
-  // console.log('onlyOneStationNames', onlyOneStationNames);
+  console.log('stationList', stationList);
+  console.log('onlyOneStationNames', onlyOneStationNames);
 
   const { addMutate, setIsAddMode } = useAddBattery();
   const {
