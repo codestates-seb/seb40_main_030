@@ -42,7 +42,7 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("/findDetails")
+    @GetMapping("/find")
     public ResponseEntity<MemberResDto> getMember(HttpServletRequest request) {
         Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         Member findMember = service.findMember(memberId);
@@ -51,7 +51,7 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PatchMapping("/modifyDetails")
+    @PatchMapping("/edit")
     public ResponseEntity<MemberDto.PatchResDto> patchMember (HttpServletRequest request,
                                                               @RequestBody MemberDto.Patch dto) {
         Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
@@ -63,7 +63,7 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/removeAccount")
+    @DeleteMapping("/remove")
     public ResponseEntity<SingleResDto<String>> deleteMember (HttpServletRequest request) {
         Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         service.deleteMember(memberId);
