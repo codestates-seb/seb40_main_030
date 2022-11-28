@@ -17,17 +17,27 @@ INSERT INTO Station(station_id, admin_id, createdAt,modifiedAt,details,latitude,
 
 --더미 Battery
 INSERT INTO Battery(batteryId,capacity,createdAt,LAST_MODIFIED_AT,photoURL,price,status,station_id, batteryName) VALUES
-(1,'100000mA','2022-11-19 17:34:17.716045','2022-11-19 17:34:17.716045','http://asdfqwer111',50000,false,1,"Samsung"),
-(2,'100000mA','2022-11-19 17:34:18.453315','2022-11-19 17:34:18.453315','http://asdfqwer111',50000,false,1,"Samsung"),
-(3,'100000mA','2022-11-19 17:34:19.139197','2022-11-19 17:34:19.139197','http://asdfqwer111',50000,false,1,"Samsung"),
-(4,'100000mA','2022-11-19 17:34:22.887204','2022-11-19 17:34:22.887204','http://asdfqwer111',50000,true,2,"Hyundai"),
-(5,'100000mA','2022-11-19 17:34:23.503853','2022-11-19 17:34:23.503853','http://asdfqwer111',50000,true,2,"Hyundai");
+(1,'50000mA','2022-11-19 17:34:17.716045','2022-11-19 17:34:17.716045','https://freepngimg.com/thumb/battery/37152-2-automotive-battery-file.png',1500,false,1,"Samsung"),
+(2,'100000mA','2022-11-19 17:34:18.453315','2022-11-19 17:34:18.453315','https://freepngimg.com/thumb/battery/37152-2-automotive-battery-file.png',2000,false,1,"Samsung"),
+(3,'200000mA','2022-11-19 17:34:19.139197','2022-11-19 17:34:19.139197','https://freepngimg.com/thumb/battery/37398-7-automotive-battery-image.png',3000,true,1,"Samsung"),
+(4,'50000mA','2022-11-19 17:34:22.887204','2022-11-19 17:34:22.887204','https://freepngimg.com/thumb/battery/37152-2-automotive-battery-file.png',1500,true,2,"Hyundai"),
+(5,'30000mA','2022-11-19 17:34:23.503853','2022-11-19 17:34:23.503853','https://freepngimg.com/thumb/battery/37152-2-automotive-battery-file.png',1000,true,2,"Hyundai"),
+(6,'150000mA','2022-11-19 17:34:23.503853','2022-11-19 17:34:23.503853','https://freepngimg.com/thumb/battery/37398-7-automotive-battery-image.png',2500,false,2,"Hyundai"),
+(7,'200000mA','2022-11-19 17:34:23.503853','2022-11-19 17:34:23.503853','https://freepngimg.com/thumb/battery/37398-7-automotive-battery-image.png',3000,false,2,"Hyundai"),
+(8,'100000mA','2022-11-19 17:34:23.503853','2022-11-19 17:34:23.503853','https://freepngimg.com/thumb/battery/37152-2-automotive-battery-file.png',2000,true,3,"Hyundai"),
+(9,'50000mA','2022-11-19 17:34:23.503853','2022-11-19 17:34:23.503853','https://freepngimg.com/thumb/battery/37152-2-automotive-battery-file.png',1000,true,4,"Hyundai"),
+(10,'70000mA','2022-11-19 17:34:23.503853','2022-11-19 17:34:23.503853','https://freepngimg.com/thumb/battery/37152-2-automotive-battery-file.png',1000,false,4,"Hyundai"),
+(11,'200000mA','2022-11-19 17:34:19.139197','2022-11-19 17:34:19.139197','https://freepngimg.com/thumb/battery/37398-7-automotive-battery-image.png',3000,true,1,"Samsung"),
+(12,'150000mA','2022-11-19 17:34:19.139197','2022-11-19 17:34:19.139197','https://freepngimg.com/thumb/battery/37398-7-automotive-battery-image.png',2500,true,1,"Samsung"),
+(13,'50000mA','2022-11-19 17:34:19.139197','2022-11-19 17:34:19.139197','https://freepngimg.com/thumb/battery/37152-2-automotive-battery-file.png',1000,true,2,"Samsung"),
+(14,'50000mA','2022-11-19 17:34:19.139197','2022-11-19 17:34:19.139197','https://freepngimg.com/thumb/battery/37152-2-automotive-battery-file.png',1000,false,2,"Samsung"),
+(15,'200000mA','2022-11-19 17:34:19.139197','2022-11-19 17:34:19.139197','https://freepngimg.com/thumb/battery/37398-7-automotive-battery-image.png',3000,false,2,"Samsung");
 
 -- 더미 payment
 INSERT INTO Payment(payment_id,createdAt,modifiedAt,endTime,payMethod,startTime,status,totalPrice,battery_id,member_id,station_id) VALUES
 (1,'2022-11-19 17:34:32.536094','2022-11-19 17:34:32.537094','2022-11-20T23:30','카카오페이','2022-11-20T17:30',0,50000,1,1,1),
-(2,'2022-11-19 17:35:42.896863','2022-11-19 17:35:42.896863','2022-11-28T19:00','카카오페이','2022-11-28T00:00',0,50000,2,1,1),
-(3,'2022-11-19 17:35:48.372801','2022-11-19 17:35:48.372801','2022-11-30T23:00','카카오페이','2022-11-30T10:00',0,50000,3,1,1);
+(2,'2022-11-19 17:35:42.896863','2022-11-19 17:35:42.896863','2022-11-21T19:00','카카오페이','2022-11-21T09:00',0,50000,2,2,1),
+(3,'2022-11-19 17:35:48.372801','2022-11-19 17:35:48.372801','2022-11-25T09:00','카카오페이','2022-11-23T09:00',1,50000,3,1,2);
 
 -- 더미 Reservation
 --INSERT INTO Reservation(reservationId, battery_id, createdAt, modifiedAt, startTime, endTime) VALUES
