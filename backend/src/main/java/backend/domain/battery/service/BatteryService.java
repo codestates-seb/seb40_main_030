@@ -2,8 +2,11 @@ package backend.domain.battery.service;
 
 import backend.domain.battery.entity.Battery;
 import backend.domain.battery.repository.BatteryRepository;
+import backend.domain.station.entity.Station;
+import backend.domain.station.repository.StationRepository;
 import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.exceptionCode.ExceptionCode;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -11,16 +14,21 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-@Service
+@Service //@RequiredArgsConstructor
 public class BatteryService {
     private final BatteryRepository batteryRepository;
+    private final StationRepository stationRepository;
 
-    public BatteryService(BatteryRepository batteryRepository){
+    public BatteryService(BatteryRepository batteryRepository, StationRepository stationRepository){
         this.batteryRepository = batteryRepository;
+        this.stationRepository = stationRepository;
     }
 
     // 배터리 등록
-    public Battery createBattery(Battery battery){
+    public Battery createBattery(Battery battery, long stationId){
+        Station station = stationRepository.findById(stationId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
+        battery.setStation(station);
         return batteryRepository.save(battery);
     }
 
