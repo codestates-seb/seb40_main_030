@@ -22,7 +22,9 @@ public enum ExceptionCode {
     PAY_NOT_FOUND(404, "해당 결제가 존재하지 않습니다."),
     AUTHENTICATION_FAIL(400, "인증을 실패했습니다."),
     CAN_NOT_RESERVE(400, "해당 시간은 예약이 불가능합니다."),
-    NOT_VALID_ADMIN_CODE(400, "유효한 관리자 코드가 아닙니다.");
+    NOT_VALID_ADMIN_CODE(400, "유효한 관리자 코드가 아닙니다."),
+    NOT_VALID_TIME(404, "시간을 다시 설정해 주세요."),
+    LOGIN_REQUIRED(401, "로그인이 필요한 서비스 입니다.");
 
 
     @Getter

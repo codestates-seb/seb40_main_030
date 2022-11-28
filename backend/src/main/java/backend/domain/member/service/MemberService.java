@@ -1,16 +1,15 @@
 package backend.domain.member.service;
 
+import backend.domain.admin.repository.AdminRepository;
 import backend.domain.member.entity.Member;
 import backend.domain.member.repository.MemberRepository;
 import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.exceptionCode.ExceptionCode;
-import backend.global.security.jwt.JwtTokenizer;
 
 import backend.global.security.utils.CustomAuthorityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +24,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils customAuthorityUtils;
+    private final AdminRepository adminRepository;
 
     @Transactional
     public Member createMember(Member member) {
@@ -65,7 +65,9 @@ public class MemberService {
         return verifyExistsMember(memberId);
     }
 
-    public Page<Member> findMembers(Pageable pageable) {
+    public Page<Member> findMembers(Pageable pageable, String adminEmail) {
+        adminRepository.findByEmail(adminEmail)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH));
 
         return memberRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
