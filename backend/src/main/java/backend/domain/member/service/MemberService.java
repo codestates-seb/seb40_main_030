@@ -65,9 +65,7 @@ public class MemberService {
         return verifyExistsMember(memberId);
     }
 
-    public Page<Member> findMembers(Pageable pageable, String adminEmail) {
-        adminRepository.findByEmail(adminEmail)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH));
+    public Page<Member> findMembers(Pageable pageable) {
 
         return memberRepository.findAllByOrderByCreatedAtDesc(pageable);
     }

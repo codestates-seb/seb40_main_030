@@ -99,7 +99,7 @@ public class StationController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/locationList")
+    @GetMapping("/locationlist")
     public ResponseEntity<List<StationResDto>> getKeywordStations (@RequestParam String keyword) {
         List<Station> list = stationService.getKeywordStations(keyword);
         List<StationResDto> response = list.stream().map(StationResDto::new).collect(Collectors.toList());

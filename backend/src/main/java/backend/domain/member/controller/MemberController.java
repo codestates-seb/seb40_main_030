@@ -72,10 +72,8 @@ public class MemberController {
     }
 
     @GetMapping
-    public ResponseEntity<PageInfoDto> getMembers (Pageable pageable,
-                                                   HttpServletRequest request) {
-        String adminEmail = jwtExtractUtils.extractEmailFromJwt(request);
-        Page<Member> page = service.findMembers(pageable, adminEmail);
+    public ResponseEntity<PageInfoDto> getMembers (Pageable pageable) {
+        Page<Member> page = service.findMembers(pageable);
         Page<MemberResDto> dtoPage = page.map(MemberResDto::new);
 
         return new ResponseEntity<>(new PageInfoDto(dtoPage), HttpStatus.OK);
