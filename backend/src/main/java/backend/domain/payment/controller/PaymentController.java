@@ -11,6 +11,7 @@ import backend.global.dto.SingleResDto;
 import backend.global.security.utils.JwtExtractUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Validated
@@ -75,9 +77,12 @@ public class PaymentController {
         return new ResponseEntity<>(new PayBillsResDto(payment), HttpStatus.OK);
     }
 
+    // 마이페이지 조회 시 payment 상태 값 새로고침
     @GetMapping
-    public ResponseEntity<PageInfoDto> getPayments(Pageable pageable) {
-        Page<Payment> page = paymentService.getPayments(pageable);
+    public ResponseEntity<PageInfoDto> getPayments(Pageable pageable, HttpServletRequest request) {
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
+        List<Payment> list = paymentService.getPayments(pageable, memberId);
+        Page<Payment> page = new PageImpl<>(list, pageable, list.size());
         Page<PayResDto> dtoPage = page.map(PayResDto::new);
 
         return new ResponseEntity<>(new PageInfoDto(dtoPage), HttpStatus.OK);

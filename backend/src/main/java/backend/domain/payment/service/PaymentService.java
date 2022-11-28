@@ -6,6 +6,7 @@ import backend.domain.battery.repository.BatteryRepository;
 import backend.domain.battery.repository.ReservationRepository;
 import backend.domain.member.entity.Member;
 import backend.domain.member.repository.MemberRepository;
+import backend.domain.payment.entity.PayStatus;
 import backend.domain.payment.entity.Payment;
 import backend.domain.payment.repository.PaymentRepository;
 import backend.domain.station.entity.Station;
@@ -21,7 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor @Transactional(readOnly = true)
 public class PaymentService {
@@ -96,8 +99,8 @@ public class PaymentService {
         Optional.ofNullable(payment.getStatus()).ifPresent(savedPayment::setStatus);
         Optional.of(payment.getPayMethod()).ifPresent(savedPayment::setPayMethod);
         savedPayment.setModifiedAt(payment.getModifiedAt());
-        Reservation reservation = new Reservation();
         if(savedPayment.getStatus().getCode() == 1){
+            Reservation reservation = new Reservation();
             reservation.setStartTime(savedPayment.getStartTime());
             reservation.setEndTime(savedPayment.getEndTime());
             reservation.setPayment(savedPayment);
@@ -107,6 +110,8 @@ public class PaymentService {
             reservation.setModifiedAt(savedPayment.getModifiedAt());
             reservation.setPayStatus(savedPayment.getStatus());
             reservationRepository.save(reservation);
+        }else if(savedPayment.getStatus().getCode() == 5){
+            reservationRepository.deleteById(savedPayment.getReservations().get(0).getReservationId());
         }
 
         return paymentRepository.save(savedPayment);
@@ -123,19 +128,31 @@ public class PaymentService {
         paymentRepository.delete(savedPayment);
     }
 
-
+    @Transactional
     public Payment getPayment (Long paymentId, Long memberId) {
         Payment savedPayment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
+        if(LocalDateTime.parse(savedPayment.getStartTime()).isBefore(LocalDateTime.now())
+                && LocalDateTime.parse(savedPayment.getEndTime()).isAfter(LocalDateTime.now())){
+            savedPayment.setStatus(PayStatus.USE_NOW);
+
+        }else if(LocalDateTime.parse(savedPayment.getEndTime()).isBefore(LocalDateTime.now())){
+            savedPayment.setStatus(PayStatus.HISTORY);
+            reservationRepository.deleteById(savedPayment.getReservations().get(0).getReservationId());
+        }
         if (savedPayment.getMember().getId() != memberId) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY);
 
         return savedPayment;
     }
 
+    // 마이페이지 조회 시 payment 상태 값 새로고침
+    public List<Payment> getPayments (Pageable pageable, Long memberId) {
 
-    public Page<Payment> getPayments (Pageable pageable) {
+        Page<Payment> page = paymentRepository.findAllByOrderByCreatedAtDesc(pageable);
+        List<Payment> list =  page.stream().filter(pay -> (pay.getMember().getId() == memberId)).collect(Collectors.toList());
 
-        return paymentRepository.findAllByOrderByCreatedAtDesc(pageable);
+
+        return list;
     }
 
 }

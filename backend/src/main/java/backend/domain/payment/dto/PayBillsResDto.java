@@ -1,5 +1,6 @@
 package backend.domain.payment.dto;
 
+import backend.domain.payment.entity.PayStatus;
 import backend.domain.payment.entity.Payment;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +13,9 @@ public class PayBillsResDto {
     private String capacity;
     private String batteryPhotoURL;
     private int price;
-    private boolean batteryStatus;
 
+    private boolean batteryStatus;
+    private PayStatus payStatus;
     private String startTime;
     private String endTime;
     private int totalPrice;
@@ -29,6 +31,7 @@ public class PayBillsResDto {
         this.price = payment.getBattery().getPrice();
         this.batteryStatus = payment.getBattery().isStatus();
 
+        this.payStatus = payment.getStatus();
         this.startTime = payment.getStartTime();
         this.endTime = payment.getEndTime();
         this.totalPrice = payment.getTotalPrice();

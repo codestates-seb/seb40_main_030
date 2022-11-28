@@ -35,7 +35,8 @@ public class BatteryController {
     @PostMapping
     public ResponseEntity postBattery(@Valid @RequestBody BatteryDto.Post requestBody){
         Battery battery = mapper.batteryPostDtoToBattery(requestBody);
-        Battery createBattery = batteryService.createBattery(battery);
+        long stationId = requestBody.getStationId();
+        Battery createBattery = batteryService.createBattery(battery, stationId);
 //        BatteryDto.Response response = mapper.batteryToBatteryResponse(createBattery);
         BatteryDto.Response response = new BatteryDto.Response(createBattery);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
