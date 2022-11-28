@@ -1,14 +1,16 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import GenLogout from '../Login/GenLogout/GenLogout';
-import { useRecoilState } from 'recoil';
-import { userMemberId } from '../../recoil/userInfoState';
+// import { useRecoilState } from 'recoil';
+// import { userMemberId } from '../../recoil/userInfoState';
 import styled from 'styled-components';
 import * as S from './Top.style';
 import { MyPageIcon } from '../../assets';
+import { useNavigate } from 'react-router-dom';
 
 const Top = () => {
-  const [id, setId] = useRecoilState(userMemberId);
+  // const [id, setId] = useRecoilState(userMemberId);
+  const navigate = useNavigate();
   const [photo, setPhoto] = useState('');
   const [nickName, setNickName] = useState('');
   const [email, setEmail] = useState('');
@@ -51,7 +53,13 @@ const Top = () => {
       <S.NickNameDiv>{nickName} 님</S.NickNameDiv>
       <S.EmailDiv>{email}</S.EmailDiv>
       <S.MyInfoAndLogoutDiv>
-        <S.MyInfoDiv>My Profile</S.MyInfoDiv>
+        <S.MyInfoDiv
+          onClick={() => {
+            navigate('/myprofile');
+          }}
+        >
+          My Profile
+        </S.MyInfoDiv>
         <GenLogout />
       </S.MyInfoAndLogoutDiv>
     </S.MyPageTopContainer>

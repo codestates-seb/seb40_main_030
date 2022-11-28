@@ -21,10 +21,10 @@ const isOverLapNick = atom({
   key: 'isOverLapNick',
   default: false,
 });
-const userMemberId = atom({
-  key: 'userMemberId',
-  default: 0,
-});
+// const userMemberId = atom({
+//   key: 'userMemberId',
+//   default: 0,
+// });
 const recoilPostAddress = atom({
   key: 'recoilPostAddress',
   default: '',
@@ -32,7 +32,7 @@ const recoilPostAddress = atom({
 
 export {
   userInfoState,
-  userMemberId,
+  // userMemberId,
   recoilPostAddress,
   isOverLapEmail,
   isOverLapNick,

@@ -1,29 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import {
-//   LoginBtn,
-//   SearchAndSignUpDiv,
-//   SignUpDiv,
-//   FailMsgDiv,
-//   LoginMidContainer,
-//   EmailInputDiv,
-//   PasswordInputDiv,
-//   LoginTypeDiv,
-//   UserTypeLogin,
-//   AdminTypeLogin,
-//   CheckBoxDiv,
-//   CheckBoxText,
-//   SearchIdText,
-//   SearchPasswordText,
-//   EmailFailMsgDiv,
-//   NoAdminType,
-//   NoUserType,
-//   AdminEmailInputDiv,
-//   AdminPasswordInputDiv,
-// } from './GenLogin.style';
 import * as S from './GenLogin.style';
-import { userInfoState, userMemberId } from '../../../recoil/userInfoState';
+// import { userInfoState, userMemberId } from '../../../recoil/userInfoState';
 import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 
@@ -33,7 +12,7 @@ const GenLogin = () => {
   const [checkedLogin, setCheckedLogin] = useState(false);
   const [typeState, setTypeState] = useState(true); // 로그인 타입 상태
 
-  const [userId, setUserId] = useRecoilState(userMemberId);
+  // const [userId, setUserId] = useRecoilState(userMemberId);
   const navigate = useNavigate();
 
   const {
@@ -45,20 +24,20 @@ const GenLogin = () => {
 
   const onValid = async () => {
     const loginData = watch();
-    // const loginConfig = {
-    //   withCredentials: true,
-    //   headers: {
-    //     'Access-Control-Allow-Origin': '*',
-    //     'ngrok-skip-browser-warning': '111',
-    //     'Content-Type': 'application/json',
-    //   },
-    // };
+    const loginConfig = {
+      // withCredentials: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'ngrok-skip-browser-warning': '111',
+        'Content-Type': 'application/json',
+      },
+    };
     console.log('axios 직전->loginData:  ', loginData);
     await axios
       .post(
         'https://fd5f-222-233-138-154.jp.ngrok.io/auth/login',
         loginData,
-        // loginConfig,
+        loginConfig,
       )
       .then((res) => {
         console.log(' axios-> res : ', res);

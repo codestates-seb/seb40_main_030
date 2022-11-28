@@ -25,6 +25,10 @@ const ROUTES = Object.freeze({
     PATH: '/mypage',
     NAME: 'Mypage',
   },
+  MYPROFILE: {
+    PATH: '/myprofile',
+    NAME: 'Myprofile',
+  },
   BUSINESS: {
     PATH: 'business',
     NAME: 'Business',

@@ -10,6 +10,7 @@ import Search from './Search';
 import SignUp from './SignUp';
 import SearchAddress from './SearchAddress';
 import MyPage from './MyPage';
+import MyProfile from './MyProfile';
 
 // 당장은 Layout 컴포넌트는 없고
 // BottomNav 가 필요한 페이지는 해당 페이지에 import 해주시면 됩니다.
@@ -54,6 +55,11 @@ const PAGES = [
     element: <MyPage />,
     path: ROUTES.MYPAGE.PATH,
     name: ROUTES.MYPAGE.NAME,
+  },
+  {
+    element: <MyProfile />,
+    path: ROUTES.MYPROFILE.PATH,
+    name: ROUTES.MYPROFILE.NAME,
   },
   {
     // PrivateRouter의 children Element들은 로그인이 완료된 유저에게만 보이는 페이지

@@ -1,12 +1,12 @@
 // 일반 로그아웃 컴포넌트
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { userMemberId } from '../../../recoil/userInfoState';
+// import { userMemberId } from '../../../recoil/userInfoState';
 import { LogoutBtn } from './GenLogout.style';
 
 const GenLogout = () => {
   const navigate = useNavigate();
-  const [userId, setUserId] = useRecoilState(userMemberId);
+  // const [userId, setUserId] = useRecoilState(userMemberId);
 
   const onClickLogout = () => {
     localStorage.removeItem('accesstoken'); // 전역상태저장
