@@ -32,7 +32,7 @@ const deleteBattery = async (batteryId) => {
 
 //관리자 주유소 조회
 const getStation = async () => {
-  const res = await axiosAdminInstance.get(`/stations?size=10&page=1`);
+  const res = await axiosAdminInstance.get(`/stations`);
   console.log('주유소 get요청 응답은', res.data);
   return res.data;
 };

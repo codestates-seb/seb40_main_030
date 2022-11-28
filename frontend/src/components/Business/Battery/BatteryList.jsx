@@ -13,6 +13,7 @@ const BatteryList = ({ batteryList }) => {
                 stationId: battery.stationId,
                 price: battery.price,
                 capacity: battery.capacity,
+                batteryName: battery.batteryName,
               }}
               status={battery.status}
               batteryId={battery.batteryId}

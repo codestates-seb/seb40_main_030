@@ -3,8 +3,17 @@ import { useForm } from 'react-hook-form';
 import useAddBattery from '../../../hooks/Business/useAddBattery';
 import useSnackBar from '../../../hooks/commons/useSnackBar';
 import SnackBar from '../../@commons/SnackBar/SnackBar';
+import {
+  removeDuplicatedBatteryName,
+  removeDuplicatedStationName,
+} from '../utils';
 
-const BatteryInputForm = () => {
+const BatteryInputForm = ({ batteryList, stationList }) => {
+  const onlyOneBatteryNames = removeDuplicatedBatteryName(batteryList);
+  const onlyOneStationNames = removeDuplicatedStationName(stationList);
+  // console.log('onlyOneBatteryNames', onlyOneBatteryNames);
+  // console.log('onlyOneStationNames', onlyOneStationNames);
+
   const { addMutate, setIsAddMode } = useAddBattery();
   const {
     register,
@@ -48,7 +57,7 @@ const BatteryInputForm = () => {
     <>
       <form onSubmit={handleSubmit(onValidHandler, onInvalidHandler)}>
         <div>
-          <label htmlFor='capacity'>배터리종류</label>
+          <label htmlFor='capacity'>배터리용량</label>
           <input
             className='data-input'
             id='capacity'
@@ -76,6 +85,35 @@ const BatteryInputForm = () => {
         </div>
         <div className='error-box'>{errors?.price?.message}</div>
         <div>
+          <label htmlFor='batteryType'>배터리종류</label>
+          <select
+            defaultValue='default'
+            {...register('batteryType', {
+              required: true,
+              validate: {
+                isValuedStation: (input) => {
+                  return input !== 'default' || '미입력';
+                },
+              },
+            })}
+          >
+            <option value='default' disabled>
+              선택
+            </option>
+            {onlyOneBatteryNames.map((batteryName) => {
+              return (
+                <option
+                  key={batteryName.batteryId}
+                  value={batteryName.batteryId}
+                >
+                  {batteryName.batteryName}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className='error-box'>{errors?.stationId?.message}</div>
+        <div>
           <label htmlFor='stationId'>주유소위치</label>
           <select
             defaultValue='default'
@@ -91,11 +129,16 @@ const BatteryInputForm = () => {
             <option value='default' disabled>
               선택
             </option>
-            <option value='1'>1번주유소</option>
-            <option value='2'>2번주유소</option>
-            <option value='3'>3번주유소</option>
-            <option value='4'>4번주유소</option>
-            <option value='5'>5번주유소</option>
+            {onlyOneStationNames.map((stationName) => {
+              return (
+                <option
+                  key={stationName.stationId}
+                  value={stationName.stationId}
+                >
+                  {stationName.stationName}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div className='error-box'>{errors?.stationId?.message}</div>

@@ -9,6 +9,7 @@ const filterBatteryInfo = (data) => {
         status: bat.status,
         price: bat.price,
         photoURL: bat.photoURL,
+        batteryName: bat.batteryName,
       };
     });
     batteries.push(...EachBatteryInfo);
@@ -47,9 +48,39 @@ const filterStationInfo = (data) => {
   return stations;
 };
 
+const removeDuplicatedBatteryName = (data) => {
+  const onlyOneNames = data.reduce(function (acc, current) {
+    if (
+      acc.findIndex(
+        ({ batteryName }) => batteryName === current.batteryName,
+      ) === -1
+    ) {
+      acc.push(current);
+    }
+    return acc;
+  }, []);
+  return onlyOneNames;
+};
+
+const removeDuplicatedStationName = (data) => {
+  const onlyOneNames = data.reduce(function (acc, current) {
+    if (
+      acc.findIndex(
+        ({ stationName }) => stationName === current.stationName,
+      ) === -1
+    ) {
+      acc.push(current);
+    }
+    return acc;
+  }, []);
+  return onlyOneNames;
+};
+
 export {
   filterBatteryInfo,
   getEachStateNum,
   filterByBatteryState,
   filterStationInfo,
+  removeDuplicatedBatteryName,
+  removeDuplicatedStationName,
 };
