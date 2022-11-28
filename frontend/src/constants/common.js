@@ -25,6 +25,7 @@ const SEARCH_LOCATION_SUGGESTIONS = [
   '청량리',
   '중곡',
   '이태리',
+  '역삼역',
 ];
 
 export { GEOLOCATION_OPTIONS, DEFAULT_LOCATION, SEARCH_LOCATION_SUGGESTIONS };

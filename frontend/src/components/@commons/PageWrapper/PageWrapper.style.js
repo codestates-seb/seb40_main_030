@@ -8,7 +8,7 @@ const MotionWrapper = styled(motion.div)`
 
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding: 30px;
 
   background: #fff;

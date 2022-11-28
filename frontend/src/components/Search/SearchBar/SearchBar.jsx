@@ -1,9 +1,13 @@
+import { useSearchParams } from 'react-router-dom';
+
 import { useSearchBar } from '@/hooks';
 
 import * as S from './SearchBar.style';
 
 const SearchBar = () => {
-  // const [searchKeyword, setSearchKeyword] = useState('');
+  const [_, setSearchParams] = useSearchParams();
+  _;
+
   const {
     handleKeyword,
     handleAutoComplete,
@@ -24,7 +28,13 @@ const SearchBar = () => {
         />
         <S.AutoCompleteContainer isActive={isActive}>
           {filteredLocation.map((location, i) => (
-            <S.AutoCompleteList key={i} onClick={() => handleAutoComplete()}>
+            <S.AutoCompleteList
+              key={i}
+              onClick={(e) => {
+                handleAutoComplete();
+                setSearchParams({ location: e.target.textContent });
+              }}
+            >
               {location}
             </S.AutoCompleteList>
           ))}

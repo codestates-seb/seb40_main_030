@@ -14,7 +14,7 @@ const PageWrapper = ({
   children,
 }) => {
   const navigate = useNavigate();
-  
+
   return (
     <S.MotionWrapper
       initial={{ opacity: 1, x: '100%', transition: { duration: 1 } }}

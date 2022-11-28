@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   width: 100%;
-  margin: 150px auto;
 `;
 
 const InputContainer = styled.div`

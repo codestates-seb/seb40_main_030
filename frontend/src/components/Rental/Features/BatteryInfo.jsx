@@ -28,13 +28,13 @@ const BatteryInfo = ({ content, station }) => {
     createdAt,
   } = content;
   const { year, month, date } = useConvertDate(createdAt);
-  const { hours } = useTimeDifference();
+  const { periodInMin } = useTimeDifference();
 
   const handleClick = () => {
     navigate(`/payments/${batteryId}`, {
       state: {
         name: station.name,
-        price: price * hours,
+        price: price * periodInMin,
         batteryId,
         capacity,
         status,
@@ -71,7 +71,7 @@ const BatteryInfo = ({ content, station }) => {
             <S.BatteryName>{batteryName}</S.BatteryName>
             <S.PriceContainer>
               <S.Price>
-                {(price * hours).toString().replace(PRICE_REGEX, ',')}
+                {(price * periodInMin).toString().replace(PRICE_REGEX, ',')}
               </S.Price>
               <span>원</span>
             </S.PriceContainer>

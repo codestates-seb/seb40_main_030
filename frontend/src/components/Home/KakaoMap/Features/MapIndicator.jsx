@@ -18,7 +18,7 @@ const MapIndicator = ({ toggle, setToggle }) => {
   const [defaultLocation, setCurrentLocation] =
     useRecoilState(currentLocationState);
   const { currentAddress } = useCurrentAddress(defaultLocation);
-  const { days, hours } = useTimeDifference();
+  const { days, hours, minutes } = useTimeDifference();
 
   return (
     <S.Wrapper>
@@ -32,7 +32,7 @@ const MapIndicator = ({ toggle, setToggle }) => {
             ? `${days}일 ${hours}시간`
             : isNaN(days) && isNaN(hours)
             ? `설정시간 없음`
-            : `${hours} 시간`}
+            : `${hours}시간 ${minutes}분`}
         </span>
       </S.ReservationHover>
       <S.IndicatorContainer>

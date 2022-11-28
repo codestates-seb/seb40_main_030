@@ -26,13 +26,15 @@ const RentalStatus = ({ id }) => {
           <S.AddressDetail>
             <span>{addressDetail}</span>
           </S.AddressDetail>
-          {batteries.map((content) => (
-            <BatteryInfo
-              key={content.batteryId}
-              station={data}
-              content={content}
-            />
-          ))}
+          {batteries
+            .sort((a, b) => b.status - a.status)
+            .map((content) => (
+              <BatteryInfo
+                key={content.batteryId}
+                station={data}
+                content={content}
+              />
+            ))}
           <SnackBar isActive={isActive} message={message} />
         </>
       )}

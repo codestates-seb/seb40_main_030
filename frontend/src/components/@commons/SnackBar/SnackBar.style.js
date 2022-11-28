@@ -21,7 +21,7 @@ const SnackBar = styled.div`
   padding: 16px;
   z-index: 1100;
   left: 50%;
-  bottom: 30px;
+  bottom: 2%;
   font-size: 15px;
 
   ${({ isActive }) =>
