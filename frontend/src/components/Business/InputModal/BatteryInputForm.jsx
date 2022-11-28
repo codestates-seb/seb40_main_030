@@ -4,7 +4,7 @@ import useAddBattery from '../../../hooks/Business/useAddBattery';
 import useSnackBar from '../../../hooks/commons/useSnackBar';
 import SnackBar from '../../@commons/SnackBar/SnackBar';
 
-const InputForm = () => {
+const BatteryInputForm = () => {
   const { addMutate, setIsAddMode } = useAddBattery();
   const {
     register,
@@ -50,6 +50,7 @@ const InputForm = () => {
         <div>
           <label htmlFor='capacity'>배터리종류</label>
           <input
+            className='data-input'
             id='capacity'
             type='number'
             placeholder='배터리 용량을 입력하세요'
@@ -63,6 +64,7 @@ const InputForm = () => {
         <div>
           <label htmlFor='price'>배터리금액</label>
           <input
+            className='data-input'
             id='price'
             type='number'
             placeholder='대여 금액을 입력하세요'
@@ -98,7 +100,7 @@ const InputForm = () => {
         </div>
         <div className='error-box'>{errors?.stationId?.message}</div>
         <div className='submit-container'>
-          <input type='submit' />
+          <input className='submit' type='submit' />
         </div>
       </form>
       <SnackBar isActive={isActive} message={message} />
@@ -106,7 +108,7 @@ const InputForm = () => {
   );
 };
 
-export default InputForm;
+export default BatteryInputForm;
 
 // {
 //   "capacity":"50000mA",

@@ -1,13 +1,15 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { addModeState, deleteModeState } from '@/recoil/business';
+import { batteryAddModeState, batteryDeleteModeState } from '@/recoil/business';
 
 import * as S from './BatteryManagement.style';
 import BatteryManagementButton from './BatteryManagementButton';
 
 const BatteryManagement = () => {
-  const [isDeleteMode, setIsDeleteMode] = useRecoilState(deleteModeState);
-  const setIsAddMode = useSetRecoilState(addModeState);
+  const [isDeleteMode, setIsDeleteMode] = useRecoilState(
+    batteryDeleteModeState,
+  );
+  const setIsAddMode = useSetRecoilState(batteryAddModeState);
 
   const addHandler = () => {
     if (isDeleteMode) setIsDeleteMode(false);

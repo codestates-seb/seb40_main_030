@@ -2,11 +2,13 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { useRecoilState } from 'recoil';
 
 import { addBattery } from '@/apis/admin';
-import { addModeState, deleteModeState } from '@/recoil/business';
+import { batteryDeleteModeState, batteryAddModeState } from '@/recoil/business';
 
 const useAddBattery = () => {
-  const [isDeleteMode, setIsDeleteMode] = useRecoilState(deleteModeState);
-  const [isAddMode, setIsAddMode] = useRecoilState(addModeState);
+  const [isDeleteMode, setIsDeleteMode] = useRecoilState(
+    batteryDeleteModeState,
+  );
+  const [isAddMode, setIsAddMode] = useRecoilState(batteryAddModeState);
   const queryClient = useQueryClient();
 
   const {

@@ -1,5 +1,8 @@
 import axios from 'axios';
 import qs from 'qs';
+import { constSelector } from 'recoil';
+
+import { BASE_URL } from '@/constants/admin';
 
 import {
   KAKAO_ACCOUNT_LOGOUT_URL,
@@ -154,6 +157,15 @@ const testHandler = async (accessToken) => {
     }
   }
 };
+
+const login = async () => {
+  const res = await axios.post(`${BASE_URL}/auth/login`, {
+    email: 'test@gmail.com',
+    password: '123411aa',
+  });
+  console.log('로긴 응답', res.headers);
+};
+
 export {
   getTokenDirectly,
   getTokenIndirectly,
@@ -165,4 +177,5 @@ export {
   logoutAccountSessionDirectly,
   checkValidToken,
   testHandler,
+  login,
 };

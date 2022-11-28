@@ -46,6 +46,11 @@ const RightAlignWrapper = styled.div`
   display: flex;
   gap: 20px;
 `;
+const StationButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const StationDeleteButtonContainer = styled.div`
   position: relative;
@@ -59,7 +64,7 @@ const StationDeleteButtonContainer = styled.div`
   align-items: center;
 
   visibility: ${({ deleteState, status }) =>
-    deleteState === true && status === true ? '' : 'hidden'};
+    deleteState === true && status === 0 ? '' : 'hidden'};
 `;
 
 export {
@@ -70,4 +75,5 @@ export {
   RightAlignWrapper,
   StationImgContainer,
   StationDeleteButtonContainer,
+  StationButtonWrapper,
 };

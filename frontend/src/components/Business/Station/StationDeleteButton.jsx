@@ -1,20 +1,22 @@
-import useDelBattery from '../../../hooks/Business/useDelBattery';
+import useDelStation from '../../../hooks/Business/useDelStation';
 import * as S from './Station.style';
 
 const StationDeleteButton = ({ batteryCount, stationId }) => {
-  const { deleteMutate, isDeleteMode } = useDelBattery();
+  const { deleteMutate, isDeleteMode } = useDelStation();
   const deleteHandler = () => {
     deleteMutate(stationId);
   };
-  console.log(batteryCount, stationId);
+
   return (
-    <S.StationDeleteButtonContainer
-      status={batteryCount}
-      onClick={(stationId) => deleteHandler(stationId)}
-      deleteState={isDeleteMode}
-    >
-      X
-    </S.StationDeleteButtonContainer>
+    <p>
+      <S.StationDeleteButtonContainer
+        status={batteryCount}
+        onClick={(stationId) => deleteHandler(stationId)}
+        deleteState={isDeleteMode}
+      >
+        X
+      </S.StationDeleteButtonContainer>
+    </p>
   );
 };
 

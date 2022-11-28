@@ -1,18 +1,23 @@
+import { Children } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { addModeState } from '@/recoil/business';
+import { batteryAddModeState, stationAddModeState } from '@/recoil/business';
 
-import InputForm from './InputForm';
+import BatteryInputForm from './BatteryInputForm';
 import * as S from './InputModal.style';
-const InputModal = () => {
-  const [isAddMode, setIsAddMode] = useRecoilState(addModeState);
+const InputModal = ({ name, children }) => {
+  let recoilKeyName;
+  if (name === 'battery') {
+    recoilKeyName = batteryAddModeState;
+  } else if (name === 'station') {
+    recoilKeyName = stationAddModeState;
+  }
+  const [isAddMode, setIsAddMode] = useRecoilState(recoilKeyName);
 
   return (
     <S.ModalWrapper isAddMode={isAddMode}>
       <S.ModalBackground onClick={() => setIsAddMode(false)} />
-      <S.InputModalContainer>
-        <InputForm />
-      </S.InputModalContainer>
+      <S.InputModalContainer>{children}</S.InputModalContainer>
     </S.ModalWrapper>
   );
 };

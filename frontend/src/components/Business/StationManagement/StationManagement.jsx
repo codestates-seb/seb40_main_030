@@ -1,15 +1,18 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { addModeState, deleteModeState } from '@/recoil/business';
+import { stationDeleteModeState, stationAddModeState } from '@/recoil/business';
 
 import * as S from './StationManagement.style';
 import StationManagementButton from './StationManagementButton';
 
 const StationManagement = () => {
-  const [isDeleteMode, setIsDeleteMode] = useRecoilState(deleteModeState);
-  const setIsAddMode = useSetRecoilState(addModeState);
+  const [isDeleteMode, setIsDeleteMode] = useRecoilState(
+    stationDeleteModeState,
+  );
+  const setIsAddMode = useSetRecoilState(stationAddModeState);
 
   const addHandler = () => {
+    console.log('주유소 등록');
     if (isDeleteMode) setIsDeleteMode(false);
     setIsAddMode((preState) => !preState);
   };
@@ -19,7 +22,10 @@ const StationManagement = () => {
   return (
     <S.ButtonWrapper>
       <StationManagementButton onClick={() => addHandler()} action={'add'} />
-      <StationManagementButton onClick={deleteHandler} action={'remove'} />
+      <StationManagementButton
+        onClick={() => deleteHandler()}
+        action={'remove'}
+      />
     </S.ButtonWrapper>
   );
 };

@@ -1,12 +1,12 @@
 import { atom } from 'recoil';
 
-const addModeState = atom({
-  key: 'addModeState',
+const batteryAddModeState = atom({
+  key: 'batteryAddModeState',
   default: false,
 });
 
-const deleteModeState = atom({
-  key: 'deleteModeState',
+const batteryDeleteModeState = atom({
+  key: 'batteryDeleteModeState',
   default: false,
 });
 
@@ -14,4 +14,20 @@ const filterState = atom({
   key: 'filterState',
   default: 'total',
 });
-export { addModeState, deleteModeState, filterState };
+
+const stationAddModeState = atom({
+  key: 'stationAddModeState',
+  default: false,
+});
+
+const stationDeleteModeState = atom({
+  key: 'stationDeleteModeState',
+  default: false,
+});
+export {
+  batteryAddModeState,
+  batteryDeleteModeState,
+  filterState,
+  stationAddModeState,
+  stationDeleteModeState,
+};

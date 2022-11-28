@@ -33,6 +33,7 @@ const InputModalContainer = styled.div`
   width: 300px;
   height: 300px;
   border: 2px solid gray;
+  border-radius: 15px;
   background-color: #ffffff;
 
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
@@ -40,8 +41,6 @@ const InputModalContainer = styled.div`
   position: fixed;
 
   & form {
-    padding: 10px;
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -54,11 +53,18 @@ const InputModalContainer = styled.div`
 
   & label {
     padding: 8px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  & .data-input {
+    font-size: 12px;
+    width: 166px;
   }
   & input {
     padding: 8px;
   }
   & select {
+    font-size: 12px;
     width: 166px;
     padding: 8px;
   }
@@ -67,11 +73,17 @@ const InputModalContainer = styled.div`
     color: red;
     margin-left: auto;
     height: 13px;
+    font-size: 13px;
   }
 
   & .submit-container {
     display: flex;
     justify-content: end;
+    & > .submit {
+      background-color: #2161c0;
+      color: white;
+      border: none;
+    }
   }
 `;
 

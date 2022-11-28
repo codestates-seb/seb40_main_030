@@ -69,12 +69,18 @@ const BatteryListContainer = styled.ul`
   border-bottom: 1px solid gray;
 `;
 
-const deleteButtonContainer = styled.button`
+const DeleteButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const DeleteButtonContainer = styled.button`
   position: relative;
   left: 13px;
   width: 20px;
   height: 20px;
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -90,7 +96,8 @@ export {
   BatteryContainer,
   BatteryListContainer,
   BatteryImgContainer,
-  deleteButtonContainer,
+  DeleteButtonContainer,
   LeftAlignWrapper,
   RightAlignWrapper,
+  DeleteButtonWrapper,
 };
