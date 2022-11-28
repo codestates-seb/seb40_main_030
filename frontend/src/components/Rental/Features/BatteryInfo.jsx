@@ -1,9 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
+import { BatterImg } from '@/assets';
 import { ShadowButton, ShadowCard } from '@/components/@commons';
 import { PRICE_REGEX } from '@/constants';
-import { useCheckValidReserveTable, useSnackBar } from '@/hooks';
-import useConvertDate from '@/hooks/commons/useConvertDate';
+import {
+  useCheckValidReserveTable,
+  useConvertDate,
+  useSnackBar,
+  useTimeDifference,
+} from '@/hooks';
 
 import * as S from './Features.style';
 import ReservationChart from './ReservationChart';
@@ -23,12 +28,13 @@ const BatteryInfo = ({ content, station }) => {
     createdAt,
   } = content;
   const { year, month, date } = useConvertDate(createdAt);
+  const { hours } = useTimeDifference();
 
   const handleClick = () => {
     navigate(`/payments/${batteryId}`, {
       state: {
         name: station.name,
-        price,
+        price: price * hours,
         batteryId,
         capacity,
         status,
@@ -40,12 +46,22 @@ const BatteryInfo = ({ content, station }) => {
     });
   };
 
+  const imageOnErrorHandler = (e) => {
+    e.target.onError = null;
+
+    e.target.src = BatterImg;
+  };
+
   return (
     <S.BatteryContainer>
       <ShadowCard width='100%' height='250px'>
         <S.ProductWrapper>
           <S.ImageContainer>
-            <S.BatteryImage src={photoURL} alt='notFound' />
+            <S.BatteryImage
+              src={photoURL}
+              alt='dd'
+              onError={(e) => imageOnErrorHandler(e)}
+            />
             <S.Capacity>
               {capacity.toString().replace(PRICE_REGEX, ',')}
             </S.Capacity>
@@ -54,11 +70,13 @@ const BatteryInfo = ({ content, station }) => {
           <S.ProductInfoContainer>
             <S.BatteryName>{batteryName}</S.BatteryName>
             <S.PriceContainer>
-              <S.Price>{price.toString().replace(PRICE_REGEX, ',')}</S.Price>
+              <S.Price>
+                {(price * hours).toString().replace(PRICE_REGEX, ',')}
+              </S.Price>
               <span>원</span>
             </S.PriceContainer>
             <S.PricePerMin>
-              3000원 / <span>10분</span>
+              {price.toString().replace(PRICE_REGEX, ',')}원 / <span>10분</span>
             </S.PricePerMin>
             <ShadowButton
               noShadow={true}

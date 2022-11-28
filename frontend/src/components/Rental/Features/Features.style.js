@@ -28,6 +28,7 @@ const ImageContainer = styled.div`
 `;
 
 const BatteryImage = styled.img`
+  margin-top: 20px;
   width: 80%;
   height: 50%;
 `;
