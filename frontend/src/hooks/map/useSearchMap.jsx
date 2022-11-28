@@ -10,12 +10,25 @@ const useSearchMap = () => {
   const qs = new kakao.maps.services.Places();
 
   useEffect(() => {
-    qs.keywordSearch(keyword || '코드스테이츠', (data, status) => {
+    qs.keywordSearch(keyword, (data, status) => {
+      if (keyword === '') {
+        setLocationData('');
+        return;
+      }
+
       if (status === kakao.maps.services.Status.OK) {
         setLocationData(data);
       }
     });
   }, [keyword]);
+
+  // useEffect(() => {
+  //   qs.keywordSearch(keyword || '코드스테이츠', (data, status) => {
+  //     if (status === kakao.maps.services.Status.OK) {
+  //       setLocationData(data);
+  //     }
+  //   });
+  // }, [keyword]);
 
   return { inputRef, setKeyword, locationData };
 };

@@ -15,7 +15,8 @@ const InputModal = ({ name, children }) => {
   return (
     <S.ModalWrapper isAddMode={isAddMode}>
       <S.ModalBackground onClick={() => setIsAddMode(false)} />
-      <S.InputModalContainer>{children}</S.InputModalContainer>
+      {/* <S.InputModalContainer>{children}</S.InputModalContainer> */}
+      {children}
     </S.ModalWrapper>
   );
 };

@@ -33,7 +33,7 @@ const InputModalContainer = styled.div`
   align-items: center;
 
   width: 300px;
-  height: 300px;
+  height: 450px;
   border: 2px solid gray;
   border-radius: 15px;
   background-color: #ffffff;
@@ -41,6 +41,7 @@ const InputModalContainer = styled.div`
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
   z-index: 999;
   position: fixed;
+  top: 150px;
 
   & form {
     display: flex;
@@ -89,4 +90,32 @@ const InputModalContainer = styled.div`
   }
 `;
 
-export { ModalWrapper, ModalBackground, InputModalContainer };
+const LocationListWrapper = styled.section`
+  background-color: white;
+  overflow: auto;
+  height: 150px;
+  width: 242px;
+`;
+
+const LocationListContainer = styled.ul`
+  background-color: white;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
+
+const LocationContainer = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+`;
+
+export {
+  ModalWrapper,
+  ModalBackground,
+  InputModalContainer,
+  LocationListContainer,
+  LocationListWrapper,
+  LocationContainer,
+};
