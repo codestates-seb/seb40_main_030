@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { BatteryCharging, SnackBar, SplashScreen } from '@/components/@commons';
-import BottomNav2 from '@/components/@layout/BottomNav/BottomNav2';
+import BottomNav2 from '@/components/@layout/BottomNav/BottomNav';
 import BottomSheet from '@/components/@layout/BottomSheet/BottomSheet';
 import MapArea from '@/components/Home/Maps';
 import Reservation from '@/components/Home/Reservation/Reservation';

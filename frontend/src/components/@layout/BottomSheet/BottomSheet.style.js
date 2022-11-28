@@ -7,7 +7,7 @@ const Wrapper = styled(motion.div)`
   flex-direction: column;
   position: fixed;
   z-index: 10;
-  top: 30vh;
+  top: 25vh;
   left: 0;
   right: 0;
   border-top-left-radius: 8px;
@@ -17,6 +17,14 @@ const Wrapper = styled(motion.div)`
   height: ${BOTTOM_SHEET_HEIGHT}px;
 
   overflow: auto;
+
+  @media screen and (max-height: 700px) {
+    top: 5vh;
+  }
+
+  @media screen and (max-height: 800px) {
+    top: 15vh;
+  }
 `;
 
 const InfoBox = styled.div`
