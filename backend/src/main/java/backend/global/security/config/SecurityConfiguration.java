@@ -53,28 +53,30 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfig(jwtTokenizer, customAuthorityUtil, redisTemplate))
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        // USER, ADMIN 권한 설정해주는 부분
+                                // USER, ADMIN 권한 설정해주는 부분
 //                        .antMatchers(HttpMethod.POST, "/*/members").permitAll()
-                        .anyRequest().permitAll()
+                                .anyRequest().permitAll()
                 ).build();
     }
 
 
-    //CORS 설정 구간
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOriginPattern("*");
-        configuration.addAllowedOrigin("http://localhost:5173, http://localhost:8080");
-        configuration.addAllowedMethod("*");
-        configuration.addAllowedHeader("*");
-        configuration.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-
-        return source;
-    }
+    //CORS 설정 구간  // header문제로 webConfig로 관리하기로 함
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.addAllowedOriginPattern("*");
+//        configuration.addAllowedOrigin("http://localhost:5173, http://localhost:8080");
+//        configuration.addAllowedMethod("*");
+//        configuration.addAllowedHeader("*");
+//        configuration.setAllowCredentials(true);
+//        configuration.getExposedHeaders();
+//
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//
+//        return source;
+//    }
 
 
     //등록 필터 로그로 확인 위해
