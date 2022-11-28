@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -87,6 +88,23 @@ public class StationController {
         Page<StationSearchResDto> dtoPage = page.map(StationSearchResDto::new);
 
         return new ResponseEntity<>(new PageInfoDto<>(dtoPage), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/keyword")
+    public ResponseEntity<StationResDto> getKeywordStation (@RequestParam String keyword) {
+        Station station = stationService.getKeywordStation(keyword);
+        StationResDto response = new StationResDto(station);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/locationList")
+    public ResponseEntity<List<StationResDto>> getKeywordStations (@RequestParam String keyword) {
+        List<Station> list = stationService.getKeywordStations(keyword);
+        List<StationResDto> response = list.stream().map(StationResDto::new).collect(Collectors.toList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

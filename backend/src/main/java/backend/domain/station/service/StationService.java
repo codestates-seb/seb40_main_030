@@ -225,4 +225,19 @@ public class StationService {
         return searchList;
     }
 
+
+    public Station getKeywordStation (String keyword) {
+        Station station = stationRepository.findByStationContains(keyword)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
+
+        return station;
+    }
+
+
+    public List<Station> getKeywordStations(String keyword) {
+        List<Station> list = stationRepository.findWithAllByStationContainsByCreatedAtDesc(keyword);
+
+        return list;
+    }
+
 }
