@@ -31,6 +31,12 @@ public class BatteryDto {
 
         @URL
         private String photoURL;
+
+        @NotNull(message = "이름을 입력해주세요")
+        private String batteryName;
+
+        @NotNull(message = "대여소 ID를 입력해주세요.")
+        private long stationId;
     }
 
     @Getter
@@ -52,6 +58,7 @@ public class BatteryDto {
         private String photoURL;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+        private long stationId;
         private List<BatteryReservation> reservations;
 
         public Response(Battery battery){
@@ -63,6 +70,9 @@ public class BatteryDto {
             this.photoURL = battery.getPhotoURL();
             this.createdAt = battery.getCreatedAt();
             this.modifiedAt = battery.getModifiedAt();
+            this.stationId = battery.getStation().getId();
+            Station station1 = new Station();
+            station1.setId(battery.getStation().getId());
             this.reservations = BatteryReservation.batteryReservation(battery.getReservations());
         }
 
