@@ -50,16 +50,11 @@ const GenLogin = () => {
           'res.headers.refreshtoken: ',
           res.headers.get('refreshtoken'),
         );
+        console.log('GenLogin에서 로그인 axios요청으로 오는 res -> : ', res);
         const accesstoken = res.headers.accesstoken.split(' ')[1];
-
         const refreshtoken = res.headers.refreshtoken;
         axios.defaults.headers.common['headers'] = `Bearer ${accesstoken}`;
-        // console.log(
-        //   'Genlogin-> 로그인-> 응답 -> res.data.body[0].memberId : ',
-        //   res.data.body[0].memberId,
-        // );
-        // setUserId(res.data.body[0].memberId); // userId 전역상태에 저장!
-        console.log('GenLogin에서 로그인 axios요청으로 오는 res -> : ', res);
+
         if (checkedLogin) {
           localStorage.setItem('accesstoken', accesstoken); // 로컬스토리지에 accesstoken 저장
           localStorage.setItem('refreshtoken', refreshtoken);
@@ -67,6 +62,8 @@ const GenLogin = () => {
             'localStorage에 넣어진 accesstoken : ',
             localStorage.getItem('accesstoken'),
           );
+        } else if (!checkedLogin) {
+          sessionStorage.setItem('accesstoken', accesstoken);
         }
         console.log('로그인 성공!');
         navigate('/');

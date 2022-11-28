@@ -8,5 +8,10 @@ export const MyPageMidContainer = styled.div`
 export const IconDiv = styled.div`
   display: flex;
   justify-content: space-around;
-  padding-top: 40px;
+  height: 70%;
+  padding-top: 20px;
+  /* border: 1px solid black; */
 `;
+// export const PaymentIconDiv = styled.div`
+//   border: 1px solid black;
+// `;

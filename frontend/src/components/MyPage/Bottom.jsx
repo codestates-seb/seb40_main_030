@@ -12,8 +12,9 @@ const Bottom = () => {
 
   useEffect(() => {
     axios
-      .get(`https://fd5f-222-233-138-154.jp.ngrok.io/members/1`, {
+      .get(`https://fd5f-222-233-138-154.jp.ngrok.io/members/find`, {
         headers: {
+          accesstoken: `Bearer ${localStorage.getItem('accesstoken')}`,
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
         },

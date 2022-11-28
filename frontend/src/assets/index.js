@@ -7,6 +7,8 @@ import { ReactComponent as ClockIcon } from './clock.svg';
 import { ReactComponent as ServiceLogo } from './serviceLogo.svg';
 import { ReactComponent as ArrowIcon } from './arrow.svg';
 import { ReactComponent as SearchIcon } from './search.svg';
+import { ReactComponent as PaymentIcon } from './payMent.svg';
+import { ReactComponent as NoticeIcon } from './noticeIcon.svg';
 
 import CurrentLocationIcon from './currentLocation.png';
 
@@ -28,4 +30,6 @@ export {
   UndoIcon,
   ArrowIcon,
   SearchIcon,
+  PaymentIcon,
+  NoticeIcon,
 };

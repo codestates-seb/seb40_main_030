@@ -17,23 +17,46 @@ const Top = () => {
 
   useEffect(() => {
     console.log(
-      'mypage/ 들어가면 실행되는 useEffect 내부 accesstoken 보낼때 값 : ',
+      'mypage/ localStorage ->  accesstoken  값 : ',
       `Bearer ${localStorage.getItem('accesstoken')}`,
     );
-    axios
-      .get(`https://fd5f-222-233-138-154.jp.ngrok.io/members/1`, {
-        headers: {
-          accesstoken: `Bearer ${localStorage.getItem('accesstoken')}`,
-          'Access-Control-Allow-Origin': '*',
-          'ngrok-skip-browser-warning': '111',
-        },
-      })
-      .then((res) => {
-        console.log('axios -> res : ', res);
-        setNickName(res.data.nickname);
-        setEmail(res.data.email);
-        setPhoto(res.data.photoURL);
-      });
+    if (localStorage.getItem('accesstoken')) {
+      axios
+        .get('https://fd5f-222-233-138-154.jp.ngrok.io/members/find', {
+          headers: {
+            accesstoken: `Bearer ${localStorage.getItem('accesstoken')}`,
+            'Access-Control-Allow-Origin': '*',
+            'ngrok-skip-browser-warning': '111',
+          },
+        })
+        .then((res) => {
+          console.log('axios -> res : ', res);
+          setNickName(res.data.nickname);
+          setEmail(res.data.email);
+          setPhoto(res.data.photoURL);
+        })
+        .catch((err) => {
+          console.log('err : ', err);
+        });
+    } else if (sessionStorage.getItem('accesstoken')) {
+      axios
+        .get('https://fd5f-222-233-138-154.jp.ngrok.io/members/find', {
+          headers: {
+            accesstoken: `Bearer ${sessionStorage.getItem('accesstoken')}`,
+            'Access-Control-Allow-Origin': '*',
+            'ngrok-skip-browser-warning': '111',
+          },
+        })
+        .then((res) => {
+          console.log('axios -> res : ', res);
+          setNickName(res.data.nickname);
+          setEmail(res.data.email);
+          setPhoto(res.data.photoURL);
+        })
+        .catch((err) => {
+          console.log('err : ', err);
+        });
+    }
   }, []);
 
   const ImgDiv = styled.div`

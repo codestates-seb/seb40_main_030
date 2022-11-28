@@ -9,6 +9,7 @@ const GenLogout = () => {
   // const [userId, setUserId] = useRecoilState(userMemberId);
 
   const onClickLogout = () => {
+    sessionStorage.removeItem('accesstoken');
     localStorage.removeItem('accesstoken'); // 전역상태저장
     localStorage.removeItem('refreshtoken'); // 쿠키에 저장
     // 로그인했을때 전역상태로 저장했던 memberId도 삭제해야함.

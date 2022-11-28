@@ -58,7 +58,7 @@ const SignUpMid = () => {
     setValue('address', inSignAddress);
     setValue('photoURL', inputState.photoURL);
   }, []);
-
+  console.log(watch('photoURL'));
   console.log('inputState : ', inputState);
 
   const checkedEmail = () => {
