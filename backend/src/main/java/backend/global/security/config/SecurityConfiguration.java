@@ -22,6 +22,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 
 @EnableWebSecurity //등록 필터 로그로 확인 위해
 @Configuration @RequiredArgsConstructor
@@ -36,10 +38,9 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         return httpSecurity
-                .headers().frameOptions().sameOrigin()
+                .headers().frameOptions().sameOrigin()  // 동일 출처로부터 들어오는 request만 페이지 렌더링을 허용  (개발 환경에서는 H2 웹 콘솔을 정상적으로 사용할 수 있도록 추가됨)
                 .and()
-                .cors().configurationSource(corsConfigurationSource())
-                .and()
+                .cors(withDefaults())
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -60,6 +61,7 @@ public class SecurityConfiguration {
 
 
     //CORS 설정 구간
+    @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOriginPattern("*");

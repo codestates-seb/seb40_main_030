@@ -21,4 +21,10 @@ public class MemberPayment extends BaseTime {
 
     private String payMethod;
 
+    private String batteryName;
+
+    private String batteryPhotoURL;
+
+    private String stationName;
+
 }

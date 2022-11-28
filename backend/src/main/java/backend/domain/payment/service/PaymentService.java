@@ -44,10 +44,23 @@ public class PaymentService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
 
         // 예약 시간 가능한지 검증 로직
-        for (int i = 0; i < battery.getReservations().size(); i++) {
-            if (((LocalDateTime.parse(battery.getReservations().get(i).getStartTime()).isAfter(LocalDateTime.parse(payment.getStartTime()))
-                    && LocalDateTime.parse(battery.getReservations().get(i).getStartTime()).isBefore(LocalDateTime.parse(payment.getEndTime()))))
-                    || (LocalDateTime.parse(battery.getReservations().get(i).getEndTime()).isBefore(LocalDateTime.parse(payment.getStartTime())))) {
+        LocalDateTime startT = LocalDateTime.parse(payment.getStartTime());
+        LocalDateTime endT = LocalDateTime.parse(payment.getEndTime());
+
+        for (int i = 0; i < battery.getReservations().size(); i++) {   // 배터리 예약 목록을 순회
+            Reservation reservation = battery.getReservations().get(i);
+            LocalDateTime reserveStart = LocalDateTime.parse(reservation.getStartTime());
+            LocalDateTime reserveEnd = LocalDateTime.parse(reservation.getStartTime());
+            if (startT.isBefore(reserveStart) && endT.isAfter(reserveEnd)) {
+                throw new BusinessLogicException(ExceptionCode.CAN_NOT_RESERVE);
+            }
+            else if (startT.isAfter(reserveStart) && startT.isBefore(reserveEnd) && endT.isAfter(reserveEnd)) {
+                throw new BusinessLogicException(ExceptionCode.CAN_NOT_RESERVE);
+            }
+            else if (startT.isBefore(reserveStart) && endT.isAfter(reserveEnd)) {
+                throw new BusinessLogicException(ExceptionCode.CAN_NOT_RESERVE);
+            }
+            else if (startT.isAfter(reserveStart) && endT.isBefore(reserveEnd)) {
                 throw new BusinessLogicException(ExceptionCode.CAN_NOT_RESERVE);
             }
         }

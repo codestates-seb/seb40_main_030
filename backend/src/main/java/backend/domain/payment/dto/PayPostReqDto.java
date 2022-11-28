@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter @Setter
-public class PayPostReqDto extends BaseTime {
+public class PayPostReqDto {
 
     @NotBlank(message = "시작시간을 지정해주세요.")
     private String startTime;

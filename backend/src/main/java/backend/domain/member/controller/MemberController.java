@@ -28,12 +28,11 @@ public class MemberController {
     private final MemberService service;
 
     @PostMapping
-    public ResponseEntity<MemberDto.Response> postMember(@Valid @RequestBody MemberDto.Post dto) {
+    public ResponseEntity<MemberDto.PostResDto> postMember(@Valid @RequestBody MemberDto.Post dto) {
 
-        Member member = mapper.memberDtoPostToMember(dto);  // 식별자 값이 DB저장까지는 나오지 않아 mapper가 식별자 값을 못잡는 주의문구가 뜹니다. 사용에는 지장이 없으니 주의문구는 무시하셔도 좋습니다.
+        Member member = mapper.memberDtoPostToMember(dto);
         Member createdMember = service.createMember(member);
-//        MemberDto.Response response = mapper.memberToMemberDtoResponse(createdMember); // 매퍼에서 일부 값을 받지 못해 null값이 반환되어 우선 생성자를 사용한 변환방법으로 사용했습니다
-        MemberDto.Response response = new MemberDto.Response(createdMember);
+        MemberDto.PostResDto response = new MemberDto.PostResDto(createdMember);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -42,19 +41,18 @@ public class MemberController {
     public ResponseEntity<MemberResDto> getMember(@Positive @PathVariable("member-id") Long memberId) {
 
         Member findMember = service.findMember(memberId);
-//        MemberDto.Response response = mapper.memberToMemberDtoResponse(findMember);  // 매퍼에서 일부 값을 받지 못해 null값이 반환되어 우선 생성자를 사용한 변환방법으로 사용했습니다
         MemberResDto response = new MemberResDto(findMember);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PatchMapping("/{member-id}")
-    public ResponseEntity<MemberDto.Response> patchMember (@PathVariable("member-id") Long memberId,
-                                                                      @RequestBody MemberDto.Patch dto) {
+    public ResponseEntity<MemberDto.PatchResDto> patchMember (@PathVariable("member-id") Long memberId,
+                                                              @RequestBody MemberDto.Patch dto) {
         Member member = mapper.memberDtoPatchToMember(dto);
         member.setId(memberId);
         Member modifiedMember = service.patchMember(member);
-        MemberDto.Response response = new MemberDto.Response(modifiedMember);
+        MemberDto.PatchResDto response = new MemberDto.PatchResDto(modifiedMember);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -69,8 +67,9 @@ public class MemberController {
     @GetMapping
     public ResponseEntity<PageInfoDto> getMembers (Pageable pageable) {
         Page<Member> page = service.findMembers(pageable);
+        Page<MemberResDto> dtoPage = page.map(MemberResDto::new);
 
-        return new ResponseEntity<>(new PageInfoDto(page), HttpStatus.OK);
+        return new ResponseEntity<>(new PageInfoDto(dtoPage), HttpStatus.OK);
     }
 
 //    @PostMapping("/logout")                   // 현재 시큐리티 미적용 상태이므로 주석처리 해두었습니다.

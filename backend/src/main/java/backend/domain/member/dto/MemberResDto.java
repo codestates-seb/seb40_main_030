@@ -2,6 +2,7 @@ package backend.domain.member.dto;
 
 import backend.domain.member.entity.Member;
 import backend.domain.member.entity.MemberPayment;
+import backend.domain.payment.entity.Payment;
 import backend.global.auditing.BaseTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class MemberResDto extends BaseTime {
     private String nickname;
     private String phone;
     private String address;
-    private String photoUrl;
+    private String photoURL;
     private List<MemberPayment> payment;
 
     public MemberResDto(Member member) {
@@ -26,7 +27,7 @@ public class MemberResDto extends BaseTime {
         this.nickname = member.getNickname();
         this.phone = member.getPhone();
         this.address = member.getAddress();
-        this.photoUrl = member.getPhotoURL();
+        this.photoURL = member.getPhotoURL();
         setCreatedAt(member.getCreatedAt());
         setModifiedAt(member.getModifiedAt());
 
@@ -39,11 +40,16 @@ public class MemberResDto extends BaseTime {
                     .startTime(member.getPayment().get(i).getStartTime())
                     .endTime(member.getPayment().get(i).getEndTime())
                     .payMethod(member.getPayment().get(i).getPayMethod())
+                    .batteryName(member.getPayment().get(i).getBattery().getBatteryName())
+                    .batteryPhotoURL(member.getPayment().get(i).getBattery().getPhotoURL())
+                    .stationName(member.getPayment().get(i).getStation().getName())
                     .build();
             memberPayment.setCreatedAt(member.getPayment().get(i).getCreatedAt());
             memberPayment.setModifiedAt(member.getPayment().get(i).getModifiedAt());
+
             list.add(memberPayment);
         }
+
         this.payment = list;
     }
 

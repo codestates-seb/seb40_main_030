@@ -21,7 +21,7 @@ public class CustomAuthorityUtils {
 
     // 메모리 상의 Role을 기반으로 권한 정보 생성.
     public List<GrantedAuthority> createAuthorities(String email) {
-        if (email.equals(adminMailAddress)) {
+        if (adminMailAddress.contains(email)) {
             return ADMIN_ROLES;
         }
         return USER_ROLES;
