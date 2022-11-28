@@ -1,10 +1,10 @@
-import { KaKaoLoginImg } from '../../../assets';
+import { KaKaoLoginIcon } from '../../../assets';
 import { KaKaoLoginBtn } from './KaKaoLogin.style';
 
 const KakaoLogin = ({ loginClickHandler }) => {
   return (
     <KaKaoLoginBtn onClick={loginClickHandler}>
-      <img src={KaKaoLoginImg} />
+      <img src={KaKaoLoginIcon} />
     </KaKaoLoginBtn>
   );
 };

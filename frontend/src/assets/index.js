@@ -9,7 +9,8 @@ import { ReactComponent as ArrowIcon } from './arrow.svg';
 import { ReactComponent as SearchIcon } from './search.svg';
 
 import CurrentLocationIcon from './currentLocation.png';
-import KaKaoLoginImg from './KaKaoLoginImg.png';
+
+import KaKaoLoginIcon from './KaKaoLoginIcon.png';
 
 import MockImage from './mockImage.png';
 import UndoIcon from './undo-button.png';
@@ -22,7 +23,7 @@ export {
   ClockIcon,
   MockImage,
   ServiceLogo,
-  KaKaoLoginImg,
+  KaKaoLoginIcon,
   CurrentLocationIcon,
   UndoIcon,
   ArrowIcon,
