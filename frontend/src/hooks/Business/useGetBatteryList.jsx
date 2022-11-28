@@ -8,10 +8,10 @@ import {
   filterByBatteryState,
   getEachStateNum,
 } from '@/components/Business/utils';
-import { filterState } from '@/recoil/business';
+import { batteryFilterState } from '@/recoil/business';
 
 const useGetBatteryList = () => {
-  const selectedFilter = useRecoilValue(filterState);
+  const selectedFilter = useRecoilValue(batteryFilterState);
 
   const selectFn = useCallback(
     (batteryInfo) => {

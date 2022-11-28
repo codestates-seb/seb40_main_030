@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const FilterContainer = styled.ul`
+const StationFilterContainer = styled.ul`
   height: 65px;
 
   display: flex;
@@ -9,4 +9,4 @@ const FilterContainer = styled.ul`
   align-items: center;
 `;
 
-export { FilterContainer };
+export { StationFilterContainer };

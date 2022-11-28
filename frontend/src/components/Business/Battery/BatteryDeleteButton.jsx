@@ -6,7 +6,6 @@ const BatteryDeleteButton = ({ status, batteryId }) => {
   const deleteHandler = () => {
     deleteMutate(batteryId);
   };
-
   return (
     <S.DeleteButtonWrapper>
       <S.DeleteButtonContainer
@@ -14,7 +13,7 @@ const BatteryDeleteButton = ({ status, batteryId }) => {
         onClick={(batteryId) => deleteHandler(batteryId)}
         deleteState={isDeleteMode}
       >
-        X
+        <div>삭제</div>
       </S.DeleteButtonContainer>
     </S.DeleteButtonWrapper>
   );

@@ -1,8 +1,14 @@
 import styled from 'styled-components';
 
-const BatteryImgContainer = styled.img`
-  width: 45px;
-  height: 45px;
+const BatteryImgContainer = styled.div`
+  & > img {
+    width: 45px;
+    height: 45px;
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const BatteryDetailsContainer = styled.ul`
@@ -36,7 +42,8 @@ const LeftAlignWrapper = styled.div`
 
 const RightAlignWrapper = styled.div`
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 const BatteryContainer = styled.div`
@@ -77,10 +84,11 @@ const DeleteButtonWrapper = styled.div`
 
 const DeleteButtonContainer = styled.button`
   position: relative;
-  left: 13px;
-  width: 20px;
-  height: 20px;
-  border: 2px solid black;
+  left: 15px;
+  background-color: red;
+  /* width: 20px;
+  height: 20px; */
+  color: white;
   border-radius: 10px;
   display: flex;
   justify-content: center;

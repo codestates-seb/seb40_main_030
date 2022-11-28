@@ -29,9 +29,15 @@ const StationContainer = styled.div`
   border-radius: 20px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 `;
-const StationImgContainer = styled.img`
-  width: 45px;
-  height: 45px;
+const StationImgContainer = styled.div`
+  & > img {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 const StationDetailsContainer = styled.ul`
   font-size: 15px;
@@ -44,20 +50,60 @@ const LeftAlignWrapper = styled.div`
 
 const RightAlignWrapper = styled.div`
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
 `;
+
 const StationButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const StationDeleteButtonContainer = styled.div`
+const DeleteButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StationStatusContainer = styled.div`
+  width: 76px;
+  height: 27px;
+  font-size: 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+
+  background-color: ${({ batteryCount, status }) =>
+    status === 'total'
+      ? '#DADADA'
+      : status === true || batteryCount > 0
+      ? '#7BEB5F'
+      : '#EEDA25'};
+  cursor: ${({ status }) =>
+    status === 'total' || typeof status === 'boolean' ? 'pointer' : null};
+  width: ${({ status }) =>
+    status === 'total' || typeof status === 'boolean' ? '65px' : null};
+  height: ${({ status }) =>
+    status === 'total' || typeof status === 'boolean' ? '65px' : null};
+  border-radius: ${({ status }) =>
+    status === 'total' || typeof status === 'boolean' ? '100px' : null};
+  & .station-state-text {
+    text-align: center;
+  }
+`;
+
+const StationDeleteButtonContainer = styled.button`
   position: relative;
-  left: 13px;
-  width: 20px;
-  height: 20px;
-  border: 1px solid black;
+  left: 15px;
+  background-color: red;
+  /* width: 50px;
+  height: 50px; */
+  color: white;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -76,4 +122,6 @@ export {
   StationImgContainer,
   StationDeleteButtonContainer,
   StationButtonWrapper,
+  DeleteButtonWrapper,
+  StationStatusContainer,
 };

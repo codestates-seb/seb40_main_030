@@ -7,12 +7,14 @@ const BatteryCard = ({ imgUrl, details, status, batteryId }) => {
   return (
     <S.BatteryContainer>
       <S.LeftAlignWrapper>
-        <S.BatteryImgContainer src={imgUrl}></S.BatteryImgContainer>
+        <S.BatteryImgContainer>
+          <img src={imgUrl}></img>
+        </S.BatteryImgContainer>
         <BatteryDetails details={details} />
       </S.LeftAlignWrapper>
       <S.RightAlignWrapper>
-        <BatteryDeleteButton status={status} batteryId={batteryId} />
         <BatteryStatus status={status} />
+        <BatteryDeleteButton status={status} batteryId={batteryId} />
       </S.RightAlignWrapper>
     </S.BatteryContainer>
   );

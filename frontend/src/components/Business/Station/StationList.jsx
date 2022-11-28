@@ -12,6 +12,8 @@ const StationList = ({ stationList }) => {
               details={{
                 stationName: station.stationName,
                 phone: station.phone,
+                photoURL: station.photoURL,
+                details: station.details,
               }}
               batteryCount={station.batteryCount}
               stationId={station.stationId}

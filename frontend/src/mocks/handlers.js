@@ -171,10 +171,8 @@ export const handlers = [
     const deleteBattery = (batteryId) => {
       mockAdmin.stationList[0].battery =
         mockAdmin.stationList[0].battery.filter((battery) => {
-          console.log(typeof battery.batteryId, typeof +batteryId);
           return battery.batteryId !== +batteryId;
         });
-      console.log(mockAdmin.stationList[0].battery);
     };
 
     deleteBattery(batteryId);

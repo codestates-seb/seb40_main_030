@@ -1,11 +1,11 @@
 import { useSetRecoilState } from 'recoil';
 
-import { filterState } from '@/recoil/business';
+import { batteryFilterState } from '@/recoil/business';
 
 import * as S from './Battery.style';
 
 const BatteryStatus = ({ status, count }) => {
-  const setSelectedFilter = useSetRecoilState(filterState);
+  const setSelectedFilter = useSetRecoilState(batteryFilterState);
 
   const clickHandler = () => {
     setSelectedFilter(status);

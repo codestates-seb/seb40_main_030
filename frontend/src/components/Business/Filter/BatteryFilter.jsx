@@ -1,19 +1,19 @@
 import BatteryStatus from '../Battery/BatteryStatus';
-import * as S from './Filter.style';
+import * as S from './BatteryFilter.style';
 
-const Filter = ({ countList }) => {
+const BatteryFilter = ({ countList }) => {
   return (
     <>
-      <S.FilterContainer>
+      <S.BatteryFilterContainer>
         {countList.map((eachCount, idx) => {
           const state =
             idx === 0 ? 'total' : idx === 1 ? true : idx === 2 ? false : null;
 
           return <BatteryStatus key={idx} status={state} count={eachCount} />;
         })}
-      </S.FilterContainer>
+      </S.BatteryFilterContainer>
     </>
   );
 };
 
-export default Filter;
+export default BatteryFilter;

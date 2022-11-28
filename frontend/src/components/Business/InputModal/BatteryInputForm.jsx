@@ -43,7 +43,6 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
   };
 
   const onInvalidHandler = (errors) => {
-    console.log(errors.capacity);
     const message = `${
       errors.capacity ? `capacity : ${errors.capacity.message}` : ''
     } 

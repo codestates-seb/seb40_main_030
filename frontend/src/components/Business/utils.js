@@ -18,6 +18,7 @@ const filterBatteryInfo = (data) => {
 };
 
 const filterByBatteryState = (batteryList, status) => {
+  //selectFn
   const listFiltedByBatteryState = batteryList.filter((battery) => {
     return battery.status === status;
   });
@@ -26,10 +27,20 @@ const filterByBatteryState = (batteryList, status) => {
 
 const getEachStateNum = (batteryList) => {
   const result = [0, 0, 0];
-  batteryList.forEach((el) => {
-    el.status ? result[1]++ : result[2]++;
+  batteryList.forEach((battery) => {
+    battery.status ? result[1]++ : result[2]++;
   });
   result[0] = batteryList.length;
+  return result;
+};
+
+//station 각 상태 별 갯수
+const getStationEachStateNum = (stationList) => {
+  const result = [0, 0, 0];
+  stationList.forEach((station) => {
+    station.batteryCount > 0 ? result[1]++ : result[2]++;
+  });
+  result[0] = stationList.length;
   return result;
 };
 
@@ -42,6 +53,7 @@ const filterStationInfo = (data) => {
       photoURL: station.photoURL,
       batteryCount: station.batteries.length,
       phone: station.phone,
+      details: station.details,
     };
     stations.unshift(eachStation);
   });
@@ -76,6 +88,16 @@ const removeDuplicatedStationName = (data) => {
   return onlyOneNames;
 };
 
+//필터 상태에 따라 필터링
+const filterByStationState = (stationList, status) => {
+  const listFilteredByStationState = stationList.filter((station) => {
+    return (station.batteryCount > 0 ? true : false) === status;
+  });
+  return listFilteredByStationState;
+};
+
+const getStationEachStatNum = () => {};
+
 export {
   filterBatteryInfo,
   getEachStateNum,
@@ -83,4 +105,7 @@ export {
   filterStationInfo,
   removeDuplicatedBatteryName,
   removeDuplicatedStationName,
+  getStationEachStateNum,
+  filterByStationState,
+  getStationEachStatNum,
 };

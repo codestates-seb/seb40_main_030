@@ -2,21 +2,21 @@ import useDelStation from '../../../hooks/Business/useDelStation';
 import * as S from './Station.style';
 
 const StationDeleteButton = ({ batteryCount, stationId }) => {
-  const { deleteMutate, isDeleteMode } = useDelStation();
+  const { deleteMutate, isDeleteMode } = useDelStation('stationInfo');
   const deleteHandler = () => {
     deleteMutate(stationId);
   };
 
   return (
-    <p>
+    <S.DeleteButtonWrapper>
       <S.StationDeleteButtonContainer
         status={batteryCount}
         onClick={(stationId) => deleteHandler(stationId)}
         deleteState={isDeleteMode}
       >
-        X
+        <div>삭제</div>
       </S.StationDeleteButtonContainer>
-    </p>
+    </S.DeleteButtonWrapper>
   );
 };
 

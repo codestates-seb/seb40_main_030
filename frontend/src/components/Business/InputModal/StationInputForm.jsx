@@ -25,7 +25,7 @@ const StationInputForm = () => {
       photoURL: '',
       // batteryId: Math.random(),
       ...data,
-      stationID: 1,
+      // stationID: 1,
     };
     console.log('입력폼 data는', body);
     addMutate(body);
@@ -34,7 +34,6 @@ const StationInputForm = () => {
   };
 
   const onInvalidHandler = (errors) => {
-    console.log(errors.capacity);
     const message = `${
       errors.capacity ? `capacity : ${errors.capacity.message}` : ''
     } 
@@ -53,7 +52,7 @@ const StationInputForm = () => {
             className='data-input'
             id='name'
             type='text'
-            placeholder='배터리 용량을 입력하세요'
+            placeholder='주유소 이름을 입력하세요'
             {...register('name', {
               required: '미입력',
               min: { value: 1, message: '1이상 입력하세요' },
@@ -67,7 +66,7 @@ const StationInputForm = () => {
             className='data-input'
             id='details'
             type='text'
-            placeholder='대여 금액을 입력하세요'
+            placeholder='상세 설명을 입력하세요'
             {...register('details', {
               required: '미입력',
               min: { value: 1, message: '1이상 입력하세요' },
@@ -81,7 +80,7 @@ const StationInputForm = () => {
             className='data-input'
             id='phone'
             type='number'
-            placeholder='대여 금액을 입력하세요'
+            placeholder='전화번호를 입력하세요'
             {...register('phone', {
               required: '미입력',
               min: { value: 1, message: '1이상 입력하세요' },

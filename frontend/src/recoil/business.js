@@ -10,8 +10,8 @@ const batteryDeleteModeState = atom({
   default: false,
 });
 
-const filterState = atom({
-  key: 'filterState',
+const batteryFilterState = atom({
+  key: 'batteryFilterState',
   default: 'total',
 });
 
@@ -24,10 +24,16 @@ const stationDeleteModeState = atom({
   key: 'stationDeleteModeState',
   default: false,
 });
+
+const stationFilterState = atom({
+  key: 'stationFilterState',
+  default: 'total',
+});
 export {
   batteryAddModeState,
   batteryDeleteModeState,
-  filterState,
+  batteryFilterState,
   stationAddModeState,
   stationDeleteModeState,
+  stationFilterState,
 };
