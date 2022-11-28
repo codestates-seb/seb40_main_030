@@ -12,7 +12,7 @@ const Bottom = () => {
 
   useEffect(() => {
     axios
-      .get(`https://5e7b-222-233-138-154.jp.ngrok.io/members/1`, {
+      .get(`https://fd5f-222-233-138-154.jp.ngrok.io/members/1`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
@@ -44,12 +44,14 @@ const Bottom = () => {
   return (
     <S.MyPageBottomContainer>
       <S.InProgressListDiv>
+        <S.InProgressText>예약 현황</S.InProgressText>
         {inProgress.length &&
           inProgress.map((data) => (
             <InProgressList data={data} key={data.id} />
           ))}
       </S.InProgressListDiv>
       <S.SuccessListDiv>
+        <S.SuccessText>사용 현황</S.SuccessText>
         {success.length &&
           success.map((data) => <SuccessList data={data} key={data.id} />)}
       </S.SuccessListDiv>

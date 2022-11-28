@@ -67,7 +67,7 @@ const SignUpMid = () => {
       alert('E-mail을 입력해주세요.');
     } else {
       axios
-        .get('https://5e7b-222-233-138-154.jp.ngrok.io/members', {
+        .get('https://fd5f-222-233-138-154.jp.ngrok.io/members', {
           // withCredentials: true,
 
           headers: {
@@ -101,7 +101,7 @@ const SignUpMid = () => {
     // e.preventDefault();
 
     axios
-      .get('https://5e7b-222-233-138-154.jp.ngrok.io/members', {
+      .get('https://fd5f-222-233-138-154.jp.ngrok.io/members', {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
@@ -143,7 +143,7 @@ const SignUpMid = () => {
           console.log('setTimeout data: ', data);
           data.address = inSignAddress + ' ' + getValues('detailAddress');
           axios
-            .post('https://5e7b-222-233-138-154.jp.ngrok.io/members', data)
+            .post('https://fd5f-222-233-138-154.jp.ngrok.io/members', data)
             .then((res) => {
               console.log('setTimeout-> axios-> res.data', res.data);
               console.log('setTimeOut-> res : ', res);

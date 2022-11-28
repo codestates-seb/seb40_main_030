@@ -14,9 +14,14 @@ const Top = () => {
   const [email, setEmail] = useState('');
 
   useEffect(() => {
+    console.log(
+      'mypage/ 들어가면 실행되는 useEffect 내부 accesstoken 보낼때 값 : ',
+      `Bearer ${localStorage.getItem('accesstoken')}`,
+    );
     axios
-      .get(`https://5e7b-222-233-138-154.jp.ngrok.io/members/1`, {
+      .get(`https://fd5f-222-233-138-154.jp.ngrok.io/members/1`, {
         headers: {
+          accesstoken: `Bearer ${localStorage.getItem('accesstoken')}`,
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
         },

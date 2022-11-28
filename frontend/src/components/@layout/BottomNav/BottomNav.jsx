@@ -37,7 +37,11 @@ const BottomNav = () => {
       <S.IconBox>
         <MyPageIcon
           onClick={() => {
-            navigate('/mypage');
+            if (localStorage.getItem('accesstoken')) {
+              navigate('/mypage');
+            } else {
+              navigate('/login');
+            }
           }}
         />
       </S.IconBox>

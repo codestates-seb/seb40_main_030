@@ -43,47 +43,54 @@ const GenLogin = () => {
     formState: { errors, isSubmitting },
   } = useForm({ mode: 'onChange' });
 
-  const onValid = () => {
+  const onValid = async () => {
     const loginData = watch();
-    const loginConfig = {
-      withCredentials: true,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'ngrok-skip-browser-warning': '111',
-        'Content-Type': 'application/json',
-      },
-    };
+    // const loginConfig = {
+    //   withCredentials: true,
+    //   headers: {
+    //     'Access-Control-Allow-Origin': '*',
+    //     'ngrok-skip-browser-warning': '111',
+    //     'Content-Type': 'application/json',
+    //   },
+    // };
     console.log('axios 직전->loginData:  ', loginData);
-    axios
+    await axios
       .post(
-        'https://5e7b-222-233-138-154.jp.ngrok.io/auth/login',
+        'https://fd5f-222-233-138-154.jp.ngrok.io/auth/login',
         loginData,
-        loginConfig,
+        // loginConfig,
       )
       .then((res) => {
         console.log(' axios-> res : ', res);
-        // console.log('res.headers: ', res.headers);
-        // console.log('res.headers.Accesstoken: ', res.headers.Accesstoken);
-        // console.log('res.headers.refreshtoken: ', res.headers.refreshtoken);
-        // const accesstoken = res.headers.Accesstoken.split(' ')[1];
-        // const refreshtoken = res.headers.refreshtoken;
-        // axios.defaults.headers.common['headers'] = `Bearer ${accesstoken}`;
+        console.log('res.headers: ', res.headers);
+        console.log(
+          'res.headers.Accesstoken: ',
+          res.headers.get('accesstoken'),
+        );
+        console.log(
+          'res.headers.refreshtoken: ',
+          res.headers.get('refreshtoken'),
+        );
+        const accesstoken = res.headers.accesstoken.split(' ')[1];
+
+        const refreshtoken = res.headers.refreshtoken;
+        axios.defaults.headers.common['headers'] = `Bearer ${accesstoken}`;
         // console.log(
         //   'Genlogin-> 로그인-> 응답 -> res.data.body[0].memberId : ',
         //   res.data.body[0].memberId,
         // );
         // setUserId(res.data.body[0].memberId); // userId 전역상태에 저장!
-        // console.log('GenLogin에서 로그인 axios요청으로 오는 res -> : ', res);
-        // if (checkedLogin) {
-        //   localStorage.setItem('accesstoken', accesstoken); // 로컬스토리지에 accesstoken 저장
-        //   localStorage.setItem('refreshtoken', refreshtoken);
-        //   console.log(
-        //     'localStorage에 넣어진 accesstoken : ',
-        //     localStorage.getItem('accesstoken'),
-        //   );
-        // }
-        // console.log('로그인 성공!');
-        // navigate('/');
+        console.log('GenLogin에서 로그인 axios요청으로 오는 res -> : ', res);
+        if (checkedLogin) {
+          localStorage.setItem('accesstoken', accesstoken); // 로컬스토리지에 accesstoken 저장
+          localStorage.setItem('refreshtoken', refreshtoken);
+          console.log(
+            'localStorage에 넣어진 accesstoken : ',
+            localStorage.getItem('accesstoken'),
+          );
+        }
+        console.log('로그인 성공!');
+        navigate('/');
       })
       .catch((err) => {
         console.log('Genlogin-> 로그인 실패시 err :  ', err);
