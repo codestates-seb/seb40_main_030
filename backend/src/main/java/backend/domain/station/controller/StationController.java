@@ -68,19 +68,21 @@ public class StationController {
     }
 
 
-    @GetMapping("/batteries/{stationId}")
+    @GetMapping("/batteries/{stationId}")  // 한개의 스테이션의 가용 배터리 리스트 조회
     public ResponseEntity<StationResDto> getStationBattery (@PathVariable Long stationId,
-                                                            @RequestBody StationBatteryReqDto stationBatteryReqDto) {
-        Station station = stationService.getStationBattery(stationId, stationBatteryReqDto);
+                                                            @RequestParam String startTime, @RequestParam String endTime) {
+        Station station = stationService.getStationBattery(stationId, startTime, endTime);
         StationResDto response = new StationResDto(station);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
     @GetMapping("/search")
-    public ResponseEntity<PageInfoDto> getStationsSearch (Pageable pageable,
-                                                          @RequestBody StationSearchReqDto stationSearchReqDto) {
-        List<StationSearch> list = stationService.getStationsSearch(stationSearchReqDto.toStationSearch());
+    public ResponseEntity<PageInfoDto> getStationsSearch (Pageable pageable, @RequestParam Integer confirmId,
+                                                          @RequestParam Double latitude,  @RequestParam Double longitude,
+                                                          @RequestParam String startTime,  @RequestParam String endTime) {
+        StationSearch stationSearch = new StationSearch(confirmId, latitude, longitude, startTime, endTime);
+        List<StationSearch> list = stationService.getStationsSearch(stationSearch);
         Page<StationSearch> page = new PageImpl<>(list, pageable,list.size());
         Page<StationSearchResDto> dtoPage = page.map(StationSearchResDto::new);
 

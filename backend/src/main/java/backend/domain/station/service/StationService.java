@@ -2,7 +2,6 @@ package backend.domain.station.service;
 
 import backend.domain.battery.entity.Battery;
 import backend.domain.battery.entity.Reservation;
-import backend.domain.station.dto.StationBatteryReqDto;
 import backend.domain.station.entity.Station;
 import backend.domain.station.entity.StationSearch;
 import backend.domain.station.repository.StationRepository;
@@ -71,40 +70,51 @@ public class StationService {
         return page;
     }
 
-    public Station getStationBattery(Long stationId, StationBatteryReqDto request) {
+    public Station getStationBattery(Long stationId, String start, String end) {
         Station station = stationRepository.findById(stationId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
 
-        LocalDateTime startTime = LocalDateTime.parse(request.getStartTime());
-        LocalDateTime endTime = LocalDateTime.parse(request.getEndTime());
+        LocalDateTime startTime = LocalDateTime.parse(start);
+        LocalDateTime endTime = LocalDateTime.parse(end);
 
-        List<Battery> availableBatteryList = new ArrayList<>();
+        // 올바른 시간세팅인지 시간 검증
+        // 종료시간이 시작시간 빠르거나, 시작 시간이 현재시간보다 빠를 때 엣지케이스
+        if (endTime.isBefore(startTime) || startTime.isBefore(LocalDateTime.now())) {
+            throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
+        }
+
+        List<Battery> list = station.getBattery();
         List<Battery> unavailableBatteryList = new ArrayList<>();
         for (int i = 0; i < station.getBattery().size(); i++) {
             for (int j = 0; j < station.getBattery().get(i).getReservations().size(); j++) {
-                Battery candidate = station.getBattery().get(i);
 
-                if (LocalDateTime.parse(candidate.getReservations().get(j).getStartTime()).isAfter(startTime)
-                        && LocalDateTime.parse(candidate.getReservations().get(j).getStartTime()).isBefore(endTime)
-                ) {
+                Battery candidate = station.getBattery().get(i);
+                LocalDateTime reservedStart = LocalDateTime.parse(candidate.getReservations().get(j).getStartTime());
+                LocalDateTime reservedEnd = LocalDateTime.parse(candidate.getReservations().get(j).getEndTime());
+
+                if (startTime.isBefore(reservedStart) && endTime.isAfter(reservedStart)) {
                     if (!unavailableBatteryList.contains(candidate)) {
                         unavailableBatteryList.add(candidate);
                     }
-                } else if (LocalDateTime.parse(candidate.getReservations().get(j).getEndTime()).isBefore(startTime)) {
+                } else if (startTime.isBefore(reservedEnd) && endTime.isAfter(reservedEnd)) {
                     if (!unavailableBatteryList.contains(candidate)) {
                         unavailableBatteryList.add(candidate);
                     }
-                } else {
-                    if (!availableBatteryList.contains(candidate)) {
-                        availableBatteryList.add(candidate);
+                } else if (startTime.isBefore(reservedStart) && endTime.isAfter(reservedEnd)) {
+                    if (!unavailableBatteryList.contains(candidate)) {
+                        unavailableBatteryList.add(candidate);
+                    }
+                } else if (startTime.isAfter(reservedStart) && endTime.isBefore(reservedEnd)) {
+                    if (!unavailableBatteryList.contains(candidate)) {
+                        unavailableBatteryList.add(candidate);
                     }
                 }
             }
         }
 
-        List<Battery> list = availableBatteryList.stream().filter(battery -> !unavailableBatteryList.contains(battery)).collect(Collectors.toList());
+        List<Battery> availableBatteryList = list.stream().filter(battery -> !unavailableBatteryList.contains(battery)).collect(Collectors.toList());
 
-        station.setBattery(list);
+        station.setBattery(availableBatteryList);
 
         return station;
     }
@@ -117,10 +127,11 @@ public class StationService {
         defaultStation.setLongitude(37.49655445);
         defaultStation.setConfirmId(1615822138);  // 건물 Id
         // default 시간 설정 (30분 간격)
-        String defaultStartTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-        String defaultEndTime = LocalDateTime.now().plusMinutes(30).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        String defaultStartTime = LocalDateTime.now().plusMinutes(10).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        String defaultEndTime = LocalDateTime.now().plusMinutes(40).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
         defaultStation.setStartTime(defaultStartTime);
         defaultStation.setEndTime(defaultEndTime);
+
 
 //        // 입력된 예약시간
 //        LocalDateTime inputStartTime = LocalDateTime.parse(search.getStartTime());
@@ -132,6 +143,16 @@ public class StationService {
         Optional.ofNullable(search.getConfirmId()).ifPresent(defaultStation::setConfirmId);
         Optional.ofNullable(search.getStartTime()).ifPresent(defaultStation::setStartTime);
         Optional.ofNullable(search.getEndTime()).ifPresent(defaultStation::setEndTime);
+
+        // 요청으로 받은 시간 또는 디플트 시간을 설정
+        LocalDateTime startT = LocalDateTime.parse(defaultStation.getStartTime());
+        LocalDateTime endT = LocalDateTime.parse(defaultStation.getEndTime());
+
+        // 올바른 시간세팅인지 시간 검증
+        // 종료시간이 시작시간 빠르거나, 시작 시간이 현재시간보다 빠를 때 엣지케이스
+        if (endT.isBefore(startT) || startT.isBefore(LocalDateTime.now())) {
+            throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
+        }
 
         // 객체 필드값을 중점으로 해서 반경검색 구현하기
         Double minLat = defaultStation.getLatitude() - 0.01171531;  // 위/아래 역 하나정도의 거리차이 = 0.00912237 == 0.01
@@ -162,8 +183,8 @@ public class StationService {
         }
 
         // StationSearch리스트에서 가용시간 비교
-        LocalDateTime startT = LocalDateTime.parse(defaultStation.getStartTime());
-        LocalDateTime endT = LocalDateTime.parse(defaultStation.getEndTime());
+//        LocalDateTime startT = LocalDateTime.parse(defaultStation.getStartTime());
+//        LocalDateTime endT = LocalDateTime.parse(defaultStation.getEndTime());
         for (int i = 0; i < searchList.size(); i++) {
             List<Battery> availableBatteryList = searchList.get(i).getBatteryList();
             List<Battery> unavailableBatteryList = new ArrayList<>();
