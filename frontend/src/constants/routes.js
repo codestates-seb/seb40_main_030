@@ -29,6 +29,10 @@ const ROUTES = Object.freeze({
     PATH: '/myprofile',
     NAME: 'Myprofile',
   },
+  NOTICE: {
+    PATH: '/notice',
+    NAME: 'Notice',
+  },
   BUSINESS: {
     PATH: 'business',
     NAME: 'Business',
@@ -37,14 +41,6 @@ const ROUTES = Object.freeze({
     PATH: '/entrance',
     NAME: 'Entrance',
   },
-  // LOGIN: {
-  //   PATH: '/login',
-  //   NAME: 'Login',
-  // },
-  // LOGOUT: {
-  //   PATH: '/logout',
-  //   NAME: 'Logout',
-  // },
   SEARCH: {
     PATH: '/search',
     NAME: 'Search',
