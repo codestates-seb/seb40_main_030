@@ -26,12 +26,15 @@ const ReservingList = ({ data }) => {
   };
 
   const BatteryImg = styled.div`
-    background-size: contain;
+    /* border: 1px solid black; */
+    background-size: cover;
+    background-repeat: no-repeat;
     display: block;
     background-color: white;
     background-image: url(${img});
     border-radius: 3px;
     width: 20%;
+    height: 50px;
     margin: 0 3px 3px 0;
   `;
 
@@ -44,17 +47,17 @@ const ReservingList = ({ data }) => {
             <S.SpanTitle>대여기간 : </S.SpanTitle>
             <S.SpanData>{timeRefresh()}</S.SpanData>
           </S.SpanTextDiv>
-          <S.SpanTextDiv>
+          {/* <S.SpanTextDiv>
             <S.SpanTitle>대여위치 : </S.SpanTitle>
             <S.SpanData>{data.stationName}</S.SpanData>
           </S.SpanTextDiv>
           <S.SpanTextDiv>
             <S.SpanTitle>배터리이름 : </S.SpanTitle>
             <S.SpanData>{data.batteryName}</S.SpanData>
-          </S.SpanTextDiv>
+          </S.SpanTextDiv> */}
           <S.SpanTextDiv>
-            <S.SpanTitle>결제금액 : </S.SpanTitle>
-            <S.SpanData>{data.totalPrice}원</S.SpanData>
+            {/* <S.SpanTitle>결제금액 : </S.SpanTitle>
+            <S.SpanData>{data.totalPrice}원</S.SpanData> */}
             <S.SpanStatus>결제완료</S.SpanStatus>
           </S.SpanTextDiv>
         </S.ListText>

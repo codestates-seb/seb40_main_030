@@ -3,11 +3,11 @@ import styled from 'styled-components';
 /* main-01 : #5584AC
   font-01 : #7b8c9f */
 export const ReservingListContainer = styled.div`
-  border-radius: 3px;
+  border-bottom: 1px solid black;
   padding: 7px 10px 10px 10px;
   height: 70px;
-  margin-bottom: 5px;
-  background-color: #7b8c9f;
+  margin-bottom: 10px;
+  background-color: white;
   font-size: 10px;
 `;
 
@@ -21,18 +21,19 @@ export const ListText = styled.div`
 `;
 export const SpanTextDiv = styled.div`
   margin-bottom: 3px;
+  color: black;
 `;
 export const SpanTitle = styled.span`
-  color: white;
+  color: black;
   font-size: 11px;
   font-weight: bold;
 `;
 export const SpanData = styled.span`
   font-size: 10px;
 `;
-export const SpanStatus = styled.span`
-  margin-left: 80px;
+export const SpanStatus = styled.div`
+  margin-top: 20px;
   border-radius: 3px;
   font-size: 13px;
-  color: yellow;
+  color: blue;
 `;
