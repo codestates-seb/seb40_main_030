@@ -13,9 +13,29 @@ const MotionWrapper = styled(motion.div)`
 
   background: #fff;
 
+  overflow: hidden;
+
   z-index: 13;
 
-  overflow: auto;
+  .scrollable-component {
+    width: 100%;
+    box-sizing: content-box;
+    -ms-overflow-style: none;
+
+    scrollbar-width: none;
+
+    // overflow 시에도 box-shadow 남겨주는 영역
+    margin-top: 8px;
+    flex-grow: 1;
+    overflow-y: scroll;
+    margin: 0px -32px;
+    margin-top: 8px;
+    padding: 0px 32px;
+  }
+
+  .scrollable-component::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Header = styled.header`

@@ -15,6 +15,10 @@ import useSearchMap from './map/useSearchMap';
 import useTimeDifference from './map/useTimeDifference';
 import useWatchLocation from './map/useWatchLocation';
 // reservation
+import useGetBookingList from './Orders/useGetBookingList';
+import useGetHistoryList from './Orders/useGetHistoryList';
+import useGetInUseList from './Orders/useGetInUseList';
+import useSwitchCategory from './Orders/useSwitchCategory';
 import useCalendar from './reservation/useCalendar';
 import useCheckDateFixed from './reservation/useCheckDateFixed';
 import useCheckValidReserveTable from './reservation/useCheckValidReserveTable';
@@ -56,4 +60,11 @@ export {
   useSingleDateReservation,
   useUndoReservation,
   useCheckDateFixed,
+};
+
+export {
+  useSwitchCategory,
+  useGetBookingList,
+  useGetInUseList,
+  useGetHistoryList,
 };

@@ -9,7 +9,7 @@ import Business from './Business';
 import Home from './Home';
 import Login from './Login';
 import NotFound from './NotFound';
-import OrderList from './OrderList/OrderList';
+import Orders from './Orders/Orders';
 import Payments from './Payments';
 import Rental from './Rental';
 import Search from './Search';
@@ -50,9 +50,9 @@ const PAGES = [
         name: ROUTES.BUSINESS.NAME,
       },
       {
-        element: <OrderList />,
-        path: ROUTES.ORDER_LIST.PATH,
-        name: ROUTES.ORDER_LIST.NAME,
+        element: <Orders />,
+        path: ROUTES.ORDERS.PATH,
+        name: ROUTES.ORDERS.NAME,
       },
     ],
   },

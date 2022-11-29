@@ -6,7 +6,6 @@ import { PRICE_REGEX } from '@/constants';
 import {
   useCheckValidReserveTable,
   useConvertDate,
-  useSnackBar,
   useTimeDifference,
 } from '@/hooks';
 
@@ -16,17 +15,9 @@ import ReservationChart from './ReservationChart';
 // 주유소 이름과 위치정보 전화번호 ??
 const BatteryInfo = ({ content, station }) => {
   const navigate = useNavigate();
-  const { openSnackBar } = useSnackBar();
   const { startPoint, endPoint } = useCheckValidReserveTable();
-  const {
-    capacity,
-    status,
-    price,
-    photoURL,
-    batteryId,
-    batteryName,
-    createdAt,
-  } = content;
+  const { capacity, price, photoURL, batteryId, batteryName, createdAt } =
+    content;
   const { year, month, date } = useConvertDate(createdAt);
   const { periodInMin } = useTimeDifference();
 
@@ -37,7 +28,6 @@ const BatteryInfo = ({ content, station }) => {
         price: price * periodInMin,
         batteryId,
         capacity,
-        status,
         photoURL,
         startPoint,
         endPoint,
@@ -80,18 +70,16 @@ const BatteryInfo = ({ content, station }) => {
             </S.PricePerMin>
             <ShadowButton
               noShadow={true}
-              color={status ? '#1070fc' : 'lightgrey'}
+              color='#1070fc'
               width='150px'
               padding='10px 5px'
               content='예약하기'
               style={{ fontSize: 15 }}
-              onClick={() =>
-                status ? handleClick() : openSnackBar('이미 예약된 상품입니다.')
-              }
+              onClick={() => handleClick()}
             />
           </S.ProductInfoContainer>
         </S.ProductWrapper>
-        <ReservationChart status={status} />
+        <ReservationChart content={content} />
       </ShadowCard>
     </S.BatteryContainer>
   );
