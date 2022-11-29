@@ -48,4 +48,17 @@ public class KakaoPayController {
         model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
 
     }
+
+    // 결제 취소시 실행 url
+    @GetMapping("/kakaoPayCancel")
+    public String payCancel() {
+        return "redirect:/carts";
+    }
+
+    // 결제 실패시 실행 url
+    @GetMapping("/kakaoPaySuccessFail")
+    public String payFail() {
+        return "redirect:/";
+    }
+
 }

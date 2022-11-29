@@ -39,24 +39,27 @@ public class PaymentService {
     public Payment postPayment (Payment payment, Long batteryId, Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND)); // 로그인 한 계정이 존재하는지 확인
-
         Battery battery = batteryRepository.findById(batteryId)
                 .orElseThrow(()-> new BusinessLogicException(ExceptionCode.BATTERY_NOT_FOUND)); // 예약하는 배터리가 존재하는지 확인
-
         Station station = stationRepository.findById(battery.getStation().getId())
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
-
-        paymentRepository.findById(payment.getId()); // =>> 이미 예약이 존재한다면, 예외처리하기(?)
-        // 현재 같은 paymentId로만 등록된다는게 문제
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND)); // 해당 스테이션이 실존하는지 확인
+        payment.setMember(member);
+        payment.setBattery(battery);
+        payment.setStation(station);
 
         // 예약 시간 가능한지 검증 로직
         LocalDateTime startT = LocalDateTime.parse(payment.getStartTime());
         LocalDateTime endT = LocalDateTime.parse(payment.getEndTime());
 
-        for (int i = 0; i < battery.getReservations().size(); i++) {   // 배터리 예약 목록을 순회
-            Reservation reservation = battery.getReservations().get(i);
-            LocalDateTime reserveStart = LocalDateTime.parse(reservation.getStartTime());
-            LocalDateTime reserveEnd = LocalDateTime.parse(reservation.getStartTime());
+        // 요청한 시작시간이 현재시간보다 이전일 경우 예외처리
+        if(startT.isBefore(LocalDateTime.now())) throw new BusinessLogicException(ExceptionCode.CAN_NOT_RESERVE);
+
+        // 현재 예약하려는 Payment의 시간과 겹치는 예약이 있는지 확인하는 로직
+        List<Payment> list = paymentRepository.findWithAllByBatteryId(batteryId);
+        for (int i = 0; i < list.size(); i++) {
+            Payment tempPayment = list.get(i);
+            LocalDateTime reserveStart = LocalDateTime.parse(tempPayment.getStartTime());
+            LocalDateTime reserveEnd = LocalDateTime.parse(tempPayment.getStartTime());
             if (startT.isBefore(reserveStart) && endT.isAfter(reserveEnd)) {
                 throw new BusinessLogicException(ExceptionCode.CAN_NOT_RESERVE);
             }
@@ -71,20 +74,15 @@ public class PaymentService {
             }
         }
 
-        // 총 금액 계산 로직
-        // 1. startTime과 endTime을 분단위로 환산 (절대 시간 계산?)
-        // String을 LocalDateTime으로 변환 -> 시간 비교 -> 분단위 환산  (endTime - startTime의 분단위 값)
-        LocalDateTime startTime = LocalDateTime.parse(payment.getStartTime());
-        LocalDateTime endTime = LocalDateTime.parse(payment.getEndTime());
-        Duration diff = Duration.between(startTime, endTime);
-        int diffMin = (int) diff.toMinutes();
-        // 2. 총 금액 = 기본 단위 가격 * 총 대여시간(min) / 10(min)
-        int totalPrice = battery.getPrice() * (diffMin / 10);
-
-        payment.setMember(member);
-        payment.setBattery(battery);
-        payment.setStation(station);
-        payment.setTotalPrice(totalPrice);
+//        // 총 금액 계산 로직
+//        // 1. startTime과 endTime을 분단위로 환산 (절대 시간 계산?)
+//        // String을 LocalDateTime으로 변환 -> 시간 비교 -> 분단위 환산  (endTime - startTime의 분단위 값)
+//        LocalDateTime startTime = LocalDateTime.parse(payment.getStartTime());
+//        LocalDateTime endTime = LocalDateTime.parse(payment.getEndTime());
+//        Duration diff = Duration.between(startTime, endTime);
+//        int diffMin = (int) diff.toMinutes();
+//        // 2. 총 금액 = 기본 단위 가격 * 총 대여시간(min) / 10(min)
+//        int totalPrice = battery.getPrice() * (diffMin / 10);
 
         return paymentRepository.save(payment);
 

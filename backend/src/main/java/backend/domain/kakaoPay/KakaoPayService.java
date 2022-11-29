@@ -1,15 +1,11 @@
 package backend.domain.kakaoPay;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import backend.domain.payment.entity.PayStatus;
 import backend.domain.payment.entity.Payment;
 import backend.domain.payment.repository.PaymentRepository;
 import backend.domain.payment.service.PaymentService;
-import backend.global.exception.dto.BusinessLogicException;
-import backend.global.exception.exceptionCode.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,23 +15,22 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import lombok.extern.java.Log;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @Service
-@Log @RequiredArgsConstructor
+@Log
+@RequiredArgsConstructor
 public class KakaoPayService {
 
     private static final String HOST = "https://kapi.kakao.com";
-
+    private final PaymentRepository paymentRepository;
+    private final PaymentService paymentService;
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     private String itemName;
     private int totalAmount;
     private Long paymentId;
-
-    private final PaymentRepository paymentRepository;
-
-    private final PaymentService paymentService;
 
     public String kakaoPayReady(String itemName, int totalAmount, Long paymentId) {
 //        Payment payment2 = paymentRepository.findById(payment.getId())
@@ -113,13 +108,18 @@ public class KakaoPayService {
         try {
             kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
             log.info("" + kakaoPayApprovalVO);
-
             Payment payment = paymentRepository.findById(paymentId).get();
+
+//            try{
             payment.setStatus(PayStatus.WAITING_FOR_RESERVATION);
             paymentService.patchPayment(payment);
-            // 결제 실패 로직은 catch문에?
 
             return kakaoPayApprovalVO;
+
+//            } catch (Exception e) {
+//                payment.setStatus(PayStatus.FAIL);
+//                paymentRepository.save(payment);
+//            }
 
         } catch (RestClientException e) {
             // TODO Auto-generated catch block
