@@ -11,14 +11,6 @@ import { reservationState, currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './KakaoMap.style';
 
-// type Location = {
-//   location: {
-//     latitude: number;
-//     longitude: number;
-//   };
-//   toggle: boolean;
-// };
-
 const KakaoMap = () => {
   const [toggle, setToggle] = useState(false);
 
@@ -29,8 +21,6 @@ const KakaoMap = () => {
 
   const latitude = currentLocation?.latitude || DEFAULT_LOCATION.latitude;
   const longitude = currentLocation?.longitude || DEFAULT_LOCATION.longitude;
-
-  // location 기반 필터링시에 범위를 어디까지 할것인가를 알아봐야함
 
   if (isSuccess) {
     return (

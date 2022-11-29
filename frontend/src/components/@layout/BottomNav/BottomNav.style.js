@@ -149,6 +149,8 @@ const Text = styled.span`
   transform: translateY(20px);
   opacity: 0;
   z-index: 1;
+
+  margin-bottom: 20px;
 `;
 
 export { Navigation, ListWrap, List, Indicator, IconContainer, Text };
