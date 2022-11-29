@@ -2,7 +2,10 @@ import styled, { css } from 'styled-components';
 
 const Wrapper = styled.div`
   width: 100%;
-  margin: -10px auto 0;
+  margin: -10px auto;
+  padding: 0 10px;
+
+  overflow-x: auto;
 `;
 
 const Stepper = styled.ol`
@@ -11,18 +14,18 @@ const Stepper = styled.ol`
 
 const Item = styled.li`
   display: flex;
-  flex-direction: column;
   flex: 1;
+  flex-direction: column;
   text-align: center;
 
-  ${({ theme, status }) => css`
+  ${({ theme }) => css`
     &:before {
       content: '';
       display: block;
       width: calc(${theme.CIRCLE_SIZE} / 2);
       height: calc(${theme.CIRCLE_SIZE} / 2);
       border-radius: 50%;
-      background-color: ${status ? '#1070fc' : 'gray'};
+      background-color: #1070fc;
       opacity: 0.5;
       margin: 0 auto 10px;
     }
