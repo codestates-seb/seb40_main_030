@@ -43,12 +43,10 @@ const MapIndicator = ({ toggle, setToggle }) => {
         >
           <span>{toggle ? '지도로 보기' : '로드뷰'}</span>
         </S.Button>
-        <S.LocationMarker
-          type='image'
-          src={CurrentLocationIcon}
-          onClick={() => location && setCurrentLocation(location)}
-        />
       </S.IndicatorContainer>
+      <S.Button onClick={() => location && setCurrentLocation(location)}>
+        <CurrentLocationIcon />
+      </S.Button>
     </S.Wrapper>
   );
 };

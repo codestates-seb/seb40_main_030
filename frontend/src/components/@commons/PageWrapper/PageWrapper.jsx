@@ -36,6 +36,7 @@ const PageWrapper = ({
           />
         }
       >
+        {/* <div className='child-component'>{children}</div> */}
         {children}
       </Suspense>
     </S.MotionWrapper>

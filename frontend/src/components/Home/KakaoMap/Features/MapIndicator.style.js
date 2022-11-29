@@ -9,6 +9,8 @@ const Wrapper = styled.div`
   width: 100%;
   margin-top: 10px;
   z-index: 10;
+
+  font-size: 14px;
 `;
 
 const IndicatorContainer = styled.div`
@@ -38,23 +40,24 @@ const Button = styled.button`
   }
 `;
 
-const LocationMarker = styled.input`
+const LocationMarker = styled.img`
   z-index: 1;
   width: 20px;
   height: 20px;
-  margin-left: 40px;
+  align-items: center;
 `;
 
 const LocationHover = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 3px solid #1070fc;
+  border: 2px solid #1070fc;
   padding: 10px;
 
   width: 40%;
   height: 40px;
   border-radius: 50px;
+  font-weight: 500;
 
   background-color: #fff;
 
