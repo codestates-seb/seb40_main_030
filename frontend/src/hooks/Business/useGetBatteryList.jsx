@@ -15,8 +15,8 @@ const useGetBatteryList = () => {
 
   const selectFn = useCallback(
     (batteryInfo) => {
-      let batteryList = filterBatteryInfo(batteryInfo);
-      const countList = getEachStateNum(batteryList);
+      let batteryList = filterBatteryInfo(batteryInfo); //util 매번 실행안하게 최적화 고민
+      const countList = getEachStateNum(batteryList); //util 매번 실행안하게 최적화 고민
 
       if (selectedFilter !== 'total') {
         batteryList = filterByBatteryState(batteryList, selectedFilter);

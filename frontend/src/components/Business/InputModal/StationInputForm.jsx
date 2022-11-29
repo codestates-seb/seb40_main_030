@@ -99,7 +99,7 @@ const StationInputForm = () => {
           <div className='error-box'>{errors?.price?.message}</div>
 
           <div className='input-container'>
-            <label htmlFor='phone'>주유소검색</label>
+            <label htmlFor='phone'>대여소검색</label>
             <input
               className='data-input'
               id='location'
@@ -112,7 +112,7 @@ const StationInputForm = () => {
               onChange={(e) => {
                 setKeyword(e.target.value);
               }}
-              placeholder='주유소주소를 검색하세요'
+              placeholder='대여소주소를 검색하세요'
               ref={inputRef}
               // {...register('location', {
               //   required: '미입력',

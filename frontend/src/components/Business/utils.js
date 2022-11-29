@@ -35,36 +35,8 @@ const getEachStateNum = (batteryList) => {
   return result;
 };
 
-//station 각 상태 별 갯수
-const getStationEachStateNum = (stationList) => {
-  const result = [0, 0, 0];
-  stationList.forEach((station) => {
-    station.batteryCount > 0 ? result[1]++ : result[2]++;
-  });
-  result[0] = stationList.length;
-  return result;
-};
-
-//전체 대여소 api사용해서 stationList 필터
-const filterStationInfo = (data) => {
-  const stations = [];
-  data.content.forEach((station) => {
-    const eachStation = {
-      stationId: station.id,
-      stationName: station.name,
-      photoURL: station.photoURL,
-      batteryCount: station.batteries.length,
-      phone: station.phone,
-      details: station.details,
-    };
-    stations.unshift(eachStation);
-  });
-  return stations;
-};
-
 //전체 단일 관리자 api사용해서 stationList => station 정보만 map
 const filterStation = (adminInfo) => {
-  console.log('filterStation', adminInfo);
   const result = adminInfo.stationList.map((station) => {
     return {
       stationId: station.id,
@@ -130,10 +102,8 @@ export {
   filterBatteryInfo,
   getEachStateNum,
   filterByBatteryState,
-  filterStationInfo,
   removeDuplicatedBatteryName,
   removeDuplicatedStationName,
-  getStationEachStateNum,
   filterByStationState,
   getStationEachStatNum,
   filterStation,

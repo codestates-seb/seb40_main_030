@@ -13,8 +13,8 @@ const useGetStationList = () => {
   const selectedFilter = useRecoilValue(stationFilterState);
 
   const selectFn = (adminInfo) => {
-    let stationList = filterStation(adminInfo);
-    const countList = stationListWithValidBattery(stationList);
+    let stationList = filterStation(adminInfo); //util 매번 실행안하게 최적화 고민
+    const countList = stationListWithValidBattery(stationList); //util 매번 실행안하게 최적화 고민
 
     if (selectedFilter !== 'total') {
       stationList = filterByStationState(stationList, selectedFilter);
