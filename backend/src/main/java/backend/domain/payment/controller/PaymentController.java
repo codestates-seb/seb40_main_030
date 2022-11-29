@@ -51,7 +51,7 @@ public class PaymentController {
         Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         Payment payment = payPatchReqDto.toPayment();
         payment.setId(paymentId);
-        Payment modifiedPayment = paymentService.patchPayment(payment, memberId);
+        Payment modifiedPayment = paymentService.patchPayment(payment);
         PayResDto response = new PayResDto(modifiedPayment);
 
         return new ResponseEntity<>(response, HttpStatus.OK);

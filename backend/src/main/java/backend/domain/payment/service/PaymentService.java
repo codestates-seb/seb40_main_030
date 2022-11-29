@@ -46,6 +46,9 @@ public class PaymentService {
         Station station = stationRepository.findById(battery.getStation().getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
 
+        paymentRepository.findById(payment.getId()); // =>> 이미 예약이 존재한다면, 예외처리하기(?)
+        // 현재 같은 paymentId로만 등록된다는게 문제
+
         // 예약 시간 가능한지 검증 로직
         LocalDateTime startT = LocalDateTime.parse(payment.getStartTime());
         LocalDateTime endT = LocalDateTime.parse(payment.getEndTime());
@@ -89,15 +92,10 @@ public class PaymentService {
 
 
     @Transactional
-    public Payment patchPayment (Payment payment, Long memberId) {
+    public Payment patchPayment (Payment payment) {
         Payment savedPayment = paymentRepository.findById(payment.getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
 
-        if (savedPayment.getMember().getId() != memberId) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY);
-
-        Optional.of(payment.getTotalPrice()).ifPresent(savedPayment::setTotalPrice);
-        Optional.ofNullable(payment.getStatus()).ifPresent(savedPayment::setStatus);
-        Optional.of(payment.getPayMethod()).ifPresent(savedPayment::setPayMethod);
         savedPayment.setModifiedAt(payment.getModifiedAt());
         if(savedPayment.getStatus().getCode() == 1){
             Reservation reservation = new Reservation();
