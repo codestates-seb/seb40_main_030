@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { TIME } from '@/constants';
-import { reservationState } from '@/recoil/pagesState';
+import { initialReservationValue, reservationState } from '@/recoil/pagesState';
 
 import { useSnackBar } from '..';
 
@@ -53,6 +53,11 @@ const useReservation = () => {
         const currentTime = new Date().getTime();
 
         if (currentTime > startPoint) {
+          setReservationStatus({
+            ...initialReservationValue,
+            bookingType: 'multiple',
+          });
+          setReservation(!reservation);
           openSnackBar('현재시간보다 이전 시점입니다.');
           return;
         }

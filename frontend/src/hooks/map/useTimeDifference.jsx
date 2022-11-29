@@ -28,7 +28,8 @@ const useTimeDifference = () => {
   const days = Math.floor(timeDifference / 24);
   const hours = Math.floor(timeDifference % 24);
   const minutes = Math.floor(timeDifferByMin % 60);
-  const periodInMin = (hours * 60 + minutes) / 10;
+
+  const periodInMin = (days * 24 * 60 + hours * 60 + minutes) / 10;
 
   return { timeDifference, days, hours, minutes, periodInMin };
 };

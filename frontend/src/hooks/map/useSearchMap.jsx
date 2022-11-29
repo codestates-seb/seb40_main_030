@@ -12,7 +12,11 @@ const useSearchMap = () => {
   useEffect(() => {
     qs.keywordSearch(keyword || '코드스테이츠', (data, status) => {
       if (status === kakao.maps.services.Status.OK) {
-        setLocationData(data);
+        const filteredData = data.filter(
+          (location) => location.category_group_code === 'OL7',
+        );
+
+        setLocationData(filteredData);
       }
     });
   }, [keyword]);

@@ -1,9 +1,8 @@
 import { useCallback, useRef, useState } from 'react';
 
 import ch2Pattern from '@/components/@helper/utils/ch2Pattern';
-import { SEARCH_LOCATION_SUGGESTIONS } from '@/constants/common';
 
-const useSearchBar = () => {
+const useSearchBar = (stations) => {
   const inputRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
   const [keyword, setKeyword] = useState('');
@@ -24,9 +23,10 @@ const useSearchBar = () => {
 
         return;
       }
+
       const regex = createFuzzyMatcher(keyword);
-      const resultData = SEARCH_LOCATION_SUGGESTIONS.filter(
-        (location) => regex.test(location),
+      const resultData = stations.filter(
+        (station) => regex.test(station.name),
         false,
       );
 

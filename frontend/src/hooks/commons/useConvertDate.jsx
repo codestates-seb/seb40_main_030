@@ -3,7 +3,7 @@ const useConvertDate = (fullDate) => {
 
   const date = newDate.getDate();
   const year = newDate.getFullYear();
-  const month = newDate.getMonth();
+  const month = newDate.getMonth() + 1;
   const day = newDate.getDay();
   const hour = String(newDate.getHours()).padStart(2, '0');
   const minute = String(newDate.getMinutes()).padStart(2, '0');
