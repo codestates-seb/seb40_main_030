@@ -9,7 +9,7 @@ const axiosAdminInstance = axios.create({
   },
 });
 
-//관리자 정보 가져옴
+//관리자 정보 가져옴 (배터리, 주유소 정보)
 const getAdminById = async (adminId) => {
   const res = await axiosAdminInstance.get(`/admins/${adminId}`);
   console.log('get요청 응답은', res.data);

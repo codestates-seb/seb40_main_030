@@ -13,6 +13,10 @@ const BatteryImgContainer = styled.div`
 
 const BatteryDetailsContainer = styled.ul`
   font-size: 15px;
+  width: 153px;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
 `;
 
 const BatteryStatusContainer = styled.div`

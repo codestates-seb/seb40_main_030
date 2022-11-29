@@ -1,20 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 
-import { getStation } from '@/apis/admin';
+import { getAdminById } from '@/apis/admin';
 import {
   filterByStationState,
-  filterStationInfo,
-  getStationEachStateNum,
+  filterStation,
+  stationListWithValidBattery,
 } from '@/components/Business/utils';
 import { stationFilterState } from '@/recoil/business';
 
 const useGetStationList = () => {
   const selectedFilter = useRecoilValue(stationFilterState);
 
-  const selectFn = (stationInfo) => {
-    let stationList = filterStationInfo(stationInfo);
-    const countList = getStationEachStateNum(stationList);
+  const selectFn = (adminInfo) => {
+    let stationList = filterStation(adminInfo);
+    const countList = stationListWithValidBattery(stationList);
 
     if (selectedFilter !== 'total') {
       stationList = filterByStationState(stationList, selectedFilter);
@@ -27,7 +27,7 @@ const useGetStationList = () => {
     isLoading,
     isError,
     error,
-  } = useQuery(['stationInfo'], () => getStation(), {
+  } = useQuery(['stationInfo'], () => getAdminById('1'), {
     select: selectFn,
   });
 

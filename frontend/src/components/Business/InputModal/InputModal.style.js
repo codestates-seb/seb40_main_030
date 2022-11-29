@@ -29,8 +29,9 @@ const ModalBackground = styled.div`
 const InputModalContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+  padding: 25px 0;
 
   width: 300px;
   height: 450px;
@@ -55,14 +56,17 @@ const InputModalContainer = styled.div`
   }
 
   & label {
-    padding: 8px;
-    font-size: 14px;
-    line-height: 20px;
+    font-weight: 600;
+    width: 75px;
+    font-size: 15px;
+    line-height: 35px;
   }
+
   & .data-input {
     font-size: 12px;
-    width: 166px;
+    width: 150px;
   }
+
   & input {
     padding: 8px;
   }
@@ -92,23 +96,36 @@ const InputModalContainer = styled.div`
 
 const LocationListWrapper = styled.section`
   background-color: white;
-  overflow: auto;
-  height: 150px;
-  width: 242px;
+  overflow-x: auto;
+  height: 120px;
+  width: 235px;
 `;
 
 const LocationListContainer = styled.ul`
   background-color: white;
-  overflow: auto;
+  overflow-x: auto;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 `;
 
 const LocationContainer = styled.li`
   display: flex;
   flex-direction: column;
-  align-items: end;
+
+  & button {
+    font-weight: bold;
+    font-size: 16px;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+  }
+  & label {
+    color: gray;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+  }
 `;
 
 export {

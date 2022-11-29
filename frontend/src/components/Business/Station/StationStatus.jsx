@@ -32,7 +32,7 @@ const StationStatus = ({ batteryCount, totalStateCnt, status }) => {
           {typeof batteryCount === 'number' &&
             (batteryCount === 0 ? '배터리없음' : `배터리 ${batteryCount}개`)}
         </div>
-        {totalStateCnt && `${totalStateCnt}곳`}
+        {totalStateCnt >= 0 && `${totalStateCnt}곳`}
       </S.StationStatusContainer>
     </>
   );

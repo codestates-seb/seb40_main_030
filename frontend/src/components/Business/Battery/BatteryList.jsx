@@ -10,6 +10,7 @@ const BatteryList = ({ batteryList }) => {
             <BatteryCard
               imgUrl={battery.photoURL}
               details={{
+                stationName: battery.stationName,
                 stationId: battery.stationId,
                 price: battery.price,
                 capacity: battery.capacity,

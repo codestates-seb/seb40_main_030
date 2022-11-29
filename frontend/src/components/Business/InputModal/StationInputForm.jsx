@@ -55,7 +55,7 @@ const StationInputForm = () => {
     <>
       <S.InputModalContainer>
         <form onSubmit={handleSubmit(onValidHandler, onInvalidHandler)}>
-          <div>
+          <div className='input-container'>
             <label htmlFor='name'>주유소이름</label>
             <input
               className='data-input'
@@ -69,7 +69,7 @@ const StationInputForm = () => {
             />
           </div>
           <div className='error-box'>{errors?.capacity?.message}</div>
-          <div>
+          <div className='input-container'>
             <label htmlFor='details'>상세설명</label>
             <input
               className='data-input'
@@ -83,7 +83,7 @@ const StationInputForm = () => {
             />
           </div>
           <div className='error-box'>{errors?.capacity?.message}</div>
-          <div>
+          <div className='input-container'>
             <label htmlFor='phone'>전화번호</label>
             <input
               className='data-input'
@@ -98,16 +98,19 @@ const StationInputForm = () => {
           </div>
           <div className='error-box'>{errors?.price?.message}</div>
 
-          <div>
-            <label htmlFor='phone'>주유소주소</label>
+          <div className='input-container'>
+            <label htmlFor='phone'>주유소검색</label>
             <input
               className='data-input'
               id='location'
               type='text'
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  setKeyword(e.target.value);
-                }
+              // onKeyPress={(e) => {
+              //   if (e.key === 'Enter') {
+              //     setKeyword(e.target.value);
+              //   }
+              // }}
+              onChange={(e) => {
+                setKeyword(e.target.value);
               }}
               placeholder='주유소주소를 검색하세요'
               ref={inputRef}

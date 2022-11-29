@@ -3,6 +3,7 @@ const filterBatteryInfo = (data) => {
   data.stationList.forEach((station) => {
     const EachBatteryInfo = station.battery.map((bat) => {
       return {
+        stationName: station.name,
         stationId: station.id,
         batteryId: bat.batteryId,
         capacity: bat.capacity,
@@ -44,6 +45,7 @@ const getStationEachStateNum = (stationList) => {
   return result;
 };
 
+//전체 대여소 api사용해서 stationList 필터
 const filterStationInfo = (data) => {
   const stations = [];
   data.content.forEach((station) => {
@@ -58,6 +60,32 @@ const filterStationInfo = (data) => {
     stations.unshift(eachStation);
   });
   return stations;
+};
+
+//전체 단일 관리자 api사용해서 stationList => station 정보만 map
+const filterStation = (adminInfo) => {
+  console.log('filterStation', adminInfo);
+  const result = adminInfo.stationList.map((station) => {
+    return {
+      stationId: station.id,
+      details: station.details,
+      stationName: station.name,
+      photoURL: station.photoURL,
+      batteryCount: station.battery.length,
+      phone: station.phone,
+    };
+  });
+  return result;
+};
+
+//전체 단일 관리자 api사용해서 stationList => battery 있는 스테이션 갯수 정보만 map
+const stationListWithValidBattery = (stationsInfo) => {
+  const result = [0, 0, 0];
+  stationsInfo.forEach((station) => {
+    station.batteryCount > 0 ? result[1]++ : result[2]++;
+  });
+  result[0] = stationsInfo.length;
+  return result;
 };
 
 const removeDuplicatedBatteryName = (data) => {
@@ -108,4 +136,6 @@ export {
   getStationEachStateNum,
   filterByStationState,
   getStationEachStatNum,
+  filterStation,
+  stationListWithValidBattery,
 };

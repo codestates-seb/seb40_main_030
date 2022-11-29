@@ -11,7 +11,7 @@ import * as S from './Business.style';
 const BatteryContent = () => {
   const { batteryInfo } = useGetBatteryList();
   const { stationInfo } = useGetStationList();
-
+  console.log(batteryInfo.batteryList);
   return (
     <>
       <InputModal name={'battery'}>

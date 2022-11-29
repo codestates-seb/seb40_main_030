@@ -41,6 +41,10 @@ const StationImgContainer = styled.div`
 `;
 const StationDetailsContainer = styled.ul`
   font-size: 15px;
+  width: 153px;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
 `;
 
 const LeftAlignWrapper = styled.div`

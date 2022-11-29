@@ -10,11 +10,9 @@ import {
 import * as S from './InputModal.style';
 
 const BatteryInputForm = ({ batteryList, stationList }) => {
+  //removeDuplicatedBatteryName 추후 최적화 적용여부 확인
   const onlyOneBatteryNames = removeDuplicatedBatteryName(batteryList);
   const onlyOneStationNames = removeDuplicatedStationName(stationList);
-  // console.log('onlyOneBatteryNames', onlyOneBatteryNames);
-  console.log('stationList', stationList);
-  console.log('onlyOneStationNames', onlyOneStationNames);
 
   const { addMutate, setIsAddMode } = useAddBattery();
   const {
@@ -36,7 +34,6 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
       photoURL: '',
       // batteryId: Math.random(),
       ...data,
-      stationID: 1,
     };
     console.log('입력폼 data는', body);
     addMutate(body);
@@ -58,7 +55,7 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
     <>
       <S.InputModalContainer>
         <form onSubmit={handleSubmit(onValidHandler, onInvalidHandler)}>
-          <div>
+          <div className='input-container'>
             <label htmlFor='capacity'>배터리용량</label>
             <input
               className='data-input'
@@ -72,7 +69,7 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
             />
           </div>
           <div className='error-box'>{errors?.capacity?.message}</div>
-          <div>
+          <div className='input-container'>
             <label htmlFor='price'>배터리금액</label>
             <input
               className='data-input'
@@ -86,11 +83,13 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
             />
           </div>
           <div className='error-box'>{errors?.price?.message}</div>
-          <div>
-            <label htmlFor='batteryType'>배터리종류</label>
+          <div className='input-container'>
+            <label htmlFor='batteryName'>배터리종류</label>
             <select
+              id='batteryName'
+              className='data-input'
               defaultValue='default'
-              {...register('batteryType', {
+              {...register('batteryName', {
                 required: true,
                 validate: {
                   isValuedStation: (input) => {
@@ -115,9 +114,10 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
             </select>
           </div>
           <div className='error-box'>{errors?.stationId?.message}</div>
-          <div>
+          <div className='input-container'>
             <label htmlFor='stationId'>주유소위치</label>
             <select
+              className='data-input'
               defaultValue='default'
               {...register('stationId', {
                 required: true,
