@@ -1,5 +1,12 @@
+import Main from './Main';
+import * as S from './NoticeForm.style';
+
 const NoticeForm = () => {
-  return <div>2022년 12월 이벤트</div>;
+  return (
+    <S.NoticeContainer>
+      <Main />
+    </S.NoticeContainer>
+  );
 };
 
 export default NoticeForm;
