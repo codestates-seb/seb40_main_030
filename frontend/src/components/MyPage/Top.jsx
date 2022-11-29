@@ -7,61 +7,66 @@ import styled from 'styled-components';
 import * as S from './Top.style';
 import { MyPageIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
+import useMyPage from '../../hooks/MyPage/useMyPageTop';
 
 const Top = () => {
   // const [id, setId] = useRecoilState(userMemberId);
   const navigate = useNavigate();
-  const [photo, setPhoto] = useState('');
-  const [nickName, setNickName] = useState('');
-  const [email, setEmail] = useState('');
+  // const [photo, setPhoto] = useState('');
+  // const [nickName, setNickName] = useState('');
+  // const [email, setEmail] = useState('');
+  const { getUserInfo, nickName, email, photo } = useMyPage();
 
   useEffect(() => {
-    // axios.defaults.headers.common[
-    //   'Authorization'
-    // ] = `Bearer ${localStorage.getItem('accesstoken')}`;
     console.log(
       'mypage/ localStorage ->  accesstoken  값 : ',
       localStorage.getItem('accesstoken'),
     );
-    if (localStorage.getItem('accesstoken')) {
-      console.log('if문 axios 직전');
-      axios
-        .get('https://5222-222-233-138-154.jp.ngrok.io/members/find', {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
-          },
-        })
-        .then((res) => {
-          console.log('axios 내부 -> res : ', res);
-          setNickName(res.data.nickname);
-          setEmail(res.data.email);
-          setPhoto(res.data.photoURL);
-        })
-        .catch((err) => {
-          console.log('err : ', err);
-        });
-    } else if (sessionStorage.getItem('accesstoken')) {
-      axios
-        .get('https://5222-222-233-138-154.jp.ngrok.io/members/find', {
-          headers: {
-            accesstoken: `Bearer ${sessionStorage.getItem('accesstoken')}`,
-            'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
-          },
-        })
-        .then((res) => {
-          console.log('axios -> res : ', res);
-          setNickName(res.data.nickname);
-          setEmail(res.data.email);
-          setPhoto(res.data.photoURL);
-        })
-        .catch((err) => {
-          console.log('err : ', err);
-        });
-    }
+    console.log(
+      'MyPage-> sessionStorage -> accesstoken 값 : ',
+      sessionStorage.getItem('accesstoken'),
+    );
+    // if (localStorage.getItem('accesstoken')) {
+    //   console.log('if문 axios 직전');
+    //   axios
+    //     .get('https://5222-222-233-138-154.jp.ngrok.io/members/find', {
+    //       headers: {
+    //         'Access-Control-Allow-Origin': '*',
+    //         'ngrok-skip-browser-warning': '111',
+    //         'Content-Type': 'application/json',
+    //         Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log('axios 내부 -> res : ', res);
+    //       setNickName(res.data.nickname);
+    //       setEmail(res.data.email);
+    //       setPhoto(res.data.photoURL);
+    //     })
+    //     .catch((err) => {
+    //       console.log('err : ', err);
+    //     });
+    // } else if (sessionStorage.getItem('accesstoken')) {
+    //   axios
+    //     .get('https://5222-222-233-138-154.jp.ngrok.io/members/find', {
+    //       headers: {
+    //         Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
+    //         'Access-Control-Allow-Origin': '*',
+    //         'ngrok-skip-browser-warning': '111',
+    //         'Content-Type': 'application/json',
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log('axios -> res : ', res);
+    //       setNickName(res.data.nickname);
+    //       setEmail(res.data.email);
+    //       setPhoto(res.data.photoURL);
+    //     })
+    //     .catch((err) => {
+    //       console.log('err : ', err);
+    //     });
+    // }
+    getUserInfo();
   }, []);
 
   const ImgDiv = styled.div`

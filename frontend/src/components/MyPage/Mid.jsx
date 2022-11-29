@@ -13,7 +13,7 @@ const Mid = () => {
         <NoticeIcon />
       </S.IconDiv>
       <S.IconTextDiv>
-        <div>결제내역</div>
+        <S.PaymentTextDiv>결제내역</S.PaymentTextDiv>
         <div>공지사항</div>
       </S.IconTextDiv>
     </S.MyPageMidContainer>
