@@ -4,7 +4,7 @@ import { useSearchBar } from '@/hooks';
 
 import * as S from './SearchBar.style';
 
-const SearchBar = () => {
+const SearchBar = ({ stations, setLocationInfo }) => {
   const [_, setSearchParams] = useSearchParams();
   _;
 
@@ -14,7 +14,7 @@ const SearchBar = () => {
     inputRef,
     isActive,
     filteredLocation,
-  } = useSearchBar();
+  } = useSearchBar(stations);
 
   return (
     <S.Wrapper>
@@ -27,17 +27,22 @@ const SearchBar = () => {
           onChange={(e) => handleKeyword(e.target.value)}
         />
         <S.AutoCompleteContainer isActive={isActive}>
-          {filteredLocation.map((location, i) => (
-            <S.AutoCompleteList
-              key={i}
-              onClick={(e) => {
-                handleAutoComplete();
-                setSearchParams({ location: e.target.textContent });
-              }}
-            >
-              {location}
-            </S.AutoCompleteList>
-          ))}
+          {filteredLocation.length === 0 ? (
+            <S.AutoCompleteList>{`검색하신 결과가 존재하지 않습니다.`}</S.AutoCompleteList>
+          ) : (
+            filteredLocation.map((locationInfo) => (
+              <S.AutoCompleteList
+                key={locationInfo.confirmId}
+                onClick={(e) => {
+                  handleAutoComplete();
+                  setSearchParams({ location: e.target.textContent });
+                  setLocationInfo(locationInfo);
+                }}
+              >
+                {locationInfo.name}
+              </S.AutoCompleteList>
+            ))
+          )}
         </S.AutoCompleteContainer>
       </S.InputContainer>
     </S.Wrapper>
