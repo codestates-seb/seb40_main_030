@@ -8,6 +8,9 @@ import backend.domain.member.mapper.MemberMapper;
 import backend.domain.member.service.MemberService;
 import backend.global.dto.PageInfoDto;
 import backend.global.dto.SingleResDto;
+import backend.global.exception.dto.BusinessLogicException;
+import backend.global.exception.exceptionCode.ExceptionCode;
+import backend.global.security.utils.JwtExtractUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
@@ -26,6 +30,7 @@ import javax.validation.constraints.Positive;
 public class MemberController {
     private final MemberMapper mapper;
     private final MemberService service;
+    private final JwtExtractUtils jwtExtractUtils;
 
     @PostMapping
     public ResponseEntity<MemberDto.PostResDto> postMember(@Valid @RequestBody MemberDto.Post dto) {
@@ -37,18 +42,19 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{member-id}")
-    public ResponseEntity<MemberResDto> getMember(@Positive @PathVariable("member-id") Long memberId) {
-
+    @GetMapping("/find")
+    public ResponseEntity<MemberResDto> getMember(HttpServletRequest request) {
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         Member findMember = service.findMember(memberId);
         MemberResDto response = new MemberResDto(findMember);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PatchMapping("/{member-id}")
-    public ResponseEntity<MemberDto.PatchResDto> patchMember (@PathVariable("member-id") Long memberId,
+    @PatchMapping("/edit")
+    public ResponseEntity<MemberDto.PatchResDto> patchMember (HttpServletRequest request,
                                                               @RequestBody MemberDto.Patch dto) {
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         Member member = mapper.memberDtoPatchToMember(dto);
         member.setId(memberId);
         Member modifiedMember = service.patchMember(member);
@@ -57,8 +63,9 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{member-id}")
-    public ResponseEntity<SingleResDto<String>> deleteMember (@PathVariable("member-id") Long memberId) {
+    @DeleteMapping("/remove")
+    public ResponseEntity<SingleResDto<String>> deleteMember (HttpServletRequest request) {
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         service.deleteMember(memberId);
 
         return new ResponseEntity<>(new SingleResDto<>("Success Delete"), HttpStatus.OK);
