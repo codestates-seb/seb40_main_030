@@ -35,7 +35,7 @@ const GenLogin = () => {
     console.log('axios 직전->loginData:  ', loginData);
     await axios
       .post(
-        'https://fd5f-222-233-138-154.jp.ngrok.io/auth/login',
+        'https://5222-222-233-138-154.jp.ngrok.io/auth/login',
         loginData,
         loginConfig,
       )
@@ -50,10 +50,16 @@ const GenLogin = () => {
           'res.headers.refreshtoken: ',
           res.headers.get('refreshtoken'),
         );
-        console.log('GenLogin에서 로그인 axios요청으로 오는 res -> : ', res);
+        console.log(
+          'GenLogin에서 로그인 axios요청으로 오는 res -> : ',
+          res.headers.accesstoken,
+        );
         const accesstoken = res.headers.accesstoken.split(' ')[1];
+        console.log('accesstoken : ', accesstoken);
         const refreshtoken = res.headers.refreshtoken;
-        axios.defaults.headers.common['headers'] = `Bearer ${accesstoken}`;
+        axios.defaults.headers.common[
+          'Authorization'
+        ] = `Bearer ${accesstoken}`; // 이거 중요!
 
         if (checkedLogin) {
           localStorage.setItem('accesstoken', accesstoken); // 로컬스토리지에 accesstoken 저장

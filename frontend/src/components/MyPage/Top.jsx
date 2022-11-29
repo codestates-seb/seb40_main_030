@@ -16,21 +16,26 @@ const Top = () => {
   const [email, setEmail] = useState('');
 
   useEffect(() => {
+    // axios.defaults.headers.common[
+    //   'Authorization'
+    // ] = `Bearer ${localStorage.getItem('accesstoken')}`;
     console.log(
       'mypage/ localStorage ->  accesstoken  값 : ',
-      `Bearer ${localStorage.getItem('accesstoken')}`,
+      localStorage.getItem('accesstoken'),
     );
     if (localStorage.getItem('accesstoken')) {
+      console.log('if문 axios 직전');
       axios
-        .get('https://fd5f-222-233-138-154.jp.ngrok.io/members/find', {
+        .get('https://5222-222-233-138-154.jp.ngrok.io/members/find', {
           headers: {
-            accesstoken: `Bearer ${localStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
           },
         })
         .then((res) => {
-          console.log('axios -> res : ', res);
+          console.log('axios 내부 -> res : ', res);
           setNickName(res.data.nickname);
           setEmail(res.data.email);
           setPhoto(res.data.photoURL);
@@ -40,7 +45,7 @@ const Top = () => {
         });
     } else if (sessionStorage.getItem('accesstoken')) {
       axios
-        .get('https://fd5f-222-233-138-154.jp.ngrok.io/members/find', {
+        .get('https://5222-222-233-138-154.jp.ngrok.io/members/find', {
           headers: {
             accesstoken: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',

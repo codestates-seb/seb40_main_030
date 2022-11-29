@@ -15,3 +15,4 @@ export const IconDiv = styled.div`
 // export const PaymentIconDiv = styled.div`
 //   border: 1px solid black;
 // `;
+export const IconTextDiv = styled.div``;

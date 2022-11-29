@@ -12,7 +12,7 @@ const Bottom = () => {
 
   useEffect(() => {
     axios
-      .get(`https://fd5f-222-233-138-154.jp.ngrok.io/members/find`, {
+      .get(`https://5222-222-233-138-154.jp.ngrok.io/members/find`, {
         headers: {
           accesstoken: `Bearer ${localStorage.getItem('accesstoken')}`,
           'Access-Control-Allow-Origin': '*',

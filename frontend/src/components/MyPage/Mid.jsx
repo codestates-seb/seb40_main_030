@@ -9,8 +9,13 @@ const Mid = () => {
     <S.MyPageMidContainer>
       <S.IconDiv>
         <PaymentIcon onClick={() => {}} />
+
         <NoticeIcon />
       </S.IconDiv>
+      <S.IconTextDiv>
+        <div>결제내역</div>
+        <div>공지사항</div>
+      </S.IconTextDiv>
     </S.MyPageMidContainer>
   );
 };
