@@ -2,10 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 const useMyPageBottom = () => {
-  // 사용중 상태 (예약현환)
-  const [inProgress, setInProgress] = useState([]);
-  // 사용완료 상태 (사용현황)
-  const [success, setSuccess] = useState([]);
+  const [listData, setListData] = useState([]);
 
   const getUserPayment = () => {
     if (localStorage.getItem('accesstoken')) {
@@ -20,17 +17,11 @@ const useMyPageBottom = () => {
         .then((res) => {
           const payData = res.data.payment;
           console.log(
-            'mypage-> 예약,사용현황 리스트 받아오는 요청 res.data.payment : ',
+            'useMypage-> 예약,사용현황 리스트 받아오는 요청 res.data.payment : ',
             res.data.payment,
           );
-
-          for (let i = 0; i < payData.length; i++) {
-            if (payData[i].status === 'IN_PROGRESS') {
-              setInProgress([...inProgress, payData[i]]);
-            } else {
-              setSuccess([...success, payData[i]]);
-            }
-          }
+          console.log('payData.length : ', payData.length);
+          setListData([...payData]);
         })
         .catch((err) => {
           console.log(
@@ -53,14 +44,7 @@ const useMyPageBottom = () => {
             'mypage-> 예약,사용현황 리스트 받아오는 요청 res.data.payment : ',
             res.data.payment,
           );
-
-          for (let i = 0; i < payData.length; i++) {
-            if (payData[i].status === 'IN_PROGRESS') {
-              setInProgress([...inProgress, payData[i]]);
-            } else {
-              setSuccess([...success, payData[i]]);
-            }
-          }
+          setListData([...payData]);
         })
         .catch((err) => {
           console.log(
@@ -71,7 +55,7 @@ const useMyPageBottom = () => {
     }
   };
 
-  return { inProgress, success, getUserPayment };
+  return { getUserPayment, listData };
 };
 
 export default useMyPageBottom;

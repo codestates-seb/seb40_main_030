@@ -5,22 +5,22 @@ export const MyPageBottomContainer = styled.div`
   height: 410px;
 `;
 
-export const InProgressListDiv = styled.div`
+export const ReservingListDiv = styled.div`
   border-bottom: 1px solid black;
   height: 205px;
   padding: 15px;
   overflow: auto;
 `;
-export const InProgressText = styled.div`
+export const ReservingText = styled.div`
   font-size: 15px;
   margin-bottom: 3px;
 `;
-export const SuccessText = styled.div`
+export const UseNowText = styled.div`
   font-size: 15px;
   margin-bottom: 3px;
 `;
 
-export const SuccessListDiv = styled.div`
+export const UseNowListDiv = styled.div`
   border-bottom: 1px solid black;
   height: 205px;
   padding: 15px;
