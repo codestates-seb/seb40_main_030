@@ -32,7 +32,7 @@ const ReservingList = ({ data }) => {
     background-image: url(${img});
     border-radius: 3px;
     width: 20%;
-    margin-right: 3px;
+    margin: 0 3px 3px 0;
   `;
 
   return (
@@ -55,6 +55,7 @@ const ReservingList = ({ data }) => {
           <S.SpanTextDiv>
             <S.SpanTitle>결제금액 : </S.SpanTitle>
             <S.SpanData>{data.totalPrice}원</S.SpanData>
+            <S.SpanStatus>결제완료</S.SpanStatus>
           </S.SpanTextDiv>
         </S.ListText>
       </S.ListContents>

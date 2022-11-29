@@ -52,6 +52,7 @@ const UseNowList = ({ data }) => {
           <S.SpanTextDiv>
             <S.SpanTitle>결제금액 : </S.SpanTitle>
             <S.SpanData>{data.totalPrice}원</S.SpanData>
+            <S.SpanStatus>사용중</S.SpanStatus>
           </S.SpanTextDiv>
         </S.ListText>
       </S.ListContents>

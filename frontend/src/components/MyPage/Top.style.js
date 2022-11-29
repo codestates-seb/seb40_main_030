@@ -5,10 +5,10 @@ import '@kfonts/bm-dohyeon';
 export const MyPageTopContainer = styled.div`
   width: 100%;
   text-align: center;
+  color: white;
   border-bottom: 1px solid black;
   border-top: 1px solid black;
-  background-color: #d6d9dc;
-  /* font-family: 'bm-dohyeon'; */
+  background-color: #5584ac;
 `;
 export const NickNameDiv = styled.div`
   margin: 5px 0 5px 0;
@@ -28,8 +28,7 @@ export const MyInfoDiv = styled.div`
   margin-left: 2px;
   padding: 5px;
   font-size: 8px;
-  /* font-weight: lighter; */
+  color: black;
   border: 1px solid black;
   border-radius: 3px;
-  /* font-family: 'bm-dohyeon'; */
 `;

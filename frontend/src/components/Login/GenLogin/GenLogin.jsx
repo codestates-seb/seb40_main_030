@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './GenLogin.style';
-// import { userInfoState, userMemberId } from '../../../recoil/userInfoState';
-import { useRecoilState } from 'recoil';
+
 import { useForm } from 'react-hook-form';
 
 // 일반 로그인 컴포넌트
@@ -12,7 +11,6 @@ const GenLogin = () => {
   const [checkedLogin, setCheckedLogin] = useState(false);
   const [typeState, setTypeState] = useState(true); // 로그인 타입 상태
 
-  // const [userId, setUserId] = useRecoilState(userMemberId);
   const navigate = useNavigate();
 
   const {
@@ -59,10 +57,10 @@ const GenLogin = () => {
         const refreshtoken = res.headers.refreshtoken;
         axios.defaults.headers.common[
           'Authorization'
-        ] = `Bearer ${accesstoken}`; // 이거 중요!
+        ] = `Bearer ${accesstoken}`;
 
         if (checkedLogin) {
-          localStorage.setItem('accesstoken', accesstoken); // 로컬스토리지에 accesstoken 저장
+          localStorage.setItem('accesstoken', accesstoken);
           localStorage.setItem('refreshtoken', refreshtoken);
           console.log(
             'localStorage에 넣어진 accesstoken : ',
@@ -77,7 +75,6 @@ const GenLogin = () => {
       .catch((err) => {
         console.log('Genlogin-> 로그인 실패시 err :  ', err);
         alert('로그인 실패.');
-        // location.reload(); // 새로고침! 할지말지 아직 고민중.
       });
   };
   const onInValid = (data) => {

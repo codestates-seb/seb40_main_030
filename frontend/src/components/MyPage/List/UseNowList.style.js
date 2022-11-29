@@ -30,3 +30,9 @@ export const SpanTitle = styled.span`
 export const SpanData = styled.span`
   font-size: 10px;
 `;
+export const SpanStatus = styled.span`
+  margin-left: 80px;
+  border-radius: 3px;
+  font-size: 13px;
+  color: greenyellow;
+`;

@@ -13,7 +13,7 @@ export const LoginTypeDiv = styled.div`
   font-size: 15px;
   font-weight: bold;
   font-family: 'bm-dohyeon';
-`; // 로그인타입을 선택하면 진한검정폰트, 선택안된 타입은 연한회색폰트
+`;
 export const UserTypeLogin = styled.div`
   margin-right: 10px;
   border-bottom: 3px solid black;
@@ -84,7 +84,6 @@ export const AdminPasswordInputDiv = styled.div`
 export const CheckBoxDiv = styled.div`
   display: flex;
   margin-bottom: 30px;
-  /* border: 1px solid black; */
 `;
 export const CheckBoxText = styled.div`
   padding: 7px 0 5px 2px;

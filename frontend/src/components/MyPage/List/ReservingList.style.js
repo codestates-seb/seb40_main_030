@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
+/* main-01 : #5584AC
+  font-01 : #7b8c9f */
 export const ReservingListContainer = styled.div`
   border-radius: 3px;
   padding: 7px 10px 10px 10px;
   height: 70px;
   margin-bottom: 5px;
-  background-color: #5584ac;
+  background-color: #7b8c9f;
   font-size: 10px;
 `;
 
@@ -27,4 +29,10 @@ export const SpanTitle = styled.span`
 `;
 export const SpanData = styled.span`
   font-size: 10px;
+`;
+export const SpanStatus = styled.span`
+  margin-left: 80px;
+  border-radius: 3px;
+  font-size: 13px;
+  color: yellow;
 `;
