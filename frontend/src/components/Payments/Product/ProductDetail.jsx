@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 const ProductDetail = () => {
     const {state} = useLocation();
-    
+
     return (
         <S.ItemLayout>        
             <S.ItemImg src={state?.photoURL}/>

@@ -7,8 +7,8 @@ margin-top: 30px;
 `;
 
 const BackButton = styled.button`
-position: absolute;
 margin-left: 20px;
+position: absolute;
 `
 
 const ItemOrder = styled.div`
@@ -33,7 +33,6 @@ background-color: ${({ theme }) => theme.COLOR_MAIN};
 color: white;
 width: 300px;
 height: 70px;
-margin-top: 20px;
 display: flex;
 justify-content: center;
 align-items: center;

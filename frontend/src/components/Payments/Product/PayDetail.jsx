@@ -1,10 +1,16 @@
 import * as S from './PayDetail.style';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const PayDetail = () => {
     const {state} = useLocation();
     const deposit = 50000;
     const total = state?.price + deposit;
+
+    const navigate = useNavigate();
+    console.log('start',state)
+    const handleClick = () => {
+        navigate(`/payments/payment_completed`,{state})
+    }
     return (
             <S.PayLayout>
                 <S.PayInformationLayout>
@@ -21,6 +27,7 @@ const PayDetail = () => {
                         <S.TotalPayDetail>{total}원</S.TotalPayDetail>
                     </S.PayInformationLayout>
                 </S.PayDetailLayout>
+                <S.PayButton onClick={handleClick}>구매하기</S.PayButton>
             </S.PayLayout>
             );
     };

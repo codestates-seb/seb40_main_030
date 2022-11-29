@@ -1,4 +1,4 @@
-import Completed from '@/components/Payments/Product/Completed'
+import Completed from '@/components/Payments/Completed/Completed'
 
 const PaymentCompleted = () => {
     return <Completed />

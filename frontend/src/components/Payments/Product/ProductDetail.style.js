@@ -43,4 +43,4 @@ margin-top: 20px;
 text-align: right;
 `
 
-export { ItemLayout, ItemImg, ItemDetails, PayDetails, PayDetail, ItemDetail, ItemDate, };
+export { ItemLayout, ItemImg, ItemDetails, PayDetails, PayDetail, ItemDetail, ItemDate };

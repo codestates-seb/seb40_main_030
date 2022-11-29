@@ -14,6 +14,8 @@ import KaKaoLoginImg from './KaKaoLoginImg.png';
 import MockImage from './mockImage.png';
 import UndoIcon from './undo-button.png';
 
+import CompletedIcon from './completed.png';
+
 export {
   BatteryIcon,
   MapIcon,
@@ -27,4 +29,5 @@ export {
   UndoIcon,
   ArrowIcon,
   SearchIcon,
+  CompletedIcon,
 };
