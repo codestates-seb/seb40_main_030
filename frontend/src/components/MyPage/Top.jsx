@@ -12,9 +12,6 @@ import useMyPage from '../../hooks/MyPage/useMyPageTop';
 const Top = () => {
   // const [id, setId] = useRecoilState(userMemberId);
   const navigate = useNavigate();
-  // const [photo, setPhoto] = useState('');
-  // const [nickName, setNickName] = useState('');
-  // const [email, setEmail] = useState('');
   const { getUserInfo, nickName, email, photo } = useMyPage();
 
   useEffect(() => {
@@ -26,63 +23,31 @@ const Top = () => {
       'MyPage-> sessionStorage -> accesstoken 값 : ',
       sessionStorage.getItem('accesstoken'),
     );
-    // if (localStorage.getItem('accesstoken')) {
-    //   console.log('if문 axios 직전');
-    //   axios
-    //     .get('https://5222-222-233-138-154.jp.ngrok.io/members/find', {
-    //       headers: {
-    //         'Access-Control-Allow-Origin': '*',
-    //         'ngrok-skip-browser-warning': '111',
-    //         'Content-Type': 'application/json',
-    //         Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log('axios 내부 -> res : ', res);
-    //       setNickName(res.data.nickname);
-    //       setEmail(res.data.email);
-    //       setPhoto(res.data.photoURL);
-    //     })
-    //     .catch((err) => {
-    //       console.log('err : ', err);
-    //     });
-    // } else if (sessionStorage.getItem('accesstoken')) {
-    //   axios
-    //     .get('https://5222-222-233-138-154.jp.ngrok.io/members/find', {
-    //       headers: {
-    //         Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
-    //         'Access-Control-Allow-Origin': '*',
-    //         'ngrok-skip-browser-warning': '111',
-    //         'Content-Type': 'application/json',
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log('axios -> res : ', res);
-    //       setNickName(res.data.nickname);
-    //       setEmail(res.data.email);
-    //       setPhoto(res.data.photoURL);
-    //     })
-    //     .catch((err) => {
-    //       console.log('err : ', err);
-    //     });
-    // }
     getUserInfo();
   }, []);
-
-  const ImgDiv = styled.div`
+  console.log('photo : ', photo);
+  const DefaultImgDiv = styled.div`
     display: block;
     margin: auto; // display: block 주고 마진 오토로 하면 이미지를 가운데정렬할수있다.
-    border: 1px solid black;
     width: 50px;
     height: 50px;
-    /* background-image: url(${photo}); */
-    /* background-image: url(${MyPageIcon}); */
+    background-image: url(${'https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=128&d=identicon&r=PG&f=1'});
+    border-radius: 50%;
+  `;
+  const PhotoImgDiv = styled.div`
+    display: block;
+    margin: auto;
+    border: 1px solid white;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    background-image: url(${photo});
     border-radius: 50%;
   `;
 
   return (
     <S.MyPageTopContainer>
-      <ImgDiv></ImgDiv>
+      {photo ? <PhotoImgDiv /> : <DefaultImgDiv />}
       <S.NickNameDiv>{nickName} 님</S.NickNameDiv>
       <S.EmailDiv>{email}</S.EmailDiv>
       <S.MyInfoAndLogoutDiv>
