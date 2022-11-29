@@ -70,10 +70,10 @@ public class StationController {
 
 
     @GetMapping("/batteries/{stationId}")  // 한개의 스테이션의 가용 배터리 리스트 조회
-    public ResponseEntity<StationResDto> getStationBattery (@PathVariable Long stationId,
+    public ResponseEntity<StationBatteryResDto> getStationBattery (@PathVariable Long stationId,
                                                             @RequestParam String startTime, @RequestParam String endTime) {
         Station station = stationService.getStationBattery(stationId, startTime, endTime);
-        StationResDto response = new StationResDto(station);
+        StationBatteryResDto response = new StationBatteryResDto(station, startTime, endTime);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -28,6 +29,9 @@ public class BatteryDto {
 
         @NotNull(message = "가격을 입력해주세요.")
         private int price;
+
+        @Column
+        private int defaultPrice;
 
         @URL
         private String photoURL;
@@ -54,6 +58,8 @@ public class BatteryDto {
         private String capacity;
         private boolean status;
         private int price;
+
+        private int defaultPrice;
         private String batteryName;
         private String photoURL;
         private LocalDateTime createdAt;
@@ -66,6 +72,7 @@ public class BatteryDto {
             this.capacity = battery.getCapacity();
             this.status = battery.isStatus();
             this.price = battery.getPrice();
+            this.defaultPrice = battery.getDefaultPrice();
             this.batteryName = battery.getBatteryName();
             this.photoURL = battery.getPhotoURL();
             this.createdAt = battery.getCreatedAt();

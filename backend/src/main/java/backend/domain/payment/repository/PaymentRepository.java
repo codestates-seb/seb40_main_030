@@ -17,7 +17,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     @EntityGraph(attributePaths = {"battery", "member", "station"})
     Page<Payment> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
-    @Query(value = "select p from Payment p where p.battery.batteryId =:batteryId")  //ByCreatedAtDesc
+    @Query(value = "select p from Payment p where p.battery.batteryId =:batteryId")
 //    @EntityGraph(attributePaths = {"battery"})
     List<Payment> findWithAllByBatteryId(@Param("batteryId") Long batteryId);
 

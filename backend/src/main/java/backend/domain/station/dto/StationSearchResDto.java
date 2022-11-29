@@ -21,7 +21,6 @@ public class StationSearchResDto extends BaseTime {
     private String startTime;
     private String endTime;
 
-
     public StationSearchResDto(StationSearch stationSearch) {
         this.stationId = stationSearch.getId();
         this.stationName = stationSearch.getName();

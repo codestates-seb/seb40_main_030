@@ -33,6 +33,9 @@ public class Battery {
     private int price;
 
     @Column
+    private int defaultPrice;
+
+    @Column
     private String batteryName;
 
     @URL

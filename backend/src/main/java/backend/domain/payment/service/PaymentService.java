@@ -19,11 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor @Transactional(readOnly = true)
@@ -74,16 +71,6 @@ public class PaymentService {
             }
         }
 
-//        // 총 금액 계산 로직
-//        // 1. startTime과 endTime을 분단위로 환산 (절대 시간 계산?)
-//        // String을 LocalDateTime으로 변환 -> 시간 비교 -> 분단위 환산  (endTime - startTime의 분단위 값)
-//        LocalDateTime startTime = LocalDateTime.parse(payment.getStartTime());
-//        LocalDateTime endTime = LocalDateTime.parse(payment.getEndTime());
-//        Duration diff = Duration.between(startTime, endTime);
-//        int diffMin = (int) diff.toMinutes();
-//        // 2. 총 금액 = 기본 단위 가격 * 총 대여시간(min) / 10(min)
-//        int totalPrice = battery.getPrice() * (diffMin / 10);
-
         return paymentRepository.save(payment);
 
     }
@@ -124,6 +111,7 @@ public class PaymentService {
         paymentRepository.delete(savedPayment);
     }
 
+
     @Transactional
     public Payment getPayment (Long paymentId, Long memberId) {
         Payment savedPayment = paymentRepository.findById(paymentId)
@@ -141,12 +129,11 @@ public class PaymentService {
         return savedPayment;
     }
 
+
     // 마이페이지 조회 시 payment 상태 값 새로고침
     public List<Payment> getPayments (Pageable pageable, Long memberId) {
-
         Page<Payment> page = paymentRepository.findAllByOrderByCreatedAtDesc(pageable);
         List<Payment> list =  page.stream().filter(pay -> (pay.getMember().getId() == memberId)).collect(Collectors.toList());
-
 
         return list;
     }
