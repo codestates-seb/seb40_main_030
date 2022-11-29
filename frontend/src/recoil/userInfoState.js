@@ -12,6 +12,7 @@ const userInfoState = atom({
     address: '',
     photoURL: '',
   },
+  dangerouslyAllowMutability: true,
 });
 const isOverLapEmail = atom({
   key: 'isOverLapEmail',

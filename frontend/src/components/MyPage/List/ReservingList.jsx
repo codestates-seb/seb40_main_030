@@ -44,20 +44,10 @@ const ReservingList = ({ data }) => {
         <BatteryImg />
         <S.ListText>
           <S.SpanTextDiv>
-            <S.SpanTitle>대여기간 : </S.SpanTitle>
+            {/* <S.SpanTitle>대여기간 : </S.SpanTitle> */}
             <S.SpanData>{timeRefresh()}</S.SpanData>
           </S.SpanTextDiv>
-          {/* <S.SpanTextDiv>
-            <S.SpanTitle>대여위치 : </S.SpanTitle>
-            <S.SpanData>{data.stationName}</S.SpanData>
-          </S.SpanTextDiv>
           <S.SpanTextDiv>
-            <S.SpanTitle>배터리이름 : </S.SpanTitle>
-            <S.SpanData>{data.batteryName}</S.SpanData>
-          </S.SpanTextDiv> */}
-          <S.SpanTextDiv>
-            {/* <S.SpanTitle>결제금액 : </S.SpanTitle>
-            <S.SpanData>{data.totalPrice}원</S.SpanData> */}
             <S.SpanStatus>결제완료</S.SpanStatus>
           </S.SpanTextDiv>
         </S.ListText>

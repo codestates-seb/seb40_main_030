@@ -40,7 +40,7 @@ const UseNowList = ({ data }) => {
         <BatteryImg />
         <S.ListText>
           <S.SpanTextDiv>
-            <S.SpanTitle>대여기간 : </S.SpanTitle>
+            {/* <S.SpanTitle>대여기간 : </S.SpanTitle> */}
             <S.SpanData>{timeRefresh()}</S.SpanData>
           </S.SpanTextDiv>
           <S.SpanTextDiv>

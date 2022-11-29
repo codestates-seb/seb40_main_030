@@ -6,8 +6,9 @@ export const MyPageTopContainer = styled.div`
   width: 100%;
   text-align: center;
   color: white;
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
+  border-bottom: 2px solid #5584ac;
+  border-radius: 5px;
+  /* border-top: 1px solid black; */
   background-color: #5584ac;
 `;
 export const NickNameDiv = styled.div`
@@ -15,7 +16,7 @@ export const NickNameDiv = styled.div`
   font-size: 15px;
 `;
 export const EmailDiv = styled.div`
-  margin: 0 0 5px 15px;
+  margin: 0 0 5px 5px;
   font-size: 13px;
 `;
 export const MyInfoAndLogoutDiv = styled.div`
@@ -24,11 +25,12 @@ export const MyInfoAndLogoutDiv = styled.div`
   justify-content: space-between;
 `;
 export const MyInfoDiv = styled.div`
-  background-color: white;
-  margin-left: 2px;
-  padding: 5px;
+  background-color: #d6d9dc;
+  width: 70px;
+  /* margin-left: 2px; */
+  padding: 4px 7px 4px 4px;
   font-size: 8px;
   color: black;
-  border: 1px solid black;
-  border-radius: 3px;
+  /* border: 1px solid black; */
+  border-radius: 15px;
 `;

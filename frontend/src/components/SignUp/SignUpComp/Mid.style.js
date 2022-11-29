@@ -8,29 +8,42 @@ export const SignUpContainer = styled.div`
   width: 100%;
   height: 100%;
 `;
-export const SignUpTopContainer = styled.div`
-  display: flex;
-  background-color: #7b8c9f;
-`;
-export const HomeIcon = styled.div`
-  padding: 5px 0 5px 10px;
-  font-size: 30px;
-`;
-export const SignUpText = styled.div`
-  width: 100%;
-  padding: 13px 20px 0 0;
-  text-align: center;
-  font-family: 'bm-dohyeon';
-`;
+// export const SignUpTopContainer = styled.div`
+//   display: flex;
+//   background-color: #7b8c9f;
+// `;
+// export const HomeIcon = styled.div`
+//   padding: 5px 0 5px 10px;
+//   font-size: 30px;
+// `;
+// export const SignUpText = styled.div`
+//   width: 100%;
+//   padding: 13px 20px 0 0;
+//   text-align: center;
+//   font-family: 'bm-dohyeon';
+// `;
 export const SignUpMidContainer = styled.div`
   padding: 50px 10px 0 10px;
 `;
 
+export const SignUpPhotoDiv = styled.div`
+  margin-bottom: 10px;
+`;
+
 export const SignUpPhoto = styled.div`
-  height: 120px;
-  text-align: center;
+  width: 70px;
+  height: 70px;
   margin-bottom: 20px;
+
+  /* border: 1px solid black; */
+`;
+export const PreviewImg = styled.img`
   border: 1px solid black;
+  /* display: inline-block; */
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 export const SignUpEmailInputDiv = styled.div`
   width: 100%;

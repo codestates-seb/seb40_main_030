@@ -48,6 +48,7 @@ const useMyPage = () => {
         });
     }
   };
+
   return { getUserInfo, nickName, email, photo };
 };
 

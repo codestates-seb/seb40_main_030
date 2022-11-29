@@ -17,6 +17,11 @@ const SignUpMid = () => {
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
   const [inputState, setInputState] = useRecoilState(userInfoState); // input value 값들을 전역에 저장해둘 상태변수
 
+  const [avatarPreview, setAvatarPreview] = useState('');
+
+  console.log('userInfoState : ', userInfoState);
+  console.log('inputState : ', inputState);
+
   // ----- email,nickname이 올바른 or 중복이 없는 사용가능한 value인지 boolean 상태
   const [isEmail, setIsEmail] = useRecoilState(isOverLapEmail);
   const [isNick, setIsNick] = useRecoilState(isOverLapNick);
@@ -57,32 +62,29 @@ const SignUpMid = () => {
     setValue('phone', inputState.phone);
     setValue('address', inSignAddress);
     setValue('photoURL', inputState.photoURL);
+    // setValue('filename', inputState.photoURL[0]);
+    console.log('useEffect -> watch(photoURL) : ', watch('photoURL'));
+    console.log('useEffect inputState.photoURL : ', inputState.photoURL);
+    // console.log(URL.createObjectURL(avatar[0]));
   }, []);
   console.log(watch('photoURL'));
-  console.log('inputState : ', inputState);
+  console.log('watch() : ', watch());
 
   const checkedEmail = () => {
-    // e.preventDefault();
     if (!watch('email')) {
       alert('E-mail을 입력해주세요.');
     } else {
       axios
         .get('https://5222-222-233-138-154.jp.ngrok.io/members', {
-          // withCredentials: true,
-
           headers: {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
-            // 'Content-Type': 'application/json;charset=UTF-8',
           },
         })
         .then((res) => {
-          console.log('SignUp-> eamil중복확인-> res.data : ', res.data);
           let existEmail = res.data.content.find(
             (user) => user.email === watch('email'),
           );
-
-          console.log('existEmail: ', existEmail);
           if (existEmail) {
             setEmailMsg('⚠ 이미 가입된 E-mail입니다.');
             setIsEmail(false);
@@ -98,8 +100,6 @@ const SignUpMid = () => {
   };
 
   const checkedNick = () => {
-    // e.preventDefault();
-
     axios
       .get('https://5222-222-233-138-154.jp.ngrok.io/members', {
         headers: {
@@ -111,7 +111,6 @@ const SignUpMid = () => {
         let existNick = res.data.content.find(
           (user) => user.nickname === watch('nickname'),
         );
-        console.log('existNick : ', existNick);
         if (existNick) {
           setNickMsg('⚠ 중복된 닉네임입니다.');
           setIsNick(false);
@@ -125,13 +124,7 @@ const SignUpMid = () => {
       });
   };
 
-  console.log('useForm watch() : ', watch());
-  // console.log(watch()); // watch()를 사용하여 인자와(watch('eamil')) name이 일치하거나 watch() -> 객체형태의  input value값을 알 수 있다.
   const onValid = async (data) => {
-    // checkedEmail();
-    // checkedNick();
-    console.log('isEmail : ', isEmail);
-    console.log('isNick : ', isNick);
     if (
       isEmail &&
       isNick &&
@@ -140,13 +133,23 @@ const SignUpMid = () => {
     ) {
       return new Promise(() =>
         setTimeout(() => {
-          console.log('setTimeout data: ', data);
+          console.log(' submit-> onSubmit data : ', data);
           data.address = inSignAddress + ' ' + getValues('detailAddress');
+
+          if (avatar && avatar.length) {
+            const file = avatar[0];
+            console.log(
+              'submit-> if문 내부 URL.createObjectURL(file) : ',
+              URL.createObjectURL(file),
+            );
+            data.photoURL = URL.createObjectURL(file).slice(5);
+          }
+          console.log('submit -> axios직전 data : ', data);
           axios
             .post('https://5222-222-233-138-154.jp.ngrok.io/members', data)
             .then((res) => {
-              console.log('setTimeout-> axios-> res.data', res.data);
-              console.log('setTimeOut-> res : ', res);
+              setInputState('');
+              setInSignAddress('');
               navigate('/login');
             })
             .catch((err) => {
@@ -163,13 +166,43 @@ const SignUpMid = () => {
     console.log('onInValid : ', data);
   };
 
+  const avatar = watch('photoURL');
+  useEffect(() => {
+    if (avatar && avatar.length > 0) {
+      const file = avatar[0];
+      setAvatarPreview(URL.createObjectURL(file));
+      console.log('URL.createObjectURL(file) : ', URL.createObjectURL(file));
+    }
+  }, [avatar]);
+
   return (
     <div>
       <form onSubmit={handleSubmit(onValid, onInValid)}>
         <S.SignUpMidContainer>
-          <S.SignUpPhoto>
-            <input type='file' name='photoURL' />
-          </S.SignUpPhoto>
+          <S.SignUpPhotoDiv>
+            <S.SignUpPhoto>
+              <S.PreviewImg src={avatarPreview} />
+            </S.SignUpPhoto>
+            <input
+              type='file'
+              name='photoURL'
+              accept='image/*'
+              placeholder='이미지'
+              {...register('photoURL')}
+            />
+            {console.log('watch(photoURL) : ', watch('photoURL'))}
+            {/* {console.log(
+              'URL.createObjectURL(watch(photoURL)[0]) : ',
+              URL.createObjectURL(watch('photoURL')[0]),
+            )} */}
+            {/* <input
+              type='text'
+              name='filename'
+              placeholder=''
+              {...register('filename')}
+            /> */}
+          </S.SignUpPhotoDiv>
+
           <S.SignUpEmailInputDiv>
             <input
               type='email'
@@ -295,6 +328,7 @@ const SignUpMid = () => {
                 type='button' // 버튼에 type을 지정을 안해주면 디폴트값은 'submit'이다 그래서 이렇게 지정해줌!
                 onClick={() => {
                   setInputState(watch());
+                  // setInputState({photoURL:URL.createObjectURL(avatar[0])});
                   navigate('/searchaddress');
                 }}
               >
@@ -312,9 +346,7 @@ const SignUpMid = () => {
           </S.SignUpAddressContainer>
         </S.SignUpMidContainer>
         <S.SignUpBottomContainer>
-          <S.SignUpSubmitBtn type='submit' disabled={isSubmitting}>
-            회원가입 완료
-          </S.SignUpSubmitBtn>
+          <S.SignUpSubmitBtn type='submit'>회원가입 완료</S.SignUpSubmitBtn>
         </S.SignUpBottomContainer>
       </form>
     </div>

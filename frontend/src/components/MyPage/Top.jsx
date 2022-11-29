@@ -14,6 +14,13 @@ const Top = () => {
   const navigate = useNavigate();
   const { getUserInfo, nickName, email, photo } = useMyPage();
 
+  const defaultImg =
+    'https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=128&d=identicon&r=PG&f=1';
+
+  const handleErrorImg = (e) => {
+    e.target.src = defaultImg;
+  };
+
   useEffect(() => {
     console.log(
       'mypage/ localStorage ->  accesstoken  값 : ',
@@ -26,28 +33,45 @@ const Top = () => {
     getUserInfo();
   }, []);
   console.log('photo : ', photo);
-  const DefaultImgDiv = styled.div`
+  const DefaultImgDiv = styled.img`
     display: block;
     margin: auto; // display: block 주고 마진 오토로 하면 이미지를 가운데정렬할수있다.
     width: 50px;
     height: 50px;
-    background-image: url(${'https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=128&d=identicon&r=PG&f=1'});
+    /* background-image: url(${'https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=128&d=identicon&r=PG&f=1'}); */
     border-radius: 50%;
+    object-fit: cover;
   `;
-  const PhotoImgDiv = styled.div`
+  const PhotoImgDiv = styled.img`
     display: block;
     margin: auto;
     border: 1px solid white;
     background-color: white;
     width: 50px;
     height: 50px;
-    background-image: url(${photo});
+    /* background-image: url(${photo}); */
     border-radius: 50%;
+    object-fit: cover;
   `;
 
+  console.log('photo : ', photo);
   return (
     <S.MyPageTopContainer>
-      {photo ? <PhotoImgDiv /> : <DefaultImgDiv />}
+      <PhotoImgDiv src={`blob:${photo}`} onError={handleErrorImg} />
+      {/* {photo ? (
+        <PhotoImgDiv
+          src={`blob:${photo}`}
+          onError={
+            'https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=128&d=identicon&r=PG&f=1'
+          }
+        /> // 불러 올때도 blob!
+      ) : (
+        <DefaultImgDiv
+          src={
+            'https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=128&d=identicon&r=PG&f=1'
+          }
+        />
+      )} */}
       <S.NickNameDiv>{nickName} 님</S.NickNameDiv>
       <S.EmailDiv>{email}</S.EmailDiv>
       <S.MyInfoAndLogoutDiv>
@@ -56,7 +80,7 @@ const Top = () => {
             navigate('/myprofile');
           }}
         >
-          My Profile
+          <MyPageIcon style={{ height: '11px' }} /> 내 정보
         </S.MyInfoDiv>
         <GenLogout />
       </S.MyInfoAndLogoutDiv>
