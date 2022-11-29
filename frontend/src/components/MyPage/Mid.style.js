@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const MyPageMidContainer = styled.div`
-  border-bottom: 2px solid black;
+  border-bottom: 3px solid #d6d9dc;
   height: 100px;
 `;
 

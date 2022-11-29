@@ -5,6 +5,7 @@ import '@kfonts/bm-dohyeon';
 export const MyPageTopContainer = styled.div`
   width: 100%;
   text-align: center;
+  padding-top: 10px;
   color: white;
   border-bottom: 2px solid #5584ac;
   border-radius: 5px;
@@ -22,12 +23,13 @@ export const EmailDiv = styled.div`
 export const MyInfoAndLogoutDiv = styled.div`
   display: flex;
   margin: 0 10px 10px 41%;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 65px;
 `;
 export const MyInfoDiv = styled.div`
   background-color: #d6d9dc;
   width: 70px;
-  /* margin-left: 2px; */
+
   padding: 4px 7px 4px 4px;
   font-size: 8px;
   color: black;

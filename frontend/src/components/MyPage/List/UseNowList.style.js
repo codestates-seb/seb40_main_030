@@ -23,11 +23,6 @@ export const SpanTextDiv = styled.div`
   margin-bottom: 3px;
   color: black;
 `;
-// export const SpanTitle = styled.span`
-//   color: black;
-//   font-size: 11px;
-//   font-weight: bold;
-// `;
 export const SpanData = styled.span`
   font-size: 10px;
   font-weight: bold;
