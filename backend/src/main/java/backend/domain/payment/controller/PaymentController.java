@@ -1,9 +1,6 @@
 package backend.domain.payment.controller;
 
-import backend.domain.payment.dto.PayBillsResDto;
-import backend.domain.payment.dto.PayPatchReqDto;
-import backend.domain.payment.dto.PayPostReqDto;
-import backend.domain.payment.dto.PayResDto;
+import backend.domain.payment.dto.*;
 import backend.domain.payment.entity.Payment;
 import backend.domain.payment.service.PaymentService;
 import backend.global.dto.PageInfoDto;
@@ -86,6 +83,28 @@ public class PaymentController {
         Page<PayResDto> dtoPage = page.map(PayResDto::new);
 
         return new ResponseEntity<>(new PageInfoDto(dtoPage), HttpStatus.OK);
+    }
+    // 최대 연장가능 시간 조회
+    @GetMapping("/{paymentId}/extend")
+    public ResponseEntity<NearReservationDto> getNearReservation(HttpServletRequest request,
+                                                                 @PathVariable Long paymentId){
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
+        String possibleExtendTime = paymentService.getNearReservation(paymentId, memberId);
+
+        return new ResponseEntity<>(new NearReservationDto(possibleExtendTime), HttpStatus.OK);
+    }
+
+    // 지정한 시간으로 반납연장하기
+    @PatchMapping("/{paymentId}/extend")
+    public ResponseEntity<ExtendTimeDto> extendEndTime(HttpServletRequest request,
+                                                       @PathVariable Long paymentId,
+                                                       @RequestParam String extendTime) {
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
+
+        Payment modifiedPayment = paymentService.extendEndTime(paymentId, extendTime);
+        ExtendTimeDto response = new ExtendTimeDto(modifiedPayment);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

@@ -48,6 +48,17 @@ public class BatteryDto {
     public static class Patch{
         private long batteryId;
         private boolean status;
+        private Integer price;
+        private Integer dafaultPrice;
+
+        public Battery toBattery(){
+            Battery battery = new Battery();
+            battery.setPrice(this.price);
+            battery.setStatus(this.status);
+            battery.setDefaultPrice(this.dafaultPrice);
+
+            return battery;
+        }
     }
 
     @Getter

@@ -48,8 +48,8 @@ public class BatteryService {
     }
 
     // 배터리 수정
-    public Battery updateBattery(long batteryId, String adminEmail){
-        Battery findBattery = findVerifiedBattery(batteryId);
+    public Battery updateBattery(Battery battery, String adminEmail){
+        Battery findBattery = findVerifiedBattery(battery.getBatteryId());
 
         // 로그인한 계정이 ADMIN인지 검증하는 로직
         if(!adminMailAddress.contains(adminEmail)) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH);
@@ -57,11 +57,10 @@ public class BatteryService {
         // 로그인 한 Admin이 실제 그 station의 주인인지 검증
         verifyAdmin(findBattery.getStation().getAdmin().getAdminId(), adminEmail);
 
-        if(!findBattery.isStatus()){
-            findBattery.setStatus(true);
-        }else{
-            findBattery.setStatus(false);
-        }
+        Optional.ofNullable(battery.getPrice()).ifPresent(findBattery::setPrice);
+        Optional.ofNullable(battery.isStatus()).ifPresent(findBattery::setStatus);
+        Optional.ofNullable(battery.getDefaultPrice()).ifPresent(findBattery::setDefaultPrice);
+
         findBattery.setModifiedAt(LocalDateTime.now());
 
         return batteryRepository.save(findBattery);

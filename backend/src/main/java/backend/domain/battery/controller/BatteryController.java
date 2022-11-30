@@ -52,9 +52,12 @@ public class BatteryController {
     // 해당 ID 배터리 수정
     @PatchMapping("/{batteryId}")
     public ResponseEntity patchBattery(HttpServletRequest request,
-                                       @PathVariable("batteryId") @Positive long batteryId){
+                                       @PathVariable("batteryId") @Positive long batteryId,
+                                       @RequestBody BatteryDto.Patch requestBody){
         String adminEmail = jwtExtractUtils.extractEmailFromJwt(request);
-        Battery updateBattery = batteryService.updateBattery(batteryId, adminEmail);
+        Battery battery = requestBody.toBattery();
+        battery.setBatteryId(batteryId);
+        Battery updateBattery = batteryService.updateBattery(battery, adminEmail);
         BatteryDto.Response response = new BatteryDto.Response(updateBattery);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

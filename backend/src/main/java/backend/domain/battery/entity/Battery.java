@@ -30,10 +30,10 @@ public class Battery {
     private boolean status;
 
     @Column
-    private int price;
+    private Integer price;
 
     @Column
-    private int defaultPrice;
+    private Integer defaultPrice;
 
     @Column
     private String batteryName;
