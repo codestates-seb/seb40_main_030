@@ -110,8 +110,11 @@ public class StationService {
         LocalDateTime endTime = LocalDateTime.parse(end, format);
 
         // 입력 시간이 유효한 예약시간인지 검증. 종료시간이 시작시간 빠르거나, 시작 시간이 현재시간보다 빠를 때 엣지케이스
-        if (endTime.isBefore(startTime) || startTime.isBefore(LocalDateTime.now()))
-            throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
+        if (endTime.isBefore(startTime) || startTime.isBefore(LocalDateTime.now())) {
+//            throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
+            station.setBattery(new ArrayList<>());
+            return station;
+        }
 
         List<Battery> list = station.getBattery();
         List<Battery> unavailableBatteryList = new ArrayList<>();
@@ -153,8 +156,8 @@ public class StationService {
         // 기본 주소는 코드스테이츠
         StationSearch defaultStation = new StationSearch();
         // default 위치 설정
-        defaultStation.setLatitude(127.02475418);
-        defaultStation.setLongitude(37.49655445);
+        defaultStation.setLatitude(37.49655445);
+        defaultStation.setLongitude(127.02475418);
         defaultStation.setConfirmId(1615822138);  // 건물 Id
         // default 시간 설정 (30분 간격)
         String defaultStartTime = LocalDateTime.now().plusMinutes(10).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
@@ -174,8 +177,7 @@ public class StationService {
         LocalDateTime endT = LocalDateTime.parse(defaultStation.getEndTime());
 
         // 입력 시간이 유효한 예약시간인지 검증. 종료시간이 시작시간 빠르거나, 시작 시간이 현재시간보다 빠를 때 엣지케이스
-        if (endT.isBefore(startT) || startT.isBefore(LocalDateTime.now()))
-            throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
+        if (endT.isBefore(startT) || startT.isBefore(LocalDateTime.now())) throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
 
         // 객체 필드값을 중점으로 해서 반경검색 구현하기
         Double minLat = defaultStation.getLatitude() - 0.01171531;  // 위/아래 역 하나정도의 거리차이 = 0.00912237 == 0.01
@@ -183,12 +185,50 @@ public class StationService {
         Double minLog = defaultStation.getLongitude() - 0.01171531;  // 좌/우 역 하나정도의 거리차이 = 0.01171529 == 0.01
         Double maxLog = defaultStation.getLongitude() + 0.01171531;
 
-        List<Station> originList = stationRepository.findAllByOrderByCreatedAtDesc();
+        List<Station> originList = stationRepository.findAll();
         List<Station> filteredList = originList.stream()
                 .filter(a -> a.getLatitude() >= minLat && a.getLatitude() <= maxLat)
                 .filter(b -> b.getLongitude() >= minLog && b.getLongitude() <= maxLog)
                 .collect(Collectors.toList());
 
+        List<StationSearch> searchList = StationTimeFilter(defaultStation, startT, endT, filteredList);
+
+        return searchList;
+    }
+
+
+    public List<StationSearch> getStationsSearchAll(StationSearch search) {
+        // 기본 주소는 코드스테이츠
+        StationSearch defaultStation = new StationSearch();
+        // default 위치 설정
+        defaultStation.setLatitude(37.49655445);
+        defaultStation.setLongitude(127.02475418);
+        defaultStation.setConfirmId(1615822138);  // 건물 Id
+        // default 시간 설정 (30분 간격)
+        String defaultStartTime = LocalDateTime.now().plusMinutes(10).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        String defaultEndTime = LocalDateTime.now().plusMinutes(40).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        defaultStation.setStartTime(defaultStartTime);
+        defaultStation.setEndTime(defaultEndTime);
+
+        // 만약 위경도 값 or confirmId or 시간변경값 들어오면 그 값으로 객체 필드값 변경
+        Optional.ofNullable(search.getStartTime()).ifPresent(defaultStation::setStartTime);
+        Optional.ofNullable(search.getEndTime()).ifPresent(defaultStation::setEndTime);
+
+        // 요청으로 받은 시간 또는 디플트 시간을 설정
+        LocalDateTime startT = LocalDateTime.parse(defaultStation.getStartTime());
+        LocalDateTime endT = LocalDateTime.parse(defaultStation.getEndTime());
+
+        // 입력 시간이 유효한 예약시간인지 검증. 종료시간이 시작시간 빠르거나, 시작 시간이 현재시간보다 빠를 때 엣지케이스
+        if (endT.isBefore(startT) || startT.isBefore(LocalDateTime.now())) throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
+
+        List<Station> originList = stationRepository.findAll();
+
+        List<StationSearch> searchList = StationTimeFilter(defaultStation, startT, endT, originList);
+
+        return searchList;
+    }
+
+    private static List<StationSearch> StationTimeFilter(StationSearch defaultStation, LocalDateTime startT, LocalDateTime endT, List<Station> filteredList) {
         // Station을 StationSearch로 변환
         List<StationSearch> searchList = new ArrayList<>();
         for (int i = 0; i < filteredList.size(); i++) {
@@ -234,6 +274,10 @@ public class StationService {
                         if (!unavailableBatteryList.contains(battery)) {
                             unavailableBatteryList.add(battery);
                         }
+                    } else if (startT.isEqual(reserveStart) || startT.isEqual(reserveEnd) || endT.isEqual(reserveStart) || endT.isEqual(reserveEnd)) {
+                        if (!unavailableBatteryList.contains(battery)) {
+                            unavailableBatteryList.add(battery);
+                        }
                     }
                 }
             }
@@ -242,13 +286,12 @@ public class StationService {
             searchList.get(i).setCount(list.size());
             searchList.get(i).setBatteryList(list);
         }
-
         return searchList;
     }
 
 
     // 키워드에 해당하는 단일 대여소 응답
-    public Station getKeywordStation(String keyword) {
+    public Station getKeywordStation (String keyword) {
         Station station = stationRepository.findByStationContains(keyword)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
 

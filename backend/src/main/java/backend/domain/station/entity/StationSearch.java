@@ -50,4 +50,9 @@ public class StationSearch extends BaseTime {
         this.endTime = endTime;
     }
 
+    public StationSearch(String startTime, String endTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
 }
