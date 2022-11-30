@@ -10,6 +10,7 @@ import backend.domain.station.repository.StationRepository;
 import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.exceptionCode.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,8 @@ public class StationService {
 
     private final StationRepository stationRepository;
     private final AdminRepository adminRepository;
+    @Value("${mail.address.admin.list}")
+    private List<String> adminMailAddress;
 
 
     @Transactional
@@ -36,22 +39,27 @@ public class StationService {
         Admin admin = adminRepository.findByEmail(adminEmail)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH));
         station.setAdmin(admin);
+        // 로그인한 계정이 ADMIN인지 검증하는 로직
+        if(!adminMailAddress.contains(adminEmail)) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH);
+
+        // 로그인 한 Admin이 실제 그 station의 주인인지 검증
+        verifyAdmin(station.getAdmin().getAdminId(),adminEmail);
 
         return stationRepository.save(station);
     }
 
     @Transactional
-    public Station patchStation(Station station, Long adminId) {
-        // 해당 관리자 계정이 있는지 검증 (유저가 접근했을때 방지)
-        adminRepository.findById(adminId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH));
+    public Station patchStation(Station station, String adminEmail) {
+
+        // 로그인한 계정이 ADMIN인지 검증하는 로직
+        if(!adminMailAddress.contains(adminEmail)) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH);
+
         // 해당 스테이션 유무 조회
         Station savedStation = stationRepository.findById(station.getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
-        // 해당 스테이션이 로그인한 관리자(admin)소유가 맞는지 검증
-        if (savedStation.getAdmin().getAdminId()!=adminId) {
-            throw new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY);
-        }
+
+        // 로그인 한 Admin이 실제 그 station의 주인인지 검증
+        verifyAdmin(savedStation.getAdmin().getAdminId(),adminEmail);
 
         Optional.ofNullable(station.getName()).ifPresent(savedStation::setName);
         Optional.ofNullable(station.getDetails()).ifPresent(savedStation::setDetails);
@@ -65,15 +73,16 @@ public class StationService {
     }
 
     @Transactional
-    public void deleteStation(Long stationId, Long adminId) {
-        adminRepository.findById(adminId)
+    public void deleteStation(Long stationId, String adminEmail) {
+        // 로그인한 계정이 ADMIN인지 검증하는 로직
+        if(!adminMailAddress.contains(adminEmail)) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH);
+        adminRepository.findByEmail(adminEmail)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH));
         Station existStation = stationRepository.findById(stationId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
-        // 해당 스테이션이 로그인한 관리자(admin)소유가 맞는지 검증
-        if (existStation.getAdmin().getAdminId()!=adminId) {
-            throw new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY);
-        }
+        // 로그인 한 Admin이 실제 그 station의 주인인지 검증
+        verifyAdmin(existStation.getAdmin().getAdminId(),adminEmail);
+
 
         stationRepository.delete(existStation);
     }
@@ -252,6 +261,14 @@ public class StationService {
         List<Station> list = stationRepository.findWithAllByStationContainsByCreatedAtDesc(keyword);
 
         return list;
+    }
+
+    private void verifyAdmin (Long savedAdminId, String adminEmail) {
+        Admin admin = adminRepository.findByEmail(adminEmail)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ADMIN_NOT_FOUND));
+        if(savedAdminId!=admin.getAdminId()){
+            throw new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY);
+        }
     }
 
 }

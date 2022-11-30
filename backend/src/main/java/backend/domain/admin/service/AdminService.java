@@ -21,7 +21,6 @@ public class AdminService {
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils customAuthorityUtils;
-
     @Value("${mail.address.admin.list}")
     private List<String> adminMailAddress;
 
@@ -81,7 +80,7 @@ public class AdminService {
         Admin findAdmin = adminRepository.findByEmail(adminEmail)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY));
 
-        // 역할때매 안지워지나봄  => 멤버쪽도?
+        // 연관관계 매핑때문?
         adminRepository.delete(findAdmin);
     }
 

@@ -43,8 +43,8 @@ public class StationController {
                                                        @PathVariable Long stationId,
                                                        @RequestBody StationPatchReqDto stationPatchReqDto) {
         Station station = stationPatchReqDto.toStation(stationId);
-        Long adminId = jwtExtractUtils.extractMemberIdFromJwt(request);
-        Station modifiedStation = stationService.patchStation(station, adminId);
+        String adminEmail = jwtExtractUtils.extractEmailFromJwt(request);
+        Station modifiedStation = stationService.patchStation(station, adminEmail);
 
         return new ResponseEntity<>(new StationResDto(modifiedStation), HttpStatus.OK);
     }
@@ -53,8 +53,8 @@ public class StationController {
     @DeleteMapping("/{stationId}")
     public ResponseEntity<SingleResDto<String>> deleteStation (HttpServletRequest request,
                                                                @PathVariable Long stationId) {
-        Long adminId = jwtExtractUtils.extractMemberIdFromJwt(request);
-        stationService.deleteStation(stationId, adminId);
+        String adminEmail = jwtExtractUtils.extractEmailFromJwt(request);
+        stationService.deleteStation(stationId, adminEmail);
 
         return new ResponseEntity<>(new SingleResDto<>("Success Delete"), HttpStatus.OK);
     }
