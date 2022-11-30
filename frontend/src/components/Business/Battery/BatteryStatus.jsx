@@ -4,7 +4,7 @@ import { batteryFilterState } from '@/recoil/business';
 
 import * as S from './Battery.style';
 
-const BatteryStatus = ({ status, count }) => {
+const BatteryStatus = ({ status, count, textState }) => {
   const setSelectedFilter = useSetRecoilState(batteryFilterState);
 
   const clickHandler = () => {
@@ -18,16 +18,17 @@ const BatteryStatus = ({ status, count }) => {
         status={status}
         count={count}
       >
-        <div>
-          {status === 'total'
-            ? '전체'
-            : status === true
-            ? '대여가능'
-            : status === false
-            ? '사용중'
-            : null}
+        <div className='status-color' />
+        <div className='status-title'>
+          {textState &&
+            (status === 'total'
+              ? '전체'
+              : status === true
+              ? '대여가능'
+              : status === false
+              ? '사용중'
+              : null)}
         </div>
-        {typeof count === 'number' ? <div>{count}개</div> : null}
       </S.BatteryStatusContainer>
     </>
   );

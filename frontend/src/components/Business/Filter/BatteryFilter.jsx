@@ -9,7 +9,14 @@ const BatteryFilter = ({ countList }) => {
           const state =
             idx === 0 ? 'total' : idx === 1 ? true : idx === 2 ? false : null;
 
-          return <BatteryStatus key={idx} status={state} count={eachCount} />;
+          return (
+            <BatteryStatus
+              key={idx}
+              status={state}
+              count={eachCount}
+              textState={true}
+            />
+          );
         })}
       </S.BatteryFilterContainer>
     </>

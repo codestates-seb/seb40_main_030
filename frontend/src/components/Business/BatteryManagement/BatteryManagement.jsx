@@ -16,12 +16,10 @@ const BatteryManagement = () => {
     setIsAddMode((preState) => !preState);
   };
   const deleteHandler = () => {
-    console.log('삭제');
     setIsDeleteMode((preState) => !preState);
   };
   return (
     <S.ButtonWrapper>
-      <BatteryManagementButton onClick={() => addHandler()} action={'add'} />
       <BatteryManagementButton
         onClick={() => deleteHandler()}
         action={'remove'}

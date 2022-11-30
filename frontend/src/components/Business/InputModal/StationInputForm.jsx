@@ -8,7 +8,7 @@ import useSnackBar from '../../../hooks/commons/useSnackBar';
 import SnackBar from '../../@commons/SnackBar/SnackBar';
 import * as S from './InputModal.style';
 
-const StationInputForm = () => {
+const StationInputForm = ({ closeModalHandler }) => {
   const [location, setLocation] = useState();
   const { inputRef, locationData, setKeyword } = useSearchMap();
   const { addMutate, setIsAddMode } = useAddStation();
@@ -29,7 +29,6 @@ const StationInputForm = () => {
       photoURL: 'www',
     };
 
-    console.log('입력폼 data는', body);
     addMutate(body);
     reset();
     setKeyword('');
@@ -43,7 +42,6 @@ const StationInputForm = () => {
     ${errors.phone ? `phone : ${errors.phone.message}` : ''}
     ${errors.location ? `location : ${errors.location.message}` : ''}`;
     openSnackBar(message);
-    console.log('에러', errors);
   };
 
   const onClickHandler = (e, location) => {

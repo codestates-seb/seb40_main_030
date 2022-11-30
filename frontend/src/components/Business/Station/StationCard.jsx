@@ -3,9 +3,15 @@ import StationDeleteButton from './StationDeleteButton';
 import StationDetails from './StationDetails';
 import StationStatus from './StationStatus';
 
-const StationCard = ({ imgUrl, details, batteryCount, stationId }) => {
+const StationCard = ({
+  openModalHandler,
+  imgUrl,
+  details,
+  batteryCount,
+  stationId,
+}) => {
   return (
-    <S.StationContainer>
+    <S.StationContainer onClick={openModalHandler}>
       <S.LeftAlignWrapper>
         <S.StationImgContainer>
           <img src={imgUrl}></img>
@@ -14,10 +20,10 @@ const StationCard = ({ imgUrl, details, batteryCount, stationId }) => {
       </S.LeftAlignWrapper>
       <S.RightAlignWrapper>
         <StationStatus batteryCount={batteryCount} />
-        <StationDeleteButton
+        {/* <StationDeleteButton
           batteryCount={batteryCount}
           stationId={stationId}
-        />
+        /> */}
       </S.RightAlignWrapper>
     </S.StationContainer>
   );

@@ -12,7 +12,6 @@ const StationManagement = () => {
   const setIsAddMode = useSetRecoilState(stationAddModeState);
 
   const addHandler = () => {
-    console.log('주유소 등록');
     if (isDeleteMode) setIsDeleteMode(false);
     setIsAddMode((preState) => !preState);
   };

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
-  opacity: ${({ isAddMode }) => (isAddMode ? '1' : '0')};
-  visibility: ${({ isAddMode }) => (isAddMode ? 'visible' : 'hidden')};
+  opacity: ${({ isActiveMode }) => (isActiveMode ? '1' : '0')};
+  visibility: ${({ isActiveMode }) => (isActiveMode ? 'visible' : 'hidden')};
   transition: all 0.5s ease;
   width: 100%;
   height: 100vh;

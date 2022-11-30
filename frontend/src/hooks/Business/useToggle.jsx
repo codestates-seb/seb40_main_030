@@ -1,21 +1,20 @@
 import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-
-import {
-  batteryDeleteModeState,
-  stationDeleteModeState,
-} from '@/recoil/business';
 const useToggle = () => {
-  const [isClicked, setIsClicked] = useState(false);
-  const setIsBatteryDeleteMode = useSetRecoilState(batteryDeleteModeState);
-  const setIsStationDeleteMode = useSetRecoilState(stationDeleteModeState);
-  const clickToggleHandler = () => {
-    setIsClicked((prev) => !prev);
-    setIsBatteryDeleteMode(false);
-    setIsStationDeleteMode(false);
+  const [clickPage, setClickPage] = useState('battery');
+
+  const SelectBatteryHandler = () => {
+    setClickPage('battery');
+  };
+  const SelectStationModeHandler = () => {
+    setClickPage('station');
   };
 
-  return { isClicked, setIsClicked, clickToggleHandler };
+  return {
+    clickPage,
+    setClickPage,
+    SelectStationModeHandler,
+    SelectBatteryHandler,
+  };
 };
 
 export default useToggle;

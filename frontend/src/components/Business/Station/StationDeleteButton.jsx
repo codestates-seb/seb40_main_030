@@ -2,9 +2,8 @@ import useDelStation from '../../../hooks/Business/useDelStation';
 import * as S from './Station.style';
 
 const StationDeleteButton = ({ batteryCount, stationId }) => {
-  const { deleteMutate, isDeleteMode } = useDelStation('stationInfo');
+  const { deleteMutate, isDeleteMode } = useDelStation(['stationInfo']);
   const deleteHandler = () => {
-    console.log('stationId', stationId);
     deleteMutate(stationId);
   };
 

@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+const CounterContainer = styled.div`
+  height: 20px;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+`;
 const ButtonContainer = styled.button`
   width: 140px;
   height: 50px;
@@ -28,4 +34,4 @@ const ButtonWrapper = styled.div`
   gap: 40px;
 `;
 
-export { ButtonContainer, ButtonWrapper };
+export { CounterContainer, ButtonContainer, ButtonWrapper };

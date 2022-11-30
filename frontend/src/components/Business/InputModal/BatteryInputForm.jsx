@@ -35,7 +35,6 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
       // batteryId: Math.random(),
       ...data,
     };
-    console.log('입력폼 data는', body);
     addMutate(body);
     reset();
     setIsAddMode(false);
@@ -145,7 +144,7 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
           </div>
           <div className='error-box'>{errors?.stationId?.message}</div>
           <div className='submit-container'>
-            <input className='submit' type='submit' />
+            <input className='submit' type='submit' value='등록' />
           </div>
         </form>
       </S.InputModalContainer>

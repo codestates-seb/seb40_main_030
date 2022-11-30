@@ -1,17 +1,21 @@
 import styled from 'styled-components';
 
+const StationListWrapper = styled.div`
+  border-top: 2px solid gray;
+`;
+
 const StationListContainer = styled.ul`
-  height: 527px;
+  height: 620px;
   width: 330px;
   display: flex;
   flex-direction: column;
-  padding-top: 15px;
-  padding-bottom: 15px;
+
   align-items: center;
   gap: 15px;
   overflow: auto;
-
-  border-top: 1px solid gray;
+  padding-top: 5px;
+  /* 
+  border-top: 1px solid gray; */
   border-bottom: 1px solid gray;
 `;
 
@@ -41,10 +45,10 @@ const StationImgContainer = styled.div`
 `;
 const StationDetailsContainer = styled.ul`
   font-size: 15px;
-  width: 153px;
-  white-space: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
+  /* width: 153px; */
+  /* white-space: nowrap; */
+  /* overflow-x: auto;
+  overflow-y: hidden; */
 `;
 
 const LeftAlignWrapper = styled.div`
@@ -53,8 +57,9 @@ const LeftAlignWrapper = styled.div`
 `;
 
 const RightAlignWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  left: 15px;
+  bottom: 10px;
   gap: 10px;
 `;
 
@@ -71,32 +76,29 @@ const DeleteButtonWrapper = styled.div`
 `;
 
 const StationStatusContainer = styled.div`
-  width: 76px;
-  height: 27px;
-  font-size: 15px;
-  border-radius: 15px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  gap: 10px;
+  & .status-title {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
 
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
-
-  background-color: ${({ batteryCount, status }) =>
-    status === 'total'
-      ? '#DADADA'
-      : status === true || batteryCount > 0
-      ? '#7BEB5F'
-      : '#EEDA25'};
-  cursor: ${({ status }) =>
-    status === 'total' || typeof status === 'boolean' ? 'pointer' : null};
-  width: ${({ status }) =>
-    status === 'total' || typeof status === 'boolean' ? '65px' : null};
-  height: ${({ status }) =>
-    status === 'total' || typeof status === 'boolean' ? '65px' : null};
-  border-radius: ${({ status }) =>
-    status === 'total' || typeof status === 'boolean' ? '100px' : null};
-  & .station-state-text {
+  & .status-color {
+    background-color: ${({ batteryCount, status }) =>
+      status === 'total'
+        ? '#DADADA'
+        : status === true || batteryCount > 0
+        ? '#7BEB5F'
+        : '#EEDA25'};
+    cursor: ${({ status }) =>
+      status === 'total' || typeof status === 'boolean' ? 'pointer' : null};
+    width: ${({ status }) =>
+      status === 'total' || typeof status === 'boolean' ? '20px' : '28px'};
+    height: ${({ status }) =>
+      status === 'total' || typeof status === 'boolean' ? '20px' : '28px'};
+    border-radius: ${({ status }) =>
+      status === 'total' || typeof status === 'boolean' ? '15px' : '16px'};
     text-align: center;
   }
 `;
@@ -128,4 +130,5 @@ export {
   StationButtonWrapper,
   DeleteButtonWrapper,
   StationStatusContainer,
+  StationListWrapper,
 };

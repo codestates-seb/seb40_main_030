@@ -11,8 +11,9 @@ const StationFilter = ({ countList }) => {
           return (
             <StationStatus
               key={idx}
-              totalStateCnt={totalStateCnt}
               status={status}
+              // totalStateCnt={totalStateCnt}
+              textState={true}
             />
           );
         })}

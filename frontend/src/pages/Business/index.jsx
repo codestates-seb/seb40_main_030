@@ -7,17 +7,23 @@ import BatteryContent from './BatteryContent';
 import StationContent from './StationContent';
 
 const Business = () => {
-  const { isClicked, clickToggleHandler } = useToggle();
+  const { clickPage, SelectStationModeHandler, SelectBatteryHandler } =
+    useToggle();
 
   login(); //로그인 임시 테스트
 
   return (
     <PageWrapper title={'사장님'} path={'/'}>
+      {clickPage === 'battery' ? (
+        <BatteryContent clickPage={clickPage} />
+      ) : (
+        <StationContent clickPage={clickPage} />
+      )}
       <NavigationBar
-        isClicked={isClicked}
-        clickToggleHandler={clickToggleHandler}
+        clickPage={clickPage}
+        SelectBatteryHandler={SelectBatteryHandler}
+        SelectStationModeHandler={SelectStationModeHandler}
       />
-      {isClicked ? <StationContent /> : <BatteryContent />}
     </PageWrapper>
   );
 };

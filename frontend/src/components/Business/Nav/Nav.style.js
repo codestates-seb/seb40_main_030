@@ -5,18 +5,14 @@ const NavigationBarWrapper = styled.div`
   height: 50px;
 
   display: flex;
-  justify-content: end;
+  justify-content: center;
 `;
 
 const NavigationBarContainer = styled.div`
   display: flex;
   justify-content: center;
-
-  & div {
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-  }
+  align-items: center;
+  gap: 20px;
 `;
 
 const ToggleButtonContainer = styled.button`

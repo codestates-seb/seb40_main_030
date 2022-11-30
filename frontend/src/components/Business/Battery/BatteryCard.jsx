@@ -1,11 +1,10 @@
 import * as S from './Battery.style';
-import BatteryDeleteButton from './BatteryDeleteButton';
 import BatteryDetails from './BatteryDetails';
 import BatteryStatus from './BatteryStatus';
 
-const BatteryCard = ({ imgUrl, details, status, batteryId }) => {
+const BatteryCard = ({ openModalHandler, imgUrl, details, status }) => {
   return (
-    <S.BatteryContainer>
+    <S.BatteryContainer onClick={openModalHandler}>
       <S.LeftAlignWrapper>
         <S.BatteryImgContainer>
           <img src={imgUrl}></img>
@@ -14,7 +13,7 @@ const BatteryCard = ({ imgUrl, details, status, batteryId }) => {
       </S.LeftAlignWrapper>
       <S.RightAlignWrapper>
         <BatteryStatus status={status} />
-        <BatteryDeleteButton status={status} batteryId={batteryId} />
+        {/* <BatteryDeleteButton status={status} batteryId={batteryId} /> */}
       </S.RightAlignWrapper>
     </S.BatteryContainer>
   );

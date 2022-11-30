@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const BatteryFilterContainer = styled.ul`
-  height: 65px;
+  /* height: 65px; */
 
   display: flex;
   justify-content: center;

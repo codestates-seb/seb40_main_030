@@ -1,6 +1,6 @@
-import KakaoLogin from './KakaoLogin';
-import * as S from '../../pages/Login/Login.style';
 import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
+import * as S from '../../pages/Login/Login.style';
+import KakaoLogin from './KakaoLogin';
 
 const LoginForm = () => {
   const { loginClickHandler, isAuthorized } = useKakaoLogin();

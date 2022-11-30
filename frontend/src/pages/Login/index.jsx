@@ -1,9 +1,10 @@
-import LoginForm from '../../components/Login/LoginForm';
-import * as S from './Login.style';
-import { useRecoilValue } from 'recoil';
-import { loginState } from '../../recoil/login';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+
+import LoginForm from '../../components/Login/LoginForm';
+import { loginState } from '../../recoil/login';
+import * as S from './Login.style';
 
 const Login = () => {
   const isAuthorized = useRecoilValue(loginState);

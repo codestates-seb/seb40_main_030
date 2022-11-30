@@ -45,6 +45,10 @@ const filterStation = (adminInfo) => {
       photoURL: station.photoURL,
       batteryCount: station.battery.length,
       phone: station.phone,
+      location: {
+        latitude: station.latitude,
+        longitude: station.longitude,
+      },
     };
   });
   return result;
