@@ -1,5 +1,7 @@
 package backend.domain.station.service;
 
+import backend.domain.admin.entity.Admin;
+import backend.domain.admin.repository.AdminRepository;
 import backend.domain.battery.entity.Battery;
 import backend.domain.battery.entity.Reservation;
 import backend.domain.station.entity.Station;
@@ -26,17 +28,30 @@ import java.util.stream.Collectors;
 public class StationService {
 
     private final StationRepository stationRepository;
+    private final AdminRepository adminRepository;
+
 
     @Transactional
-    public Station postStation(Station station) {
+    public Station postStation(Station station, String adminEmail) {
+        Admin admin = adminRepository.findByEmail(adminEmail)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH));
+        station.setAdmin(admin);
 
         return stationRepository.save(station);
     }
 
     @Transactional
-    public Station patchStation(Station station) {
+    public Station patchStation(Station station, Long adminId) {
+        // 해당 관리자 계정이 있는지 검증 (유저가 접근했을때 방지)
+        adminRepository.findById(adminId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH));
+        // 해당 스테이션 유무 조회
         Station savedStation = stationRepository.findById(station.getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
+        // 해당 스테이션이 로그인한 관리자(admin)소유가 맞는지 검증
+        if (savedStation.getAdmin().getAdminId()!=adminId) {
+            throw new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY);
+        }
 
         Optional.ofNullable(station.getName()).ifPresent(savedStation::setName);
         Optional.ofNullable(station.getDetails()).ifPresent(savedStation::setDetails);
@@ -50,9 +65,16 @@ public class StationService {
     }
 
     @Transactional
-    public void deleteStation(Long stationId) {
+    public void deleteStation(Long stationId, Long adminId) {
+        adminRepository.findById(adminId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH));
         Station existStation = stationRepository.findById(stationId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
+        // 해당 스테이션이 로그인한 관리자(admin)소유가 맞는지 검증
+        if (existStation.getAdmin().getAdminId()!=adminId) {
+            throw new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY);
+        }
+
         stationRepository.delete(existStation);
     }
 
@@ -79,7 +101,8 @@ public class StationService {
         LocalDateTime endTime = LocalDateTime.parse(end, format);
 
         // 입력 시간이 유효한 예약시간인지 검증. 종료시간이 시작시간 빠르거나, 시작 시간이 현재시간보다 빠를 때 엣지케이스
-        if (endTime.isBefore(startTime) || startTime.isBefore(LocalDateTime.now())) throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
+        if (endTime.isBefore(startTime) || startTime.isBefore(LocalDateTime.now()))
+            throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
 
         List<Battery> list = station.getBattery();
         List<Battery> unavailableBatteryList = new ArrayList<>();
@@ -142,7 +165,8 @@ public class StationService {
         LocalDateTime endT = LocalDateTime.parse(defaultStation.getEndTime());
 
         // 입력 시간이 유효한 예약시간인지 검증. 종료시간이 시작시간 빠르거나, 시작 시간이 현재시간보다 빠를 때 엣지케이스
-        if (endT.isBefore(startT) || startT.isBefore(LocalDateTime.now())) throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
+        if (endT.isBefore(startT) || startT.isBefore(LocalDateTime.now()))
+            throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
 
         // 객체 필드값을 중점으로 해서 반경검색 구현하기
         Double minLat = defaultStation.getLatitude() - 0.01171531;  // 위/아래 역 하나정도의 거리차이 = 0.00912237 == 0.01
@@ -215,7 +239,7 @@ public class StationService {
 
 
     // 키워드에 해당하는 단일 대여소 응답
-    public Station getKeywordStation (String keyword) {
+    public Station getKeywordStation(String keyword) {
         Station station = stationRepository.findByStationContains(keyword)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
 

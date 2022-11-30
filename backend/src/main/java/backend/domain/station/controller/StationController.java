@@ -6,6 +6,7 @@ import backend.domain.station.entity.StationSearch;
 import backend.domain.station.service.StationService;
 import backend.global.dto.PageInfoDto;
 import backend.global.dto.SingleResDto;
+import backend.global.security.utils.JwtExtractUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,10 +25,13 @@ import java.util.stream.Collectors;
 public class StationController {
 
     private final StationService stationService;
+    private final JwtExtractUtils jwtExtractUtils;
 
     @PostMapping
-    public ResponseEntity<StationResDto> postStation (@RequestBody StationPostReqDto stationPostReqDto ) {
-        Station savedStation = stationService.postStation(stationPostReqDto.toStation());
+    public ResponseEntity<StationResDto> postStation (HttpServletRequest request,
+                                                      @RequestBody StationPostReqDto stationPostReqDto ) {
+        String adminEmail = jwtExtractUtils.extractEmailFromJwt(request);
+        Station savedStation = stationService.postStation(stationPostReqDto.toStation(), adminEmail);
         StationResDto stationResDto = new StationResDto(savedStation);
 
         return new ResponseEntity<>(stationResDto, HttpStatus.CREATED);
@@ -34,18 +39,22 @@ public class StationController {
 
 
     @PatchMapping("/{stationId}")
-    public ResponseEntity<StationResDto> patchStation (@PathVariable Long stationId,
+    public ResponseEntity<StationResDto> patchStation (HttpServletRequest request,
+                                                       @PathVariable Long stationId,
                                                        @RequestBody StationPatchReqDto stationPatchReqDto) {
         Station station = stationPatchReqDto.toStation(stationId);
-        Station modifiedStation = stationService.patchStation(station);
+        Long adminId = jwtExtractUtils.extractMemberIdFromJwt(request);
+        Station modifiedStation = stationService.patchStation(station, adminId);
 
         return new ResponseEntity<>(new StationResDto(modifiedStation), HttpStatus.OK);
     }
 
 
     @DeleteMapping("/{stationId}")
-    public ResponseEntity<SingleResDto<String>> deleteStation (@PathVariable Long stationId) {
-        stationService.deleteStation(stationId);
+    public ResponseEntity<SingleResDto<String>> deleteStation (HttpServletRequest request,
+                                                               @PathVariable Long stationId) {
+        Long adminId = jwtExtractUtils.extractMemberIdFromJwt(request);
+        stationService.deleteStation(stationId, adminId);
 
         return new ResponseEntity<>(new SingleResDto<>("Success Delete"), HttpStatus.OK);
     }
