@@ -33,7 +33,7 @@ public class StationSearchResDto extends BaseTime {
         this.details = stationSearch.getDetails();
         StationLocation location = new StationLocation();
         location.setLatitude(stationSearch.getLatitude());
-        location.setLatitude(stationSearch.getLongitude());
+        location.setLongitude(stationSearch.getLongitude());
         this.location = location;
         this.photoURL = stationSearch.getPhotoURL();
         this.phone = stationSearch.getPhone();
