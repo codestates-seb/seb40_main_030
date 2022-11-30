@@ -13,7 +13,7 @@ const MotionWrapper = styled(motion.div)`
 
   background: #fff;
 
-  overflow: hidden;
+  /* overflow: hidden; */
 
   z-index: 13;
 
@@ -27,7 +27,7 @@ const MotionWrapper = styled(motion.div)`
     // overflow 시에도 box-shadow 남겨주는 영역
     margin-top: 8px;
     flex-grow: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin: 0px -32px;
     margin-top: 8px;
     padding: 0px 32px;
@@ -42,7 +42,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 8%;
+  min-height: 8%;
   border-bottom: 1px solid lightgrey;
 
   z-index: 13;

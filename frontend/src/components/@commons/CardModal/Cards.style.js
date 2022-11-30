@@ -87,7 +87,7 @@ const Details = styled.div`
 
 // ShadowCard
 
-const ShadowCard = styled.div`
+const ShadowCard = styled(motion.div)`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
