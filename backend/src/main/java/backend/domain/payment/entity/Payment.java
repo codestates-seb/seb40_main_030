@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor @AllArgsConstructor
@@ -49,4 +50,13 @@ public class Payment extends BaseTime {
     @JsonManagedReference
     private List<Reservation> reservations;
 
+
+    public Payment(String startTime, String endTime, int totalAmount) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.totalPrice = totalAmount;
+        this.status = PayStatus.IN_PROGRESS;
+        setCreatedAt(LocalDateTime.now());
+        setModifiedAt(LocalDateTime.now());
+    }
 }
