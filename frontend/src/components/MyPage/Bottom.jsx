@@ -3,6 +3,7 @@ import * as S from './Bottom.style';
 import ReservingList from './List/ReservingList';
 import UseNowList from './List/UseNowList';
 import useMyPageBottom from '../../hooks/MyPage/useMyPageBottom';
+import { GlassIcon } from '../../assets';
 
 const Bottom = () => {
   const { getUserPayment, listData } = useMyPageBottom();
@@ -24,14 +25,15 @@ const Bottom = () => {
     <S.MyPageBottomContainer>
       <S.ReservingListDiv>
         <S.ReservingText>예약 현황</S.ReservingText>
-        {filterReserving.length &&
+        {filterReserving &&
           filterReserving.map((data) => (
             <ReservingList data={data} key={data.id} />
           ))}
+        {/* 0 일때 삼항연산자 ㄱ  */}
       </S.ReservingListDiv>
       <S.UseNowListDiv>
         <S.UseNowText>사용 현황</S.UseNowText>
-        {filterUseNow.length &&
+        {filterUseNow &&
           filterUseNow.map((data) => <UseNowList data={data} key={data.id} />)}
       </S.UseNowListDiv>
     </S.MyPageBottomContainer>

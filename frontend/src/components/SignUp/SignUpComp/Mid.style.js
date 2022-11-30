@@ -2,47 +2,39 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import '@kfonts/bm-dohyeon'; // 배민 도현체 설치후 import
-// ⚠
 
 export const SignUpContainer = styled.div`
   width: 100%;
   height: 100%;
 `;
-// export const SignUpTopContainer = styled.div`
-//   display: flex;
-//   background-color: #7b8c9f;
-// `;
-// export const HomeIcon = styled.div`
-//   padding: 5px 0 5px 10px;
-//   font-size: 30px;
-// `;
-// export const SignUpText = styled.div`
-//   width: 100%;
-//   padding: 13px 20px 0 0;
-//   text-align: center;
-//   font-family: 'bm-dohyeon';
-// `;
 export const SignUpMidContainer = styled.div`
   padding: 50px 10px 0 10px;
+  width: 100%;
+  height: 100%;
 `;
 
 export const SignUpPhotoDiv = styled.div`
   margin-bottom: 10px;
+  padding: 0 0 0 0;
+  margin-bottom: 30px;
+  input {
+    width: 23%;
+  }
 `;
 
 export const SignUpPhoto = styled.div`
-  width: 70px;
+  width: 100%;
   height: 70px;
   margin-bottom: 20px;
-
-  /* border: 1px solid black; */
+  font-size: 14px;
 `;
 export const PreviewImg = styled.img`
-  border: 1px solid black;
-  /* display: inline-block; */
+  margin: 0 0 0 110px;
   border-radius: 50%;
-  width: 100%;
-  height: 100%;
+  width: 70px;
+  height: 70px;
+  /* border: 2px solid #7b8c9f; */
+  border: 2px solid black;
   object-fit: cover;
 `;
 export const SignUpEmailInputDiv = styled.div`

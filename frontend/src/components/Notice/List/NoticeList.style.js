@@ -5,7 +5,7 @@ import styled from 'styled-components';
 export const NoticeListDiv = styled.div`
   width: 95%;
   height: 90px;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid #d6d9dc;
   margin-bottom: 10px;
   padding: 5px;
 `;

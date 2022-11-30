@@ -7,7 +7,7 @@ const useMyPageBottom = () => {
   const getUserPayment = () => {
     if (localStorage.getItem('accesstoken')) {
       axios
-        .get(`https://5222-222-233-138-154.jp.ngrok.io/members/find`, {
+        .get(`https://e2fe-222-233-138-154.jp.ngrok.io/members/find`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
@@ -31,7 +31,7 @@ const useMyPageBottom = () => {
         });
     } else if (sessionStorage.getItem('accesstoken')) {
       axios
-        .get(`https://5222-222-233-138-154.jp.ngrok.io/members/find`, {
+        .get(`https://e2fe-222-233-138-154.jp.ngrok.io/members/find`, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',

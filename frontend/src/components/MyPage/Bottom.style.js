@@ -26,7 +26,7 @@ export const UseNowText = styled.div`
 `;
 
 export const UseNowListDiv = styled.div`
-  border-bottom: 2px solid black;
+  /* border-bottom: 2px solid black; */
   height: 205px;
   padding: 15px;
   overflow: auto;

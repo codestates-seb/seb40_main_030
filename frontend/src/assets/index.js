@@ -11,9 +11,10 @@ import { ReactComponent as PaymentIcon } from './payMent.svg';
 import { ReactComponent as NoticeIcon } from './noticeIcon.svg';
 
 import CurrentLocationIcon from './currentLocation.png';
+import GlassIcon from './glass2.png';
 
 import KaKaoLoginIcon from './KaKaoLoginIcon.png';
-import ProfileDefaultImg from './profile.png';
+// import ProfileDefaultImg from './profile.png';
 
 import MockImage from './mockImage.png';
 import UndoIcon from './undo-button.png';
@@ -33,5 +34,5 @@ export {
   SearchIcon,
   PaymentIcon,
   NoticeIcon,
-  ProfileDefaultImg,
+  GlassIcon,
 };

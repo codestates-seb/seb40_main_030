@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import * as S from './Mid.style';
-import { mockUser } from '../../../mocks/data';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import {
@@ -29,7 +28,8 @@ const SignUpMid = () => {
   // ----- email, nickname 중복오류 메시지 상태
   const [nickMsg, setNickMsg] = useState('');
   const [emailMsg, setEmailMsg] = useState('');
-
+  const defaultImg =
+    'https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=128&d=identicon&r=PG&f=1';
   // ---- react-hook-form -----
   const {
     register,
@@ -62,10 +62,8 @@ const SignUpMid = () => {
     setValue('phone', inputState.phone);
     setValue('address', inSignAddress);
     setValue('photoURL', inputState.photoURL);
-    // setValue('filename', inputState.photoURL[0]);
     console.log('useEffect -> watch(photoURL) : ', watch('photoURL'));
     console.log('useEffect inputState.photoURL : ', inputState.photoURL);
-    // console.log(URL.createObjectURL(avatar[0]));
   }, []);
   console.log(watch('photoURL'));
   console.log('watch() : ', watch());
@@ -75,7 +73,7 @@ const SignUpMid = () => {
       alert('E-mail을 입력해주세요.');
     } else {
       axios
-        .get('https://5222-222-233-138-154.jp.ngrok.io/members', {
+        .get('https://e2fe-222-233-138-154.jp.ngrok.io/members', {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
@@ -101,7 +99,7 @@ const SignUpMid = () => {
 
   const checkedNick = () => {
     axios
-      .get('https://5222-222-233-138-154.jp.ngrok.io/members', {
+      .get('https://e2fe-222-233-138-154.jp.ngrok.io/members', {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
@@ -146,7 +144,7 @@ const SignUpMid = () => {
           }
           console.log('submit -> axios직전 data : ', data);
           axios
-            .post('https://5222-222-233-138-154.jp.ngrok.io/members', data)
+            .post('https://e2fe-222-233-138-154.jp.ngrok.io/members', data)
             .then((res) => {
               setInputState('');
               setInSignAddress('');
@@ -181,33 +179,28 @@ const SignUpMid = () => {
         <S.SignUpMidContainer>
           <S.SignUpPhotoDiv>
             <S.SignUpPhoto>
-              <S.PreviewImg src={avatarPreview} />
+              <S.PreviewImg
+                src={avatarPreview}
+                onError={(e) => {
+                  e.target.src = defaultImg;
+                }}
+              />
             </S.SignUpPhoto>
             <input
               type='file'
+              className='photoInput'
               name='photoURL'
               accept='image/*'
               placeholder='이미지'
               {...register('photoURL')}
             />
-            {console.log('watch(photoURL) : ', watch('photoURL'))}
-            {/* {console.log(
-              'URL.createObjectURL(watch(photoURL)[0]) : ',
-              URL.createObjectURL(watch('photoURL')[0]),
-            )} */}
-            {/* <input
-              type='text'
-              name='filename'
-              placeholder=''
-              {...register('filename')}
-            /> */}
           </S.SignUpPhotoDiv>
 
           <S.SignUpEmailInputDiv>
             <input
               type='email'
               name='email'
-              placeholder='Email'
+              placeholder='이메일'
               {...register('email', {
                 required: '⚠ E-mail 필수입력',
                 pattern: {
@@ -235,7 +228,7 @@ const SignUpMid = () => {
             <input
               type='password'
               name='password'
-              placeholder='password...'
+              placeholder='비밀번호'
               {...register('password', {
                 required: '⚠ 비밀번호 입력',
                 pattern: {
@@ -301,7 +294,7 @@ const SignUpMid = () => {
             <input
               type='text'
               name='phone'
-              placeholder='Phone Number (- 생략)'
+              placeholder='휴대폰번호(- 생략)'
               {...register('phone', {
                 required: '⚠ 휴대폰번호 입력',
                 pattern: {
@@ -321,7 +314,7 @@ const SignUpMid = () => {
               <input
                 type='text'
                 value={inSignAddress}
-                placeholder='Address'
+                placeholder='주소'
                 onChange={(e) => setInSignAddress(e.target.value)}
               />
               <S.SearchAddressBtn

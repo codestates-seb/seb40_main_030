@@ -23,7 +23,6 @@ const GenLogin = () => {
   const onValid = async () => {
     const loginData = watch();
     const loginConfig = {
-      // withCredentials: true,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'ngrok-skip-browser-warning': '111',
@@ -33,7 +32,7 @@ const GenLogin = () => {
     console.log('axios 직전->loginData:  ', loginData);
     await axios
       .post(
-        'https://5222-222-233-138-154.jp.ngrok.io/auth/login',
+        'https://e2fe-222-233-138-154.jp.ngrok.io/auth/login',
         loginData,
         loginConfig,
       )
