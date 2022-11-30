@@ -24,7 +24,6 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils customAuthorityUtils;
-    private final AdminRepository adminRepository;
 
     @Transactional
     public Member createMember(Member member) {
@@ -48,6 +47,7 @@ public class MemberService {
         Optional.ofNullable(member.getNickname()).ifPresent(verifiedMember::setNickname);
         Optional.ofNullable(member.getPhone()).ifPresent(verifiedMember::setPhone);
         Optional.ofNullable(member.getAddress()).ifPresent(verifiedMember::setAddress);
+        Optional.ofNullable(member.getDetailAddress()).ifPresent(verifiedMember::setDetailAddress);
         Optional.ofNullable(member.getPhotoURL()).ifPresent(verifiedMember::setPhotoURL);
         verifiedMember.setModifiedAt(LocalDateTime.now());
 

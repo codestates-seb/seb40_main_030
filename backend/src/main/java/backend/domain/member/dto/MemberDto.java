@@ -34,6 +34,8 @@ public class MemberDto {
         @NotBlank
         private String address;
 
+        private String detailAddress;
+
         @URL
         private String photoURL;
     }
@@ -51,6 +53,8 @@ public class MemberDto {
 
         @NotBlank
         private String address;
+
+        private String detailAddress;
 
         @URL
         private String photoURL;
@@ -70,6 +74,8 @@ public class MemberDto {
 
         private String address;
 
+        private String detailAddress;
+
         private String photoUrl;
 
         private List<Payment> payment;
@@ -84,6 +90,7 @@ public class MemberDto {
             this.nickname = member.getNickname();
             this.phone = member.getPhone();
             this.address = member.getAddress();
+            this.detailAddress = member.getDetailAddress();
             this.photoUrl = member.getPhotoURL();
             this.payment = member.getPayment();
             this.createdAt = member.getCreatedAt();
@@ -111,6 +118,7 @@ public class MemberDto {
         private String nickname;
         private String phone;
         private String address;
+        private String detailAddress;
         private String photoURL;
 
 
@@ -119,6 +127,7 @@ public class MemberDto {
             this.nickname = member.getNickname();
             this.phone = member.getPhone();
             this.address = member.getAddress();
+            this.detailAddress = member.getDetailAddress();
             this.photoURL = member.getPhotoURL();
         }
     }

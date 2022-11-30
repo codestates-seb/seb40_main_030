@@ -1,5 +1,7 @@
 package backend.domain.station.service;
 
+import backend.domain.admin.entity.Admin;
+import backend.domain.admin.repository.AdminRepository;
 import backend.domain.battery.entity.Battery;
 import backend.domain.battery.entity.Reservation;
 import backend.domain.station.entity.Station;
@@ -8,6 +10,7 @@ import backend.domain.station.repository.StationRepository;
 import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.exceptionCode.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,17 +29,37 @@ import java.util.stream.Collectors;
 public class StationService {
 
     private final StationRepository stationRepository;
+    private final AdminRepository adminRepository;
+    @Value("${mail.address.admin.list}")
+    private List<String> adminMailAddress;
+
 
     @Transactional
-    public Station postStation(Station station) {
+    public Station postStation(Station station, String adminEmail) {
+        Admin admin = adminRepository.findByEmail(adminEmail)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH));
+        station.setAdmin(admin);
+        // 로그인한 계정이 ADMIN인지 검증하는 로직
+        if(!adminMailAddress.contains(adminEmail)) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH);
+
+        // 로그인 한 Admin이 실제 그 station의 주인인지 검증
+        verifyAdmin(station.getAdmin().getAdminId(),adminEmail);
 
         return stationRepository.save(station);
     }
 
     @Transactional
-    public Station patchStation(Station station) {
+    public Station patchStation(Station station, String adminEmail) {
+
+        // 로그인한 계정이 ADMIN인지 검증하는 로직
+        if(!adminMailAddress.contains(adminEmail)) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH);
+
+        // 해당 스테이션 유무 조회
         Station savedStation = stationRepository.findById(station.getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
+
+        // 로그인 한 Admin이 실제 그 station의 주인인지 검증
+        verifyAdmin(savedStation.getAdmin().getAdminId(),adminEmail);
 
         Optional.ofNullable(station.getName()).ifPresent(savedStation::setName);
         Optional.ofNullable(station.getDetails()).ifPresent(savedStation::setDetails);
@@ -50,9 +73,17 @@ public class StationService {
     }
 
     @Transactional
-    public void deleteStation(Long stationId) {
+    public void deleteStation(Long stationId, String adminEmail) {
+        // 로그인한 계정이 ADMIN인지 검증하는 로직
+        if(!adminMailAddress.contains(adminEmail)) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH);
+        adminRepository.findByEmail(adminEmail)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH));
         Station existStation = stationRepository.findById(stationId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
+        // 로그인 한 Admin이 실제 그 station의 주인인지 검증
+        verifyAdmin(existStation.getAdmin().getAdminId(),adminEmail);
+
+
         stationRepository.delete(existStation);
     }
 
@@ -79,7 +110,11 @@ public class StationService {
         LocalDateTime endTime = LocalDateTime.parse(end, format);
 
         // 입력 시간이 유효한 예약시간인지 검증. 종료시간이 시작시간 빠르거나, 시작 시간이 현재시간보다 빠를 때 엣지케이스
-        if (endTime.isBefore(startTime) || startTime.isBefore(LocalDateTime.now())) throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
+        if (endTime.isBefore(startTime) || startTime.isBefore(LocalDateTime.now())) {
+//            throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
+            station.setBattery(new ArrayList<>());
+            return station;
+        }
 
         List<Battery> list = station.getBattery();
         List<Battery> unavailableBatteryList = new ArrayList<>();
@@ -121,8 +156,8 @@ public class StationService {
         // 기본 주소는 코드스테이츠
         StationSearch defaultStation = new StationSearch();
         // default 위치 설정
-        defaultStation.setLatitude(127.02475418);
-        defaultStation.setLongitude(37.49655445);
+        defaultStation.setLatitude(37.49655445);
+        defaultStation.setLongitude(127.02475418);
         defaultStation.setConfirmId(1615822138);  // 건물 Id
         // default 시간 설정 (30분 간격)
         String defaultStartTime = LocalDateTime.now().plusMinutes(10).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
@@ -150,12 +185,50 @@ public class StationService {
         Double minLog = defaultStation.getLongitude() - 0.01171531;  // 좌/우 역 하나정도의 거리차이 = 0.01171529 == 0.01
         Double maxLog = defaultStation.getLongitude() + 0.01171531;
 
-        List<Station> originList = stationRepository.findAllByOrderByCreatedAtDesc();
+        List<Station> originList = stationRepository.findAll();
         List<Station> filteredList = originList.stream()
                 .filter(a -> a.getLatitude() >= minLat && a.getLatitude() <= maxLat)
                 .filter(b -> b.getLongitude() >= minLog && b.getLongitude() <= maxLog)
                 .collect(Collectors.toList());
 
+        List<StationSearch> searchList = StationTimeFilter(defaultStation, startT, endT, filteredList);
+
+        return searchList;
+    }
+
+
+    public List<StationSearch> getStationsSearchAll(StationSearch search) {
+        // 기본 주소는 코드스테이츠
+        StationSearch defaultStation = new StationSearch();
+        // default 위치 설정
+        defaultStation.setLatitude(37.49655445);
+        defaultStation.setLongitude(127.02475418);
+        defaultStation.setConfirmId(1615822138);  // 건물 Id
+        // default 시간 설정 (30분 간격)
+        String defaultStartTime = LocalDateTime.now().plusMinutes(10).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        String defaultEndTime = LocalDateTime.now().plusMinutes(40).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        defaultStation.setStartTime(defaultStartTime);
+        defaultStation.setEndTime(defaultEndTime);
+
+        // 만약 위경도 값 or confirmId or 시간변경값 들어오면 그 값으로 객체 필드값 변경
+        Optional.ofNullable(search.getStartTime()).ifPresent(defaultStation::setStartTime);
+        Optional.ofNullable(search.getEndTime()).ifPresent(defaultStation::setEndTime);
+
+        // 요청으로 받은 시간 또는 디플트 시간을 설정
+        LocalDateTime startT = LocalDateTime.parse(defaultStation.getStartTime());
+        LocalDateTime endT = LocalDateTime.parse(defaultStation.getEndTime());
+
+        // 입력 시간이 유효한 예약시간인지 검증. 종료시간이 시작시간 빠르거나, 시작 시간이 현재시간보다 빠를 때 엣지케이스
+        if (endT.isBefore(startT) || startT.isBefore(LocalDateTime.now())) throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
+
+        List<Station> originList = stationRepository.findAll();
+
+        List<StationSearch> searchList = StationTimeFilter(defaultStation, startT, endT, originList);
+
+        return searchList;
+    }
+
+    private static List<StationSearch> StationTimeFilter(StationSearch defaultStation, LocalDateTime startT, LocalDateTime endT, List<Station> filteredList) {
         // Station을 StationSearch로 변환
         List<StationSearch> searchList = new ArrayList<>();
         for (int i = 0; i < filteredList.size(); i++) {
@@ -201,6 +274,10 @@ public class StationService {
                         if (!unavailableBatteryList.contains(battery)) {
                             unavailableBatteryList.add(battery);
                         }
+                    } else if (startT.isEqual(reserveStart) || startT.isEqual(reserveEnd) || endT.isEqual(reserveStart) || endT.isEqual(reserveEnd)) {
+                        if (!unavailableBatteryList.contains(battery)) {
+                            unavailableBatteryList.add(battery);
+                        }
                     }
                 }
             }
@@ -209,7 +286,6 @@ public class StationService {
             searchList.get(i).setCount(list.size());
             searchList.get(i).setBatteryList(list);
         }
-
         return searchList;
     }
 
@@ -228,6 +304,14 @@ public class StationService {
         List<Station> list = stationRepository.findWithAllByStationContainsByCreatedAtDesc(keyword);
 
         return list;
+    }
+
+    private void verifyAdmin (Long savedAdminId, String adminEmail) {
+        Admin admin = adminRepository.findByEmail(adminEmail)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ADMIN_NOT_FOUND));
+        if(savedAdminId!=admin.getAdminId()){
+            throw new BusinessLogicException(ExceptionCode.NON_ACCESS_MODIFY);
+        }
     }
 
 }

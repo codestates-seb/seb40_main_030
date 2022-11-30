@@ -17,9 +17,6 @@ public interface StationRepository extends JpaRepository<Station, Long> {
     Page<Station> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
     @EntityGraph(attributePaths = {"battery"}, type = EntityGraph.EntityGraphType.LOAD)
-    List<Station> findAllByOrderByCreatedAtDesc();
-
-    @EntityGraph(attributePaths = {"battery"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("select s from Station s where s.name like %:keyword%")
     Optional<Station> findByStationContains(@Param("keyword") String keyword);
 
