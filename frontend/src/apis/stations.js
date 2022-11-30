@@ -1,8 +1,8 @@
 // import { apiClient } from './order';
 import axios from 'axios';
 
-// const accessToken = `eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwibWVtYmVySWQiOjEsInN1YiI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNjY5NTk5Nzg1LCJleHAiOjE2Njk2ODYxODV9.LwsAxor4pGIqELfNH4s4bH0TtWX5aIIC1UR5ORHR8lI`;
-const accessToken = `eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwibWVtYmVySWQiOjEsInN1YiI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNjY5NjUwODAzLCJleHAiOjE2Njk3MzcyMDN9.TY6HuuLoH64VXC8nded1Cox8zMjR6ZYcfjkT0FcIV3I`;
+const accessToken = `eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwibWVtYmVySWQiOjEsInN1YiI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNjY5ODA3NTE0LCJleHAiOjE2Njk4OTM5MTR9.1rywMENWnxLRRFmBStzKzQNLpShQRhNEycjiLW_ixfo`;
+// const accessToken = `eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwibWVtYmVySWQiOjEsInN1YiI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNjY5NjUwODAzLCJleHAiOjE2Njk3MzcyMDN9.TY6HuuLoH64VXC8nded1Cox8zMjR6ZYcfjkT0FcIV3I`;
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_NGROK,
@@ -53,6 +53,14 @@ const getPaymentsTable = async () => {
   return data?.content;
 };
 
+const getFilteredStationsBySetTime = async (setTime) => {
+  const { data } = await apiClient.get('/stations/searchAll', {
+    params: setTime,
+  });
+
+  return data?.content;
+};
+
 export {
   getAllStations,
   getStationById,
@@ -60,4 +68,5 @@ export {
   getStationByKeyword,
   getPaymentsTable,
   getBatteryBySetTime,
+  getFilteredStationsBySetTime,
 };

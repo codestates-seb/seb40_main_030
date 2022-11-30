@@ -32,7 +32,7 @@ const SearchBar = ({ stations, setLocationInfo }) => {
           ) : (
             filteredLocation.map((locationInfo) => (
               <S.AutoCompleteList
-                key={locationInfo.confirmId}
+                key={locationInfo.confirmId + locationInfo.id}
                 onClick={(e) => {
                   handleAutoComplete();
                   setSearchParams({ location: e.target.textContent });

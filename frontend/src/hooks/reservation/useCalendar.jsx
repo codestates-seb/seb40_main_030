@@ -13,7 +13,7 @@ const useCalendar = () => {
   });
 
   const currentDate = {
-    month: new Date().getMonth(),
+    month: new Date().getMonth() + 1,
     date: new Date().getDate(),
   };
 

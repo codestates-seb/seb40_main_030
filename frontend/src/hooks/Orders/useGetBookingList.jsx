@@ -6,7 +6,6 @@ const useGetBookingList = () => {
   const { data, status } = useQuery(['order-bookings'], getPaymentsTable, {
     select: (lists) =>
       lists?.filter((list) => list.payStatus === 'WAITING_FOR_RESERVATION'),
-
     useErrorBoundary: true,
     suspense: true,
   });
