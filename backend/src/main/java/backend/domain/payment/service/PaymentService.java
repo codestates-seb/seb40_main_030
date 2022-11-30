@@ -85,7 +85,7 @@ public class PaymentService {
         if(savedPayment.getStatus().getCode() == 1){
             Reservation reservation = new Reservation();
             reservation.setStartTime(savedPayment.getStartTime());
-            reservation.setEndTime(savedPayment.getEndTime());
+            reservation.setEndTime((LocalDateTime.parse(savedPayment.getEndTime()).plusHours(1)).toString());
             reservation.setPayment(savedPayment);
             reservation.setBattery(savedPayment.getBattery());
             reservation.setStationId(savedPayment.getStation().getId());
@@ -131,11 +131,68 @@ public class PaymentService {
 
 
     // 마이페이지 조회 시 payment 상태 값 새로고침
+    @Transactional
     public List<Payment> getPayments (Pageable pageable, Long memberId) {
         Page<Payment> page = paymentRepository.findAllByOrderByCreatedAtDesc(pageable);
         List<Payment> list =  page.stream().filter(pay -> (pay.getMember().getId() == memberId)).collect(Collectors.toList());
+        for (int i = 0; i < list.size(); i++) {
+            Payment savedPayment = paymentRepository.findById(list.get(i).getId())
+                    .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
+
+            if (LocalDateTime.parse(savedPayment.getStartTime()).isBefore(LocalDateTime.now())
+                    && LocalDateTime.parse(savedPayment.getEndTime()).isAfter(LocalDateTime.now())) {
+                savedPayment.setStatus(PayStatus.USE_NOW);
+                paymentRepository.save(savedPayment);
+
+            } else if (LocalDateTime.parse(savedPayment.getEndTime()).isBefore(LocalDateTime.now())) {
+                savedPayment.setStatus(PayStatus.HISTORY);
+                paymentRepository.save(savedPayment);
+                reservationRepository.deleteById(savedPayment.getReservations().get(0).getReservationId());
+            }
+        }
 
         return list;
     }
+    // 최대 연장가능 시각 찾기
+    @Transactional
+    public String getNearReservation(Long paymentId, Long memberId){
+        String endTime = paymentRepository.findById(paymentId).get().getEndTime();
+        Long batteryId = paymentRepository.findById(paymentId).get().getBattery().getBatteryId();
+        List<Reservation> list = reservationRepository.findWithAllByBatteryId(batteryId);
 
+        LocalDateTime nearStartTime = LocalDateTime.of(2222,01,01,00,00);
+        for(int i = 0; i < list.size(); i++){
+            if(paymentId != list.get(i).getPayment().getId()){
+                LocalDateTime tempStartTime = LocalDateTime.parse(list.get(i).getStartTime());
+                if(tempStartTime.isBefore(nearStartTime)){
+                    nearStartTime = tempStartTime;
+                }
+            }
+        }
+        String possibleExtendTime; // 한계 시간 ,니 여기까지밖에 예약할 수 있어
+        if(LocalDateTime.parse(endTime).plusHours(24).isBefore(nearStartTime)){
+            possibleExtendTime = LocalDateTime.parse(endTime).plusHours(24).toString();
+        }else if(LocalDateTime.parse(endTime).plusMinutes(30).isAfter(nearStartTime)){
+            throw new BusinessLogicException(ExceptionCode.NOT_EXTEND_TIME);
+        }
+        else {
+            possibleExtendTime = (nearStartTime.minusMinutes(30)).toString(); // 제일 가까운 reservation의 startTiem에서 30분 뺌
+        }
+        return possibleExtendTime;
+    }
+
+    // 반납 시간 연장하기
+    @Transactional
+    public Payment extendEndTime(Long paymentId, String extendTime){
+        Payment savedPayment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
+//        Optional<Reservation> reservation = reservationRepository.findById(savedPayment.getReservations().get(0).getReservationId());
+        Reservation reservation = reservationRepository.findById(savedPayment.getReservations().get(0).getReservationId())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+        reservation.setEndTime(extendTime);
+//        savedPayment.setEndTime(extendTime); //실제 반납 시간 필드를 만들면 삭제
+        reservationRepository.save(reservation);
+
+        return paymentRepository.save(savedPayment);
+    }
 }
