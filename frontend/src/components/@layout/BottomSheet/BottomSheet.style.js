@@ -55,7 +55,7 @@ const HandleBar = styled(motion.div)`
 `;
 
 const ContentWrapper = styled.div`
-  -webkit-overflow-scrolling: touch;
+  /* -webkit-overflow-scrolling: touch; */
   height: 80vh;
   padding: 10px;
 `;

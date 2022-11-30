@@ -16,7 +16,7 @@ const ProductWrapper = styled.div`
 const ImageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 40%;
   height: 100%;

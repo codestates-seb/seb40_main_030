@@ -43,7 +43,7 @@ const BatteryListContainer = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 export {

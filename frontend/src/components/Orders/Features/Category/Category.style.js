@@ -5,8 +5,8 @@ const Header = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 7%;
   border: 1px solid black;
+  min-height: 10%;
 
   .active {
     border-color: blue;

@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
+import { ROUTES } from '@/constants';
+
 import * as S from './NotFound.style';
 
 const NotFound = ({
@@ -19,7 +21,9 @@ const NotFound = ({
     >
       <S.Message>{message}</S.Message>
       {button && (
-        <S.GoBackButton onClick={() => navigate(-1)}>뒤로가기</S.GoBackButton>
+        <S.GoBackButton onClick={() => navigate(ROUTES.HOME.PATH)}>
+          뒤로가기
+        </S.GoBackButton>
       )}
     </S.Wrapper>
   );

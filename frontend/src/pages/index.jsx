@@ -9,7 +9,7 @@ import Business from './Business';
 import Home from './Home';
 import Login from './Login';
 import NotFound from './NotFound';
-import Orders from './Orders/Orders';
+import Orders from './Orders';
 import Payments from './Payments';
 import Rental from './Rental';
 import Search from './Search';
