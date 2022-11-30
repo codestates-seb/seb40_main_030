@@ -105,7 +105,7 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
                 return (
                   <option
                     key={batteryName.batteryId}
-                    value={batteryName.batteryId}
+                    value={batteryName.batteryName}
                   >
                     {batteryName.batteryName}
                   </option>

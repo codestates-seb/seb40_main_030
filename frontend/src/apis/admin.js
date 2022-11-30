@@ -2,10 +2,13 @@ import axios from 'axios';
 
 import { BASE_URL } from '@/constants/admin';
 const LOCAL_BASE_URL = import.meta.env.REACT_APP_BASE_URL;
+const accessToken =
+  'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsIm1lbWJlcklkIjoxLCJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2Njk3NzI2OTEsImV4cCI6MTY2OTg1OTA5MX0.KSARoy_eGZrECdCRahU04esJW2IUSFy73BV58n534Gg';
 const axiosAdminInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     'ngrok-skip-browser-warning': '111',
+    authorization: `Bearer ${accessToken}`,
   },
 });
 
