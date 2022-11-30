@@ -32,6 +32,9 @@ public class Member extends BaseTime {
     private String address;
 
     @Column(nullable = false)
+    private String detailAddress;
+
+    @Column(nullable = false)
     private String photoURL;
 
     @ElementCollection(fetch = FetchType.EAGER)

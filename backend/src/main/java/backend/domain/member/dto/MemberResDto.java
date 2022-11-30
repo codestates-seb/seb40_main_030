@@ -18,6 +18,7 @@ public class MemberResDto extends BaseTime {
     private String nickname;
     private String phone;
     private String address;
+    private String detailAddress;
     private String photoURL;
     private List<MemberPayment> payment;
 
@@ -27,6 +28,7 @@ public class MemberResDto extends BaseTime {
         this.nickname = member.getNickname();
         this.phone = member.getPhone();
         this.address = member.getAddress();
+        this.detailAddress = member.getDetailAddress();
         this.photoURL = member.getPhotoURL();
         setCreatedAt(member.getCreatedAt());
         setModifiedAt(member.getModifiedAt());
