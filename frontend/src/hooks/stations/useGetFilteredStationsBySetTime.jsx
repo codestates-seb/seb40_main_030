@@ -1,13 +1,21 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { getFilteredStationsBySetTime } from '@/apis/stations';
 
-const useGetFilteredStationsBySetTime = (setTime) => {
+import { useCheckValidReserveTable } from '..';
+
+const useGetFilteredStationsBySetTime = () => {
+  const { startPoint, endPoint } = useCheckValidReserveTable();
+  const queryClient = useQueryClient();
   // 아래 로직은 에러 핸들링이 되는 로직 제데로 한번 찾아봐야함
+
   const { data, refetch } = useQuery(
-    ['filtered-stations-setTime'],
+    ['filtered-stations-setTime', 'stations'],
     () =>
-      getFilteredStationsBySetTime(setTime).catch((err) => {
+      getFilteredStationsBySetTime({
+        startTime: startPoint?.replace(' ', 'T'),
+        endTime: endPoint?.replace(' ', 'T'),
+      }).catch((err) => {
         if (err.response.status === 400) {
           return null;
         } else {
@@ -19,39 +27,24 @@ const useGetFilteredStationsBySetTime = (setTime) => {
         stations?.filter(
           ({ availableBatteryCount }) => availableBatteryCount !== 0,
         ),
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
+      refetchOnWindowFocus: true,
       refetchOnReconnect: false,
       suspense: true,
+      onSettled: () => queryClient.invalidateQueries(['stations']),
     },
   );
 
   const filteredStations = [];
 
-  data.map(({ id, name, location, confirmId }) => {
+  data?.map(({ id, name, location, confirmId }) => {
     const data = { id, name, location, confirmId };
 
     filteredStations.push(data);
   });
 
-  // const queryClient = useQueryClient();
-  // const queryCache = queryClient.getQueryCache();
-
-  // useEffect(() => {
-  //   const unsubscribe = queryCache.subscribe((event) => {
-  //     const error = event?.query?.state?.error; // catch에서 throw한 error만 잡아냄
-
-  //     console.log(error);
-  //   });
-
-  //   return unsubscribe;
-  // }, []);
-
-  // const filtered = data.filter(({ batteries }) => batteries.length !== 0);
-
-  // console.log(filtered);
-
-  return { data, refetch, filteredStations };
+  if (data !== null || data !== undefined) {
+    return { data, refetch, filteredStations };
+  }
 };
 
 export default useGetFilteredStationsBySetTime;

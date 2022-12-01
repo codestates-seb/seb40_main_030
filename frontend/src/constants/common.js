@@ -15,6 +15,7 @@ const DEFAULT_LOCATION = {
 const TIME = {
   HOUR: 3600000,
   PERCENTAGE: 100,
+  NULL: 'null',
 };
 
 const BOOKING_TYPE = {

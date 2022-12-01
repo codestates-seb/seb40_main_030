@@ -27,7 +27,7 @@ const SearchBar = ({ stations, setLocationInfo }) => {
           onChange={(e) => handleKeyword(e.target.value)}
         />
         <S.AutoCompleteContainer isActive={isActive}>
-          {filteredLocation.length === 0 ? (
+          {filteredLocation?.length === 0 ? (
             <S.AutoCompleteList>{`검색하신 결과가 존재하지 않습니다.`}</S.AutoCompleteList>
           ) : (
             filteredLocation.map((locationInfo) => (
