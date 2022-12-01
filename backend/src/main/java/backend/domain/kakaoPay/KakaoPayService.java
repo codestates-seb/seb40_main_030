@@ -117,6 +117,7 @@ public class KakaoPayService {
 //            try{
             payment.setStatus(PayStatus.WAITING_FOR_RESERVATION);
             payment.setTid(kakaoPayReadyVO.getTid());
+            payment.setPayMethod(kakaoPayApprovalVO.getCard_info().getPurchase_corp());
             paymentService.patchPayment(payment);
 
             return kakaoPayApprovalVO;
