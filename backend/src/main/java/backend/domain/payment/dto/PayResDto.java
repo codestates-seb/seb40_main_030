@@ -16,6 +16,8 @@ public class PayResDto extends BaseTime {
     private PayStatus payStatus;
     private String startTime;
     private String endTime;
+    private String returnTime;
+    private String tid;
     private String payMethod;
     private Battery battery;
     private Station station;
@@ -26,6 +28,8 @@ public class PayResDto extends BaseTime {
         this.payStatus = payment.getStatus();
         this.startTime = payment.getStartTime();
         this.endTime = payment.getEndTime();
+        this.returnTime = payment.getReturnTime();
+        this.returnTime = payment.getTid();
         this.payMethod = payment.getPayMethod();
         this.battery = payment.getBattery();
         setCreatedAt(payment.getCreatedAt());

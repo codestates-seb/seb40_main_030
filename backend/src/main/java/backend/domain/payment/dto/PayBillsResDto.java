@@ -18,6 +18,8 @@ public class PayBillsResDto {
     private PayStatus payStatus;
     private String startTime;
     private String endTime;
+    private String returnTime;
+    private String tid;
     private int totalPrice;
 
     private String stationName;
@@ -34,6 +36,8 @@ public class PayBillsResDto {
         this.payStatus = payment.getStatus();
         this.startTime = payment.getStartTime();
         this.endTime = payment.getEndTime();
+        this.returnTime = payment.getReturnTime();
+        this.tid = payment.getTid();
         this.totalPrice = payment.getTotalPrice();
         this.stationName = payment.getStation().getName();
 

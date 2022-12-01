@@ -29,6 +29,10 @@ public class Payment extends BaseTime {
 
     private String endTime;
 
+    private String returnTime;
+
+    private String tid;
+
     private String payMethod;
 
     @ManyToOne(fetch = FetchType.EAGER)
