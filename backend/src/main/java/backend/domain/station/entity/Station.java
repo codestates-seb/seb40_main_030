@@ -23,9 +23,9 @@ public class Station extends BaseTime {
 
     private String details;
 
-    private double latitude;
+    private Double latitude;
 
-    private double longitude;
+    private Double longitude;
 
     private String photoURL;
 
