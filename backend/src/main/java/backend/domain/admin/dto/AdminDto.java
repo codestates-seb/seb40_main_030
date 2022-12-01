@@ -49,7 +49,6 @@ public class AdminDto {
     public static class Response{
         private long adminId;
         private String email;
-        private String password;
         private String phone;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
@@ -58,7 +57,6 @@ public class AdminDto {
         public Response(Admin admin){
             this.adminId = admin.getAdminId();
             this.email = admin.getEmail();
-            this.password = admin.getPassword();
             this.phone = admin.getPhone();
             this.createdAt = admin.getCreatedAt();
             this.modifiedAt = admin.getModifiedAt();
