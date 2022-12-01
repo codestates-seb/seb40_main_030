@@ -1,15 +1,18 @@
 // 일반 로그아웃 컴포넌트
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 import { LogoutBtn } from './GenLogout.style';
+import { useRecoilState } from 'recoil';
+import { userInfoState } from '../../../recoil/userInfoState';
 
 const GenLogout = () => {
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
   const onClickLogout = () => {
     sessionStorage.removeItem('accesstoken');
     localStorage.removeItem('accesstoken');
     localStorage.removeItem('refreshtoken');
+    setUserInfo('');
     navigate('/');
   };
   // if(!accesstoken && refreshtoken){

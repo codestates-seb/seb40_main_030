@@ -3,7 +3,6 @@ import * as S from './Bottom.style';
 import ReservingList from './List/ReservingList';
 import UseNowList from './List/UseNowList';
 import useMyPageBottom from '../../hooks/MyPage/useMyPageBottom';
-import { GlassIcon } from '../../assets';
 
 const Bottom = () => {
   const { getUserPayment, listData } = useMyPageBottom();

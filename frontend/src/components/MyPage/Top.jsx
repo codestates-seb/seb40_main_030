@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import useMyPage from '../../hooks/MyPage/useMyPageTop';
 import { useRecoilState } from 'recoil';
 import { userInfoState } from '../../recoil/userInfoState';
+import { ProfileImg } from '../../assets';
 
 const Top = () => {
   // const [id, setId] = useRecoilState(userMemberId);
@@ -15,11 +16,8 @@ const Top = () => {
   const { getUserInfo, nickName, email, photo } = useMyPage();
   const [inputState, setInputState] = useRecoilState(userInfoState);
 
-  const defaultImg =
-    'https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=128&d=identicon&r=PG&f=1';
-
   const handleErrorImg = (e) => {
-    e.target.src = defaultImg;
+    e.target.src = ProfileImg;
   };
 
   useEffect(() => {

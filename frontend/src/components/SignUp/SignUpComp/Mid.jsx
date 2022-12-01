@@ -10,6 +10,7 @@ import {
 } from '../../../recoil/userInfoState';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
+import { ProfileImg } from '../../../assets';
 
 const SignUpMid = () => {
   const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
@@ -29,8 +30,6 @@ const SignUpMid = () => {
   // ----- email, nickname 중복오류 메시지 상태
   const [nickMsg, setNickMsg] = useState('');
   const [emailMsg, setEmailMsg] = useState('');
-  const defaultImg =
-    'https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=128&d=identicon&r=PG&f=1';
   // ---- react-hook-form -----
   const {
     register,
@@ -183,7 +182,7 @@ const SignUpMid = () => {
               <S.PreviewImg
                 src={avatarPreview}
                 onError={(e) => {
-                  e.target.src = defaultImg;
+                  e.target.src = ProfileImg;
                 }}
               />
             </S.SignUpPhoto>

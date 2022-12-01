@@ -28,11 +28,11 @@ export const SignUpPhoto = styled.div`
   font-size: 14px;
 `;
 export const PreviewImg = styled.img`
-  margin: 0 0 0 110px;
+  margin: 0 0 0 120px;
   border-radius: 50%;
   width: 70px;
   height: 70px;
-  border: 2px solid black;
+  border: 1px solid gray;
   object-fit: cover;
 `;
 export const SignUpEmailInputDiv = styled.div`

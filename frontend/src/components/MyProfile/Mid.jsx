@@ -11,6 +11,7 @@ import {
   recoilIsPostCode,
 } from '../../recoil/userInfoState';
 import * as S from './Mid.style';
+import { ProfileImg } from '../../assets';
 
 const Mid = () => {
   const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
@@ -219,7 +220,7 @@ const Mid = () => {
                     <S.PreviewImg
                       src={avatarPreview}
                       onError={(e) => {
-                        e.target.src = defaultImg;
+                        e.target.src = ProfileImg;
                       }}
                     />
                   </S.SignUpPhoto>
@@ -238,7 +239,7 @@ const Mid = () => {
                       // src={avatarPreview}
                       src={`blob:${userInfo.photoURL}`}
                       onError={(e) => {
-                        e.target.src = defaultImg;
+                        e.target.src = ProfileImg;
                       }}
                     />
                   </S.SignUpPhoto>
@@ -257,7 +258,7 @@ const Mid = () => {
                   // src={avatarPreview}
                   src={`blob:${userInfo.photoURL}`}
                   onError={(e) => {
-                    e.target.src = defaultImg;
+                    e.target.src = ProfileImg;
                   }}
                 />
               </S.SignUpPhoto>
