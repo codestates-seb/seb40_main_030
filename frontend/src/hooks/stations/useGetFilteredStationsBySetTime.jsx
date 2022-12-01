@@ -46,8 +46,6 @@ const useGetFilteredStationsBySetTime = (setTime) => {
   //   return unsubscribe;
   // }, []);
 
-  console.log(data);
-
   return { data, refetch };
 };
 

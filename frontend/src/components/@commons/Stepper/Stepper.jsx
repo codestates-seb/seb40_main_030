@@ -1,3 +1,4 @@
+import { BOOKING_TYPE } from '@/constants';
 import { useReservation } from '@/hooks';
 import useConvertDate from '@/hooks/commons/useConvertDate';
 
@@ -25,7 +26,7 @@ const Stepper = ({ startPoint, endPoint, content }) => {
       <S.Stepper>
         <StepperItem reservations={content?.reservations} />
         <S.Item>
-          {reservationStatus.bookingType === 'multiple' ? (
+          {reservationStatus.bookingType === BOOKING_TYPE.MULTIPLE ? (
             <S.Description>{`${
               startMonth > 12 ? 1 : startMonth
             }/${startDate}`}</S.Description>
@@ -34,7 +35,7 @@ const Stepper = ({ startPoint, endPoint, content }) => {
           )}
         </S.Item>
         <S.Item>
-          {reservationStatus.bookingType === 'multiple' ? (
+          {reservationStatus.bookingType === BOOKING_TYPE.MULTIPLE ? (
             <S.Description>{`${
               endMonth > 12 ? 1 : endMonth
             }/${endDate}`}</S.Description>

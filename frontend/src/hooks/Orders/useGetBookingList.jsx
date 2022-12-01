@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getPaymentsTable } from '@/apis/stations';
+import { getPaymentsTable } from '@/apis/payments';
 
 const useGetBookingList = () => {
   const { data, status } = useQuery(['order-bookings'], getPaymentsTable, {

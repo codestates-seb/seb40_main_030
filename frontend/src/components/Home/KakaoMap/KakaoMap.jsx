@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -6,7 +6,7 @@ import MapIndicator from '@/components/Home/KakaoMap/Features/MapIndicator';
 import MarkerContainer from '@/components/Home/KakaoMap/Features/MarkerContainer';
 import KakaoRoadView from '@/components/Home/KakaoMap/Features/RoadView';
 import { DEFAULT_LOCATION } from '@/constants';
-import { useCheckValidReserveTable, useGetAllStations } from '@/hooks';
+import { useGetAllStations } from '@/hooks';
 // import useGetFilteredStationsBySetTime from '@/hooks/stations/useGetFilteredStationsBySetTime';
 import { reservationState, currentLocationState } from '@/recoil/pagesState';
 
@@ -27,10 +27,6 @@ const KakaoMap = () => {
 
   const latitude = currentLocation?.latitude || DEFAULT_LOCATION.latitude;
   const longitude = currentLocation?.longitude || DEFAULT_LOCATION.longitude;
-
-  useEffect(() => {
-    console.log(dateFixed.date && dateFixed.time);
-  }, [dateFixed.date, dateFixed.time]);
 
   if (isSuccess) {
     return (

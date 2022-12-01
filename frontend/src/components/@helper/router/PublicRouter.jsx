@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { ROUTES } from '@/constants';
+import { MESSAGE, ROUTES } from '@/constants';
 import { useSnackBar } from '@/hooks';
 
 const PublicRouter = () => {
@@ -11,7 +11,7 @@ const PublicRouter = () => {
   useEffect(() => {
     if (isAuth) {
       // 추후에 모달로 변경
-      openSnackBar('로그인 상태에서 이용할수 없는 서비스입니다.');
+      openSnackBar(MESSAGE.AUTHENTICATED);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

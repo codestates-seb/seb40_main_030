@@ -17,6 +17,11 @@ const TIME = {
   PERCENTAGE: 100,
 };
 
+const BOOKING_TYPE = {
+  MULTIPLE: 'multiple',
+  SINGLE: 'single',
+};
+
 const SEARCH_LOCATION_SUGGESTIONS = [
   '이태원',
   '삼성동',
@@ -28,6 +33,11 @@ const SEARCH_LOCATION_SUGGESTIONS = [
   '역삼역',
 ];
 
-export { GEOLOCATION_OPTIONS, DEFAULT_LOCATION, SEARCH_LOCATION_SUGGESTIONS };
+export {
+  GEOLOCATION_OPTIONS,
+  DEFAULT_LOCATION,
+  SEARCH_LOCATION_SUGGESTIONS,
+  BOOKING_TYPE,
+};
 
 export { TIME };

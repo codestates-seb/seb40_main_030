@@ -7,7 +7,7 @@ const useHandleQueryError = (setTime) => {
   const { data, refetch } = useQuery(['error'], () =>
     getFilteredStationsBySetTime(setTime).catch(
       (err) => {
-        if (err.status === 400) {
+        if (err.response.status === 400) {
           return [];
         } else {
           throw err; // 반드시 모든 케이스에 대한 error 처리를 해줘야 queryCache가 오류를 인식한다

@@ -1,4 +1,5 @@
 import { UndoIcon } from '@/assets';
+import { BOOKING_TYPE } from '@/constants';
 import { useCalendar, useReservation, useUndoReservation } from '@/hooks';
 import { initialReservationValue } from '@/recoil/pagesState';
 
@@ -33,7 +34,7 @@ const Reservation = () => {
         <BookingTypeBox />
       ) : (
         <S.TableContainer>
-          {bookingType === 'multiple' ? (
+          {bookingType === BOOKING_TYPE.MULTIPLE ? (
             <Calendar />
           ) : (
             <SingleDateSelection

@@ -16,8 +16,15 @@ import ReservationChart from './ReservationChart';
 const BatteryInfo = ({ content, station }) => {
   const navigate = useNavigate();
   const { startPoint, endPoint } = useCheckValidReserveTable();
-  const { capacity, price, photoURL, batteryId, batteryName, createdAt } =
-    content;
+  const {
+    capacity,
+    price,
+    photoURL,
+    batteryId,
+    batteryName,
+    createdAt,
+    defaultPrice,
+  } = content;
   const { year, month, date } = useConvertDate(createdAt);
   const { periodInMin } = useTimeDifference();
 
@@ -61,12 +68,18 @@ const BatteryInfo = ({ content, station }) => {
             <S.BatteryName>{batteryName}</S.BatteryName>
             <S.PriceContainer>
               <S.Price>
-                {(price * periodInMin).toString().replace(PRICE_REGEX, ',')}
+                {(price * periodInMin + defaultPrice)
+                  .toString()
+                  .replace(PRICE_REGEX, ',')}
               </S.Price>
               <span>원</span>
             </S.PriceContainer>
             <S.PricePerMin>
               {price.toString().replace(PRICE_REGEX, ',')}원 / <span>10분</span>
+            </S.PricePerMin>
+            <S.PricePerMin>
+              {defaultPrice.toString().replace(PRICE_REGEX, ',')}원 /{' '}
+              <span>기본요금</span>
             </S.PricePerMin>
             <ShadowButton
               noShadow={true}

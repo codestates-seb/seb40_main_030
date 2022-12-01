@@ -37,6 +37,7 @@ const useBottomSheet = () => {
     if (isReservationCompleted) {
       setIsOpen(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isReservationCompleted]);
 
   return { onDragEnd, controls, setIsOpen, isOpen };
