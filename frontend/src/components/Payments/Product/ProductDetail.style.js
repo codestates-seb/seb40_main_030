@@ -10,9 +10,12 @@ width: 100%;
 `
 
 const ItemImg = styled.img`
-width: 100px;
+object-fit: fill;
+width: 110px;
+height: 110px;
 margin-left: 10px;
 margin-right: 40px;
+margin-top: 30px;
 `
 
 const ItemDetails = styled.div`
@@ -22,12 +25,12 @@ flex-wrap: wrap;
 `
 
 const ItemDetail = styled.div`
-font-size: 18px;
+font-size: 15px;
 margin-top: 20px;
 `
 
 const ItemDate = styled.div`
-font-size: 18px;
+font-size: 15px;
 margin-top: 25px;
 `
 
@@ -38,7 +41,7 @@ flex-wrap: wrap;
 `
 
 const PayDetail = styled.div`
-font-size: 18px;
+font-size: 15px;
 margin-top: 20px;
 text-align: right;
 `

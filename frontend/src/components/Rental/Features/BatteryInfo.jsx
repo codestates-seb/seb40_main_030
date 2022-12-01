@@ -1,6 +1,7 @@
+import { useNavigate } from 'react-router-dom';
+
 import { ShadowButton, ShadowCard } from '@/components/@commons';
 import { PRICE_REGEX } from '@/constants';
-import { useNavigate } from 'react-router-dom';
 import { useCheckValidReserveTable } from '@/hooks';
 
 import * as S from './Features.style';
@@ -29,7 +30,7 @@ const BatteryInfo = ({ content, station }) => {
   }
   
   return (
-    <S.BatteryContainer>
+    <S.BatteryContainer >
       <ShadowCard width='100%' height='200px'>
         <S.ImageContainer>
           <S.BatteryImage src={photoURL} />

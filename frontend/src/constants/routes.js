@@ -40,7 +40,7 @@ const ROUTES = Object.freeze({
   PAYMENTCOMPLETED: {
     PATH: '/payments/payment_completed',
     NAME: 'Payments',
-  },
+  }
 });
 
 export default ROUTES;

@@ -1,9 +1,13 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-const SelectLayout = styled.div`
+const SelectLayout = styled(motion.div)`
 height: 640px;
 margin: 0 auto;
 margin-top: 30px;
+width: 100%;
+
+position: fixed;
 `;
 
 const BackButton = styled.button`

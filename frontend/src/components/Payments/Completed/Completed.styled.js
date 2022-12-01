@@ -27,10 +27,15 @@ const CompletedLayOut = styled.div`
 const CompletedLayOutDetail = styled.p`
 text-align: left;
 `
+const Time = styled.div`
+font-size: 17px;
+margin-top: 15px;
+text-align: left;
+`
 
 const CompletedIcon = styled.img`
 width: 150px;
-margin-top: 30px;
+margin-top: 10px;
 `
 
 const ReservationTitle = styled.div`
@@ -88,4 +93,4 @@ width: 150px;
 border-radius: 15px;
 `
 
-export { CompletedLayout, CompletedIcon, CompletedTitle, CompletedLayOut, CompletedLayOutDetail, ReservationLayout, ReservationTitle, Reservation, ReservationItem, ReservationDetail,BtnLayout, MyPageBtn, HomeBtn }
+export { CompletedLayout, CompletedIcon, CompletedTitle, CompletedLayOut, CompletedLayOutDetail, Time, ReservationLayout, ReservationTitle, Reservation, ReservationItem, ReservationDetail,BtnLayout, MyPageBtn, HomeBtn }

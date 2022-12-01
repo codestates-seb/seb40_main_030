@@ -1,17 +1,18 @@
-import * as S from './Completed.styled'
-import { CompletedIcon } from '@/assets';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import { CompletedIcon } from '@/assets';
+
+import * as S from './Completed.styled'
 
 const Completed = () => {
     const {state} = useLocation();
-
+    console.log(state)
     const navigate = useNavigate();
 
     const homeClick = () => {
         navigate('/')
     }
 
-    //MyPage 연결 필요
     const myPageClick = () => {
         navigate('/')
     }
@@ -21,6 +22,8 @@ const Completed = () => {
             <S.CompletedLayOut>
                 <S.CompletedLayOutDetail><b>예약</b>이</S.CompletedLayOutDetail>
                 <S.CompletedLayOutDetail><b>완료</b>되었습니다.</S.CompletedLayOutDetail>
+                <S.Time>사용시간 : <br/>{state?.startPoint.replace('T', ' ').replace(':','시 ')+'분'}
+                    <br/>{state?.endPoint.replace('T', ' ').replace(':','시 ')+'분'}</S.Time>
                 <S.CompletedIcon src={CompletedIcon} />
             </S.CompletedLayOut>
                 <S.ReservationTitle>예약내역</S.ReservationTitle>
