@@ -63,8 +63,8 @@ public class StationService {
 
         Optional.ofNullable(station.getName()).ifPresent(savedStation::setName);
         Optional.ofNullable(station.getDetails()).ifPresent(savedStation::setDetails);
-        Optional.of(station.getLatitude()).ifPresent(savedStation::setLatitude);
-        Optional.of(station.getLongitude()).ifPresent(savedStation::setLongitude);
+        Optional.ofNullable(station.getLatitude()).ifPresent(savedStation::setLatitude);
+        Optional.ofNullable(station.getLongitude()).ifPresent(savedStation::setLongitude);
         Optional.ofNullable(station.getPhotoURL()).ifPresent(savedStation::setPhotoURL);
         Optional.ofNullable(station.getPhone()).ifPresent(savedStation::setPhone);
         Optional.ofNullable(station.getConfirmId()).ifPresent(savedStation::setConfirmId);
