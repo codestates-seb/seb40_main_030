@@ -50,9 +50,10 @@ public class KakaoPayController {
     }
 
     // 결제 취소시 실행 url
-    @GetMapping("/kakaoPayCancel")
-    public String payCancel() {
-        return "redirect:/carts";
+    @PostMapping("/kakaoPayCancel")
+    public void kakaoPayCancel(@RequestParam(name = "paymentId") Long paymentId,
+                               @RequestParam(name = "cancel_amount") int cancel_amount,Model model) {
+        model.addAttribute("info", kakaopay.kakaoPayCancel(paymentId, cancel_amount));
     }
 
     // 결제 실패시 실행 url

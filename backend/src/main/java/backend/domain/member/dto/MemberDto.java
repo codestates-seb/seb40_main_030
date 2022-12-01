@@ -22,10 +22,12 @@ public class MemberDto {
         @NotBlank @Email
         private String email;
 
-        @NotBlank @Pattern(regexp = "^[가-힣a-zA-Z]*$")
+        @NotBlank @Pattern(regexp = "^(?=.[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$",
+        message = "영어 소문자, 한글, 숫자로 2자 이상 16자 이하까지 작성해주세요.")
         private String nickname;
 
-        @NotBlank
+        @NotBlank @Pattern(regexp="(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}",
+                message = "비밀번호는 영문과 숫자, 특수기호를 적어도 1개 이상씩 포함하여 8자 ~ 20자여야 합니다.")
         private String password;
 
         @NotBlank
@@ -45,7 +47,8 @@ public class MemberDto {
     public static class Patch {
 
         //정규식 필요
-        @NotBlank @Pattern(regexp = "^[가-힣a-zA-Z]*$")
+        @NotBlank @Pattern(regexp = "^(?=.[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$",
+                message = "영어 소문자, 한글, 숫자로 2자 이상 16자 이하까지 작성해주세요.")
         private String nickname;
 
         @NotBlank
@@ -103,6 +106,8 @@ public class MemberDto {
     public static class PostResDto{
         private Long memberId;
         private String email;
+        @NotBlank @Pattern(regexp = "^(?=.[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$",
+                message = "영어 소문자, 한글, 숫자로 2자 이상 16자 이하까지 작성해주세요.")
         private String nickname;
 
         public PostResDto(Member member) {

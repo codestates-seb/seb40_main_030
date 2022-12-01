@@ -1,9 +1,12 @@
 package backend.domain.kakaoPay;
 
+import backend.domain.battery.repository.ReservationRepository;
 import backend.domain.payment.entity.PayStatus;
 import backend.domain.payment.entity.Payment;
 import backend.domain.payment.repository.PaymentRepository;
 import backend.domain.payment.service.PaymentService;
+import backend.global.exception.dto.BusinessLogicException;
+import backend.global.exception.exceptionCode.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpEntity;
@@ -26,6 +29,7 @@ public class KakaoPayService {
     private static final String HOST = "https://kapi.kakao.com";
     private final PaymentRepository paymentRepository;
     private final PaymentService paymentService;
+    private final ReservationRepository reservationRepository;
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     private String itemName;
@@ -113,6 +117,7 @@ public class KakaoPayService {
 //            try{
             payment.setStatus(PayStatus.WAITING_FOR_RESERVATION);
             payment.setTid(kakaoPayReadyVO.getTid());
+            payment.setPayMethod(kakaoPayApprovalVO.getCard_info().getPurchase_corp());
             paymentService.patchPayment(payment);
 
             return kakaoPayApprovalVO;
@@ -121,6 +126,49 @@ public class KakaoPayService {
 //                payment.setStatus(PayStatus.FAIL);
 //                paymentRepository.save(payment);
 //            }
+
+        } catch (RestClientException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public KakaoPayCancelVO kakaoPayCancel(Long paymentId, int cancel_amount){
+        RestTemplate restTemplate = new RestTemplate();
+        KakaoPayCancelVO kakaoPayCancelVO;
+        Payment savedPayment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
+        String tid = savedPayment.getTid();
+
+        // 서버로 요청할 Header
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "KakaoAK " + "82d314b8fd7c2c1f79dadd248f79a7b0");
+        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+
+        // 서버로 요청할 Body
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("cid", "TC0ONETIME");
+        params.add("tid", tid);// 결제고유 번호
+        params.add("cancel_amount", String.valueOf(cancel_amount));//취소 상품 총 금액
+        params.add("cancel_tax_free_amount", "100");
+
+        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        try {
+            kakaoPayCancelVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/cancel"), body, KakaoPayCancelVO.class);
+
+            log.info("" + kakaoPayCancelVO);
+
+            savedPayment.setStatus(PayStatus.CANCELED);
+            paymentRepository.save(savedPayment);
+            reservationRepository.deleteById(savedPayment.getReservations().get(0).getReservationId());
+
+            return kakaoPayCancelVO;
 
         } catch (RestClientException e) {
             // TODO Auto-generated catch block
