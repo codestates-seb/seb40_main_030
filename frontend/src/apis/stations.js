@@ -1,8 +1,6 @@
-// import { apiClient } from './order';
 import axios from 'axios';
 
-const accessToken = `eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwibWVtYmVySWQiOjEsInN1YiI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNjY5ODA3NTE0LCJleHAiOjE2Njk4OTM5MTR9.1rywMENWnxLRRFmBStzKzQNLpShQRhNEycjiLW_ixfo`;
-// const accessToken = `eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwibWVtYmVySWQiOjEsInN1YiI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNjY5NjUwODAzLCJleHAiOjE2Njk3MzcyMDN9.TY6HuuLoH64VXC8nded1Cox8zMjR6ZYcfjkT0FcIV3I`;
+const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_NGROK,
@@ -34,8 +32,6 @@ const deleteStationById = async (id) => {
 const getStationByKeyword = async (keyword) => {
   const response = await apiClient.get(`/stations/keyword?keyword=${keyword}`);
 
-  console.log(response);
-
   return response;
 };
 
@@ -47,12 +43,6 @@ const getBatteryBySetTime = async (id, setTime) => {
   return data;
 };
 
-const getPaymentsTable = async () => {
-  const { data } = await apiClient.get('/payments');
-
-  return data?.content;
-};
-
 const getFilteredStationsBySetTime = async (setTime) => {
   const { data } = await apiClient.get('/stations/searchAll', {
     params: setTime,
@@ -62,11 +52,11 @@ const getFilteredStationsBySetTime = async (setTime) => {
 };
 
 export {
+  apiClient,
   getAllStations,
   getStationById,
   deleteStationById,
   getStationByKeyword,
-  getPaymentsTable,
   getBatteryBySetTime,
   getFilteredStationsBySetTime,
 };
