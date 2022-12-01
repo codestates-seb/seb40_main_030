@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -202,4 +203,28 @@ public class PaymentService {
 
         return paymentRepository.save(savedPayment);
     }
+
+
+    @Transactional
+    public void returnBatteryPayment(Long paymentId, Long memberId) {
+        memberRepository.findById(memberId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH));
+        Payment savedPayment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
+        Reservation reservation = reservationRepository.findById(savedPayment.getReservations().get(0).getReservationId())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+
+        // 반납시간 삽입
+        String returnTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        savedPayment.setReturnTime(returnTime);
+
+        // 상태변경
+        savedPayment.setStatus(PayStatus.HISTORY);
+
+        // Reservation 테이블 삭제
+        reservationRepository.delete(reservation);
+
+        paymentRepository.save(savedPayment);
+    }
+
 }
