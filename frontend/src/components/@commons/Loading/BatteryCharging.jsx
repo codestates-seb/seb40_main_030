@@ -8,11 +8,9 @@ const BatteryCharging = ({ message = 'Loading...', chargingSpeed = '3s' }) => {
 
   return (
     <S.Wrapper matches={matches}>
-      <S.BatteryContainer>
-        <S.Title>집나간 배터리</S.Title>
-        <S.Battery chargingSpeed={chargingSpeed}></S.Battery>
-        <S.Message className='glow'>{message}</S.Message>
-      </S.BatteryContainer>
+      <S.Title>집나간 배터리</S.Title>
+      <S.Battery chargingSpeed={chargingSpeed}></S.Battery>
+      <S.Message className='glow'>{message}</S.Message>
     </S.Wrapper>
   );
 };

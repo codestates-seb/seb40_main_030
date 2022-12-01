@@ -6,18 +6,6 @@ const Wrapper = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
 
-  /* margin: 0 auto;
-  width: 200px;
-  height: 100vh; */
-
-  background: ${({ theme }) => theme.WHITE};
-`;
-
-const BatteryContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
   margin: 0 auto;
   width: 200px;
   height: 100vh;
@@ -116,4 +104,4 @@ const Message = styled.span`
   animation-direction: alternate;
 `;
 
-export { Wrapper, Battery, BatteryContainer, Message, Title };
+export { Wrapper, Battery, Message, Title };
