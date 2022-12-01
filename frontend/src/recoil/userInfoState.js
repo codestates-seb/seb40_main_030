@@ -10,6 +10,7 @@ const userInfoState = atom({
     nickname: '',
     phone: '',
     address: '',
+    detailAddress: '',
     photoURL: '',
   },
   dangerouslyAllowMutability: true,
@@ -22,19 +23,24 @@ const isOverLapNick = atom({
   key: 'isOverLapNick',
   default: false,
 });
-// const userMemberId = atom({
-//   key: 'userMemberId',
-//   default: 0,
-// });
 const recoilPostAddress = atom({
   key: 'recoilPostAddress',
   default: '',
 });
+const recoilIsPostCode = atom({
+  key: 'recoilIsPostCode',
+  default: false,
+});
+const recoilIsEdit = atom({
+  key: 'recoilIsEdit',
+  default: false,
+});
 
 export {
   userInfoState,
-  // userMemberId,
   recoilPostAddress,
   isOverLapEmail,
   isOverLapNick,
+  recoilIsEdit,
+  recoilIsPostCode,
 };

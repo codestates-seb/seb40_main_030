@@ -1,11 +1,15 @@
 import DaumPostcode from 'react-daum-postcode';
 import { useNavigate } from 'react-router-dom';
-import { recoilPostAddress } from '../../../recoil/userInfoState';
+import {
+  recoilPostAddress,
+  recoilIsPostCode,
+} from '../../../recoil/userInfoState';
 import { useRecoilState } from 'recoil';
 
 const PostCode = (data) => {
   const navigate = useNavigate();
   const [inPostAddress, setInPostAddress] = useRecoilState(recoilPostAddress);
+  const [isPostCode, setIsPostCode] = useRecoilState(recoilIsPostCode);
 
   const complete = (data) => {
     let fullAddress = data.address;
@@ -36,8 +40,17 @@ const PostCode = (data) => {
 
     console.log('data :', data);
     console.log('fullAddress : ', fullAddress);
+
     setInPostAddress(fullAddress);
-    navigate('/signup');
+    if (
+      localStorage.getItem('accesstoken') ||
+      sessionStorage.getItem('accesstoken')
+    ) {
+      setIsPostCode(true);
+      navigate('/myprofile');
+    } else {
+      navigate('/signup');
+    }
   };
   return <DaumPostcode onComplete={complete} />;
 };

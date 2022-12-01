@@ -31,5 +31,5 @@ export const SpanStatus = styled.div`
   margin-top: 20px;
   border-radius: 3px;
   font-size: 13px;
-  color: darkgreen;
+  color: green;
 `;

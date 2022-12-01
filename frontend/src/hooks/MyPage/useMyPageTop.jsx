@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 const useMyPage = () => {
+  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
   const [photo, setPhoto] = useState('');
   const [nickName, setNickName] = useState('');
   const [email, setEmail] = useState('');
@@ -10,7 +11,7 @@ const useMyPage = () => {
     if (localStorage.getItem('accesstoken')) {
       console.log('if문 axios 직전');
       axios
-        .get('https://e2fe-222-233-138-154.jp.ngrok.io/members/find', {
+        .get(`${apiUrl}/members/find`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
@@ -29,7 +30,7 @@ const useMyPage = () => {
         });
     } else if (sessionStorage.getItem('accesstoken')) {
       axios
-        .get('https://e2fe-222-233-138-154.jp.ngrok.io/members/find', {
+        .get(`${apiUrl}/members/find`, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',

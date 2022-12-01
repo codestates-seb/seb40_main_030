@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 // 일반 로그인 컴포넌트
 
 const GenLogin = () => {
+  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
   const [checkedLogin, setCheckedLogin] = useState(false);
   const [typeState, setTypeState] = useState(true); // 로그인 타입 상태
 
@@ -31,11 +32,7 @@ const GenLogin = () => {
     };
     console.log('axios 직전->loginData:  ', loginData);
     await axios
-      .post(
-        'https://e2fe-222-233-138-154.jp.ngrok.io/auth/login',
-        loginData,
-        loginConfig,
-      )
+      .post(`${apiUrl}/auth/login`, loginData, loginConfig)
       .then((res) => {
         console.log(' axios-> res : ', res);
         console.log('res.headers: ', res.headers);

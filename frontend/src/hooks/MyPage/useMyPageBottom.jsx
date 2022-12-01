@@ -2,12 +2,13 @@ import axios from 'axios';
 import { useState } from 'react';
 
 const useMyPageBottom = () => {
+  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
   const [listData, setListData] = useState([]);
 
   const getUserPayment = () => {
     if (localStorage.getItem('accesstoken')) {
       axios
-        .get(`https://e2fe-222-233-138-154.jp.ngrok.io/members/find`, {
+        .get(`${apiUrl}/members/find`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
@@ -31,7 +32,7 @@ const useMyPageBottom = () => {
         });
     } else if (sessionStorage.getItem('accesstoken')) {
       axios
-        .get(`https://e2fe-222-233-138-154.jp.ngrok.io/members/find`, {
+        .get(`${apiUrl}/members/find`, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',

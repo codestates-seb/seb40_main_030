@@ -12,6 +12,7 @@ import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 
 const SignUpMid = () => {
+  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
   const navigate = useNavigate();
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
   const [inputState, setInputState] = useRecoilState(userInfoState); // input value 값들을 전역에 저장해둘 상태변수
@@ -73,7 +74,7 @@ const SignUpMid = () => {
       alert('E-mail을 입력해주세요.');
     } else {
       axios
-        .get('https://e2fe-222-233-138-154.jp.ngrok.io/members', {
+        .get(`${apiUrl}/members`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
@@ -99,7 +100,7 @@ const SignUpMid = () => {
 
   const checkedNick = () => {
     axios
-      .get('https://e2fe-222-233-138-154.jp.ngrok.io/members', {
+      .get(`${apiUrl}/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
@@ -132,7 +133,7 @@ const SignUpMid = () => {
       return new Promise(() =>
         setTimeout(() => {
           console.log(' submit-> onSubmit data : ', data);
-          data.address = inSignAddress + ' ' + getValues('detailAddress');
+          // data.address = inSignAddress + ' ' + getValues('detailAddress');
 
           if (avatar && avatar.length) {
             const file = avatar[0];
@@ -144,7 +145,7 @@ const SignUpMid = () => {
           }
           console.log('submit -> axios직전 data : ', data);
           axios
-            .post('https://e2fe-222-233-138-154.jp.ngrok.io/members', data)
+            .post(`${apiUrl}/members`, data)
             .then((res) => {
               setInputState('');
               setInSignAddress('');
@@ -174,7 +175,7 @@ const SignUpMid = () => {
   }, [avatar]);
 
   return (
-    <div>
+    <S.SignUpContainer>
       <form onSubmit={handleSubmit(onValid, onInValid)}>
         <S.SignUpMidContainer>
           <S.SignUpPhotoDiv>
@@ -188,7 +189,6 @@ const SignUpMid = () => {
             </S.SignUpPhoto>
             <input
               type='file'
-              className='photoInput'
               name='photoURL'
               accept='image/*'
               placeholder='이미지'
@@ -234,8 +234,7 @@ const SignUpMid = () => {
                 pattern: {
                   value:
                     /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
-                  message:
-                    '⚠ 특수문자 / 문자 / 숫자 포함 형태의 8~15자리 입력하세요.',
+                  message: '⚠ 특수문자 / 문자 / 숫자 포함 8~15자리 입력하세요.',
                 },
               })}
             />
@@ -271,11 +270,11 @@ const SignUpMid = () => {
                 required: '⚠ 사용할 닉네임을 입력하세요.',
                 pattern: {
                   value: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/,
-                  message:
-                    '⚠ 영어(소문자) / 숫자 / 한글 포함 형태의 2~16자리 입력하세요.',
+                  message: '⚠ 영어 / 숫자 / 한글 2~16자리 입력하세요.',
                 },
               })}
             />
+            {/* 대소문자 다되게끔 */}
             <button type='button' onClick={checkedNick}>
               중복확인
             </button>
@@ -313,9 +312,9 @@ const SignUpMid = () => {
             <S.SignUpAddressInputDiv>
               <input
                 type='text'
-                value={inSignAddress}
+                defaultValue={inSignAddress}
                 placeholder='주소'
-                onChange={(e) => setInSignAddress(e.target.value)}
+                // onChange={(e) => setInSignAddress(e.target.value)}
               />
               <S.SearchAddressBtn
                 type='button' // 버튼에 type을 지정을 안해주면 디폴트값은 'submit'이다 그래서 이렇게 지정해줌!
@@ -342,7 +341,7 @@ const SignUpMid = () => {
           <S.SignUpSubmitBtn type='submit'>회원가입 완료</S.SignUpSubmitBtn>
         </S.SignUpBottomContainer>
       </form>
-    </div>
+    </S.SignUpContainer>
   );
 };
 
