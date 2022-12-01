@@ -23,6 +23,14 @@ const isOverLapNick = atom({
   key: 'isOverLapNick',
   default: false,
 });
+const recoilNickname = atom({
+  key: 'recoilNickname',
+  default: '',
+});
+const recoilPhone = atom({
+  key: 'recoilPhone',
+  default: '',
+});
 const recoilPostAddress = atom({
   key: 'recoilPostAddress',
   default: '',
@@ -43,4 +51,6 @@ export {
   isOverLapNick,
   recoilIsEdit,
   recoilIsPostCode,
+  recoilNickname,
+  recoilPhone,
 };

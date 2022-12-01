@@ -9,14 +9,15 @@ import {
   isOverLapNick,
   recoilIsEdit,
   recoilIsPostCode,
+  recoilNickname,
+  recoilPhone,
 } from '../../recoil/userInfoState';
 import * as S from './Mid.style';
 import { ProfileImg } from '../../assets';
 
 const Mid = () => {
   const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
-  const defaultImg =
-    'https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=128&d=identicon&r=PG&f=1';
+
   const [userInfo, setUserInfo] = useState('');
   const [isEdit, setIsEdit] = useRecoilState(recoilIsEdit);
 
@@ -24,6 +25,8 @@ const Mid = () => {
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
   const [isPostCode, setIsPostCode] = useRecoilState(recoilIsPostCode);
   const [inputState, setInputState] = useRecoilState(userInfoState);
+  const [nickState, setNickState] = useRecoilState(recoilNickname);
+  const [phoneState, setPhoneState] = useRecoilState(recoilPhone);
   const [avatarPreview, setAvatarPreview] = useState('');
   const [isNick, setIsNick] = useRecoilState(isOverLapNick);
   const [nickMsg, setNickMsg] = useState('');
@@ -55,6 +58,7 @@ const Mid = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
+      photoURL: userInfo.photoURL,
       nickname: userInfo.nickname,
       phone: userInfo.phone,
       address: userInfo.address,
@@ -105,21 +109,21 @@ const Mid = () => {
     if (isEdit && isPostCode) {
       setValue('detailAddress', userInfo.detailAddress);
       setValue('address', inSignAddress);
-      setValue('nickname', inputState.nickname);
-      setValue('photoURL', inputState.photoURL);
+      setValue('nickname', inputState.nickname); // 만약 바꾼상태로 주소찾기를 갈떄 전역상태 inputState로 들어감
+      if (nickState) {
+        // 얘는 닉을 안바꾼상태로 그대로 주소찾기로 들어갈떄 따로 nickState 전역상태로 저장
+        setValue('nickname', nickState);
+      }
       setValue('phone', inputState.phone);
+      if (phoneState) {
+        setValue('phone', phoneState);
+      }
+      setValue('photoURL', inputState.photoURL);
     }
   }, []);
-  const stayInputFunc = () => {
-    setValue('detailAddress', userInfo.detailAddress);
-    setValue('address', userInfo.address);
-    setValue('nickname', userInfo.nickname);
-    setValue('photoURL', userInfo.photoURL);
-    setValue('phone', userInfo.phone);
-  };
 
   const avatar = watch('photoURL');
-  console.log('photoURL : ', watch('photoURL'));
+  console.log('avatar선언 바로 아래 watch(photoURL) : ', watch('photoURL'));
   useEffect(() => {
     if (avatar && avatar.length > 0) {
       const file = avatar[0];
@@ -156,7 +160,9 @@ const Mid = () => {
           if (!watch('address')) {
             delete data.address;
           }
-          if (!watch('detailAddress')) {
+          if (watch('address') && !watch('detailAddress')) {
+            data.detailAddress = '';
+          } else if (!watch('detailAddress')) {
             delete data.detailAddress;
           }
 
@@ -172,8 +178,11 @@ const Mid = () => {
             })
             .then((res) => {
               console.log('MyProfile -> onValid -> axios 내부 res : ', res);
+              setIsPostCode(false);
+              setInputState('');
               setIsEdit(false);
               setInSignAddress('');
+              setIsNick(false);
               setNickMsg('');
               navigate('/mypage');
             })
@@ -224,7 +233,6 @@ const Mid = () => {
                       }}
                     />
                   </S.SignUpPhoto>
-
                   <input
                     type='file'
                     name='photoURL'
@@ -236,14 +244,12 @@ const Mid = () => {
                 <>
                   <S.SignUpPhoto>
                     <S.PreviewImg
-                      // src={avatarPreview}
                       src={`blob:${userInfo.photoURL}`}
                       onError={(e) => {
                         e.target.src = ProfileImg;
                       }}
                     />
                   </S.SignUpPhoto>
-
                   <input
                     type='file'
                     name='photoURL'
@@ -255,7 +261,6 @@ const Mid = () => {
             ) : (
               <S.SignUpPhoto>
                 <S.PreviewImg
-                  // src={avatarPreview}
                   src={`blob:${userInfo.photoURL}`}
                   onError={(e) => {
                     e.target.src = ProfileImg;
@@ -279,7 +284,6 @@ const Mid = () => {
                   name='nickname'
                   defaultValue={userInfo.nickname}
                   {...register('nickname', {
-                    // required: '⚠ 사용할 닉네임을 입력하세요.',
                     pattern: {
                       value: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/,
                       message: '⚠ 영어 / 숫자 / 한글 2~16자리 입력하세요.',
@@ -350,9 +354,17 @@ const Mid = () => {
                     {...register('address')}
                   />
                   <S.SearchAddressBtn
-                    type='button' // 버튼에 type을 지정을 안해주면 디폴트값은 'submit'이다 그래서 이렇게 지정해줌!
+                    type='button'
                     onClick={() => {
+                      // setInputState(watch());
+                      if (!watch('nickname')) {
+                        setNickState(userInfo.nickname);
+                      }
+                      if (!watch('phone')) {
+                        setPhoneState(userInfo.phone);
+                      }
                       setInputState(watch());
+
                       navigate('/searchaddress');
                     }}
                   >
@@ -383,6 +395,7 @@ const Mid = () => {
                   <input
                     type='text'
                     name='detailAddress'
+                    placeholder='상세주소'
                     defaultValue={userInfo.detailAddress}
                     {...register('detailAddress')}
                     disabled
@@ -411,7 +424,6 @@ const Mid = () => {
                 onClick={() => {
                   console.log('정보수정 버튼 눌렀음!');
                   setIsEdit(!isEdit);
-                  // stayInputFunc();
                 }}
               >
                 내 정보 수정

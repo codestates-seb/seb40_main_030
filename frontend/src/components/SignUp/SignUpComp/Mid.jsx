@@ -190,7 +190,6 @@ const SignUpMid = () => {
               type='file'
               name='photoURL'
               accept='image/*'
-              placeholder='이미지'
               {...register('photoURL')}
             />
           </S.SignUpPhotoDiv>
