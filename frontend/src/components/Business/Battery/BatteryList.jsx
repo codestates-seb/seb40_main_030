@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import InputModal from '@/components/Business/InputModal/InputModal';
+import { reservationState } from '@/recoil/pagesState';
 
 import BatteryCount from '../BatteryManagement/BatteryCount';
 import BatteryEditForm from '../InputModal/BatteryEditForm';
@@ -14,7 +15,7 @@ import BatteryCard from './BatteryCard';
 const BatteryList = ({ openSnackBar, batteryList, stationList }) => {
   const [isEditState, setIsEditState] = useState(false);
   const [selectedBatteryInfo, setSelectedBatteryInfo] = useState({});
-
+  console.log('batterbatteryListbatteryListyList', batteryList);
   const openModalHandler = (info) => {
     setIsEditState(true);
     setSelectedBatteryInfo(info);
@@ -58,6 +59,7 @@ const BatteryList = ({ openSnackBar, batteryList, stationList }) => {
                   }
                   imgUrl={battery.photoURL}
                   details={{
+                    reservationState: battery.reservations.reservationState,
                     endTime: battery.reservations.endTime,
                     stationName: battery.stationName,
                     stationId: battery.stationId,

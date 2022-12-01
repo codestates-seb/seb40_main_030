@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
+import { sendAuthCode } from '@/apis/auth';
+import { getAuthCode } from '@/components/Login/utils';
+
 import LoginForm from '../../components/Login/LoginForm';
 import { loginState } from '../../recoil/login';
 import * as S from './Login.style';

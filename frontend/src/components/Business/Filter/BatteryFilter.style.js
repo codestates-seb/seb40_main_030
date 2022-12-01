@@ -7,7 +7,7 @@ const BatteryFilterContainer = styled.ul`
   padding: 0 10px;
   display: flex;
   justify-content: space-between;
-  gap: 30px;
+  gap: 15px;
   align-items: center;
 `;
 

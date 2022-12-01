@@ -15,6 +15,8 @@ const BatteryStatus = ({ isSelected, clickHandler, idx, status }) => {
             ? '대기중'
             : status === false
             ? '대여중'
+            : status === 'reservation'
+            ? '예약중'
             : null}
         </div>
       </S.BatteryStatusContainer>

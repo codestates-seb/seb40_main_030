@@ -9,6 +9,7 @@ import * as S from './InputModal.style';
 
 const BatteryInputForm = ({ openSnackBar, batteryList, stationList }) => {
   //removeDuplicatedBatteryName 추후 최적화 적용여부 확인
+
   const onlyOneBatteryNames = removeDuplicatedBatteryName(batteryList);
   const onlyOneStationNames = removeDuplicatedStationName(stationList);
 

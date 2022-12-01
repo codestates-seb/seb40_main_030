@@ -14,7 +14,7 @@ import * as S from './Business.style';
 const BatteryContent = ({ openSnackBar, clickPage }) => {
   const { batteryInfo } = useGetBatteryList();
   const { stationInfo } = useGetStationList();
-
+  console.log(batteryInfo.countList);
   let recoilKeyName;
   if (clickPage === 'battery') {
     recoilKeyName = batteryAddModeState;

@@ -8,7 +8,30 @@ import {
   KAKAO_RENEW_TOKEN_URL,
   REDIRECT_URI,
 } from '../constants/auth';
+import { axiosAdminInstance } from './admin';
 
+const axiosOauthInstance = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'ngrok-skip-browser-warning': '111',
+    // authorization: `Bearer ${ACCESS_TOKEN}`,
+  },
+});
+
+const setHeaderAccessToken = (token) => {
+  if (token) {
+    console.log('엑세스 토큰 헤더 세팅');
+    axiosAdminInstance.defaults.headers.common[
+      'Authorization'
+    ] = `Bearer ${token}`;
+  } else delete axios.defaults.headers.common['Authorization'];
+};
+
+const sendAuthCode = async (authCode) => {
+  const { res } = await axiosOauthInstance.post('/login', authCode);
+  console.log('인증코드 보낸후 응답');
+  return res;
+};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -167,10 +190,12 @@ const login = async () => {
     email: 'test@gmail.com',
     password: '123411aa',
   });
-  console.log('로긴 응답', res.headers);
+  return res;
 };
 
 export {
+  setHeaderAccessToken,
+  sendAuthCode,
   getTokenDirectly,
   getTokenIndirectly,
   invalidateTokenDirectly,

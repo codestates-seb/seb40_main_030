@@ -59,24 +59,48 @@ const BatteryStatusColorContainer = styled.div`
   border-radius: ${({ count }) => (typeof count === 'number' ? '100px' : null)};
 `;
 
+const BatteryStatusTitleWrapper = styled.div`
+  display: flex;
+  justify-content: end;
+  gap: 5px;
+`;
+
 const BatteryStatusTitleContainer = styled.div`
-  width: 55px;
+  /* width: 55px; */
   display: flex;
   justify-content: center;
-  padding: 6px;
+
   font-size: 15px;
   border-radius: 9px;
+  & .status-box:empty {
+    background-color: red;
+    display: none;
+  }
+
   background-color: ${({ status }) =>
-    status ? 'rgb(254,249,236)' : 'rgb(240,250,255)'};
-  color: ${({ status }) => (status ? 'rgb(181,150,112)' : 'rgb(134,157,197)')};
+    typeof status === 'boolean' && status
+      ? 'rgb(254,249,236)'
+      : 'rgb(240,250,255)'};
+
+  background-color: ${({ status }) =>
+    typeof status === 'number' && status > 0 ? '#FCEBEA' : null};
+
+  color: ${({ status }) =>
+    typeof status === 'boolean' && status
+      ? 'rgb(181,150,112)'
+      : 'rgb(134,157,197)'};
+
+  color: ${({ status }) =>
+    typeof status === 'number' && status > 0 ? '#F17C75' : null};
 `;
 
 const BatteryStatusContainer = styled.div`
   display: flex;
-  gap: 10px;
+  /* gap: 10px; */
   border-radius: 30px;
   background-color: ${({ isSelected }) =>
     isSelected ? 'rgb(70,124,237)' : 'rgb(172,195,238)'};
+
   & .status-title {
     height: 30px;
     padding: 0 15px;
@@ -179,4 +203,5 @@ export {
   BatteryListWrapper,
   BatteryTitleContainer,
   BatteryLocation,
+  BatteryStatusTitleWrapper,
 };

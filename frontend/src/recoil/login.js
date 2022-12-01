@@ -14,9 +14,15 @@ const sessionState = atom({
   effects: [localStorageEffect('sessionState')],
 });
 
-const accessTokenVal = atom({
+const accessToken = atom({
   key: 'accessToken',
   default: '',
 });
 
-export { loginState, accessTokenVal, sessionState };
+const refreshToken = atom({
+  key: 'refreshToken',
+  default: '',
+  effects: [localStorageEffect('refreshToken')],
+});
+
+export { sessionState, loginState, accessToken, refreshToken };

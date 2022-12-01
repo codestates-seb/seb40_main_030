@@ -13,6 +13,7 @@ const filterBatteryInfo = (data) => {
         batteryName: bat.batteryName,
         defaultPrice: bat.defaultPrice,
         reservations: {
+          reservationState: bat.reservations.length,
           startTime: bat.reservations[0]?.startTime,
           endTime: bat.reservations[0]?.endTime,
         },
@@ -25,16 +26,29 @@ const filterBatteryInfo = (data) => {
 
 const filterByBatteryState = (batteryList, status) => {
   //selectFn
-  const listFiltedByBatteryState = batteryList.filter((battery) => {
-    return battery.status === status;
-  });
-  return listFiltedByBatteryState;
+  let listFilterByBatteryState;
+  if (status !== 'reservation') {
+    listFilterByBatteryState =
+      status !== 'reservation' &&
+      batteryList.filter((battery) => {
+        return battery.status === status;
+      });
+  } else {
+    listFilterByBatteryState =
+      status === 'reservation' &&
+      batteryList.filter((battery) => {
+        return battery.reservations.reservationState > 0;
+      });
+  }
+
+  return listFilterByBatteryState;
 };
 
 const getEachStateNum = (batteryList) => {
-  const result = [0, 0, 0];
+  const result = [0, 0, 0, 0];
   batteryList.forEach((battery) => {
     battery.status ? result[1]++ : result[2]++;
+    battery.reservations?.reservationState ? result[3]++ : null;
   });
   result[0] = batteryList.length;
   return result;

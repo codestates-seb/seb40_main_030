@@ -10,7 +10,7 @@ const BatteryFilter = ({ countList }) => {
   const [isSelected, setIsSelected] = useState([true, false, false]);
   const setSelectedFilter = useSetRecoilState(batteryFilterState);
   const clickHandler = (idx, status) => {
-    const stateArr = [false, false, false];
+    const stateArr = [false, false, false, false];
     stateArr[idx] = true;
     setSelectedFilter(status);
     setIsSelected([...stateArr]);
@@ -20,7 +20,15 @@ const BatteryFilter = ({ countList }) => {
       <S.BatteryFilterContainer>
         {countList.map((eachCount, idx) => {
           const state =
-            idx === 0 ? 'total' : idx === 1 ? true : idx === 2 ? false : null;
+            idx === 0
+              ? 'total'
+              : idx === 1
+              ? true
+              : idx === 2
+              ? false
+              : idx === 3
+              ? 'reservation'
+              : null;
           return (
             <BatteryStatus
               key={idx}

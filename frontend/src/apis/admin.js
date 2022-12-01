@@ -72,6 +72,7 @@ const deleteStation = async (batteryId) => {
 };
 
 export {
+  axiosAdminInstance,
   getAdminById,
   addBattery,
   deleteBattery,
