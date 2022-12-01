@@ -52,7 +52,6 @@ const Mid = () => {
     register,
     handleSubmit,
     watch,
-    getValues,
     setValue,
     formState: { errors, isSubmitting },
   } = useForm({
@@ -92,6 +91,10 @@ const Mid = () => {
         let existNick = res.data.content.find(
           (user) => user.nickname === watch('nickname'),
         );
+        if (watch('nickname') === userInfo.nickname) {
+          setNickMsg('');
+          setIsNick(true);
+        }
         if (existNick && !nowUserNick) {
           setNickMsg('⚠ 중복된 닉네임입니다.');
           setIsNick(false);
@@ -290,9 +293,19 @@ const Mid = () => {
                     },
                   })}
                 />
-                <button type='button' onClick={checkedNick}>
-                  중복확인
-                </button>
+                {!watch('nickname') ? (
+                  <button
+                    style={{ backgroundColor: '#d6d9dc' }}
+                    type='button'
+                    disabled
+                  >
+                    중복확인
+                  </button>
+                ) : (
+                  <button type='button' onClick={checkedNick}>
+                    중복확인
+                  </button>
+                )}
               </>
             ) : (
               <input

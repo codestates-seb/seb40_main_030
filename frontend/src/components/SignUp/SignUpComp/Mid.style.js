@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import '@kfonts/bm-dohyeon'; // 배민 도현체 설치후 import
 
 export const SignUpContainer = styled.div`
-  width: 100%;
+  width: 305px;
+  /* width: 100%; */
   height: 100%;
+  /* border: 1px solid black; */
 `;
 export const SignUpMidContainer = styled.div`
   padding: 40px 10px 0 10px;
@@ -25,8 +27,23 @@ export const SignUpPhotoDiv = styled.div`
 export const SignUpPhoto = styled.div`
   width: 100%;
   height: 70px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: 14px;
+  /* position: absolute; */
+`;
+export const FileLabel = styled.label`
+  display: inline-block;
+  padding: 2px 9px;
+  color: white;
+  font-size: 14px;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #7b8c9f;
+  cursor: pointer;
+  border: 1px solid #d6d9dc;
+  border-bottom-color: #e2e2e2;
+  border-radius: 5px;
+  margin-left: 117px;
 `;
 export const PreviewImg = styled.img`
   margin: 0 0 0 110px;
@@ -203,7 +220,7 @@ export const SignUpAddressInputAddDiv = styled.div`
 `;
 
 export const SignUpBottomContainer = styled.div`
-  padding: 50px 10px 0 10px;
+  padding: 30px 10px 0 10px;
 `;
 
 export const SignUpSubmitBtn = styled.button`
@@ -212,6 +229,6 @@ export const SignUpSubmitBtn = styled.button`
   border-radius: 3px;
   font-weight: bold;
   color: white;
-  margin-bottom: 35px;
+  margin-bottom: 100px;
   background-color: #5584ac;
 `;

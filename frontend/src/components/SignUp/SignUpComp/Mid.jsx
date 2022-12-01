@@ -186,11 +186,14 @@ const SignUpMid = () => {
                 }}
               />
             </S.SignUpPhoto>
+            <S.FileLabel for='file'>업로드</S.FileLabel>
             <input
+              id='file'
               type='file'
               name='photoURL'
               accept='image/*'
               {...register('photoURL')}
+              style={{ display: 'none' }}
             />
           </S.SignUpPhotoDiv>
 
@@ -208,9 +211,19 @@ const SignUpMid = () => {
                 },
               })}
             />
-            <button type='button' onClick={checkedEmail}>
-              중복확인
-            </button>
+            {!watch('email') ? (
+              <button
+                style={{ backgroundColor: '#d6d9dc' }}
+                type='button'
+                disabled
+              >
+                중복확인
+              </button>
+            ) : (
+              <button type='button' onClick={checkedEmail}>
+                중복확인
+              </button>
+            )}
           </S.SignUpEmailInputDiv>
           {errors.email?.message && (
             <S.SignUpEmailFailMsgDiv>
@@ -231,8 +244,8 @@ const SignUpMid = () => {
                 required: '⚠ 비밀번호 입력',
                 pattern: {
                   value:
-                    /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
-                  message: '⚠ 특수문자 / 문자 / 숫자 포함 8~15자리 입력하세요.',
+                    /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+                  message: '⚠ 특수문자 / 문자 / 숫자 포함 8~20자리 입력하세요.',
                 },
               })}
             />
@@ -272,10 +285,19 @@ const SignUpMid = () => {
                 },
               })}
             />
-            {/* 대소문자 다되게끔 */}
-            <button type='button' onClick={checkedNick}>
-              중복확인
-            </button>
+            {!watch('email') ? (
+              <button
+                style={{ backgroundColor: '#d6d9dc' }}
+                type='button'
+                disabled
+              >
+                중복확인
+              </button>
+            ) : (
+              <button type='button' onClick={checkedNick}>
+                중복확인
+              </button>
+            )}
           </S.SignUpNickInputDiv>
           {errors.nickname?.message && (
             <S.SignUpNickFailMsgDiv>
