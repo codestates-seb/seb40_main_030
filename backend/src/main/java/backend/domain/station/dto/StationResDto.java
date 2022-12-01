@@ -40,7 +40,7 @@ public class StationResDto {
             filteredbattery.setCapacity(station.getBattery().get(i).getCapacity());
             filteredbattery.setStatus(station.getBattery().get(i).isStatus());
             filteredbattery.setPrice(station.getBattery().get(i).getPrice());
-//            filteredbattery.setDefaultPrice(station.getBattery().get(i).getDefaultPrice());
+            filteredbattery.setDefaultPrice(station.getBattery().get(i).getDefaultPrice());
             filteredbattery.setBatteryName(station.getBattery().get(i).getBatteryName());
             filteredbattery.setPhotoURL(station.getBattery().get(i).getPhotoURL());
             filteredbattery.setCreatedAt(station.getBattery().get(i).getCreatedAt());

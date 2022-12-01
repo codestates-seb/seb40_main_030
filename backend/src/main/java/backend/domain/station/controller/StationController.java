@@ -21,7 +21,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Validated
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/stations")
@@ -44,7 +43,7 @@ public class StationController {
     @PatchMapping("/{stationId}")
     public ResponseEntity<StationResDto> patchStation(HttpServletRequest request,
                                                       @PathVariable Long stationId,
-                                                      @RequestBody @Valid StationPatchReqDto stationPatchReqDto) {
+                                                      @RequestBody StationPatchReqDto stationPatchReqDto) {
         Station station = stationPatchReqDto.toStation(stationId);
         String adminEmail = jwtExtractUtils.extractEmailFromJwt(request);
         Station modifiedStation = stationService.patchStation(station, adminEmail);

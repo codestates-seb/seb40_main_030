@@ -13,11 +13,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional(readOnly = true)
 @Service //@RequiredArgsConstructor
 public class BatteryService {
     private final BatteryRepository batteryRepository;
@@ -33,6 +35,7 @@ public class BatteryService {
     }
 
     // 배터리 등록
+    @Transactional
     public Battery createBattery(Battery battery, long stationId, String adminEmail){
         Station station = stationRepository.findById(stationId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND));
@@ -48,6 +51,7 @@ public class BatteryService {
     }
 
     // 배터리 수정
+    @Transactional
     public Battery updateBattery(Battery battery, String adminEmail){
         Battery findBattery = findVerifiedBattery(battery.getBatteryId());
 
@@ -80,6 +84,7 @@ public class BatteryService {
     }
 
     // 해당 ID 배터리 삭제
+    @Transactional
     public void deleteBattery(long batteryId, String adminEmail){
         Battery findBattery = findVerifiedBattery(batteryId);
 

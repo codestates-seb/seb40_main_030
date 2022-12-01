@@ -74,6 +74,10 @@ public class AdminDto {
                 adminStation.setPhotoURL(admin.getStationList().get(i).getPhotoURL());
                 //배터리 추가해야함
                 adminStation.setBattery(admin.getStationList().get(i).getBattery());
+                adminStation.setCreatedAt(admin.getStationList().get(i).getCreatedAt());
+                adminStation.setModifiedAt(admin.getStationList().get(i).getModifiedAt());
+                adminStation.setPhone(admin.getStationList().get(i).getPhone());
+                adminStation.setConfirmId(admin.getStationList().get(i).getConfirmId());
                 list.add(adminStation);
             }
             this.stationList = list;
