@@ -153,6 +153,8 @@ public class PaymentService {
 
         return list;
     }
+
+
     // 최대 연장가능 시각 찾기
     @Transactional
     public String getNearReservation(Long paymentId, Long memberId){
