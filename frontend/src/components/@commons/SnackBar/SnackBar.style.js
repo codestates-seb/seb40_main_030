@@ -24,7 +24,8 @@ const SnackBar = styled.div`
   font-size: 15px;
 
   left: 50%;
-  left: ${({ isActive }) =>
+
+  ${({ isActive }) =>
     isActive &&
     css`
       animation: ${FadeIn} 1s;

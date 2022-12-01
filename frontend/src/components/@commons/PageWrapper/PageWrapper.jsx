@@ -13,7 +13,6 @@ const PageWrapper = ({
   path,
   loadingMessage,
   loadingDelay,
-
   children,
 }) => {
   const navigate = useNavigate();
@@ -28,7 +27,7 @@ const PageWrapper = ({
     >
       <S.Header>
         {/* path 는 뒤로가기를 눌렀을때 이동할 페이지를 의미 합니다. */}
-        <div onClick={() => navigate(path)}>
+        <div className='button' onClick={() => navigate(path)}>
           <ArrowIcon />
         </div>
         <S.Title>{title}</S.Title>

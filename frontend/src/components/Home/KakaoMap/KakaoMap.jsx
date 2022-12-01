@@ -40,7 +40,7 @@ const KakaoMap = ({ matches }) => {
               longitude: map.getCenter().getLng(),
             })
           }
-          level={8}
+          level={6}
         >
           {/* 예약시간 설정 된 경우  /  안된경우  */}
           {startPoint !== undefined && endPoint !== undefined
