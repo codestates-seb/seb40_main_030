@@ -5,11 +5,10 @@ const Header = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  border: 1px solid black;
   min-height: 10%;
 
   .active {
-    border-color: blue;
+    border-bottom: 1px solid ${({ theme }) => theme.COLOR_BLUE};
   }
 `;
 
@@ -17,6 +16,6 @@ const CategoryButton = styled.button`
   width: 30%;
   height: 50%;
 
-  border: 1px solid red;
+  font-size: 16px;
 `;
 export { Header, CategoryButton };

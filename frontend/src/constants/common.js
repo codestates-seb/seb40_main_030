@@ -23,6 +23,9 @@ const BOOKING_TYPE = {
   SINGLE: 'single',
 };
 
+const DESKTOP_MAX_WIDTH = '800px';
+const DESKTOP_MARGIN_LEFT = '30%';
+
 const SEARCH_LOCATION_SUGGESTIONS = [
   '이태원',
   '삼성동',
@@ -39,6 +42,8 @@ export {
   DEFAULT_LOCATION,
   SEARCH_LOCATION_SUGGESTIONS,
   BOOKING_TYPE,
+  DESKTOP_MAX_WIDTH,
+  DESKTOP_MARGIN_LEFT,
 };
 
 export { TIME };

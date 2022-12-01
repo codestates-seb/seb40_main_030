@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { DESKTOP_MAX_WIDTH } from '@/constants';
+
 const Wrapper = styled.div`
   display: flex;
   position: fixed;
@@ -8,9 +10,13 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   margin-top: 10px;
-  z-index: 10;
+
+  z-index: ${({ theme }) => theme.MIDDLE};
 
   font-size: 14px;
+
+  max-width: ${({ matches }) => matches && DESKTOP_MAX_WIDTH};
+  cursor: pointer;
 `;
 
 const IndicatorContainer = styled.div`
@@ -27,10 +33,12 @@ const Button = styled.button`
   width: 75px;
   height: 30px;
   border-radius: 4px;
-  background: #1070fc;
+  background: ${({ theme }) => theme.COLOR_BLUE};
   font-size: 14px;
   color: white;
   font-weight: 500;
+
+  cursor: pointer;
 
   padding: 0;
 
@@ -41,7 +49,7 @@ const Button = styled.button`
 `;
 
 const LocationMarker = styled.img`
-  z-index: 1;
+  z-index: ${({ theme }) => theme.DEFAULT};
   width: 20px;
   height: 20px;
   align-items: center;
@@ -51,7 +59,7 @@ const LocationHover = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid #1070fc;
+  border: 2px solid ${({ theme }) => theme.COLOR_BLUE};
   padding: 10px;
 
   width: 40%;
@@ -59,7 +67,7 @@ const LocationHover = styled.div`
   border-radius: 50px;
   font-weight: 500;
 
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.WHITE};
 
   span {
     text-align: center;

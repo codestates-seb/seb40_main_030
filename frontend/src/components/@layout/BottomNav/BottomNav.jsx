@@ -8,7 +8,7 @@ import { navState } from '@/recoil/pagesState';
 
 import * as S from './BottomNav.style';
 
-const BottomNav = () => {
+const BottomNav = ({ matches }) => {
   const { pathname } = useLocation();
   const [isActive, setIsActive] = useRecoilState(navState);
 
@@ -19,7 +19,7 @@ const BottomNav = () => {
   }, [pathname]);
 
   return (
-    <S.Navigation>
+    <S.Navigation matches={matches}>
       <S.ListWrap>
         <S.List
           className={pathname === ROUTES.HOME.PATH && !isActive && 'active'}
@@ -57,7 +57,6 @@ const BottomNav = () => {
             </S.IconContainer>
           </Link>
         </S.List>
-        {/* {matches && <S.Indicator className='indicator' />} */}
       </S.ListWrap>
     </S.Navigation>
   );

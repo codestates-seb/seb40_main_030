@@ -1,6 +1,16 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
+import { DESKTOP_MAX_WIDTH, DESKTOP_MARGIN_LEFT } from '@/constants';
+
+const DesktopWrapper = styled.div`
+  background-color: ${({ theme }) => theme.PEWTER};
+  width: 100vw;
+  height: 100vh;
+  z-index: ${({ theme }) => theme.DESKTOP_WRAPPER};
+  position: fixed;
+`;
+
 const MotionWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
@@ -9,13 +19,18 @@ const MotionWrapper = styled(motion.div)`
   position: fixed;
   width: 100%;
   height: 100vh;
+
   padding: 30px;
 
-  background: #fff;
+  background: ${({ theme }) => theme.WHITE};
+
+  // 데스크탑
+  max-width: ${({ matches }) => matches && DESKTOP_MAX_WIDTH};
+  left: ${({ matches }) => matches && DESKTOP_MARGIN_LEFT};
 
   /* overflow: hidden; */
 
-  z-index: 13;
+  z-index: ${({ theme }) => theme.PAGE_WRAPPER};
 
   .scrollable-component {
     width: 100%;
@@ -45,7 +60,7 @@ const Header = styled.header`
   min-height: 8%;
   border-bottom: 1px solid lightgrey;
 
-  z-index: 13;
+  z-index: ${({ theme }) => theme.PAGE_WRAPPER};
 
   margin-bottom: 30px;
 `;
@@ -56,4 +71,4 @@ const Title = styled.span`
   margin-bottom: 13px;
 `;
 
-export { MotionWrapper, Header, Title };
+export { DesktopWrapper, MotionWrapper, Header, Title };

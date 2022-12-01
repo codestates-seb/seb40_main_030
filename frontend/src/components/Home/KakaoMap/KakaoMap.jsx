@@ -5,14 +5,14 @@ import { useRecoilState } from 'recoil';
 import MapIndicator from '@/components/Home/KakaoMap/Features/MapIndicator';
 import MarkerContainer from '@/components/Home/KakaoMap/Features/MarkerContainer';
 import KakaoRoadView from '@/components/Home/KakaoMap/Features/RoadView';
-import { DEFAULT_LOCATION } from '@/constants';
+import { DEFAULT_LOCATION, DESKTOP_MAX_WIDTH } from '@/constants';
 import { useCheckValidReserveTable, useGetAllStations } from '@/hooks';
 import useGetFilteredStationsBySetTime from '@/hooks/stations/useGetFilteredStationsBySetTime';
 import { currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './KakaoMap.style';
 
-const KakaoMap = () => {
+const KakaoMap = ({ matches }) => {
   const [toggle, setToggle] = useState(false);
   const { data: stations } = useGetAllStations();
   const [currentLocation, setCurrentLocation] =
@@ -24,8 +24,8 @@ const KakaoMap = () => {
   const longitude = currentLocation?.longitude || DEFAULT_LOCATION.longitude;
 
   return (
-    <S.MapWrapper>
-      <MapIndicator toggle={toggle} setToggle={setToggle} />
+    <S.MapWrapper matches={matches}>
+      <MapIndicator toggle={toggle} setToggle={setToggle} matches={matches} />
       {!toggle ? (
         <Map
           center={{
@@ -33,7 +33,7 @@ const KakaoMap = () => {
             lng: longitude,
           }}
           isPanto={true}
-          style={{ width: '100%', height: '100%' }}
+          style={{ width: '100%', height: '100%', maxWidth: DESKTOP_MAX_WIDTH }}
           onDragEnd={(map) =>
             setCurrentLocation({
               latitude: map.getCenter().getLat(),

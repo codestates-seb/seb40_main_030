@@ -6,6 +6,7 @@ const Wrapper = styled.div`
   padding: 0 10px;
 
   overflow-x: auto;
+  overflow-y: hidden;
 `;
 
 const Stepper = styled.ol`
@@ -25,7 +26,7 @@ const Item = styled.li`
       width: calc(${theme.CIRCLE_SIZE} / 2);
       height: calc(${theme.CIRCLE_SIZE} / 2);
       border-radius: 50%;
-      background-color: #1070fc;
+      background-color: ${theme.COLOR_BLUE};
       opacity: 0.5;
       margin: 0 auto 10px;
     }

@@ -83,7 +83,7 @@ const BatteryInfo = ({ content, station }) => {
             </S.PricePerMin>
             <ShadowButton
               noShadow={true}
-              color='#1070fc'
+              color='#22577e'
               width='150px'
               padding='10px 5px'
               content='예약하기'

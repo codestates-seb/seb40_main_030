@@ -1,18 +1,24 @@
 import styled from 'styled-components';
 
+import { DESKTOP_MAX_WIDTH, DESKTOP_MARGIN_LEFT } from '@/constants';
+
 const Navigation = styled.div`
   display: flex;
   justify-content: center;
-  width: 100vw;
+  width: 100%;
   position: fixed;
   height: 8.5%;
-  background: #fff;
+  background: ${({ theme }) => theme.WHITE};
   top: 93%;
   align-items: center;
   border-radius: 20px;
   padding: 0 20px;
 
-  z-index: 10;
+  // 데스크탑
+  max-width: ${({ matches }) => matches && DESKTOP_MAX_WIDTH};
+  left: ${({ matches }) => matches && DESKTOP_MARGIN_LEFT};
+
+  z-index: ${({ theme }) => theme.MIDDLE};
 `;
 
 const ListWrap = styled.ul`
@@ -27,13 +33,13 @@ const List = styled.div`
   /* width: 70px; */
   height: 100%;
   position: relative;
-  z-index: 1;
+  z-index: ${({ theme }) => theme.DEFAULT};
 
   &:active,
   &.active {
     div {
       .icon {
-        color: #fff;
+        color: ${({ theme }) => theme.WHITE};
         transform: translateY(-100%);
       }
       .text {
@@ -83,7 +89,6 @@ const Indicator = styled.li`
   border: 6px solid black;
   background: lightcyan;
   transition: 0.3s;
-  z-index: 0;
 
   @media screen and (min-height: 900px) {
     top: -45%;
@@ -148,7 +153,7 @@ const Text = styled.span`
   transition: 0.5s;
   transform: translateY(20px);
   opacity: 0;
-  z-index: 1;
+  z-index: ${({ theme }) => theme.DEFAULT};
 
   margin-bottom: 20px;
 `;

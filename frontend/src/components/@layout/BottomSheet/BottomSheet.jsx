@@ -4,7 +4,7 @@ import { useBottomSheet, useSnackBar } from '@/hooks';
 import * as S from './BottomSheet.style';
 import Header from './Header';
 
-const BottomSheet = ({ children }) => {
+const BottomSheet = ({ matches, children }) => {
   const { onDragEnd, controls } = useBottomSheet();
   const { isActive, message } = useSnackBar();
 
@@ -25,6 +25,7 @@ const BottomSheet = ({ children }) => {
       }}
       dragConstraints={{ top: 0 }}
       dragElastic={0.2}
+      matches={matches}
     >
       <Header />
       <S.ContentWrapper>{children}</S.ContentWrapper>

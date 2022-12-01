@@ -49,7 +49,7 @@ const Image = styled(motion.img)`
   width: 100%;
   display: block;
   border-radius: 20px 20px 0 0;
-  z-index: 1;
+  z-index: ${({ theme }) => theme.DEFAULT};
 `;
 
 const Details = styled.div`
@@ -81,7 +81,7 @@ const Details = styled.div`
     justify-content: end;
     margin-right: 10px;
     font-size: 20px;
-    z-index: 1;
+    z-index: ${({ theme }) => theme.DEFAULT};
   }
 `;
 
@@ -93,7 +93,7 @@ const ShadowCard = styled(motion.div)`
   justify-content: space-around;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
-  background: #fff;
+  background: ${({ theme }) => theme.WHITE};
   border-radius: 20px;
 
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);

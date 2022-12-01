@@ -30,6 +30,7 @@ const ImageContainer = styled.div`
 const BatteryImage = styled.img`
   margin-top: 20px;
   width: 80%;
+
   height: 50%;
 `;
 
@@ -90,7 +91,7 @@ const AddressDetail = styled.span`
   span {
     font-size: 20px;
     font-weight: 600;
-    color: #1070fc;
+    color: ${({ theme }) => theme.COLOR_MAIN};
   }
 `;
 

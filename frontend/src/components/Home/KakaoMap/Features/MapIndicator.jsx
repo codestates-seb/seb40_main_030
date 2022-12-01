@@ -12,7 +12,7 @@ import { currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './MapIndicator.style';
 
-const MapIndicator = ({ toggle, setToggle }) => {
+const MapIndicator = ({ toggle, setToggle, matches }) => {
   const navigate = useNavigate();
   const { location } = useCurrentLocation();
   const [defaultLocation, setCurrentLocation] =
@@ -21,7 +21,7 @@ const MapIndicator = ({ toggle, setToggle }) => {
   const { days, hours, minutes } = useTimeDifference();
 
   return (
-    <S.Wrapper>
+    <S.Wrapper matches={matches}>
       <S.LocationHover onClick={() => navigate(ROUTES.SEARCH.PATH)}>
         <SearchIcon />
         <span>{currentAddress}</span>

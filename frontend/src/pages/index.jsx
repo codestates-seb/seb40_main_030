@@ -59,7 +59,11 @@ const PAGES = [
   {
     element: <PublicRouter />,
     children: [
-      { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
+      {
+        element: <Login />,
+        path: ROUTES.LOGIN.PATH,
+        name: ROUTES.LOGIN.NAME,
+      },
     ],
   },
   {

@@ -5,7 +5,7 @@ const Wrapper = styled.div`
 `;
 
 const InputContainer = styled.div`
-  background: #fff;
+  background: ${({ theme }) => theme.WHITE};
   width: 100%;
   border-radius: 5px;
   position: relative;
