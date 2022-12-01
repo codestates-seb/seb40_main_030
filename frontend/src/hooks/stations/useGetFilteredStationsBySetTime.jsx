@@ -26,6 +26,14 @@ const useGetFilteredStationsBySetTime = (setTime) => {
     },
   );
 
+  const filteredStations = [];
+
+  data.map(({ id, name, location, confirmId }) => {
+    const data = { id, name, location, confirmId };
+
+    filteredStations.push(data);
+  });
+
   // const queryClient = useQueryClient();
   // const queryCache = queryClient.getQueryCache();
 
@@ -43,7 +51,7 @@ const useGetFilteredStationsBySetTime = (setTime) => {
 
   // console.log(filtered);
 
-  return { data, refetch };
+  return { data, refetch, filteredStations };
 };
 
 export default useGetFilteredStationsBySetTime;
