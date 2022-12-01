@@ -107,4 +107,13 @@ public class PaymentController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PatchMapping("/return/{paymentId}")
+    public ResponseEntity<SingleResDto<String>> returnBatteryPayment (HttpServletRequest request,
+                                                                      @PathVariable Long paymentId) {
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
+        paymentService.returnBatteryPayment(paymentId, memberId);
+
+        return new ResponseEntity<>(new SingleResDto<>("Success Returned"), HttpStatus.OK);
+    }
+
 }
