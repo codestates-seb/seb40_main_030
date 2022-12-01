@@ -32,7 +32,6 @@ export const PreviewImg = styled.img`
   border-radius: 50%;
   width: 70px;
   height: 70px;
-  border: 1px solid gray;
   object-fit: cover;
 `;
 export const SignUpEmailInputDiv = styled.div`

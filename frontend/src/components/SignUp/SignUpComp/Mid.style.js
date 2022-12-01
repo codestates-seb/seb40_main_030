@@ -33,8 +33,6 @@ export const PreviewImg = styled.img`
   border-radius: 50%;
   width: 70px;
   height: 70px;
-  /* border: 2px solid #7b8c9f; */
-  border: 2px solid black;
   object-fit: cover;
 `;
 export const SignUpEmailInputDiv = styled.div`
@@ -43,7 +41,7 @@ export const SignUpEmailInputDiv = styled.div`
   padding: 5px;
   border: 1px solid #d6d9dc;
   border-radius: 3px;
-  margin-bottom: 7px;
+  margin-bottom: 5px;
   input {
     width: 78%;
     height: 30px;
@@ -59,10 +57,12 @@ export const SignUpEmailInputDiv = styled.div`
 export const SignUpEmailSuccessMsgDiv = styled.div`
   color: green;
   font-size: 12px;
+  margin-bottom: 7px;
 `;
 export const SignUpEmailFailMsgDiv = styled.div`
   color: red;
   font-size: 12px;
+  margin-bottom: 7px;
 `;
 
 export const SignUpPasswordInputDiv = styled.div`
@@ -81,10 +81,12 @@ export const SignUpPasswordInputDiv = styled.div`
 export const SignUpPasswordSuccessMsgDiv = styled.div`
   color: green;
   font-size: 12px;
+  margin-bottom: 7px;
 `;
 export const SignUpPasswordFailMsgDiv = styled.div`
   color: red;
   font-size: 12px;
+  margin-bottom: 7px;
 `;
 export const SignUpCheckPasswordInputDiv = styled.div`
   width: 100%;
