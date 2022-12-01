@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 
+import { BatteryPageIcon } from '@/assets';
+import { PlusIcon } from '@/assets';
+import { StationPageIcon } from '@/assets';
+
 const NavigationBarWrapper = styled.div`
+  position: relative;
+  bottom: -10px;
   width: 100%;
-  height: 50px;
 
   display: flex;
   justify-content: center;
@@ -12,7 +17,41 @@ const NavigationBarContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 30px;
+
+  & div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+
+    & h3 {
+      font-size: 15px;
+      color: ${({ isclicked }) =>
+        isclicked !== 'battery' ? 'black' : '#959090'};
+    }
+    & h1 {
+      font-size: 15px;
+      color: ${({ isclicked }) =>
+        isclicked !== 'station' ? 'black' : '#959090'};
+    }
+  }
+`;
+
+const BatteryPageIconContainer = styled(BatteryPageIcon)`
+  width: 30px;
+  height: 30px;
+  fill: ${({ isclicked }) => (isclicked === 'battery' ? 'black' : '#959090')};
+`;
+const StationPageIconContainer = styled(StationPageIcon)`
+  width: 30px;
+  height: 30px;
+  fill: ${({ isclicked }) => (isclicked === 'station' ? 'black' : '#959090')};
+`;
+const PlusIconContainer = styled(PlusIcon)`
+  width: 30px;
+  height: 30px;
+  fill: ${({ isclicked }) => (isclicked === 'addMode' ? 'red' : '#959090')};
 `;
 
 const ToggleButtonContainer = styled.button`
@@ -50,4 +89,7 @@ export {
   NavigationBarContainer,
   ToggleButtonContainer,
   CircleContainer,
+  BatteryPageIconContainer,
+  StationPageIconContainer,
+  PlusIconContainer,
 };

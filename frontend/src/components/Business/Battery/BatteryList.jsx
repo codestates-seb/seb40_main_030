@@ -11,7 +11,7 @@ import {
 import * as S from './Battery.style';
 import BatteryCard from './BatteryCard';
 
-const BatteryList = ({ batteryList, stationList }) => {
+const BatteryList = ({ openSnackBar, batteryList, stationList }) => {
   const [isEditState, setIsEditState] = useState(false);
   const [selectedBatteryInfo, setSelectedBatteryInfo] = useState({});
 
@@ -30,6 +30,7 @@ const BatteryList = ({ batteryList, stationList }) => {
           closeModalHandler={setIsEditState}
         >
           <BatteryEditForm
+            openSnackBar={openSnackBar}
             closeModalHandler={setIsEditState}
             selectedBatteryInfo={selectedBatteryInfo}
             onlyOneBatteryNames={onlyOneBatteryNames}
@@ -52,10 +53,12 @@ const BatteryList = ({ batteryList, stationList }) => {
                       capacity: battery.capacity,
                       batteryName: battery.batteryName,
                       status: battery.status,
+                      defaultPrice: battery.defaultPrice,
                     })
                   }
                   imgUrl={battery.photoURL}
                   details={{
+                    endTime: battery.reservations.endTime,
                     stationName: battery.stationName,
                     stationId: battery.stationId,
                     price: battery.price,

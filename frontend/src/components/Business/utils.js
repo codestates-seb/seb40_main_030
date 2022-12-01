@@ -11,6 +11,11 @@ const filterBatteryInfo = (data) => {
         price: bat.price,
         photoURL: bat.photoURL,
         batteryName: bat.batteryName,
+        defaultPrice: bat.defaultPrice,
+        reservations: {
+          startTime: bat.reservations[0]?.startTime,
+          endTime: bat.reservations[0]?.endTime,
+        },
       };
     });
     batteries.push(...EachBatteryInfo);

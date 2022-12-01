@@ -5,6 +5,7 @@ import useEditBattery from '../../../hooks/Business/useEditBattery';
 import * as S from './BatteryEditForm.style';
 
 const BatteryEditForm = ({
+  openSnackBar,
   closeModalHandler,
   selectedBatteryInfo,
   onlyOneBatteryNames,
@@ -22,24 +23,33 @@ const BatteryEditForm = ({
     defaultValues: {
       capacity: parseInt(selectedBatteryInfo.capacity),
       price: selectedBatteryInfo.price,
+      defaultPrice: selectedBatteryInfo.defaultPrice,
     },
   });
 
   const onValidEditHandler = (data) => {
-    console.log('수정버튼 클릭', selectedBatteryInfo.batteryId);
-    console.log('수정버튼 클릭 data', data);
-    editMutate(selectedBatteryInfo.batteryId, data);
+    const body = {
+      status: true,
+      ...data,
+    };
+
+    editMutate([selectedBatteryInfo.batteryId, body]);
+    openSnackBar('수정되었습니다');
     closeModalHandler(false);
   };
   const onValidDeleteHandler = () => {
     deleteMutate(selectedBatteryInfo.batteryId);
+    openSnackBar('삭제되었습니다');
     closeModalHandler(false);
   };
 
-  const onInvalidHandler = (errors) => {};
+  const checkKeyDown = (e) => {
+    if (e.code === 'Enter') e.preventDefault();
+  };
+
   return (
     <S.EditModalContainer>
-      <form>
+      <form onKeyDown={(e) => checkKeyDown(e)}>
         <div className='input-container'>
           <label htmlFor='capacity'>배터리용량</label>
           <input
@@ -48,8 +58,9 @@ const BatteryEditForm = ({
             type='number'
             placeholder='배터리 용량을 입력하세요'
             {...register('capacity', {
-              required: '미입력',
+              required: '필수입력입니다',
               min: { value: 1, message: '1이상 입력하세요' },
+              max: { value: 999999, message: '999999이하 입력하세요' },
             })}
           />
         </div>
@@ -62,8 +73,24 @@ const BatteryEditForm = ({
             type='number'
             placeholder='대여 금액을 입력하세요'
             {...register('price', {
-              required: '미입력',
+              required: '필수입력입니다',
               min: { value: 1, message: '1이상 입력하세요' },
+              max: { value: 999999999, message: '9999999999이하 입력하세요' },
+            })}
+          />
+        </div>
+        <div className='error-box'>{errors?.price?.message}</div>
+        <div className='input-container'>
+          <label htmlFor='defaultPrice'>기본금액</label>
+          <input
+            className='data-input'
+            id='defaultPrice'
+            type='number'
+            placeholder='기본 금액을 입력하세요'
+            {...register('defaultPrice', {
+              required: '필수입력입니다',
+              min: { value: 1, message: '1이상 입력하세요' },
+              max: { value: 999999999, message: '9999999999이하 입력하세요' },
             })}
           />
         </div>

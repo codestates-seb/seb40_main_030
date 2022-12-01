@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { BatteryPageIcon, PlusIcon, StationPageIcon } from '@/assets';
@@ -10,32 +11,34 @@ const NavigationBar = ({
   clickPage,
   SelectBatteryHandler,
   SelectStationModeHandler,
+  SelectAddModeHandler,
 }) => {
+  const [isSelected, setIsSelected] = useState([true, false, false]);
   const setBatteryAddMote = useSetRecoilState(batteryAddModeState);
   const setStationAddMote = useSetRecoilState(stationAddModeState);
+
   const changeAddModeHandler = () => {
-    // if (isDeleteMode) setIsDeleteMode(false);
     if (clickPage === 'battery') {
       setBatteryAddMote((preState) => !preState);
     } else if (clickPage === 'station') {
       setStationAddMote((preState) => !preState);
     }
   };
+
   return (
     <S.NavigationBarWrapper>
-      <S.NavigationBarContainer>
-        <div onClick={SelectBatteryHandler}>
-          <BatteryPageIcon width='35px' height='35px' />
+      <S.NavigationBarContainer isclicked={clickPage}>
+        <div onClick={() => SelectBatteryHandler()}>
+          <S.BatteryPageIconContainer isclicked={clickPage} />
+          <h1>Battery</h1>
         </div>
         <div onClick={changeAddModeHandler}>
-          <PlusIcon width='50px' height='50px' />
+          <S.PlusIconContainer />
+          <h2>Add</h2>
         </div>
-        {/* <ToggleButton
-          isClicked={isClicked}
-          clickToggleHandler={clickToggleHandler}
-        /> */}
-        <div onClick={SelectStationModeHandler}>
-          <StationPageIcon width='35px' height='35px' />
+        <div onClick={() => SelectStationModeHandler()}>
+          <S.StationPageIconContainer isclicked={clickPage} />
+          <h3>Station</h3>
         </div>
       </S.NavigationBarContainer>
     </S.NavigationBarWrapper>

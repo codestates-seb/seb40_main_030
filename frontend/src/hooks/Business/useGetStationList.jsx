@@ -27,7 +27,7 @@ const useGetStationList = () => {
     isLoading,
     isError,
     error,
-  } = useQuery(['stationInfo'], () => getAdminById('1'), {
+  } = useQuery(['stationInfo'], () => getAdminById(), {
     select: selectFn,
   });
 

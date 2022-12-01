@@ -1,5 +1,6 @@
 import { useRecoilState } from 'recoil';
 
+import BatteryTitle from '@/components/Business/Battery/BatteryTitle';
 import InputModal from '@/components/Business/InputModal/InputModal';
 import StationInputForm from '@/components/Business/InputModal/StationInputForm';
 import StationList from '@/components/Business/Station/StationList';
@@ -9,9 +10,8 @@ import StationFilter from '../../components/Business/Filter/StationFilter';
 import useGetStationList from '../../hooks/Business/useGetStationList';
 import * as S from './Business.style';
 
-const StationContent = ({ clickPage }) => {
+const StationContent = ({ openSnackBar, clickPage }) => {
   const { stationInfo } = useGetStationList();
-
   let recoilKeyName;
   if (clickPage === 'battery') {
     recoilKeyName = batteryAddModeState;
@@ -27,12 +27,18 @@ const StationContent = ({ clickPage }) => {
         isActive={isAddMode}
         closeModalHandler={setIsAddMode}
       >
-        <StationInputForm stationList={stationInfo.stationList} />
+        <StationInputForm
+          openSnackBar={openSnackBar}
+          stationList={stationInfo.stationList}
+        />
       </InputModal>
       <S.BodyWrapper>
-        {/* <StationManagement /> */}
+        <BatteryTitle title={'My Station'} />
         <StationFilter countList={stationInfo.countList} />
-        <StationList stationList={stationInfo.stationList} />
+        <StationList
+          openSnackBar={openSnackBar}
+          stationList={stationInfo.stationList}
+        />
       </S.BodyWrapper>
     </>
   );

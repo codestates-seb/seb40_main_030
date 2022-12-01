@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 const StationListWrapper = styled.div`
-  border-top: 2px solid gray;
+  /* border-top: 2px solid #d6d9dc; */
 `;
 
 const StationListContainer = styled.ul`
-  height: 620px;
+  height: 580px;
   width: 330px;
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@ const StationListContainer = styled.ul`
 
 const StationContainer = styled.div`
   width: 320px;
-  height: 70px;
+  height: 90px;
 
   border-radius: 30px;
   padding: 0 17px;
@@ -44,23 +44,47 @@ const StationImgContainer = styled.div`
   }
 `;
 const StationDetailsContainer = styled.ul`
-  font-size: 15px;
-  /* width: 153px; */
-  /* white-space: nowrap; */
-  /* overflow-x: auto;
-  overflow-y: hidden; */
+  & h1 {
+    font-size: 19px;
+    font-weight: 800;
+  }
+  & h2 {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  & h3 {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+`;
+const StationLocation = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  & div {
+    color: #959090;
+  }
 `;
 
 const LeftAlignWrapper = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 15px;
 `;
 
 const RightAlignWrapper = styled.div`
-  position: relative;
-  left: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+
   bottom: 10px;
-  gap: 10px;
+  gap: 9px;
 `;
 
 const StationButtonWrapper = styled.div`
@@ -75,31 +99,29 @@ const DeleteButtonWrapper = styled.div`
   align-items: center;
 `;
 
+const StationStatusTitleContainer = styled.div`
+  padding: 6px;
+  font-size: 15px;
+  border-radius: 9px;
+  background-color: ${({ batteryCount }) =>
+    batteryCount > 0 ? 'rgb(254,249,236)' : 'rgb(240,250,255)'};
+  color: ${({ batteryCount }) =>
+    batteryCount > 0 ? 'rgb(181,150,112)' : 'rgb(134,157,197)'};
+`;
+
 const StationStatusContainer = styled.div`
   display: flex;
   gap: 10px;
+  border-radius: 30px;
+  background-color: ${({ isSelected }) =>
+    isSelected ? 'rgb(70,124,237)' : 'rgb(172,195,238)'};
   & .status-title {
+    height: 30px;
+    padding: 0 15px;
+    color: white;
     display: flex;
     align-items: center;
     font-size: 14px;
-  }
-
-  & .status-color {
-    background-color: ${({ batteryCount, status }) =>
-      status === 'total'
-        ? '#DADADA'
-        : status === true || batteryCount > 0
-        ? '#7BEB5F'
-        : '#EEDA25'};
-    cursor: ${({ status }) =>
-      status === 'total' || typeof status === 'boolean' ? 'pointer' : null};
-    width: ${({ status }) =>
-      status === 'total' || typeof status === 'boolean' ? '20px' : '28px'};
-    height: ${({ status }) =>
-      status === 'total' || typeof status === 'boolean' ? '20px' : '28px'};
-    border-radius: ${({ status }) =>
-      status === 'total' || typeof status === 'boolean' ? '15px' : '16px'};
-    text-align: center;
   }
 `;
 
@@ -131,4 +153,6 @@ export {
   DeleteButtonWrapper,
   StationStatusContainer,
   StationListWrapper,
+  StationStatusTitleContainer,
+  StationLocation,
 };

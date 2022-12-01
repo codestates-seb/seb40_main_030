@@ -1,6 +1,8 @@
+import { MapMarkerIcon } from '@/assets';
+
 import * as S from './Battery.style';
 import BatteryDetails from './BatteryDetails';
-import BatteryStatus from './BatteryStatus';
+import BatteryStatusTitle from './BatteryStatusTitle';
 
 const BatteryCard = ({ openModalHandler, imgUrl, details, status }) => {
   return (
@@ -12,8 +14,11 @@ const BatteryCard = ({ openModalHandler, imgUrl, details, status }) => {
         <BatteryDetails details={details} />
       </S.LeftAlignWrapper>
       <S.RightAlignWrapper>
-        <BatteryStatus status={status} />
-        {/* <BatteryDeleteButton status={status} batteryId={batteryId} /> */}
+        <BatteryStatusTitle status={status} />
+        <S.BatteryLocation>
+          <MapMarkerIcon width='15px' height='15px' />
+          <div>{details.stationName}</div>
+        </S.BatteryLocation>
       </S.RightAlignWrapper>
     </S.BatteryContainer>
   );

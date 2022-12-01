@@ -2,27 +2,26 @@ import axios from 'axios';
 
 import { BASE_URL } from '@/constants/admin';
 const LOCAL_BASE_URL = import.meta.env.REACT_APP_BASE_URL;
-const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsIm1lbWJlcklkIjoxLCJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2Njk3NzI2OTEsImV4cCI6MTY2OTg1OTA5MX0.KSARoy_eGZrECdCRahU04esJW2IUSFy73BV58n534Gg';
+const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+// const accessToken =
+//   'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsIm1lbWJlcklkIjoxLCJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2Njk4NjYxNDQsImV4cCI6MTY2OTk1MjU0NH0.6OtF28bsg7JmZ6RlguKRVylVD3tjswn0tfE9GE-LMfY';
 const axiosAdminInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     'ngrok-skip-browser-warning': '111',
-    authorization: `Bearer ${accessToken}`,
+    authorization: `Bearer ${ACCESS_TOKEN}`,
   },
 });
 
 //관리자 정보 가져옴 (배터리, 주유소 정보)
-const getAdminById = async (adminId) => {
-  const res = await axiosAdminInstance.get(`/admins/${adminId}`);
-
+const getAdminById = async () => {
+  const res = await axiosAdminInstance.get(`/admins/find`);
   return res.data;
 };
 
 //관리자 배터리 추가
 const addBattery = async (batteryInfo) => {
-  const res = await axiosAdminInstance.post('/batteries/', batteryInfo);
-
+  const res = await axiosAdminInstance.post('/batteries', batteryInfo);
   return res;
 };
 //관리자 배터리 수정
@@ -52,7 +51,6 @@ const getStation = async () => {
 //관리자 주유소 추가
 const addStation = async (batteryInfo) => {
   const res = await axiosAdminInstance.post(`/stations`, batteryInfo);
-
   return res.data;
 };
 

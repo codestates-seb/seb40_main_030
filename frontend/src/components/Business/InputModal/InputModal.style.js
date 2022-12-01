@@ -34,7 +34,7 @@ const InputModalContainer = styled.div`
   padding: 25px 0;
 
   width: 300px;
-  height: 450px;
+  /* height: 450px; */
   border: 2px solid gray;
   border-radius: 15px;
   background-color: #ffffff;
@@ -48,6 +48,16 @@ const InputModalContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
+    width: 235px;
+    & > .input-container {
+      display: flex;
+      flex-direction: column;
+
+      & > label {
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
   }
 
   & div {
@@ -64,16 +74,20 @@ const InputModalContainer = styled.div`
 
   & .data-input {
     font-size: 12px;
-    width: 150px;
+    /* width: 150px; */
   }
 
   & input {
-    padding: 8px;
+    background-color: rgb(240, 240, 240);
+    border: none;
+    padding: 10px;
   }
   & select {
-    font-size: 12px;
-    width: 166px;
-    padding: 8px;
+    background-color: rgb(240, 240, 240);
+    border: none;
+    font-size: 13px;
+    /* width: 166px; */
+    padding: 10px;
   }
 
   & .error-box {
@@ -87,6 +101,7 @@ const InputModalContainer = styled.div`
     display: flex;
     justify-content: end;
     & > .submit {
+      border-radius: 8px;
       background-color: #2161c0;
       color: white;
       border: none;

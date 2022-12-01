@@ -7,26 +7,26 @@ import StationCount from '../StationManagement/StationCount';
 import * as S from './Station.style';
 import StationCard from './StationCard';
 
-const StationList = ({ stationList }) => {
+const StationList = ({ openSnackBar, stationList }) => {
   const [isEditState, setIsEditState] = useState(false);
   const [selectedStationInfo, setSelectedStationInfo] = useState({});
 
   const openModalHandler = (info) => {
-    console.log('클릭', info);
     setIsEditState(true);
-    console.log(info);
     setSelectedStationInfo(info);
   };
-  console.log('stationListasd', stationList);
+
   return (
     <>
       {isEditState && (
         <InputModal
-          // isActive={selectedBatteryInfo.status && isEditState}
-          isActive={isEditState}
+          isActive={
+            selectedStationInfo.batteryCount > 0 ? true : false && isEditState
+          }
           closeModalHandler={setIsEditState}
         >
           <StationEditForm
+            openSnackBar={openSnackBar}
             closeModalHandler={setIsEditState}
             selectedStationInfo={selectedStationInfo}
           />
@@ -46,6 +46,7 @@ const StationList = ({ stationList }) => {
                       details: station.details,
                       stationId: station.stationId,
                       location: station.location,
+                      batteryCount: station.batteryCount,
                     })
                   }
                   imgUrl={station.photoURL}

@@ -8,12 +8,16 @@ const useToggle = () => {
   const SelectStationModeHandler = () => {
     setClickPage('station');
   };
+  const SelectAddModeHandler = () => {
+    setClickPage('addMode');
+  };
 
   return {
     clickPage,
     setClickPage,
     SelectStationModeHandler,
     SelectBatteryHandler,
+    SelectAddModeHandler,
   };
 };
 

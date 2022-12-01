@@ -7,17 +7,17 @@ import { loginState } from '../../recoil/login';
 import * as S from './Login.style';
 
 const Login = () => {
-  const isAuthorized = useRecoilValue(loginState);
-  const navigate = useNavigate();
-  const isLogin = () => {
-    if (isAuthorized) {
-      navigate('/');
-    }
-  };
+  // const isAuthorized = useRecoilValue(loginState);
+  // const navigate = useNavigate();
+  // const isLogin = () => {
+  //   if (isAuthorized) {
+  //     navigate('/');
+  //   }
+  // };
 
-  useEffect(() => {
-    isLogin();
-  }, [isAuthorized]);
+  // useEffect(() => {
+  //   isLogin();
+  // }, [isAuthorized]);
 
   return (
     <S.LoginPageWrapper>

@@ -9,6 +9,9 @@ import {
   REDIRECT_URI,
 } from '../constants/auth';
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //백엔드로 인증코드 보냄 or mock 서버로 보냄
 const getTokenIndirectly = async (authorizationCode) => {
   try {
@@ -135,27 +138,29 @@ const renewTokenIndirectly = async () => {
     console.log(error);
   }
 };
-//토큰 유효성 체크 임의 로직 , 임시로 만들어놓음
-const checkValidToken = (token) => {
-  let result;
 
-  result = token === undefined || token === 'undefined' ? false : true;
-  return result;
-};
+//토큰 유효성 체크 임의 로직 , 임시로 만들어놓음
+// const checkValidToken = (token) => {
+//   let result;
+
+//   result = token === undefined || token === 'undefined' ? false : true;
+//   return result;
+// };
+
 //
 
-const testHandler = async (accessToken) => {
-  //테스트 api 위한 임시 핸들러
-  try {
-    return await axios.get('/test', {
-      headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
-    });
-  } catch (error) {
-    if (error.response?.statusText === 'Unauthorized') {
-      console.log(error);
-    }
-  }
-};
+// const testHandler = async (accessToken) => {
+//   //테스트 api 위한 임시 핸들러
+//   try {
+//     return await axios.get('/test', {
+//       headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
+//     });
+//   } catch (error) {
+//     if (error.response?.statusText === 'Unauthorized') {
+//       console.log(error);
+//     }
+//   }
+// };
 
 const login = async () => {
   const res = await axios.post(`${BASE_URL}/auth/login`, {
@@ -174,7 +179,5 @@ export {
   getUserInfo,
   renewTokenIndirectly,
   logoutAccountSessionDirectly,
-  checkValidToken,
-  testHandler,
   login,
 };

@@ -1,13 +1,16 @@
+import { KAKAO_AUTH_CODE_URL } from '@/constants/auth';
+
 import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
 import * as S from '../../pages/Login/Login.style';
 import KakaoLogin from './KakaoLogin';
+import { moveToUrl } from './utils';
 
 const LoginForm = () => {
-  const { loginClickHandler, isAuthorized } = useKakaoLogin();
+  // const { isAuthorized } = useKakaoLogin();
 
   return (
     <S.LoginContainer>
-      <div
+      {/* <div
         style={{
           margin: '10px',
           backgroundColor: 'skyblue',
@@ -17,9 +20,9 @@ const LoginForm = () => {
         {isAuthorized
           ? `로그인상태창 : ${isAuthorized}`
           : `로그인상태창 : ${isAuthorized}`}
-      </div>
+      </div> */}
 
-      <KakaoLogin loginClickHandler={loginClickHandler} />
+      <KakaoLogin loginClickHandler={() => moveToUrl(KAKAO_AUTH_CODE_URL)} />
     </S.LoginContainer>
   );
 };

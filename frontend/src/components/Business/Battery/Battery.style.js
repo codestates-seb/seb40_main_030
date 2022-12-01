@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const BatteryListWrapper = styled.div`
-  border-top: 2px solid gray;
+  /* border-top: 2px solid #d6d9dc; */
 `;
 
 const BatteryImgContainer = styled.div`
@@ -15,9 +15,33 @@ const BatteryImgContainer = styled.div`
   align-items: center;
 `;
 
+const BatteryTitleContainer = styled.div`
+  & h1 {
+    padding: 0 10px;
+  }
+  position: relative;
+  top: -10px;
+  font-size: 25px;
+  font-weight: 600;
+`;
 const BatteryDetailsContainer = styled.ul`
-  font-size: 15px;
-  width: 153px;
+  & h1 {
+    font-size: 19px;
+    font-weight: 800;
+  }
+  & h2 {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  & h3 {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  & h4 {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
@@ -35,40 +59,62 @@ const BatteryStatusColorContainer = styled.div`
   border-radius: ${({ count }) => (typeof count === 'number' ? '100px' : null)};
 `;
 
+const BatteryStatusTitleContainer = styled.div`
+  width: 55px;
+  display: flex;
+  justify-content: center;
+  padding: 6px;
+  font-size: 15px;
+  border-radius: 9px;
+  background-color: ${({ status }) =>
+    status ? 'rgb(254,249,236)' : 'rgb(240,250,255)'};
+  color: ${({ status }) => (status ? 'rgb(181,150,112)' : 'rgb(134,157,197)')};
+`;
+
 const BatteryStatusContainer = styled.div`
   display: flex;
   gap: 10px;
+  border-radius: 30px;
+  background-color: ${({ isSelected }) =>
+    isSelected ? 'rgb(70,124,237)' : 'rgb(172,195,238)'};
   & .status-title {
+    height: 30px;
+    padding: 0 15px;
+    color: white;
     display: flex;
     align-items: center;
     font-size: 14px;
-  }
-  & .status-color {
-    background-color: ${({ status }) =>
-      status === 'total' ? '#DADADA' : status ? '#7BEB5F' : '#EEDA25'};
-    cursor: ${({ count }) => (count ? 'pointer' : null)};
-    width: ${({ count }) => (typeof count === 'number' ? '20px' : '28px')};
-    height: ${({ count }) => (typeof count === 'number' ? '20px' : '28px')};
-    border-radius: ${({ count }) =>
-      typeof count === 'number' ? '15px' : '16px'};
   }
 `;
 
 const LeftAlignWrapper = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 15px;
 `;
 
 const RightAlignWrapper = styled.div`
-  position: relative;
-  left: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+
   bottom: 10px;
-  gap: 10px;
+  gap: 9px;
+`;
+const BatteryLocation = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  & div {
+    color: #959090;
+  }
 `;
 
 const BatteryContainer = styled.div`
   width: 320px;
-  height: 70px;
+  height: 90px;
 
   border-radius: 30px;
   padding: 0 17px;
@@ -82,7 +128,7 @@ const BatteryContainer = styled.div`
 `;
 
 const BatteryListContainer = styled.ul`
-  height: 620px;
+  height: 580px;
   width: 330px;
   display: flex;
   flex-direction: column;
@@ -119,6 +165,7 @@ const DeleteButtonContainer = styled.button`
 `;
 
 export {
+  BatteryStatusTitleContainer,
   BatteryDetailsContainer,
   BatteryStatusContainer,
   BatteryContainer,
@@ -130,4 +177,6 @@ export {
   DeleteButtonWrapper,
   BatteryStatusColorContainer,
   BatteryListWrapper,
+  BatteryTitleContainer,
+  BatteryLocation,
 };

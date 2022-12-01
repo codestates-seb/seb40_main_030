@@ -1,5 +1,6 @@
 import { useRecoilState } from 'recoil';
 
+import BatteryTitle from '@/components/Business/Battery/BatteryTitle';
 import BatteryInputForm from '@/components/Business/InputModal/BatteryInputForm';
 import InputModal from '@/components/Business/InputModal/InputModal';
 import { batteryAddModeState, stationAddModeState } from '@/recoil/business';
@@ -10,7 +11,7 @@ import useGetBatteryList from '../../hooks/Business/useGetBatteryList';
 import useGetStationList from '../../hooks/Business/useGetStationList';
 import * as S from './Business.style';
 
-const BatteryContent = ({ clickPage }) => {
+const BatteryContent = ({ openSnackBar, clickPage }) => {
   const { batteryInfo } = useGetBatteryList();
   const { stationInfo } = useGetStationList();
 
@@ -26,13 +27,16 @@ const BatteryContent = ({ clickPage }) => {
     <>
       <InputModal isActive={isAddMode} closeModalHandler={setIsAddMode}>
         <BatteryInputForm
+          openSnackBar={openSnackBar}
           batteryList={batteryInfo.batteryList}
           stationList={stationInfo.stationList}
         />
       </InputModal>
       <S.BodyWrapper>
+        <BatteryTitle title={'My Battery'} />
         <BatteryFilter countList={batteryInfo.countList} />
         <BatteryList
+          openSnackBar={openSnackBar}
           batteryList={batteryInfo.batteryList}
           stationList={stationInfo.stationList}
         />

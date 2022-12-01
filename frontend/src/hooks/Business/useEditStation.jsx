@@ -10,11 +10,13 @@ const useEditStation = () => {
     isError,
     error,
   } = useMutation(
+    //객체로 인자 넘기기
     ([id, editStationInfo]) => {
       editStation(id, editStationInfo);
     },
     {
       onSuccess: () => {
+        //return 유뮤 확인
         setTimeout(() => queryClient.invalidateQueries(['stationInfo']), 500);
         //onsuccess이전에 값을 읽어옴. 이유 모름
       },

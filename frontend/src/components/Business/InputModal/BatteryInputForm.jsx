@@ -1,15 +1,13 @@
 import { useForm } from 'react-hook-form';
 
 import useAddBattery from '../../../hooks/Business/useAddBattery';
-import useSnackBar from '../../../hooks/commons/useSnackBar';
-import SnackBar from '../../@commons/SnackBar/SnackBar';
 import {
   removeDuplicatedBatteryName,
   removeDuplicatedStationName,
 } from '../utils';
 import * as S from './InputModal.style';
 
-const BatteryInputForm = ({ batteryList, stationList }) => {
+const BatteryInputForm = ({ openSnackBar, batteryList, stationList }) => {
   //removeDuplicatedBatteryName 추후 최적화 적용여부 확인
   const onlyOneBatteryNames = removeDuplicatedBatteryName(batteryList);
   const onlyOneStationNames = removeDuplicatedStationName(stationList);
@@ -21,18 +19,12 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
     reset,
     formState: { errors },
   } = useForm({ mode: 'all' });
-  const { openSnackBar, isActive, message } = useSnackBar();
 
   const onValidHandler = (data) => {
-    const message = '유효성이 일치합니다';
-    openSnackBar(message);
+    openSnackBar('등록되었습니다');
 
     const body = {
-      //mock서버로 보내는 임시 데이터
       status: true,
-      // status: Math.random() > 0.5 ? true : false,
-      photoURL: '',
-      // batteryId: Math.random(),
       ...data,
     };
     addMutate(body);
@@ -41,19 +33,24 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
   };
 
   const onInvalidHandler = (errors) => {
-    const message = `${
-      errors.capacity ? `capacity : ${errors.capacity.message}` : ''
-    } 
-    ${errors.price ? `price : ${errors.price.message}` : ''}
-    ${errors.stationId ? `stationId : ${errors.stationId.message}` : ''}`;
-
-    openSnackBar(message);
+    // const message = `${
+    //   errors.capacity ? `capacity : ${errors.capacity.message}` : ''
+    // }
+    // ${errors.price ? `price : ${errors.price.message}` : ''}
+    // ${errors.stationId ? `stationId : ${errors.stationId.message}` : ''}`;
+    openSnackBar('');
+  };
+  const checkKeyDown = (e) => {
+    if (e.code === 'Enter') e.preventDefault();
   };
 
   return (
     <>
       <S.InputModalContainer>
-        <form onSubmit={handleSubmit(onValidHandler, onInvalidHandler)}>
+        <form
+          onSubmit={handleSubmit(onValidHandler, onInvalidHandler)}
+          onKeyDown={(e) => checkKeyDown(e)}
+        >
           <div className='input-container'>
             <label htmlFor='capacity'>배터리용량</label>
             <input
@@ -62,8 +59,9 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
               type='number'
               placeholder='배터리 용량을 입력하세요'
               {...register('capacity', {
-                required: '미입력',
+                required: '필수입력입니다',
                 min: { value: 1, message: '1이상 입력하세요' },
+                max: { value: 999999, message: '999999이하 입력하세요' },
               })}
             />
           </div>
@@ -76,8 +74,24 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
               type='number'
               placeholder='대여 금액을 입력하세요'
               {...register('price', {
-                required: '미입력',
+                required: '필수입력입니다',
                 min: { value: 1, message: '1이상 입력하세요' },
+                max: { value: 999999999, message: '9999999999이하 입력하세요' },
+              })}
+            />
+          </div>
+          <div className='error-box'>{errors?.price?.message}</div>
+          <div className='input-container'>
+            <label htmlFor='defaultPrice'>기본금액</label>
+            <input
+              className='data-input'
+              id='defaultPrice'
+              type='number'
+              placeholder='기본 금액을 입력하세요'
+              {...register('defaultPrice', {
+                required: '필수입력입니다',
+                min: { value: 1, message: '1이상 입력하세요' },
+                max: { value: 999999999, message: '9999999999이하 입력하세요' },
               })}
             />
           </div>
@@ -92,7 +106,7 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
                 required: true,
                 validate: {
                   isValuedStation: (input) => {
-                    return input !== 'default' || '미입력';
+                    return input !== 'default' || '필수선택입니다';
                   },
                 },
               })}
@@ -122,7 +136,7 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
                 required: true,
                 validate: {
                   isValuedStation: (input) => {
-                    return input !== 'default' || '미입력';
+                    return input !== 'default' || '필수선택입니다';
                   },
                 },
               })}
@@ -144,21 +158,12 @@ const BatteryInputForm = ({ batteryList, stationList }) => {
           </div>
           <div className='error-box'>{errors?.stationId?.message}</div>
           <div className='submit-container'>
-            <input className='submit' type='submit' value='등록' />
+            <input className='submit' type='submit' value='추가' />
           </div>
         </form>
       </S.InputModalContainer>
-      <SnackBar isActive={isActive} message={message} />
     </>
   );
 };
 
 export default BatteryInputForm;
-
-// {
-//   "capacity":"50000mA",
-//   "status":true,
-//   "price":25000,
-//   "photoURL":"http://asdfqwer111",
-//   "stationId":1
-// }

@@ -2,28 +2,41 @@ import { login } from '@/apis/auth';
 import NavigationBar from '@/components/Business/Nav/NavigationBar';
 
 import PageWrapper from '../../components/@commons/PageWrapper/PageWrapper';
+import SnackBar from '../../components/@commons/SnackBar/SnackBar';
 import useToggle from '../../hooks/Business/useToggle';
+import useSnackBar from '../../hooks/commons/useSnackBar';
 import BatteryContent from './BatteryContent';
 import StationContent from './StationContent';
 
 const Business = () => {
-  const { clickPage, SelectStationModeHandler, SelectBatteryHandler } =
-    useToggle();
-
+  const { openSnackBar, isActive, message } = useSnackBar();
+  const {
+    clickPage,
+    SelectStationModeHandler,
+    SelectBatteryHandler,
+    SelectAddModeHandler,
+  } = useToggle();
+  console.log('isActive', isActive);
   login(); //로그인 임시 테스트
 
   return (
     <PageWrapper title={'사장님'} path={'/'}>
       {clickPage === 'battery' ? (
-        <BatteryContent clickPage={clickPage} />
+        <BatteryContent
+          openSnackBar={openSnackBar}
+          clickPage={clickPage}
+          fill='#d6d9dc'
+        />
       ) : (
-        <StationContent clickPage={clickPage} />
+        <StationContent openSnackBar={openSnackBar} clickPage={clickPage} />
       )}
       <NavigationBar
         clickPage={clickPage}
         SelectBatteryHandler={SelectBatteryHandler}
         SelectStationModeHandler={SelectStationModeHandler}
+        SelectAddModeHandler={SelectAddModeHandler}
       />
+      <SnackBar isActive={isActive} message={message} />
     </PageWrapper>
   );
 };

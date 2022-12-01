@@ -1,7 +1,10 @@
+import { CartIcon } from '@/assets';
+
 import * as S from './Station.style';
 import StationDeleteButton from './StationDeleteButton';
 import StationDetails from './StationDetails';
 import StationStatus from './StationStatus';
+import StationStatusTitle from './StationStatusTitle';
 
 const StationCard = ({
   openModalHandler,
@@ -19,11 +22,12 @@ const StationCard = ({
         <StationDetails details={details} />
       </S.LeftAlignWrapper>
       <S.RightAlignWrapper>
-        <StationStatus batteryCount={batteryCount} />
-        {/* <StationDeleteButton
-          batteryCount={batteryCount}
-          stationId={stationId}
-        /> */}
+        <StationStatusTitle batteryCount={batteryCount} />
+        <S.StationLocation>
+          <CartIcon width='15px' height='15px' />
+          <div>{`${batteryCount}개`}</div>
+          {/* <StationStatus batteryCount={batteryCount} /> */}
+        </S.StationLocation>
       </S.RightAlignWrapper>
     </S.StationContainer>
   );

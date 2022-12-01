@@ -31,7 +31,7 @@ const useGetBatteryList = () => {
     isLoading,
     isError,
     error,
-  } = useQuery(['adminInfo'], () => getAdminById('1'), {
+  } = useQuery(['adminInfo'], () => getAdminById(), {
     select: selectFn,
   }); //임시로 관리자id 1
 

@@ -1,35 +1,27 @@
-import { useSetRecoilState } from 'recoil';
-
-import { stationFilterState } from '@/recoil/business';
-
 import * as S from './Station.style';
 
-const StationStatus = ({ batteryCount, status, textState }) => {
-  const setSelectedFilter = useSetRecoilState(stationFilterState);
-
-  const clickHandler = () => {
-    setSelectedFilter(status);
-  };
-
+const StationStatus = ({
+  idx,
+  isSelected,
+  clickHandler,
+  batteryCount,
+  status,
+}) => {
   return (
     <>
       <S.StationStatusContainer
-        onClick={
-          status === 'total' || typeof status === 'boolean'
-            ? clickHandler
-            : null
-        }
+        onClick={() => clickHandler(idx, status)}
         batteryCount={batteryCount}
         status={status}
+        isSelected={isSelected}
       >
-        <div className='status-color' />
         <div className='status-title'>
-          {textState && status === 'total'
+          {status === 'total'
             ? `전체`
             : status === true
-            ? '배터리 유'
+            ? '보유중'
             : status === false
-            ? '배터리 무'
+            ? '미보유'
             : null}
         </div>
       </S.StationStatusContainer>

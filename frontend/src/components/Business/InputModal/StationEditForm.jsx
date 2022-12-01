@@ -1,17 +1,14 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { editStation } from '@/apis/admin';
-import { useSearchMap } from '@/hooks';
-
-import useAddStation from '../../../hooks/Business/useAddStation';
 import useDelStation from '../../../hooks/Business/useDelStation';
 import useEditStation from '../../../hooks/Business/useEditStation';
-import useSnackBar from '../../../hooks/commons/useSnackBar';
-import SnackBar from '../../@commons/SnackBar/SnackBar';
 import * as S from './StationEditForm.style';
 
-const StationEditForm = ({ closeModalHandler, selectedStationInfo }) => {
+const StationEditForm = ({
+  openSnackBar,
+  closeModalHandler,
+  selectedStationInfo,
+}) => {
   const { editMutate } = useEditStation();
   const { deleteMutate } = useDelStation();
   const {
@@ -26,25 +23,28 @@ const StationEditForm = ({ closeModalHandler, selectedStationInfo }) => {
       phone: selectedStationInfo.phone,
     },
   });
-  const { openSnackBar, isActive, message } = useSnackBar();
 
   const onValidEditHandler = (data) => {
     const editBody = { ...data, location: selectedStationInfo.location };
 
     editMutate([selectedStationInfo.stationId, editBody]);
+    openSnackBar('수정되었습니다');
     closeModalHandler(false);
   };
   const onValidDeleteHandler = () => {
     deleteMutate(selectedStationInfo.stationId);
+    openSnackBar('삭제되었습니다');
     closeModalHandler(false);
   };
 
-  const onInvalidHandler = (errors) => {};
+  const checkKeyDown = (e) => {
+    if (e.code === 'Enter') e.preventDefault();
+  };
 
   return (
     <>
       <S.EditModalContainer>
-        <form>
+        <form onKeyDown={(e) => checkKeyDown(e)}>
           <div className='input-container'>
             <label htmlFor='name'>주유소이름</label>
             <input
@@ -53,7 +53,7 @@ const StationEditForm = ({ closeModalHandler, selectedStationInfo }) => {
               type='text'
               placeholder='주유소 이름을 입력하세요'
               {...register('name', {
-                min: { value: 1, message: '1이상 입력하세요' },
+                required: '필수입력입니다',
               })}
             />
           </div>
@@ -66,7 +66,7 @@ const StationEditForm = ({ closeModalHandler, selectedStationInfo }) => {
               type='text'
               placeholder='상세 설명을 입력하세요'
               {...register('details', {
-                min: { value: 1, message: '1이상 입력하세요' },
+                required: '필수입력입니다',
               })}
             />
           </div>
@@ -76,10 +76,9 @@ const StationEditForm = ({ closeModalHandler, selectedStationInfo }) => {
             <input
               className='data-input'
               id='phone'
-              type='number'
               placeholder='전화번호를 입력하세요'
               {...register('phone', {
-                min: { value: 1, message: '1이상 입력하세요' },
+                required: '필수입력입니다',
               })}
             />
           </div>
@@ -100,7 +99,6 @@ const StationEditForm = ({ closeModalHandler, selectedStationInfo }) => {
           </div>
         </form>
       </S.EditModalContainer>
-      <SnackBar isActive={isActive} message={message} />
     </>
   );
 };

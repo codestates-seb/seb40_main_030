@@ -9,7 +9,7 @@ const useEditBattery = () => {
     mutate: editMutate,
     isError,
     error,
-  } = useMutation((id, editBatteryInfo) => editBattery(id, editBatteryInfo), {
+  } = useMutation(([id, editBatteryInfo]) => editBattery(id, editBatteryInfo), {
     onSuccess: () => {
       queryClient.invalidateQueries(['adminInfo']);
     },

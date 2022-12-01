@@ -8,7 +8,7 @@ const EditModalContainer = styled.div`
   padding: 25px 0;
 
   width: 300px;
-  height: 450px;
+  /* height: 450px; */
   border: 2px solid gray;
   border-radius: 15px;
   background-color: #ffffff;
@@ -22,8 +22,12 @@ const EditModalContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
+    width: 235px;
   }
-
+  & .input-container {
+    display: flex;
+    flex-direction: column;
+  }
   & div {
     display: flex;
     justify-content: space-between;
@@ -38,15 +42,18 @@ const EditModalContainer = styled.div`
 
   & .data-input {
     font-size: 12px;
-    width: 150px;
+    border: none;
+    padding: 10px;
   }
 
   & input {
     padding: 8px;
+    background-color: rgb(240, 240, 240);
   }
   & select {
+    background-color: rgb(240, 240, 240);
     font-size: 12px;
-    width: 166px;
+    /* width: 166px; */
     padding: 8px;
   }
 
@@ -63,16 +70,18 @@ const EditModalContainer = styled.div`
     & > .edit-button {
       width: 40px;
       height: 40px;
+      border-radius: 8px;
       background-color: #2161c0;
       color: white;
-      border: none;
+      border-radius: 8px;
     }
     & > .delete-button {
       width: 40px;
       height: 40px;
+      border-radius: 8px;
       background-color: #2161c0;
       color: white;
-      border: none;
+      border-radius: 8px;
     }
   }
 `;

@@ -3,10 +3,13 @@ import * as S from './Battery.style';
 const BatteryDetails = ({ details }) => {
   return (
     <S.BatteryDetailsContainer>
-      <li>{`주유소 : ${details.stationName}`}</li>
-      <li>{`브랜드 : ${details.batteryName}`}</li>
-      <li>{`가 격 : ${details.price.toLocaleString('ko-KR')}원`}</li>
-      <li>{`용 량 : ${details.capacity}`}</li>
+      <h1>{details.batteryName && `${details.batteryName}`}</h1>
+      <h2>
+        {details.capacity &&
+          `${parseInt(details.capacity).toLocaleString('ko-KR')}mA`}
+      </h2>
+      <h3>{details.price && `${details.price.toLocaleString('ko-KR')}원`}</h3>
+      <h4>{details.endTime && `~${details.endTime.replace('T', ' ')}`}</h4>
     </S.BatteryDetailsContainer>
   );
 };

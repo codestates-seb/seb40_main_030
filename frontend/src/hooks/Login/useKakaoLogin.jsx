@@ -7,10 +7,10 @@ import { KAKAO_AUTH_CODE_URL } from '../../constants/auth';
 import { loginState, accessTokenVal, sessionState } from '../../recoil/login';
 
 const useKakaoLogin = () => {
-  const setAccessToken = useSetRecoilState(accessTokenVal);
-  const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
-  const setIsSessioned = useSetRecoilState(sessionState);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
+  const setAccessToken = useSetRecoilState(accessTokenVal);
+  const setIsSessioned = useSetRecoilState(sessionState);
   const navigate = useNavigate();
 
   const loginClickHandler = () => {

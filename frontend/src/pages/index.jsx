@@ -4,6 +4,7 @@ import { ROUTES } from '@/constants';
 import Business from './Business';
 import Home from './Home';
 import Login from './Login';
+import Logout from './Logout/index';
 import NotFound from './NotFound';
 import Rental from './Rental';
 import Search from './Search';
@@ -42,6 +43,11 @@ const PAGES = [
         element: <Business />,
         path: ROUTES.BUSINESS.PATH,
         name: ROUTES.BUSINESS.NAME,
+      },
+      {
+        element: <Logout />,
+        path: ROUTES.LOGOUT.PATH,
+        name: ROUTES.LOGOUT.NAME,
       },
     ],
   },

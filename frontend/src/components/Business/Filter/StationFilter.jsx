@@ -1,7 +1,21 @@
+import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+
+import { stationFilterState } from '@/recoil/business';
+
 import StationStatus from '../Station/StationStatus';
 import * as S from './StationFilter.style';
 
 const StationFilter = ({ countList }) => {
+  const [isSelected, setIsSelected] = useState([true, false, false]);
+  const setSelectedFilter = useSetRecoilState(stationFilterState);
+  const clickHandler = (idx, status) => {
+    const stateArr = [false, false, false];
+    stateArr[idx] = true;
+    setSelectedFilter(status);
+    setIsSelected([...stateArr]);
+  };
+
   return (
     <>
       <S.StationFilterContainer>
@@ -11,8 +25,10 @@ const StationFilter = ({ countList }) => {
           return (
             <StationStatus
               key={idx}
+              idx={idx}
+              isSelected={isSelected[idx]}
+              clickHandler={clickHandler}
               status={status}
-              // totalStateCnt={totalStateCnt}
               textState={true}
             />
           );
