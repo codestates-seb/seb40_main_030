@@ -25,6 +25,7 @@ const BOOKING_TYPE = {
 
 const DESKTOP_MAX_WIDTH = '800px';
 const DESKTOP_MARGIN_LEFT = '30%';
+const DESKTOP_MEDIA_QUERY = '(min-width: 468px)';
 
 const SEARCH_LOCATION_SUGGESTIONS = [
   '이태원',
@@ -44,6 +45,7 @@ export {
   BOOKING_TYPE,
   DESKTOP_MAX_WIDTH,
   DESKTOP_MARGIN_LEFT,
+  DESKTOP_MEDIA_QUERY,
 };
 
 export { TIME };

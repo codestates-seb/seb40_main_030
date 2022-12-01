@@ -6,11 +6,11 @@ import BottomNav from '@/components/@layout/BottomNav/BottomNav';
 import BottomSheet from '@/components/@layout/BottomSheet/BottomSheet';
 import MapArea from '@/components/Home/Maps';
 import Reservation from '@/components/Home/Reservation/Reservation';
-import { ROUTES } from '@/constants';
+import { DESKTOP_MEDIA_QUERY, ROUTES } from '@/constants';
 import { useSplashScreen, useSnackBar, useMediaQuery } from '@/hooks';
 
 const Home = () => {
-  const matches = useMediaQuery('(min-width: 468px)');
+  const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
   const { pathname } = useLocation();
   const { isLoading, isSplashed } = useSplashScreen();
   const { isActive, message } = useSnackBar();

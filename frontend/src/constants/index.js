@@ -6,6 +6,7 @@ import {
   BOOKING_TYPE,
   DESKTOP_MAX_WIDTH,
   DESKTOP_MARGIN_LEFT,
+  DESKTOP_MEDIA_QUERY,
 } from './common';
 import { PRICE_REGEX } from './regex';
 import ROUTES from './routes';
@@ -26,6 +27,7 @@ export {
   BOOKING_TYPE,
   DESKTOP_MAX_WIDTH,
   DESKTOP_MARGIN_LEFT,
+  DESKTOP_MEDIA_QUERY,
 };
 
 // Regex

@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ArrowIcon } from '@/assets';
+import { DESKTOP_MEDIA_QUERY } from '@/constants';
 import { useMediaQuery } from '@/hooks';
 
 import { BatteryCharging } from '..';
@@ -16,7 +17,7 @@ const PageWrapper = ({
   children,
 }) => {
   const navigate = useNavigate();
-  const matches = useMediaQuery('(min-width: 468px)');
+  const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
 
   return (
     <S.MotionWrapper

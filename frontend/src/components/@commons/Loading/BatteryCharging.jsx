@@ -1,9 +1,10 @@
+import { DESKTOP_MEDIA_QUERY } from '@/constants';
 import { useMediaQuery } from '@/hooks';
 
 import * as S from './BatteryCharging.style';
 
 const BatteryCharging = ({ message = 'Loading...', chargingSpeed = '3s' }) => {
-  const matches = useMediaQuery('(min-width: 468px)');
+  const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
 
   return (
     <S.Wrapper matches={matches}>
