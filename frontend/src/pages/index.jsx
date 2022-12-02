@@ -1,3 +1,4 @@
+// import LoginRedirect from './LoginRedirect/index';
 import {
   DateFixedRouter,
   PrivateRouter,
@@ -8,7 +9,7 @@ import { ROUTES } from '@/constants';
 import Business from './Business';
 import Home from './Home';
 import Login from './Login';
-// import LoginRedirect from './LoginRedirect/index';
+import LoginRedirect from './LoginRedirect/index';
 import Logout from './Logout/index';
 import MyPage from './MyPage';
 import MyProfile from './MyProfile';
@@ -23,6 +24,32 @@ import SearchAddress from './SearchAddress';
 import SignUp from './SignUp';
 
 const PAGES = [
+  {
+    element: <LoginRedirect />,
+    path: ROUTES.LOGIN_REDIRECT.PATH,
+    name: ROUTES.LOGIN_REDIRECT.NAME,
+  },
+  {
+    element: <Home />,
+    path: ROUTES.HOME.PATH,
+    name: ROUTES.HOME.NAME,
+  },
+  {
+    element: <Search />,
+    path: ROUTES.SEARCH.PATH,
+    name: ROUTES.SEARCH.NAME,
+  },
+  {
+    element: <Rental />,
+    path: ROUTES.RENTAL.PATH,
+    name: ROUTES.RENTAL.NAME,
+  },
+
+  {
+    element: <NotFound />,
+    path: ROUTES.NOT_FOUND.PATH,
+    name: ROUTES.NOT_FOUND.NAME,
+  },
   {
     element: <DateFixedRouter />,
     children: [
@@ -98,6 +125,12 @@ const PAGES = [
       },
     ],
   },
+  // { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
+  // {
+  //   element: <LoginRedirect />,
+  //   path: ROUTES.LOGIN_REDIRECT.PATH,
+  //   name: ROUTES.LOGIN_REDIRECT.NAME,
+  // },
   {
     element: <SearchAddress />,
     path: ROUTES.SEARCH_ADDRESS.PATH,

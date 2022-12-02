@@ -16,7 +16,7 @@ import { ReactComponent as ServiceLogo } from './serviceLogo.svg';
 import { ReactComponent as StationPageIcon } from './stationPage.svg';
 import { ReactComponent as CurrentLocationIcon } from './currentLocation.svg';
 import { ReactComponent as GlobeIcon } from './globe.svg';
-
+import { ReactComponent as LogoutIcon } from './logout.svg';
 import CompletedIcon from './completed.png';
 import ProfileImg from './profileImg.png';
 import KaKaoLoginIcon from './KaKaoLoginIcon.png';
@@ -45,4 +45,12 @@ export {
   CompletedIcon,
 };
 
-export { ServiceLogo, ProfileImg, PlusIcon, CartIcon, BatterImg, FuelTankImg };
+export {
+  ServiceLogo,
+  ProfileImg,
+  PlusIcon,
+  CartIcon,
+  BatterImg,
+  FuelTankImg,
+  LogoutIcon,
+};

@@ -187,8 +187,10 @@ const renewTokenIndirectly = async () => {
 
 const login = async () => {
   const res = await axios.post(`${BASE_URL}/auth/login`, {
-    email: 'test@gmail.com',
-    password: '123411aa',
+    // email: 'test@gmail.com',
+    // password: '123411aa',
+    email: 'admin@gmail.com',
+    password: 'asdf5t1234*',
   });
   return res;
 };

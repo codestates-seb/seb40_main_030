@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import useDelBattery from '../../../hooks/Business/useDelBattery';
 import useEditBattery from '../../../hooks/Business/useEditBattery';
 import * as S from './BatteryEditForm.style';
-
 const BatteryEditForm = ({
   openSnackBar,
   closeModalHandler,
@@ -46,7 +45,6 @@ const BatteryEditForm = ({
   const checkKeyDown = (e) => {
     if (e.code === 'Enter') e.preventDefault();
   };
-
   return (
     <S.EditModalContainer>
       <form onKeyDown={(e) => checkKeyDown(e)}>
