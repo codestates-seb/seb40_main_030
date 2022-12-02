@@ -5,6 +5,8 @@ import backend.domain.payment.service.PaymentService;
 import backend.global.security.utils.JwtExtractUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,7 @@ public class KakaoPayController {
     private final JwtExtractUtils jwtExtractUtils;
 
     @PostMapping("/kakaoPay")
-    public String kakaoPay(@RequestParam(name = "itemName") String itemName,
+    public ResponseEntity<String> kakaoPay(@RequestParam(name = "itemName") String itemName,
                            @RequestParam(name = "totalAmount") int totalAmount,
                            @RequestParam(name = "batteryId") Long batteryId,
                            @RequestParam(name = "startTime") String startTime,
@@ -37,7 +39,9 @@ public class KakaoPayController {
         Payment payment2 = paymentService.postPayment(payment, batteryId, memberId);
         Long paymentId = payment2.getId();
 
-        return "redirect:" + kakaopay.kakaoPayReady(itemName, totalAmount, paymentId);
+//        return "redirect:" + kakaopay.kakaoPayReady(itemName, totalAmount, paymentId);
+        // 강제 리다이렉트
+        return new ResponseEntity<>("redirect:" + kakaopay.kakaoPayReady(itemName, totalAmount, paymentId), HttpStatus.MULTIPLE_CHOICES);
     }
 
     @GetMapping("/kakaoPaySuccess")

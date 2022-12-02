@@ -227,4 +227,30 @@ public class PaymentService {
         paymentRepository.save(savedPayment);
     }
 
+
+    // 더미 API : 강제 결제 상태 변환
+    @Transactional
+    public String changePaymentStatus(Long paymentId, String status) {
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
+
+        payment.setStatus(PayStatus.valueOf(status));
+        String changedStatus = payment.getStatus().toString();
+        paymentRepository.save(payment);
+
+        if(status.equals("IN_PROGRESS") || status.equals("WAITING_FOR_RESERVATION") || status.equals("USE_NOW")) {
+            Reservation reservation = new Reservation();
+            Member member = memberRepository.findById(1L).get();
+            payment.setMember(member);
+            reservation.setPayment(payment);
+            reservation.setStationId(2L);
+            reservation.setStartTime(LocalDateTime.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
+            reservation.setEndTime(LocalDateTime.now().plusDays(2).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
+            reservation.setModifiedAt(LocalDateTime.now());
+            reservationRepository.save(reservation);
+        }
+        return  changedStatus;
+    }
+
+
 }

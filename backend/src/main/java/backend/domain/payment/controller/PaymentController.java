@@ -116,4 +116,15 @@ public class PaymentController {
         return new ResponseEntity<>(new SingleResDto<>("Success Returned"), HttpStatus.OK);
     }
 
+
+    // 더미 API : 강제 결제 상태 변환
+    @PatchMapping("/change/{paymentId}")
+    public ResponseEntity<SingleResDto<String>> changePaymentStatus(@PathVariable Long paymentId,
+                                                                    @RequestParam String status) {
+        String changedStatus = paymentService.changePaymentStatus(paymentId, status);
+
+        return new ResponseEntity<>(new SingleResDto<>("Now "+ changedStatus), HttpStatus.OK);
+    }
+
+
 }
