@@ -14,9 +14,10 @@ import BatteryCard from './BatteryCard';
 const BatteryList = ({ openSnackBar, batteryList, stationList }) => {
   const [isEditState, setIsEditState] = useState(false);
   const [selectedBatteryInfo, setSelectedBatteryInfo] = useState({});
+
   const openModalHandler = (info) => {
-    setIsEditState(true);
     setSelectedBatteryInfo(info);
+    setIsEditState(true);
   };
 
   const onlyOneBatteryNames = removeDuplicatedBatteryName(batteryList);
@@ -33,6 +34,7 @@ const BatteryList = ({ openSnackBar, batteryList, stationList }) => {
           closeModalHandler={setIsEditState}
         >
           <BatteryEditForm
+            setSelectedBatteryInfo={setSelectedBatteryInfo}
             openSnackBar={openSnackBar}
             closeModalHandler={setIsEditState}
             selectedBatteryInfo={selectedBatteryInfo}

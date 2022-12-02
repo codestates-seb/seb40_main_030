@@ -33,14 +33,6 @@ const BatteryInputForm = ({ openSnackBar, batteryList, stationList }) => {
     setIsAddMode(false);
   };
 
-  const onInvalidHandler = (errors) => {
-    // const message = `${
-    //   errors.capacity ? `capacity : ${errors.capacity.message}` : ''
-    // }
-    // ${errors.price ? `price : ${errors.price.message}` : ''}
-    // ${errors.stationId ? `stationId : ${errors.stationId.message}` : ''}`;
-    openSnackBar('');
-  };
   const checkKeyDown = (e) => {
     if (e.code === 'Enter') e.preventDefault();
   };
@@ -48,7 +40,7 @@ const BatteryInputForm = ({ openSnackBar, batteryList, stationList }) => {
   return (
     <S.InputModalContainer>
       <form
-        onSubmit={handleSubmit(onValidHandler, onInvalidHandler)}
+        onSubmit={handleSubmit(onValidHandler)}
         onKeyDown={(e) => checkKeyDown(e)}
       >
         <div className='input-container'>
