@@ -14,10 +14,9 @@ import {
 } from '../../recoil/userInfoState';
 import * as S from './Mid.style';
 import { ProfileImg } from '../../assets';
+import { apiClient } from '../../apis/stations';
 
 const Mid = () => {
-  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
-
   const [userInfo, setUserInfo] = useState('');
   const [isEdit, setIsEdit] = useRecoilState(recoilIsEdit);
 
@@ -32,8 +31,8 @@ const Mid = () => {
   const [nickMsg, setNickMsg] = useState('');
 
   useEffect(() => {
-    axios
-      .get(`${apiUrl}/members/find`, {
+    apiClient
+      .get(`/members/find`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
@@ -68,8 +67,8 @@ const Mid = () => {
   console.log('watch() : ', watch());
 
   const checkedNick = (e) => {
-    axios
-      .get(`${apiUrl}/members`, {
+    apiClient
+      .get(`/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
@@ -170,8 +169,8 @@ const Mid = () => {
           }
 
           console.log('onValid -> axios 직전 data : ', data);
-          axios
-            .patch(`${apiUrl}/members/edit`, data, {
+          apiClient
+            .patch(`/members/edit`, data, {
               headers: {
                 'Access-Control-Allow-Origin': '*',
                 'ngrok-skip-browser-warning': '111',
@@ -206,7 +205,7 @@ const Mid = () => {
   const removeUser = async () => {
     if (confirm('정말 탈퇴하시겠습니까?')) {
       console.log('확인누름');
-      await axios.delete(`${apiUrl}/members/remove`).then((res) => {
+      await apiClient.delete(`/members/remove`).then((res) => {
         setUserInfo('');
         setInSignAddress('');
         setIsPostCode(false);
