@@ -33,22 +33,6 @@ const PAGES = [
     name: ROUTES.SEARCH.NAME,
   },
   {
-    element: <Rental />,
-    path: ROUTES.RENTAL.PATH,
-    name: ROUTES.RENTAL.NAME,
-  },
-
-  {
-    element: <NotFound />,
-    path: ROUTES.NOT_FOUND.PATH,
-    name: ROUTES.NOT_FOUND.NAME,
-  },
-  {
-    element: <Login />,
-    path: ROUTES.LOGIN.PATH,
-    name: ROUTES.LOGIN.NAME,
-  },
-  {
     element: <SignUp />,
     path: ROUTES.SIGNUP.PATH,
     name: ROUTES.SIGNUP.NAME,
