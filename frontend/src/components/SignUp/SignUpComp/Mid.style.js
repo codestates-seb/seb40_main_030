@@ -71,6 +71,7 @@ export const SignUpEmailInputDiv = styled.div`
     border-radius: 3px;
   }
 `;
+
 export const SignUpEmailSuccessMsgDiv = styled.div`
   color: green;
   font-size: 12px;

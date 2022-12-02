@@ -36,7 +36,6 @@ const Top = () => {
   const PhotoImgDiv = styled.img`
     display: block;
     margin: auto;
-    border: 1px solid white;
     background-color: white;
     width: 50px;
     height: 50px;
