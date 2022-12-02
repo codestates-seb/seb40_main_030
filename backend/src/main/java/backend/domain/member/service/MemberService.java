@@ -81,7 +81,6 @@ public class MemberService {
         if (optionalNickname.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.NICKNAME_EXIST);
         }
-
     }
 
     private Member verifyExistsMember(Long memberId) {

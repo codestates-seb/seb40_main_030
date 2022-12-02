@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.UUID;
 
 @RestController
-
 public class KakaoController {
 
 //    KakaoAPI kakaoApi = new KakaoAPI();
@@ -62,6 +61,7 @@ public class KakaoController {
 
     @Autowired
     private KakaoOauthService kakaoOauthService;
+
     @GetMapping("/auth/login2")
     public String kakaoLogin(String code) {
 
@@ -71,7 +71,7 @@ public class KakaoController {
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
-        params.add("client_id", "841b96d25f2a485c724c9710be36a160");
+        params.add("client_id", "a1690b88b9c76826da040f8aadd2da65");
         params.add("redirect_url", "http://localhost:8080/auth/login2");
         params.add("code", code);
 
@@ -83,7 +83,6 @@ public class KakaoController {
                 HttpMethod.POST,
                 kakaoTokenRequest,
                 String.class
-
         );
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -111,7 +110,6 @@ public class KakaoController {
                 HttpMethod.POST,
                 kakaoProfileRequest,
                 String.class
-
         );
 
         ObjectMapper objectMapper2 = new ObjectMapper();
@@ -123,29 +121,9 @@ public class KakaoController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-//        kakaoOauthService.loginKakao(kakaoProfile); //nullPointException 가능성있음
 
-//        System.out.println("카카오 아이디(번호):"+kakaoProfile.getId());
-//        System.out.println("카카오 이메일:"+kakaoProfile.getKakao_account().getEmail());
-//        System.out.println("유저 이름:"+kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
-//        System.out.println("유저 이메일:"+kakaoProfile.getKakao_account().getEmail());
-//        System.out.println("카카오 전용 패스워드:"+"1234");
-//
-//        Member kakaoMember = Member.builder()
-//                            .nickname(kakaoProfile.getKakao_account().getEmail())
-//                            .password("1234")
-//                            .email(kakaoProfile.getKakao_account().getEmail())
-//                            .oauth("kakao")
-//                            .build();
-//
-//      memberService.findMember(kakaoMember.getId());
-//
-//      Member originMember =  memberService.createMember(kakaoMember);
-//
-//
-//      Member createdMember =  memberService.createMember(kakaoMember);
-//      MemberDto.PostResDto response3 = new MemberDto.PostResDto(createdMember);
-//
+        kakaoOauthService.loginKakao(kakaoToken, kakaoProfile); //nullPointException 가능성있음
+
         return response.getBody()+","+response2.getBody();
     }
 }
