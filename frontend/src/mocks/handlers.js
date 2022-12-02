@@ -185,10 +185,6 @@ export const handlers = [
 
   //요청에서 토큰 유효성 검사 - 모든 api요청은 백엔드에서 토큰 유효성 검사를 할예정으로 임시로 /test api에 대해서만 체크후 응답보내줌
   rest.all('/test', (req, res, ctx) => {
-    const header = new Headers(req.headers);
-    const tokenInHeader = header.get('authorization')?.split(' ')[1];
-    const isValidToken = checkValidToken(tokenInHeader);
-
     return res(
       ctx.delay(200),
       ctx.status(401),

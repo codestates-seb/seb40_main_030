@@ -1,8 +1,4 @@
-import {
-  useCheckValidReserveTable,
-  useCurrentAddress,
-  useSnackBar,
-} from '@/hooks';
+import { useCurrentAddress, useSnackBar } from '@/hooks';
 import useGetBatteryBySetTime from '@/hooks/reservation/useGetBatteryBySetTIme';
 import NotFound from '@/pages/NotFound';
 
@@ -11,12 +7,7 @@ import BatteryInfo from './Features/BatteryInfo';
 import * as S from './Features/Features.style';
 
 const RentalStatus = ({ id }) => {
-  const { startPoint, endPoint } = useCheckValidReserveTable();
-
-  const { data: batteryData } = useGetBatteryBySetTime(id, {
-    startTime: startPoint.replace(' ', 'T'),
-    endTime: endPoint.replace(' ', 'T'),
-  });
+  const { data: batteryData } = useGetBatteryBySetTime(id);
 
   const { isActive, message } = useSnackBar();
   const { location, batteries } = batteryData;

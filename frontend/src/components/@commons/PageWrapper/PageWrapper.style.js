@@ -53,7 +53,7 @@ const MotionWrapper = styled(motion.div)`
   }
 `;
 
- const Header = styled.header`
+const Header = styled.header`
   display: flex;
   align-items: center;
   width: 100%;
@@ -63,6 +63,11 @@ const MotionWrapper = styled(motion.div)`
   z-index: ${({ theme }) => theme.PAGE_WRAPPER};
 
   margin-bottom: 30px;
+
+  .button {
+    height: 50%;
+    cursor: pointer;
+  }
 `;
 
 const Title = styled.span`

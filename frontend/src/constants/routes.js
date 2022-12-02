@@ -26,7 +26,7 @@ const ROUTES = Object.freeze({
     NAME: 'Notice',
   },
   BUSINESS: {
-    PATH: 'business',
+    PATH: '/business',
     NAME: 'Business',
   },
   LOGIN: {
@@ -64,7 +64,7 @@ const ROUTES = Object.freeze({
   PAYMENTCOMPLETED: {
     PATH: '/payments/payment_completed',
     NAME: 'Payments',
-  }
+  },
 });
 
 export default ROUTES;

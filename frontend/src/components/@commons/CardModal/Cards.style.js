@@ -81,7 +81,7 @@ const Details = styled.div`
     justify-content: end;
     margin-right: 10px;
     font-size: 20px;
-    z-index: ${({ theme }) => theme.DEFAULT};
+    z-index: ${({ theme }) => theme.SNACKBAR};
   }
 `;
 
