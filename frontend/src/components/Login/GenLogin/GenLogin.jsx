@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './GenLogin.style';
 
 import { useForm } from 'react-hook-form';
-// import { apiClient } from '../../../apis/stations';
+
 import { apiLogin } from '../../../apis/apiLogin';
 
 // 일반 로그인 컴포넌트
