@@ -1,24 +1,62 @@
-import { apiClient } from './order';
-// import axios from 'axios';
+import axios from 'axios';
 
-// const apiClient = axios.create({
-//   baseURL: import.meta.env.VITE_SERVER_URL,
-//   headers: {
-//     'Access-Control-Allow-Origin': '*',
-//   },
-//   withCredentials: true,
-// });
+const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
+
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_NGROK,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'ngrok-skip-browser-warning': '111',
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${accessToken}`,
+  },
+  withCredentials: true,
+});
 
 const getAllStations = async () => {
-  const { data } = await apiClient.get('/api/stations');
+  const { data } = await apiClient.get('/stations');
 
-  return data;
+  return data.content;
 };
 
 const getStationById = async (id) => {
-  const { data } = await apiClient.get(`/api/stations/${id}`);
+  const { data } = await apiClient.get(`/stations/${id}`);
 
   return data;
 };
 
-export { getAllStations, getStationById };
+const deleteStationById = async (id) => {
+  return await apiClient.delete(`/stations/${id}`);
+};
+
+const getStationByKeyword = async (keyword) => {
+  const response = await apiClient.get(`/stations/keyword?keyword=${keyword}`);
+
+  return response;
+};
+
+const getBatteryBySetTime = async (id, setTime) => {
+  const { data } = await apiClient.get(`/stations/batteries/${id}`, {
+    params: setTime,
+  });
+
+  return data;
+};
+
+const getFilteredStationsBySetTime = async (setTime) => {
+  const { data } = await apiClient.get('/stations/searchAll', {
+    params: setTime,
+  });
+
+  return data?.content;
+};
+
+export {
+  apiClient,
+  getAllStations,
+  getStationById,
+  deleteStationById,
+  getStationByKeyword,
+  getBatteryBySetTime,
+  getFilteredStationsBySetTime,
+};

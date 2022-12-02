@@ -13,7 +13,7 @@ const useCalendar = () => {
   });
 
   const currentDate = {
-    month: new Date().getMonth(),
+    month: new Date().getMonth() + 1,
     date: new Date().getDate(),
   };
 
@@ -29,8 +29,8 @@ const useCalendar = () => {
   };
 
   const year = new Date().getFullYear();
-  const startMonth = new Date(date.startValue).getMonth();
-  const endMonth = new Date(date.endValue).getMonth();
+  const startMonth = new Date(date.startValue).getMonth() + 1;
+  const endMonth = new Date(date.endValue).getMonth() + 1;
 
   const startDate = new Date(date.startValue).getDate();
   const endDate = new Date(date.endValue).getDate();

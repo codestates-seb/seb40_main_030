@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
+import { FuelTankImg } from '@/assets';
 import { currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './Cards.style';
@@ -19,7 +20,11 @@ const Cards = ({ content, setIsOpen }) => {
               setCurrentLocation(location);
             }}
           >
-            <S.Image src={photoURL} alt={name} />
+            <S.Image
+              src={photoURL}
+              alt={name}
+              onError={(e) => (e.target.src = FuelTankImg)}
+            />
           </S.Container>
         </Link>
         <S.Details>

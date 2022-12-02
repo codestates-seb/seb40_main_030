@@ -9,12 +9,10 @@ import Business from './Business';
 import Home from './Home';
 import Login from './Login';
 import NotFound from './NotFound';
+import Orders from './Orders';
+import Payments from './Payments';
 import Rental from './Rental';
 import Search from './Search';
-import Payments from './Payments';
-
-// 당장은 Layout 컴포넌트는 없고
-// BottomNav 가 필요한 페이지는 해당 페이지에 import 해주시면 됩니다.
 
 const PAGES = [
   {
@@ -51,12 +49,21 @@ const PAGES = [
         path: ROUTES.BUSINESS.PATH,
         name: ROUTES.BUSINESS.NAME,
       },
+      {
+        element: <Orders />,
+        path: ROUTES.ORDERS.PATH,
+        name: ROUTES.ORDERS.NAME,
+      },
     ],
   },
   {
     element: <PublicRouter />,
     children: [
-      { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
+      {
+        element: <Login />,
+        path: ROUTES.LOGIN.PATH,
+        name: ROUTES.LOGIN.NAME,
+      },
     ],
   },
   {

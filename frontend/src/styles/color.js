@@ -12,6 +12,7 @@ const COLOR = {
 
   LIGHTEST_BLACK: '#333A44',
   LIGHTER_BLACK: '#161b22',
+  PEWTER: '#F9F9FB',
 
   BLACK: '#0d1117',
   WHITE: '#ffffff',

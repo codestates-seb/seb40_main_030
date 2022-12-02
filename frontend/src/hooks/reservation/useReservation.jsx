@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { TIME } from '@/constants';
-import { reservationState } from '@/recoil/pagesState';
+import { BOOKING_TYPE, MESSAGE, TIME } from '@/constants';
+import { initialReservationValue, reservationState } from '@/recoil/pagesState';
 
 import { useSnackBar } from '..';
 
@@ -11,7 +11,7 @@ const useReservation = () => {
   const { openSnackBar } = useSnackBar();
   const [reservationStatus, setReservationStatus] =
     useRecoilState(reservationState);
-  const { startTime, startDate, endDate } = reservationStatus;
+  const { startTime, startDate, endDate, bookingType } = reservationStatus;
 
   const startPoint = new Date(
     `${startDate.year}-${startDate.month}-${startDate.date} ${startTime.hours}:${startTime.minutes}`,
@@ -20,9 +20,11 @@ const useReservation = () => {
   const handleReservation = (hours, minutes) => {
     const currentHour = new Date().getHours();
 
-    if (currentHour >= hours + minutes / TIME.PERCENTAGE) {
-      openSnackBar('현재시간보다 이전 입니다.');
-      return;
+    if (bookingType === BOOKING_TYPE.SINGLE) {
+      if (currentHour >= hours + minutes / TIME.PERCENTAGE) {
+        openSnackBar(MESSAGE.BEFORE_CURRENT_TIME);
+        return;
+      }
     }
 
     if (!reservation) {
@@ -38,14 +40,27 @@ const useReservation = () => {
       ).getTime();
 
       if (startPoint >= endPoint) {
-        // modal 로 교체 해야함
-        openSnackBar('설정하신 예약시간을 확인해 주세요.');
+        openSnackBar(MESSAGE.RESERVATION_NOT_SUCCEED);
         return;
       }
 
       if (endPoint - startPoint < TIME.HOUR) {
-        openSnackBar('최소 대여시간은 한시간입니다.');
+        openSnackBar(MESSAGE.MIN_BOOKING_PERIOD);
         return;
+      }
+
+      if (bookingType === BOOKING_TYPE.MULTIPLE) {
+        const currentTime = new Date().getTime();
+
+        if (currentTime > startPoint) {
+          setReservationStatus({
+            ...initialReservationValue,
+            bookingType: BOOKING_TYPE.MULTIPLE,
+          });
+          setReservation(!reservation);
+          openSnackBar(MESSAGE.BEFORE_CURRENT_TIME);
+          return;
+        }
       }
 
       setReservationStatus({

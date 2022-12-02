@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { Roadview } from 'react-kakao-maps-sdk';
 
 const KakaoRoadView = ({ location }) => {

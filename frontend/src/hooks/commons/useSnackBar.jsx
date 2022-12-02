@@ -13,6 +13,7 @@ const useSnackBar = () => {
         setSnackBar({ ...snackBar, isActive: false });
       }, 3000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive]);
 
   const openSnackBar = (message) => {
