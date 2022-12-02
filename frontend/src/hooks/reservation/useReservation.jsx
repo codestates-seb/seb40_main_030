@@ -1,19 +1,32 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { reservationState } from '@/recoil/pagesState';
+import { BOOKING_TYPE, MESSAGE, TIME } from '@/constants';
+import { initialReservationValue, reservationState } from '@/recoil/pagesState';
+
+import { useSnackBar } from '..';
 
 const useReservation = () => {
   const [reservation, setReservation] = useState(false);
+  const { openSnackBar } = useSnackBar();
   const [reservationStatus, setReservationStatus] =
     useRecoilState(reservationState);
-  const { startTime, startDate, endDate } = reservationStatus;
+  const { startTime, startDate, endDate, bookingType } = reservationStatus;
 
   const startPoint = new Date(
     `${startDate.year}-${startDate.month}-${startDate.date} ${startTime.hours}:${startTime.minutes}`,
   ).getTime();
 
   const handleReservation = (hours, minutes) => {
+    const currentHour = new Date().getHours();
+
+    if (bookingType === BOOKING_TYPE.SINGLE) {
+      if (currentHour >= hours + minutes / TIME.PERCENTAGE) {
+        openSnackBar(MESSAGE.BEFORE_CURRENT_TIME);
+        return;
+      }
+    }
+
     if (!reservation) {
       setReservationStatus({
         ...reservationStatus,
@@ -27,9 +40,27 @@ const useReservation = () => {
       ).getTime();
 
       if (startPoint >= endPoint) {
-        // modal 로 교체 해야함
-        alert('설정하신 예약시간을 확인해 주세요.');
+        openSnackBar(MESSAGE.RESERVATION_NOT_SUCCEED);
         return;
+      }
+
+      if (endPoint - startPoint < TIME.HOUR) {
+        openSnackBar(MESSAGE.MIN_BOOKING_PERIOD);
+        return;
+      }
+
+      if (bookingType === BOOKING_TYPE.MULTIPLE) {
+        const currentTime = new Date().getTime();
+
+        if (currentTime > startPoint) {
+          setReservationStatus({
+            ...initialReservationValue,
+            bookingType: BOOKING_TYPE.MULTIPLE,
+          });
+          setReservation(!reservation);
+          openSnackBar(MESSAGE.BEFORE_CURRENT_TIME);
+          return;
+        }
       }
 
       setReservationStatus({

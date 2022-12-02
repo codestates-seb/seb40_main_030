@@ -4,15 +4,18 @@ import { useRecoilState } from 'recoil';
 
 import { navState } from '@/recoil/pagesState';
 
+import { useCheckDateFixed } from '..';
 import usePreviousValue from './usePrevious';
 
 const useBottomSheet = () => {
   const [isOpen, setIsOpen] = useRecoilState(navState);
   const controls = useAnimation();
   const prevIsOpen = usePreviousValue(isOpen);
+  const { isReservationCompleted } = useCheckDateFixed();
 
   const onDragEnd = (info) => {
     const shouldClose = info?.y > 20 || (info?.y >= 0 && info.point.y > 45);
+
     if (shouldClose) {
       controls.start('hidden');
       setIsOpen(false);
@@ -29,6 +32,13 @@ const useBottomSheet = () => {
       controls.start('visible');
     }
   }, [controls, isOpen, prevIsOpen]);
+
+  useEffect(() => {
+    if (isReservationCompleted) {
+      setIsOpen(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isReservationCompleted]);
 
   return { onDragEnd, controls, setIsOpen, isOpen };
 };

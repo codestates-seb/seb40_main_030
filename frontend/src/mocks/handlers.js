@@ -14,9 +14,9 @@ import {
 import { mockOrder, mockUser, mockStations } from './data';
 import mockAdmin from './data/admin';
 
+let MockStations = [...mockStations];
 let MockOrder = [...mockOrder];
 let MockUsers = [...mockUser];
-let MockStations = [...mockStations];
 
 export const handlers = [
   // OAuth

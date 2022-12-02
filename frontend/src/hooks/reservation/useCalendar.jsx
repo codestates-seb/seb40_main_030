@@ -13,7 +13,7 @@ const useCalendar = () => {
   });
 
   const currentDate = {
-    month: new Date().getMonth(),
+    month: new Date().getMonth() + 1,
     date: new Date().getDate(),
   };
 
@@ -22,9 +22,15 @@ const useCalendar = () => {
     minutes: new Date().getMinutes(),
   };
 
+  const addMonths = (numOfMonths, date = new Date()) => {
+    date.setMonth(date.getMonth() + numOfMonths);
+
+    return date;
+  };
+
   const year = new Date().getFullYear();
-  const startMonth = new Date(date.startValue).getMonth();
-  const endMonth = new Date(date.endValue).getMonth();
+  const startMonth = new Date(date.startValue).getMonth() + 1;
+  const endMonth = new Date(date.endValue).getMonth() + 1;
 
   const startDate = new Date(date.startValue).getDate();
   const endDate = new Date(date.endValue).getDate();
@@ -45,7 +51,13 @@ const useCalendar = () => {
     }
   }, [date]);
 
-  return { reservationStatus, date, currentDate, currentTime, handleChange };
+  return {
+    date,
+    currentDate,
+    currentTime,
+    handleChange,
+    addMonths,
+  };
 };
 
 export default useCalendar;

@@ -1,33 +1,57 @@
-import { useGetStationById } from '@/hooks';
+import {
+  useCheckValidReserveTable,
+  useCurrentAddress,
+  useSnackBar,
+} from '@/hooks';
+import useGetBatteryBySetTime from '@/hooks/reservation/useGetBatteryBySetTIme';
 import NotFound from '@/pages/NotFound';
 
-import { useCurrentAddress } from '../../hooks';
+import { SnackBar } from '../@commons';
 import BatteryInfo from './Features/BatteryInfo';
+import * as S from './Features/Features.style';
 
 const RentalStatus = ({ id }) => {
-  const { data } = useGetStationById(id);
+  const { startPoint, endPoint } = useCheckValidReserveTable();
 
-  // hooks 로 분리
-  const { location, batteries } = data;
+  const { data: batteryData } = useGetBatteryBySetTime(id, {
+    startTime: startPoint.replace(' ', 'T'),
+    endTime: endPoint.replace(' ', 'T'),
+  });
+
+  const { isActive, message } = useSnackBar();
+  const { location, batteries } = batteryData;
   const { addressDetail } = useCurrentAddress(location);
-  // 추후 적용될 부분
-  addressDetail;
-
-  // 필요한 정보 주유소 이름 , 예약시간 , 유저 Id, 배터리 Id
 
   return (
     <>
-      {batteries.length === 0 ? (
-        <NotFound message='배터리가 없어요 ' />
-      ) : (
-        batteries.map((content) => (
-          <BatteryInfo
-            key={content.batteryId}
-            station={data}
-            content={content}
+      <div className='scrollable-component'>
+        {batteries.length === 0 ? (
+          <NotFound
+            message='배터리가 없어요'
+            button={false}
+            bgColor='#fff'
+            color='black'
           />
-        ))
-      )}
+        ) : (
+          <>
+            <S.AddressDetail>
+              <span>{addressDetail}</span>
+            </S.AddressDetail>
+            {batteries
+              .sort((a, b) => b.status - a.status)
+              .map((content) => {
+                return (
+                  <BatteryInfo
+                    key={content.batteryId}
+                    station={batteryData}
+                    content={content}
+                  />
+                );
+              })}
+            <SnackBar isActive={isActive} message={message} />
+          </>
+        )}
+      </div>
     </>
   );
 };

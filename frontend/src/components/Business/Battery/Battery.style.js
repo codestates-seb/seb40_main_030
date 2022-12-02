@@ -187,6 +187,8 @@ const DeleteButtonContainer = styled.button`
 
   visibility: ${({ deleteState, status }) =>
     deleteState === true && status === true ? '' : 'hidden'};
+  gap: 10px;
+  overflow-y: scroll;
 `;
 
 export {

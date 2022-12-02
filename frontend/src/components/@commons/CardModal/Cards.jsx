@@ -1,18 +1,30 @@
 import { Link } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+
+import { FuelTankImg } from '@/assets';
+import { currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './Cards.style';
 
 const Cards = ({ content, setIsOpen }) => {
-  const { name, details, photoURL, batteries, id } = content;
-
-  // 예약시간을 주소값에 포함?
+  const setCurrentLocation = useSetRecoilState(currentLocationState);
+  const { name, details, photoURL, batteries, id, location } = content;
 
   return (
     <S.CardWrapper>
       <S.Card>
         <Link to={`/rental/${id}`}>
-          <S.Container onClick={() => setIsOpen(false)}>
-            <S.Image src={photoURL} alt={name} />
+          <S.Container
+            onClick={() => {
+              setIsOpen(false);
+              setCurrentLocation(location);
+            }}
+          >
+            <S.Image
+              src={photoURL}
+              alt={name}
+              onError={(e) => (e.target.src = FuelTankImg)}
+            />
           </S.Container>
         </Link>
         <S.Details>

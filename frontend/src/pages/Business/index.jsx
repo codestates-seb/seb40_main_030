@@ -22,7 +22,7 @@ const Business = () => {
         <BatteryContent
           openSnackBar={openSnackBar}
           clickPage={clickPage}
-          fill='#d6d9dc'
+          // fill='#d6d9dc'
         />
       ) : (
         <StationContent openSnackBar={openSnackBar} clickPage={clickPage} />

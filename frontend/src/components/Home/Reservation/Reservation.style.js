@@ -42,7 +42,7 @@ const ResetButton = styled.button`
   font-size: 18px;
   font-weight: 400;
   border-radius: 10px;
-  background-color: #1070fc;
+  background-color: ${({ theme }) => theme.COLOR_BLUE};
   color: white;
   border: none;
   letter-spacing: 5px;
