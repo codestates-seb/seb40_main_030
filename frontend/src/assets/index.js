@@ -13,6 +13,7 @@ import { ReactComponent as PlusIcon } from './plus.svg';
 import { ReactComponent as SearchIcon } from './search.svg';
 import { ReactComponent as PaymentIcon } from './payMent.svg';
 import { ReactComponent as NoticeIcon } from './noticeIcon.svg';
+import CompletedIcon from './completed.png'
 
 import ProfileImg from './profileImg.png';
 
@@ -23,10 +24,8 @@ import { ReactComponent as StationPageIcon } from './stationPage.svg';
 
 import { ReactComponent as GlobeIcon } from './globe.svg';
 import { ReactComponent as CurrentLocationIcon } from './currentLocation.svg';
-
 import BatterImg from './battery.png';
 import FuelTankImg from './fuel.jpg';
-
 import UndoIcon from './undo-button.png';
 export {
   BatteryIcon,
@@ -51,4 +50,5 @@ export {
   FuelTankImg,
   GlobeIcon,
   CurrentLocationIcon,
+  CompletedIcon
 };

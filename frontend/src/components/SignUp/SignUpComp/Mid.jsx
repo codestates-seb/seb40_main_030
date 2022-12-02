@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
-import * as S from './Mid.style';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+
+import { apiClient } from '../../../apis/stations';
+import { ProfileImg } from '../../../assets';
 import {
   recoilPostAddress,
   userInfoState,
   isOverLapEmail,
   isOverLapNick,
 } from '../../../recoil/userInfoState';
-import { useRecoilState } from 'recoil';
-import { useNavigate } from 'react-router-dom';
-import { ProfileImg } from '../../../assets';
-import { apiClient } from '../../../apis/stations';
+import * as S from './Mid.style';
 
 const SignUpMid = () => {
   const navigate = useNavigate();
@@ -35,9 +35,8 @@ const SignUpMid = () => {
     register,
     handleSubmit,
     watch,
-    getValues,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -145,7 +144,7 @@ const SignUpMid = () => {
           console.log('submit -> axios직전 data : ', data);
           apiClient
             .post(`/members`, data)
-            .then((res) => {
+            .then(() => {
               setInputState('');
               setInSignAddress('');
               navigate('/login');

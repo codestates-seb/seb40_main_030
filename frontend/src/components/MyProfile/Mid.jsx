@@ -1,8 +1,10 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+
+import { apiClient } from '../../apis/stations';
+import { ProfileImg } from '../../assets';
 import {
   recoilPostAddress,
   userInfoState,
@@ -13,8 +15,7 @@ import {
   recoilPhone,
 } from '../../recoil/userInfoState';
 import * as S from './Mid.style';
-import { ProfileImg } from '../../assets';
-import { apiClient } from '../../apis/stations';
+
 
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');
@@ -52,7 +53,7 @@ const Mid = () => {
     handleSubmit,
     watch,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -66,7 +67,7 @@ const Mid = () => {
 
   console.log('watch() : ', watch());
 
-  const checkedNick = (e) => {
+  const checkedNick = () => {
     apiClient
       .get(`/members`, {
         headers: {

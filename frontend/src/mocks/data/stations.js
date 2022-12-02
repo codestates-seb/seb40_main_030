@@ -1,3 +1,4 @@
+
 const mockStations = [
   {
     id: 2,
@@ -12,6 +13,17 @@ const mockStations = [
     phone: '010-2580-2580',
     confirmId: 21160619,
     batteries: [
+      {
+        createdAt: '2022-11-19T17:34:24',
+        modifiedAt: '2022-11-19T17:34:24',
+        batteryId: 5,
+        capacity: '103000mA',
+        status: true,
+        price: 12300,
+        batteryName: '조금큰 베터리',
+        photoURL:
+          'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSka6Ydzuqqujs3gMzXmMCyHBTUDrqnK36uCA3vQ2VBudIx0glgOObzWWewlZJAt6NiFvaXqtbpT_k-&usqp=CAc',
+      },
       {
         batteryId: 4,
         capacity: '100000mA',

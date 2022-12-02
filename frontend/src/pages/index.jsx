@@ -8,18 +8,22 @@ import { ROUTES } from '@/constants';
 import Business from './Business';
 import Home from './Home';
 import Login from './Login';
-import LoginRedirect from './LoginRedirect/index';
+// import LoginRedirect from './LoginRedirect/index';
 import Logout from './Logout/index';
+import MyPage from './MyPage';
+import MyProfile from './MyProfile';
 import NotFound from './NotFound';
+import Notice from './Notice';
 import Orders from './Orders';
+import PaymentCompleted from './PaymentCompleted';
 import Payments from './Payments';
 import Rental from './Rental';
 import Search from './Search';
-import SignUp from './SignUp';
 import SearchAddress from './SearchAddress';
-import MyPage from './MyPage';
-import MyProfile from './MyProfile';
-import Notice from './Notice';
+import SignUp from './SignUp';
+
+// 당장은 Layout 컴포넌트는 없고
+// BottomNav 가 필요한 페이지는 해당 페이지에 import 해주시면 됩니다.
 
 const PAGES = [
   {
@@ -31,11 +35,6 @@ const PAGES = [
     element: <Search />,
     path: ROUTES.SEARCH.PATH,
     name: ROUTES.SEARCH.NAME,
-  },
-  {
-    element: <Rental />,
-    path: ROUTES.RENTAL.PATH,
-    name: ROUTES.RENTAL.NAME,
   },
 
   {
@@ -135,6 +134,11 @@ const PAGES = [
     element: <Payments />,
     path: ROUTES.PAYMENTS.PATH,
     name: ROUTES.PAYMENTS.NAME,
+  },
+  {
+    element: <PaymentCompleted />,
+    path: ROUTES.PAYMENTCOMPLETED.PATH,
+    name: ROUTES.PAYMENTCOMPLETED.NAME,
   },
 ];
 
