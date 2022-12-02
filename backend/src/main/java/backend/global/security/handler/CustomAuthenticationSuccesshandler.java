@@ -30,9 +30,9 @@ public class CustomAuthenticationSuccesshandler implements AuthenticationSuccess
         adminMailAddress.add("admin3@gmail.com");
 
         if(adminMailAddress.contains(member.getEmail())) {
-            response.getWriter().print("Success Login : ADMIN");
+            response.getWriter().print("Success ADMIN");
         } else {
-            response.getWriter().print("Success Login : USER");
+            response.getWriter().print("Success USER");
         }
 
         response.getWriter().flush();
