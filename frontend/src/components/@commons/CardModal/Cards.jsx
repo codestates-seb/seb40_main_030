@@ -12,14 +12,14 @@ const Cards = ({ content, setIsOpen }) => {
 
   return (
     <S.CardWrapper>
-      <S.Card>
+      <S.Card
+        onClick={() => {
+          setIsOpen(false);
+          setCurrentLocation(location);
+        }}
+      >
         <Link to={`/rental/${id}`}>
-          <S.Container
-            onClick={() => {
-              setIsOpen(false);
-              setCurrentLocation(location);
-            }}
-          >
+          <S.Container>
             <S.Image
               src={photoURL}
               alt={name}
