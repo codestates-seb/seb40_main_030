@@ -13,8 +13,20 @@ const ROUTES = Object.freeze({
     PATH: '/signup',
     NAME: 'Signup',
   },
+  MYPAGE: {
+    PATH: '/mypage',
+    NAME: 'Mypage',
+  },
+  MYPROFILE: {
+    PATH: '/myprofile',
+    NAME: 'Myprofile',
+  },
+  NOTICE: {
+    PATH: '/notice',
+    NAME: 'Notice',
+  },
   BUSINESS: {
-    PATH: 'business',
+    PATH: '/business',
     NAME: 'Business',
   },
   LOGIN: {
@@ -37,6 +49,10 @@ const ROUTES = Object.freeze({
     PATH: '/rental/:stationId',
     NAME: 'Rental',
   },
+  SEARCH_ADDRESS: {
+    PATH: '/searchaddress',
+    NAME: 'Searchaddress',
+  },
   PAYMENTS: {
     PATH: '/payments/:batteryId',
     NAME: 'Payments',
@@ -44,6 +60,10 @@ const ROUTES = Object.freeze({
   ORDERS: {
     PATH: '/orders/list',
     NAME: 'Orders',
+  },
+  PAYMENTCOMPLETED: {
+    PATH: '/payments/payment_completed',
+    NAME: 'Payments',
   },
 });
 

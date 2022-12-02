@@ -3,7 +3,6 @@ import axios from 'axios';
 import { BASE_URL } from '@/constants/admin';
 const LOCAL_BASE_URL = import.meta.env.REACT_APP_BASE_URL;
 const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
-
 const axiosAdminInstance = axios.create({
   baseURL: BASE_URL,
   headers: {

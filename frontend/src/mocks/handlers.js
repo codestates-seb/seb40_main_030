@@ -101,13 +101,16 @@ export const handlers = [
 
   // 유저 정보 등록
   rest.post('/api/members', (req, res, ctx) => {
+    console.log('MSW에 회원정보등록할때 오는 요청 : ', req.body);
+    // MockUsers.unshift(newUser);
+    let id = MockUsers.length + 1;
     const newUser = req.body;
-
-    MockUsers.unshift(newUser);
+    const resultUser = { memberId: id, ...newUser };
+    MockUsers.push(resultUser);
+    console.log('회원가입->MSW->MockUsers : ', MockUsers);
 
     return res(ctx.delay(), ctx.status(201), ctx.json(newUser));
   }),
-
   // 유저 정보 수정
   rest.patch('/api/members/:memberId', (req, res, ctx) => {
     const { memberId } = req.params;
@@ -182,10 +185,6 @@ export const handlers = [
 
   //요청에서 토큰 유효성 검사 - 모든 api요청은 백엔드에서 토큰 유효성 검사를 할예정으로 임시로 /test api에 대해서만 체크후 응답보내줌
   rest.all('/test', (req, res, ctx) => {
-    const header = new Headers(req.headers);
-    const tokenInHeader = header.get('authorization')?.split(' ')[1];
-    const isValidToken = checkValidToken(tokenInHeader);
-
     return res(
       ctx.delay(200),
       ctx.status(401),
@@ -234,6 +233,29 @@ export const handlers = [
       ctx.set('Authorization', ''),
       ctx.json(logoutRes),
     );
+  }),
+  //토큰 헤더[0], 쿠키, 바디
+
+  // GenLogin
+  rest.post('/genlogin', async (req, res, ctx) => {
+    console.log('MSW에 genlogin api로 오는 요청값 req.body: ', req.body);
+    console.log('MSW-> /genlogin->api로 오는 MockUsers : ', MockUsers);
+    let resultUser;
+    let isUser = MockUsers.filter((user) => {
+      console.log('user : ', user);
+      return (
+        user.email === req.body.email && user.password === req.body.password
+      );
+    });
+    if (isUser.length !== 0) {
+      const access_token = { accesstoken: '나! 엑세스토큰!' };
+      resultUser = { ...access_token, body: isUser };
+    } else {
+      const err = '일치하지 않은 ID,PW 입니다.';
+      return res(ctx.delay(200), ctx.status(401), ctx.json(err));
+    }
+    console.log('MSW서버->post(/genlogin) -> isUser : ', isUser);
+    return res(ctx.delay(200), ctx.status(200), ctx.json(resultUser));
   }),
 
   //카카오인증 서버로 재발급 요청 보냄

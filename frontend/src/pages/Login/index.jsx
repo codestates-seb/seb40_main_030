@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { sendAuthCode } from '@/apis/auth';
 import { getAuthCode } from '@/components/Login/utils';
 
+import { PageWrapper } from '../../components/@commons';
 import LoginForm from '../../components/Login/LoginForm';
 import { loginState } from '../../recoil/login';
 import * as S from './Login.style';
@@ -23,9 +24,9 @@ const Login = () => {
   // }, [isAuthorized]);
 
   return (
-    <S.LoginPageWrapper>
+    <PageWrapper title={'로그인'} path={'/'}>
       <LoginForm />
-    </S.LoginPageWrapper>
+    </PageWrapper>
   );
 };
 

@@ -1,14 +1,18 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-const SelectLayout = styled.div`
+const SelectLayout = styled(motion.div)`
 height: 640px;
 margin: 0 auto;
 margin-top: 30px;
+width: 100%;
+
+position: fixed;
 `;
 
 const BackButton = styled.button`
-position: absolute;
 margin-left: 20px;
+position: absolute;
 `
 
 const ItemOrder = styled.div`
@@ -33,7 +37,6 @@ background-color: ${({ theme }) => theme.COLOR_MAIN};
 color: white;
 width: 300px;
 height: 70px;
-margin-top: 20px;
 display: flex;
 justify-content: center;
 align-items: center;

@@ -1,8 +1,9 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 import { DESKTOP_MAX_WIDTH, DESKTOP_MARGIN_LEFT } from '@/constants';
 
-const Navigation = styled.div`
+const Navigation = styled(motion.div)`
   display: flex;
   justify-content: center;
   width: 100%;
@@ -18,7 +19,7 @@ const Navigation = styled.div`
   max-width: ${({ matches }) => matches && DESKTOP_MAX_WIDTH};
   left: ${({ matches }) => matches && DESKTOP_MARGIN_LEFT};
 
-  z-index: ${({ theme }) => theme.MIDDLE};
+  z-index: ${({ theme }) => theme.FRONT};
 `;
 
 const ListWrap = styled.ul`

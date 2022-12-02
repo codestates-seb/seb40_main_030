@@ -6,7 +6,7 @@ import MapIndicator from '@/components/Home/KakaoMap/Features/MapIndicator';
 import MarkerContainer from '@/components/Home/KakaoMap/Features/MarkerContainer';
 import KakaoRoadView from '@/components/Home/KakaoMap/Features/RoadView';
 import { DEFAULT_LOCATION, DESKTOP_MAX_WIDTH } from '@/constants';
-import { useCheckValidReserveTable, useGetAllStations } from '@/hooks';
+import { useCheckDateFixed, useGetAllStations } from '@/hooks';
 import useGetFilteredStationsBySetTime from '@/hooks/stations/useGetFilteredStationsBySetTime';
 import { currentLocationState } from '@/recoil/pagesState';
 
@@ -18,7 +18,7 @@ const KakaoMap = ({ matches }) => {
   const [currentLocation, setCurrentLocation] =
     useRecoilState(currentLocationState);
 
-  const { startPoint, endPoint } = useCheckValidReserveTable();
+  const { isDateFixed } = useCheckDateFixed();
   const { data: filteredStations } = useGetFilteredStationsBySetTime();
   const latitude = currentLocation?.latitude || DEFAULT_LOCATION.latitude;
   const longitude = currentLocation?.longitude || DEFAULT_LOCATION.longitude;
@@ -40,10 +40,10 @@ const KakaoMap = ({ matches }) => {
               longitude: map.getCenter().getLng(),
             })
           }
-          level={8}
+          level={3}
         >
           {/* 예약시간 설정 된 경우  /  안된경우  */}
-          {startPoint !== undefined && endPoint !== undefined
+          {isDateFixed
             ? filteredStations?.map((content) => (
                 <MarkerContainer key={content.id} content={content} />
               ))

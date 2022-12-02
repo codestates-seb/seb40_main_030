@@ -1,11 +1,9 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import useDelBattery from '../../../hooks/Business/useDelBattery';
 import useEditBattery from '../../../hooks/Business/useEditBattery';
 import * as S from './BatteryEditForm.style';
 const BatteryEditForm = ({
-  setSelectedBatteryInfo,
   openSnackBar,
   closeModalHandler,
   selectedBatteryInfo,
@@ -14,14 +12,8 @@ const BatteryEditForm = ({
 }) => {
   const { editMutate } = useEditBattery();
   const { deleteMutate } = useDelBattery();
-  // useEffect(() => {
-  //   setValue('capacity', selectedBatteryInfo.capacity);
-  //   console.log('selectedBatteryInfo.capacity', selectedBatteryInfo.capacity);
-  // }, []);
 
   const {
-    watch,
-    setValue,
     register,
     handleSubmit,
     formState: { errors },
@@ -53,8 +45,6 @@ const BatteryEditForm = ({
   const checkKeyDown = (e) => {
     if (e.code === 'Enter') e.preventDefault();
   };
-  console.log('stationId', watch('stationId'));
-  console.log('watch', watch());
   return (
     <S.EditModalContainer>
       <form onKeyDown={(e) => checkKeyDown(e)}>
@@ -131,7 +121,7 @@ const BatteryEditForm = ({
           <label htmlFor='stationId'>주유소위치</label>
           <select
             className='data-input'
-            // defaultValue={}
+            defaultValue={''}
             {...register('stationId')}
           >
             <option value='default' disabled>
