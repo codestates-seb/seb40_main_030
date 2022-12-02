@@ -10,10 +10,9 @@ const apiPay = axios.create({
 })
 
 const postKakao = async (state, totalAmount)  => {
-    const response = await apiPay.post(
+    return await apiPay.post(
       `/kakaoPay?itemName=${state.batteryName}&totalAmount=${totalAmount}&batteryId=${state.batteryId}&startTime=${state.startPoint}0&endTime=${state.endPoint}0`
       );
-      return response;
   };
 
 export { postKakao }
