@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
+import { apiClient } from '../../../apis/stations';
 import { ProfileImg } from '../../../assets';
 import {
   recoilPostAddress,
@@ -14,7 +14,6 @@ import {
 import * as S from './Mid.style';
 
 const SignUpMid = () => {
-  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
   const navigate = useNavigate();
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
   const [inputState, setInputState] = useRecoilState(userInfoState); // input value 값들을 전역에 저장해둘 상태변수
@@ -36,9 +35,8 @@ const SignUpMid = () => {
     register,
     handleSubmit,
     watch,
-    getValues,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -73,8 +71,8 @@ const SignUpMid = () => {
     if (!watch('email')) {
       alert('E-mail을 입력해주세요.');
     } else {
-      axios
-        .get(`${apiUrl}/members`, {
+      apiClient
+        .get(`/members`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
@@ -99,8 +97,8 @@ const SignUpMid = () => {
   };
 
   const checkedNick = () => {
-    axios
-      .get(`${apiUrl}/members`, {
+    apiClient
+      .get(`/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
@@ -144,9 +142,9 @@ const SignUpMid = () => {
             data.photoURL = URL.createObjectURL(file).slice(5);
           }
           console.log('submit -> axios직전 data : ', data);
-          axios
-            .post(`${apiUrl}/members`, data)
-            .then((res) => {
+          apiClient
+            .post(`/members`, data)
+            .then(() => {
               setInputState('');
               setInSignAddress('');
               navigate('/login');

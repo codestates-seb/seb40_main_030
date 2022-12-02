@@ -13,6 +13,7 @@ import { ReactComponent as PlusIcon } from './plus.svg';
 import { ReactComponent as SearchIcon } from './search.svg';
 import { ReactComponent as PaymentIcon } from './payMent.svg';
 import { ReactComponent as NoticeIcon } from './noticeIcon.svg';
+import CompletedIcon from './completed.png'
 
 import ProfileImg from './profileImg.png';
 
@@ -49,4 +50,5 @@ export {
   FuelTankImg,
   GlobeIcon,
   CurrentLocationIcon,
+  CompletedIcon
 };

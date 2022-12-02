@@ -14,7 +14,6 @@ const mockStations = [
     confirmId: 21160619,
     batteries: [
       {
-<<<<<<< HEAD
         createdAt: '2022-11-19T17:34:24',
         modifiedAt: '2022-11-19T17:34:24',
         batteryId: 5,
@@ -26,10 +25,6 @@ const mockStations = [
           'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSka6Ydzuqqujs3gMzXmMCyHBTUDrqnK36uCA3vQ2VBudIx0glgOObzWWewlZJAt6NiFvaXqtbpT_k-&usqp=CAc',
       },
       {
-        createdAt: '2022-11-19T17:34:23',
-        modifiedAt: '2022-11-19T17:34:23',
-=======
->>>>>>> FE
         batteryId: 4,
         capacity: '100000mA',
         status: true,
