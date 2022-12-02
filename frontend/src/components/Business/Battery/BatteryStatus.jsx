@@ -1,12 +1,24 @@
 import * as S from './Battery.style';
 
-const BatteryStatus = ({ status, count }) => {
-  console.log(count);
+const BatteryStatus = ({ isSelected, clickHandler, idx, status }) => {
   return (
     <>
-      <S.BatteryStatusContainer status={status} count={count}>
-        <div> {status ? '대여가능' : '사용중'}</div>
-        {count ? <div>{`${count}개`}</div> : null}
+      <S.BatteryStatusContainer
+        onClick={() => clickHandler(idx, status)}
+        status={status}
+        isSelected={isSelected}
+      >
+        <div className='status-title'>
+          {status === 'total'
+            ? '전체'
+            : status === true
+            ? '대기중'
+            : status === false
+            ? '대여중'
+            : status === 'reservation'
+            ? '예약중'
+            : null}
+        </div>
       </S.BatteryStatusContainer>
     </>
   );

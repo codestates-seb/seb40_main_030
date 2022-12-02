@@ -1,11 +1,39 @@
 import axios from 'axios';
 import qs from 'qs';
 
+import { BASE_URL } from '@/constants/admin';
+
 import {
   KAKAO_ACCOUNT_LOGOUT_URL,
   KAKAO_RENEW_TOKEN_URL,
   REDIRECT_URI,
 } from '../constants/auth';
+import { axiosAdminInstance } from './admin';
+
+const axiosOauthInstance = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'ngrok-skip-browser-warning': '111',
+    // authorization: `Bearer ${ACCESS_TOKEN}`,
+  },
+});
+
+const setHeaderAccessToken = (token) => {
+  if (token) {
+    console.log('엑세스 토큰 헤더 세팅');
+    axiosAdminInstance.defaults.headers.common[
+      'Authorization'
+    ] = `Bearer ${token}`;
+  } else delete axios.defaults.headers.common['Authorization'];
+};
+
+const sendAuthCode = async (authCode) => {
+  const { res } = await axiosOauthInstance.post('/login', authCode);
+  console.log('인증코드 보낸후 응답');
+  return res;
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //백엔드로 인증코드 보냄 or mock 서버로 보냄
 const getTokenIndirectly = async (authorizationCode) => {
@@ -133,28 +161,41 @@ const renewTokenIndirectly = async () => {
     console.log(error);
   }
 };
-//토큰 유효성 체크 임의 로직 , 임시로 만들어놓음
-const checkValidToken = (token) => {
-  let result;
 
-  result = token === undefined || token === 'undefined' ? false : true;
-  return result;
-};
+//토큰 유효성 체크 임의 로직 , 임시로 만들어놓음
+// const checkValidToken = (token) => {
+//   let result;
+
+//   result = token === undefined || token === 'undefined' ? false : true;
+//   return result;
+// };
+
 //
 
-const testHandler = async (accessToken) => {
-  //테스트 api 위한 임시 핸들러
-  try {
-    return await axios.get('/test', {
-      headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
-    });
-  } catch (error) {
-    if (error.response?.statusText === 'Unauthorized') {
-      console.log(error);
-    }
-  }
+// const testHandler = async (accessToken) => {
+//   //테스트 api 위한 임시 핸들러
+//   try {
+//     return await axios.get('/test', {
+//       headers: { Authorization: `Bearer ${accessToken}` }, //엑세스 토큰 헤더에 담아서 요청
+//     });
+//   } catch (error) {
+//     if (error.response?.statusText === 'Unauthorized') {
+//       console.log(error);
+//     }
+//   }
+// };
+
+const login = async () => {
+  const res = await axios.post(`${BASE_URL}/auth/login`, {
+    email: 'test@gmail.com',
+    password: '123411aa',
+  });
+  return res;
 };
+
 export {
+  setHeaderAccessToken,
+  sendAuthCode,
   getTokenDirectly,
   getTokenIndirectly,
   invalidateTokenDirectly,
@@ -163,6 +204,5 @@ export {
   getUserInfo,
   renewTokenIndirectly,
   logoutAccountSessionDirectly,
-  checkValidToken,
-  testHandler,
+  login,
 };

@@ -16,6 +16,10 @@ const useTimeDifference = () => {
       new Date(startPointToString).getTime()) /
       (60 * 60 * 1000),
   );
+  const timeDifferByMin =
+    (new Date(endPointToString).getTime() -
+      new Date(startPointToString).getTime()) /
+    (60 * 1000);
 
   useEffect(() => {
     setTimeDifference(timeDiffer);
@@ -23,8 +27,11 @@ const useTimeDifference = () => {
 
   const days = Math.floor(timeDifference / 24);
   const hours = Math.floor(timeDifference % 24);
+  const minutes = Math.floor(timeDifferByMin % 60);
 
-  return { timeDifference, days, hours };
+  const periodInMin = (days * 24 * 60 + hours * 60 + minutes) / 10;
+
+  return { timeDifference, days, hours, minutes, periodInMin };
 };
 
 export default useTimeDifference;

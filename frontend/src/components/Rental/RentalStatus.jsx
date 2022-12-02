@@ -1,34 +1,57 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import {
+  useCheckValidReserveTable,
+  useCurrentAddress,
+  useSnackBar,
+} from '@/hooks';
+import useGetBatteryBySetTime from '@/hooks/reservation/useGetBatteryBySetTIme';
+import NotFound from '@/pages/NotFound';
 
-import { useCurrentAddress, useCheckValidReserveTable } from '../../hooks';
-import { reservationState } from '../../recoil/pagesState';
+import { SnackBar } from '../@commons';
 import BatteryInfo from './Features/BatteryInfo';
+import * as S from './Features/Features.style';
 
-const RentalStatus = ({ data }) => {
-  // hooks 로 분리
-  const navigate = useNavigate();
-  const { location, batteries } = data;
-  const { dateFixed } = useRecoilValue(reservationState);
+const RentalStatus = ({ id }) => {
   const { startPoint, endPoint } = useCheckValidReserveTable();
-  const { addressDetail } = useCurrentAddress(location);
-  // 추후 적용될 부분
-  startPoint, endPoint, addressDetail;
 
-  useEffect(() => {
-    if (!dateFixed.date || !dateFixed.time) {
-      navigate('/');
-      alert('예약시간 설정을 먼저 해주세요.');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { data: batteryData } = useGetBatteryBySetTime(id, {
+    startTime: startPoint.replace(' ', 'T'),
+    endTime: endPoint.replace(' ', 'T'),
+  });
+
+  const { isActive, message } = useSnackBar();
+  const { location, batteries } = batteryData;
+  const { addressDetail } = useCurrentAddress(location);
 
   return (
     <>
-      {batteries.map((content) => (
-        <BatteryInfo key={content.batteryId} content={content} />
-      ))}
+      <div className='scrollable-component'>
+        {batteries.length === 0 ? (
+          <NotFound
+            message='배터리가 없어요'
+            button={false}
+            bgColor='#fff'
+            color='black'
+          />
+        ) : (
+          <>
+            <S.AddressDetail>
+              <span>{addressDetail}</span>
+            </S.AddressDetail>
+            {batteries
+              .sort((a, b) => b.status - a.status)
+              .map((content) => {
+                return (
+                  <BatteryInfo
+                    key={content.batteryId}
+                    station={batteryData}
+                    content={content}
+                  />
+                );
+              })}
+            <SnackBar isActive={isActive} message={message} />
+          </>
+        )}
+      </div>
     </>
   );
 };

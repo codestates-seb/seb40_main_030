@@ -186,7 +186,7 @@ const SignUpMid = () => {
                 }}
               />
             </S.SignUpPhoto>
-            <S.FileLabel for='file'>업로드</S.FileLabel>
+            <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
             <input
               id='file'
               type='file'

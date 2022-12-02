@@ -1,34 +1,46 @@
 import styled from 'styled-components';
 
+import { DESKTOP_MAX_WIDTH } from '@/constants';
+
 const Wrapper = styled.div`
+  display: flex;
   position: fixed;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
   margin-top: 10px;
-  z-index: 10;
+
+  z-index: ${({ theme }) => theme.MIDDLE};
+
+  font-size: 14px;
+
+  max-width: ${({ matches }) => matches && DESKTOP_MAX_WIDTH};
+  cursor: pointer;
 `;
 
 const IndicatorContainer = styled.div`
   display: flex;
-  position: fixed;
+  position: relative;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  left: 300px;
   width: 100px;
   height: 60px;
-  cursor: pointer;
 `;
 
 const Button = styled.button`
   width: 75px;
   height: 30px;
   border-radius: 4px;
-  background: black;
+  background: ${({ theme }) => theme.COLOR_BLUE};
   font-size: 14px;
   color: white;
   font-weight: 500;
 
-  padding: 0;
   cursor: pointer;
+
+  padding: 0;
 
   span {
     position: relative;
@@ -36,28 +48,26 @@ const Button = styled.button`
   }
 `;
 
-const LocationMarker = styled.input`
-  z-index: 1;
+const LocationMarker = styled.img`
+  z-index: ${({ theme }) => theme.DEFAULT};
   width: 20px;
   height: 20px;
-  margin-left: 40px;
-
-  cursor: pointer;
+  align-items: center;
 `;
 
 const LocationHover = styled.div`
   display: flex;
-  position: fixed;
   justify-content: center;
   align-items: center;
-  border: 3px solid lightgreen;
+  border: 2px solid ${({ theme }) => theme.COLOR_BLUE};
   padding: 10px;
 
   width: 40%;
   height: 40px;
   border-radius: 50px;
+  font-weight: 500;
 
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.WHITE};
 
   span {
     text-align: center;
@@ -67,13 +77,11 @@ const LocationHover = styled.div`
   svg {
     margin-right: 10px;
     margin-bottom: 2px;
-    fill: gray;
   }
 `;
 
 const ReservationHover = styled(LocationHover)`
-  left: 170px;
-  width: 35%;
+  width: 30%;
 `;
 
 export {

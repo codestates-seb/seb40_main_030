@@ -1,4 +1,5 @@
 import { ShadowButton } from '@/components/@commons';
+import { BOOKING_TYPE } from '@/constants';
 import { useReservation } from '@/hooks';
 
 import * as S from './BookingTypeBox.style';
@@ -15,7 +16,7 @@ const BookingTypeBox = () => {
         onClick={() =>
           setReservationStatus({
             ...reservationStatus,
-            bookingType: 'single',
+            bookingType: BOOKING_TYPE.SINGLE,
           })
         }
         content={'잠깐만 빌릴래요'}
@@ -24,7 +25,7 @@ const BookingTypeBox = () => {
         onClick={() =>
           setReservationStatus({
             ...reservationStatus,
-            bookingType: 'multiple',
+            bookingType: BOOKING_TYPE.MULTIPLE,
           })
         }
         content={'하루 이상 빌릴래요'}

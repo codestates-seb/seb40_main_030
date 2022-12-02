@@ -1,14 +1,30 @@
 import { useNavigate } from 'react-router-dom';
 
+import { ROUTES } from '@/constants';
+
 import * as S from './NotFound.style';
 
-const NotFound = () => {
+const NotFound = ({
+  message = '404 Not Found',
+  button = true,
+  bgColor,
+  color,
+}) => {
   const navigate = useNavigate();
 
   return (
-    <S.Wrapper exit={{ opacity: 1 }} transition={{ duration: 3 }}>
-      <S.Message>404 Not Found</S.Message>
-      <S.GoBackButton onClick={() => navigate(-1)}>뒤로가기</S.GoBackButton>
+    <S.Wrapper
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1.3 }}
+      bgColor={bgColor}
+      color={color}
+    >
+      <S.Message>{message}</S.Message>
+      {button && (
+        <S.GoBackButton onClick={() => navigate(ROUTES.HOME.PATH)}>
+          뒤로가기
+        </S.GoBackButton>
+      )}
     </S.Wrapper>
   );
 };

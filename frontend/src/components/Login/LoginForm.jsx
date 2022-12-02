@@ -1,22 +1,20 @@
 import KakaoLogin from './KaKaoLogin/KaKaoLogin';
-import * as S from '../../pages/Login/Login.style';
-import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
-import { SplashScreen } from '../@commons';
-import { renewTokenDirectly, renewTokenIndirectly } from '../../apis/auth';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { accessTokenVal } from '../../recoil/login';
-import axios from 'axios';
+
 import { LoginFormContainer } from './LoginForm.style';
 import GenLogin from './GenLogin/GenLogin';
+import { KAKAO_AUTH_CODE_URL } from '@/constants/auth';
+
+import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
+
+import { moveToUrl } from './utils';
 
 const LoginForm = () => {
-  const { loginClickHandler, isAuthorized } = useKakaoLogin();
+  // const { isAuthorized } = useKakaoLogin();
 
   return (
     <LoginFormContainer>
       <GenLogin />
-      <KakaoLogin loginClickHandler={loginClickHandler} />
+      <KakaoLogin loginClickHandler={() => moveToUrl(KAKAO_AUTH_CODE_URL)} />
     </LoginFormContainer>
   );
 };

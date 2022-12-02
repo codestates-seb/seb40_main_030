@@ -26,7 +26,6 @@ const ReservingList = ({ data }) => {
   };
 
   const BatteryImg = styled.div`
-    /* border: 1px solid black; */
     background-size: cover;
     background-repeat: no-repeat;
     display: block;
@@ -44,7 +43,6 @@ const ReservingList = ({ data }) => {
         <BatteryImg />
         <S.ListText>
           <S.SpanTextDiv>
-            {/* <S.SpanTitle>대여기간 : </S.SpanTitle> */}
             <S.SpanData>{timeRefresh()}</S.SpanData>
           </S.SpanTextDiv>
           <S.SpanTextDiv>

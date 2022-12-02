@@ -7,7 +7,6 @@ const apiClient = axios.create({
 // 전체 주문 조회
 const getAllOrders = async () => {
   const { data } = await apiClient.get('/api/orders');
-
   return data;
 };
 

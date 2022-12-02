@@ -6,21 +6,28 @@ import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
 import ErrorBoundary from '@/components/@helper/ErrorBoundary';
-import { worker } from '@/mocks/browser';
+// import { worker } from '@/mocks/browser';
 import { GlobalStyles, theme } from '@/styles';
 
 import App from './App';
 
 // MSW가 develop 환경에서만 구동됨
-if (process.env.NODE_ENV === 'development') {
-  worker.start({
-    onUnhandledRequest: 'bypass',
-  });
-}
+// if (process.env.NODE_ENV === 'development') {
+//   worker.start({
+//     onUnhandledRequest: 'bypass',
+//   });
+// }
 
 // react query
 // 세부 사항 (default options)은 추후 추가 예정
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      useErrorBoundary: true,
+      suspense: true,
+    },
+  },
+});
 
 const container = document.getElementById('root');
 

@@ -1,21 +1,21 @@
 import { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { ROUTES } from '@/constants';
+import { MESSAGE, ROUTES } from '@/constants';
+import { useSnackBar } from '@/hooks';
 
-const PrivateRouter = ({ isAuthenticated }) => {
+const PrivateRouter = () => {
+  const { openSnackBar } = useSnackBar();
+  const isAuth = localStorage.getItem('accesstoken');
+
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isAuth) {
       //  추후에 모달로 변경되야함
-      alert('로그인 후 사용해주세요');
+      openSnackBar(MESSAGE.NOT_AUTHENTICATED);
     }
-  }, [isAuthenticated]);
+  }, [isAuth]);
 
-  return isAuthenticated ? (
-    <Outlet />
-  ) : (
-    <Navigate to={ROUTES.LOGIN.PATH} replace />
-  );
+  return isAuth ? <Outlet /> : <Navigate to={ROUTES.LOGIN.PATH} replace />;
 };
 
 export default PrivateRouter;

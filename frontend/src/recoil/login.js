@@ -1,18 +1,6 @@
 import { atom } from 'recoil';
 
-const localStorageEffect =
-  (key) =>
-  ({ setSelf, onSet }) => {
-    const savedValue = localStorage.getItem(key);
-
-    if (savedValue != null) {
-      setSelf(JSON.parse(savedValue));
-    }
-
-    onSet((newValue) => {
-      localStorage.setItem(key, JSON.stringify(newValue));
-    });
-  };
+import { localStorageEffect } from './pagesState';
 
 const loginState = atom({
   key: 'loginState',
@@ -26,9 +14,15 @@ const sessionState = atom({
   effects: [localStorageEffect('sessionState')],
 });
 
-const accessTokenVal = atom({
+const accessToken = atom({
   key: 'accessToken',
   default: '',
 });
 
-export { loginState, accessTokenVal, sessionState };
+const refreshToken = atom({
+  key: 'refreshToken',
+  default: '',
+  effects: [localStorageEffect('refreshToken')],
+});
+
+export { sessionState, loginState, accessToken, refreshToken };

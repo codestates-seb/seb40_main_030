@@ -1,22 +1,22 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { getTokenIndirectly } from '../../apis/auth';
-import { loginState, accessTokenVal, sessionState } from '../../recoil/login';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+
+import { getTokenIndirectly } from '../../apis/auth';
 import { KAKAO_AUTH_CODE_URL } from '../../constants/auth';
+import { loginState, accessToken, sessionState } from '../../recoil/login';
 
 const useKakaoLogin = () => {
-  const setAccessToken = useSetRecoilState(accessTokenVal);
-  const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
-  const setIsSessioned = useSetRecoilState(sessionState);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
+  const setAccessToken = useSetRecoilState(accessToken);
+  const setIsSessioned = useSetRecoilState(sessionState);
   const navigate = useNavigate();
 
   const loginClickHandler = () => {
     if (!isAuthorized) {
       setIsLoading(true);
       window.location.assign(KAKAO_AUTH_CODE_URL);
-    } else {
     }
   };
 
@@ -30,16 +30,8 @@ const useKakaoLogin = () => {
         setIsAuthorized(true);
         setIsSessioned(true);
         setIsLoading(false);
-        navigate('/logout', { replace: true });
+        navigate('/', { replace: true });
       });
-
-      // getTokenDirectly(KAKAO_TOKENCODE_URL, authorizationCode).then((data) => {
-      //   console.log('받은 asdasd토큰은', data);
-      //   localStorage.setItem('accessToken', data.access_token);
-      // localStorage.setItem('refreshToken', data.data.refresh_token);
-      //   navigate('/logout');
-      //   setIsAuthorized(true);
-      // });
     }
   }, []);
   return {
@@ -48,7 +40,6 @@ const useKakaoLogin = () => {
     loginClickHandler,
     isLoading,
     setIsLoading,
-    isAuthorized,
   };
 };
 
