@@ -12,7 +12,7 @@ const FadeIn = keyframes`
 const SnackBar = styled.div`
   position: fixed;
   visibility: ${({ isActive }) => (isActive ? 'visible' : 'hidden')};
-  min-width: 250px;
+  min-width: ${({ matches }) => (matches ? '300px' : '250px')};
   margin-left: -125px;
   background-color: #333;
   color: ${({ theme }) => theme.WHITE};
@@ -23,7 +23,7 @@ const SnackBar = styled.div`
   bottom: 2%;
   font-size: 15px;
 
-  left: 50%;
+  left: ${({ matches }) => (matches ? '45%' : '50%')};
 
   ${({ isActive }) =>
     isActive &&
