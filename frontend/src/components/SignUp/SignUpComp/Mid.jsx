@@ -11,9 +11,9 @@ import {
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { ProfileImg } from '../../../assets';
+import { apiClient } from '../../../apis/stations';
 
 const SignUpMid = () => {
-  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
   const navigate = useNavigate();
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
   const [inputState, setInputState] = useRecoilState(userInfoState); // input value 값들을 전역에 저장해둘 상태변수
@@ -72,8 +72,8 @@ const SignUpMid = () => {
     if (!watch('email')) {
       alert('E-mail을 입력해주세요.');
     } else {
-      axios
-        .get(`${apiUrl}/members`, {
+      apiClient
+        .get(`/members`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
@@ -98,8 +98,8 @@ const SignUpMid = () => {
   };
 
   const checkedNick = () => {
-    axios
-      .get(`${apiUrl}/members`, {
+    apiClient
+      .get(`/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
@@ -143,8 +143,8 @@ const SignUpMid = () => {
             data.photoURL = URL.createObjectURL(file).slice(5);
           }
           console.log('submit -> axios직전 data : ', data);
-          axios
-            .post(`${apiUrl}/members`, data)
+          apiClient
+            .post(`/members`, data)
             .then((res) => {
               setInputState('');
               setInSignAddress('');

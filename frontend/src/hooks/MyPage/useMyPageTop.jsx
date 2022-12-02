@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { apiClient } from '../../apis/stations';
 
 const useMyPage = () => {
-  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
   const [photo, setPhoto] = useState('');
   const [nickName, setNickName] = useState('');
   const [email, setEmail] = useState('');
@@ -10,8 +10,8 @@ const useMyPage = () => {
   const getUserInfo = () => {
     if (localStorage.getItem('accesstoken')) {
       console.log('if문 axios 직전');
-      axios
-        .get(`${apiUrl}/members/find`, {
+      apiClient
+        .get(`/members/find`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
@@ -29,8 +29,8 @@ const useMyPage = () => {
           console.log('err : ', err);
         });
     } else if (sessionStorage.getItem('accesstoken')) {
-      axios
-        .get(`${apiUrl}/members/find`, {
+      apiClient
+        .get(`/members/find`, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
