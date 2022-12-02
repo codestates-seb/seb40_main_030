@@ -9,7 +9,7 @@ const BookingList = () => {
   const { data: bookingList } = useGetBookingList();
   const { openSnackBar } = useSnackBar();
 
-  return bookingList.map(({ battery, paymentId, startTime, endTime }) => (
+  return bookingList?.map(({ battery, paymentId, startTime, endTime }) => (
     <S.BatteryContainer key={paymentId}>
       <ShadowCard
         initial={{ opacity: 0 }}

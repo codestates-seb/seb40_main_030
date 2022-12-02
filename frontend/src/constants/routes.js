@@ -26,7 +26,7 @@ const ROUTES = Object.freeze({
     NAME: 'Notice',
   },
   BUSINESS: {
-    PATH: 'business',
+    PATH: '/business',
     NAME: 'Business',
   },
   LOGIN: {

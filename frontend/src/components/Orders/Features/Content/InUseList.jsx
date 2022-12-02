@@ -1,18 +1,22 @@
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { ShadowCard, ShadowButton } from '@/components/@commons';
+import InputModal from '@/components/Business/InputModal/InputModal';
 import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
-import { useGetInUseList, useBottomSheet, useSnackBar } from '@/hooks';
+import { useGetInUseList, useSnackBar } from '@/hooks';
 
+import Extends from '../Extends/Extends';
+import { ContentModal } from './Content.style';
 import DateBox from './DateBox';
 
 const InUseList = () => {
   const { data: inUseList } = useGetInUseList();
-  const { isOpen, setIsOpen } = useBottomSheet();
   const { openSnackBar } = useSnackBar();
   const [_, setSearchParams] = useSearchParams();
   _;
+  const [isActive, setIsActive] = useState(false);
 
   return inUseList?.map(({ battery, paymentId, endTime }) => (
     // 예약 취소 / 반납 / 연장 버튼 scale 애니메이션
@@ -56,12 +60,17 @@ const InUseList = () => {
               style={{ fontSize: 15, marginTop: 20 }}
               onClick={() => {
                 setSearchParams({ id: battery.batteryId });
-                setIsOpen(!isOpen);
+                setIsActive(!isActive);
               }}
             />
           </S.ProductInfoContainer>
         </S.ProductWrapper>
       </ShadowCard>
+      <InputModal isActive={isActive} closeModalHandler={setIsActive}>
+        <ContentModal>
+          <Extends endTime={endTime} paymentsId={paymentId} />
+        </ContentModal>
+      </InputModal>
     </S.BatteryContainer>
   ));
 };
