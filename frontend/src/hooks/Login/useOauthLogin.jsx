@@ -24,10 +24,11 @@ const useOauthLogin = () => {
     const refreshTokenFromHeader = res.headers.refreshtoken;
     console.log('백엔드로 받은 accesstoken', accessTokenFromHeader);
     console.log('백엔드로 받은 refreshtoken', refreshTokenFromHeader);
-    //응답이 정상이면 (엑세스 or 리프레쉬 토큰이 있으면) 다음 단계 진행
-    //응답이 정상이 아니라면 다시 로그인페이지로 리다이렉팅(/login)
+    //1 응답이 정상이면 (엑세스 or 리프레쉬 토큰이 있으면) 다음 단계 진행
+    //2 응답이 정상이 아니라면 다시 로그인페이지로 리다이렉팅(/login)
 
     //res가 정상
+    //1-1
     if (accessTokenFromHeader && refreshTokenFromHeader) {
       //엑세스 토큰 recoil effect로 상태 저장 localstorage 동시 저장
       setAccessTokenValue(accessTokenFromHeader); //응답안의 엑세스토큰 값

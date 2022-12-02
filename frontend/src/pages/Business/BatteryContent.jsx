@@ -22,6 +22,7 @@ const BatteryContent = ({ openSnackBar, clickPage }) => {
   // const [selectedFilter, setSelectedFilter] =
   //   useRecoilState(batteryFilterState);
 
+  console.log('batteryInfo.batteryList', batteryInfo.batteryList);
   // const [isSelected, setIsSelected] = useState([true, false, false, false]);
   let recoilKeyName;
   if (clickPage === 'battery') {

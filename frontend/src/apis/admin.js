@@ -3,8 +3,6 @@ import axios from 'axios';
 import { BASE_URL } from '@/constants/admin';
 const LOCAL_BASE_URL = import.meta.env.REACT_APP_BASE_URL;
 const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
-// const accessToken =
-//   'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsIm1lbWJlcklkIjoxLCJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2Njk4NjYxNDQsImV4cCI6MTY2OTk1MjU0NH0.6OtF28bsg7JmZ6RlguKRVylVD3tjswn0tfE9GE-LMfY';
 
 const axiosAdminInstance = axios.create({
   baseURL: BASE_URL,

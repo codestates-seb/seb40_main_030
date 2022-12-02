@@ -34,12 +34,11 @@ const StationInputForm = ({ openSnackBar }) => {
     if (e.code === 'Enter') e.preventDefault();
   };
   const onInvalidHandler = (errors) => {
-    const message = `${errors.name ? `name : ${errors.name.message}` : ''} 
-    ${errors.details ? `details : ${errors.details.message}` : ''}
-    ${errors.phone ? `phone : ${errors.phone.message}` : ''}
-    ${errors.location ? `location : ${errors.location.message}` : ''}`;
-
-    openSnackBar(message);
+    // const message = `${errors.name ? `name : ${errors.name.message}` : ''}
+    // ${errors.details ? `details : ${errors.details.message}` : ''}
+    // ${errors.phone ? `phone : ${errors.phone.message}` : ''}
+    // ${errors.location ? `location : ${errors.location.message}` : ''}`;
+    // openSnackBar(message);
   };
 
   const onClickHandler = (e, location) => {

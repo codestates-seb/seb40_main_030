@@ -19,11 +19,7 @@ const Business = () => {
   return (
     <PageWrapper title={'사장님'} path={'/'}>
       {clickPage === 'battery' ? (
-        <BatteryContent
-          openSnackBar={openSnackBar}
-          clickPage={clickPage}
-          // fill='#d6d9dc'
-        />
+        <BatteryContent openSnackBar={openSnackBar} clickPage={clickPage} />
       ) : (
         <StationContent openSnackBar={openSnackBar} clickPage={clickPage} />
       )}
