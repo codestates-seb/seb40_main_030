@@ -119,8 +119,6 @@ const PAGES = [
       },
     ],
   },
-  // { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
-  // {
   //   element: <LoginRedirect />,
   //   path: ROUTES.LOGIN_REDIRECT.PATH,
   //   name: ROUTES.LOGIN_REDIRECT.NAME,
