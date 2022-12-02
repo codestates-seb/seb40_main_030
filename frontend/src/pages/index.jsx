@@ -55,17 +55,17 @@ const PAGES = [
   {
     // 이미 로그인된 유저는 /signup , /login , /logout 접근 불가능
     // '/' 으로 리다이렉팅
-    // element: <PublicRouter />,
-    // children: [
-    //   { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
-    // ],
+    element: <PublicRouter />,
+    children: [
+      { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
+    ],
   },
-  { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
-  {
-    element: <LoginRedirect />,
-    path: ROUTES.LOGIN_REDIRECT.PATH,
-    name: ROUTES.LOGIN_REDIRECT.NAME,
-  },
+  // { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
+  // {
+  //   element: <LoginRedirect />,
+  //   path: ROUTES.LOGIN_REDIRECT.PATH,
+  //   name: ROUTES.LOGIN_REDIRECT.NAME,
+  // },
 ];
 
 export default PAGES;

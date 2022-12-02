@@ -1,4 +1,3 @@
-import { login } from '@/apis/auth';
 import NavigationBar from '@/components/Business/Nav/NavigationBar';
 
 import PageWrapper from '../../components/@commons/PageWrapper/PageWrapper';
@@ -16,8 +15,6 @@ const Business = () => {
     SelectBatteryHandler,
     SelectAddModeHandler,
   } = useToggle();
-  console.log('isActive', isActive);
-  login(); //로그인 임시 테스트
 
   return (
     <PageWrapper title={'사장님'} path={'/'}>

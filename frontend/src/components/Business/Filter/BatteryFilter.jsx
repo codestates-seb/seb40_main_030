@@ -7,11 +7,12 @@ import BatteryStatus from '../Battery/BatteryStatus';
 import * as S from './BatteryFilter.style';
 
 const BatteryFilter = ({ countList }) => {
-  const [isSelected, setIsSelected] = useState([true, false, false]);
+  const [isSelected, setIsSelected] = useState([true, false, false, false]);
   const setSelectedFilter = useSetRecoilState(batteryFilterState);
   const clickHandler = (idx, status) => {
     const stateArr = [false, false, false, false];
     stateArr[idx] = true;
+    console.log('status', status);
     setSelectedFilter(status);
     setIsSelected([...stateArr]);
   };

@@ -61,7 +61,7 @@ const BatteryStatusColorContainer = styled.div`
 
 const BatteryStatusTitleWrapper = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: start;
   gap: 5px;
 `;
 
@@ -69,10 +69,11 @@ const BatteryStatusTitleContainer = styled.div`
   /* width: 55px; */
   display: flex;
   justify-content: center;
-
-  font-size: 15px;
+  padding: 5px;
+  font-size: 13px;
   border-radius: 9px;
-  & .status-box:empty {
+
+  :empty {
     background-color: red;
     display: none;
   }

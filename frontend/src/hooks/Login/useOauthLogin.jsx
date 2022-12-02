@@ -1,16 +1,17 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 
-import { login, setHeaderAccessToken } from '@/apis/auth';
+import { login } from '@/apis/auth';
 import { getAuthCode } from '@/components/Login/utils';
 import { accessToken, refreshToken } from '@/recoil/login';
 
 const useOauthLogin = () => {
   const [accessTokenValue, setAccessTokenValue] = useRecoilState(accessToken);
-  const setRefreshTokenValue = useSetRecoilState(refreshToken);
+  const [refreshTokenValue, setRefreshTokenValue] =
+    useSetRecoilState(refreshToken);
 
   const navigate = useNavigate();
-
   const OauthLogin = async () => {
     const authCode = getAuthCode(); //인증코드 추출
     console.log('리다이렉트페이지에서 authCode코드', authCode);
@@ -42,7 +43,17 @@ const useOauthLogin = () => {
     }
   };
 
-  return { OauthLogin };
+  OauthLogin();
+  useEffect(() => {
+    if (accessTokenValue && refreshTokenValue) {
+      navigate('/', { replace: true });
+    } else {
+      console.log('로그인 실패 저장된 엑세스토큰/리프레쉬토큰이 없음');
+      navigate('/login', { replace: true });
+    }
+  }, []);
+
+  return;
 };
 
 export default useOauthLogin;

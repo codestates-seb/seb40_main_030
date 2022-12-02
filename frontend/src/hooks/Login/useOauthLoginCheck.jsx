@@ -15,6 +15,7 @@ const useOauthLoginCheck = () => {
       console.log('accessToken있음 값은', accessTokenValue);
       //로그인해서 엑세스 토큰이 있고 새로고침안한 상태
       //아무런 동작 안함
+      return;
     } else {
       if (refreshTokenValue) {
         console.log('accessToken있고 refreshToken 값은', refreshTokenValue);
@@ -26,6 +27,7 @@ const useOauthLoginCheck = () => {
         console.log('accessToken없고 refreshToken 없음');
         //로그인이 해제된 상태
         //특정 페이지로 이동시킨다 ex) '/' ,  '/login'
+        return;
       }
     }
     console.log('엑세스 토큰 헤더에 심기전 확인값은', accessTokenValue);

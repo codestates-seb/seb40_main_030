@@ -20,6 +20,7 @@ const useGetBatteryList = () => {
       if (selectedFilter !== 'total') {
         console.log('selectedFilter', selectedFilter);
         batteryList = filterByBatteryState(batteryList, selectedFilter);
+        console.log('batteryList', batteryList);
       }
       return { batteryList, countList };
     },

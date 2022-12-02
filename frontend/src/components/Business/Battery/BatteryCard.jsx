@@ -9,7 +9,7 @@ const BatteryCard = ({ openModalHandler, imgUrl, details, status }) => {
   const errorHandler = (e) => {
     e.target.src = DEFAULT_BATTERY_IMAGE;
   };
-  console.log('details', details);
+
   return (
     <S.BatteryContainer onClick={openModalHandler}>
       <S.LeftAlignWrapper>
@@ -22,11 +22,7 @@ const BatteryCard = ({ openModalHandler, imgUrl, details, status }) => {
         <BatteryDetails details={details} />
       </S.LeftAlignWrapper>
       <S.RightAlignWrapper>
-        <BatteryStatusTitle
-          status={[status, details.reservationState]}
-          // status={status}
-          // reservationState={details.reservationState}
-        />
+        <BatteryStatusTitle status={[status, details.reservationState]} />
         <S.BatteryLocation>
           <MapMarkerIcon width='15px' height='15px' />
           <div>{details.stationName}</div>

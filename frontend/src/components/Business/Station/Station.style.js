@@ -100,8 +100,10 @@ const DeleteButtonWrapper = styled.div`
 `;
 
 const StationStatusTitleContainer = styled.div`
-  padding: 6px;
-  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  font-size: 13px;
   border-radius: 9px;
   background-color: ${({ batteryCount }) =>
     batteryCount > 0 ? 'rgb(254,249,236)' : 'rgb(240,250,255)'};

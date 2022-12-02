@@ -9,8 +9,8 @@ import PAGES from './pages';
 const App = () => {
   const location = useLocation();
   const pages = useRoutes(PAGES);
-  const { checkLoginState } = useOauthLoginCheck();
-  checkLoginState();
+  // const { checkLoginState } = useOauthLoginCheck();
+  // checkLoginState();
 
   // useKakaoCheckLogin();
 

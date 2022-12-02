@@ -1,9 +1,14 @@
-import { useRecoilState } from 'recoil';
+import { useState, useEffect } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import BatteryTitle from '@/components/Business/Battery/BatteryTitle';
 import BatteryInputForm from '@/components/Business/InputModal/BatteryInputForm';
 import InputModal from '@/components/Business/InputModal/InputModal';
-import { batteryAddModeState, stationAddModeState } from '@/recoil/business';
+import {
+  batteryAddModeState,
+  stationAddModeState,
+  batteryFilterState,
+} from '@/recoil/business';
 
 import BatteryList from '../../components/Business/Battery/BatteryList';
 import BatteryFilter from '../../components/Business/Filter/BatteryFilter';
@@ -14,7 +19,10 @@ import * as S from './Business.style';
 const BatteryContent = ({ openSnackBar, clickPage }) => {
   const { batteryInfo } = useGetBatteryList();
   const { stationInfo } = useGetStationList();
-  console.log(batteryInfo.countList);
+  // const [selectedFilter, setSelectedFilter] =
+  //   useRecoilState(batteryFilterState);
+
+  // const [isSelected, setIsSelected] = useState([true, false, false, false]);
   let recoilKeyName;
   if (clickPage === 'battery') {
     recoilKeyName = batteryAddModeState;
@@ -22,7 +30,9 @@ const BatteryContent = ({ openSnackBar, clickPage }) => {
     recoilKeyName = stationAddModeState;
   }
   const [isAddMode, setIsAddMode] = useRecoilState(recoilKeyName);
-
+  // useEffect(() => {
+  //   setSelectedFilter('total');
+  // }, [selectedFilter]);
   return (
     <>
       <InputModal isActive={isAddMode} closeModalHandler={setIsAddMode}>
