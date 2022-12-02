@@ -58,11 +58,11 @@ const PAGES = [
     path: ROUTES.NOTICE.PATH,
     name: ROUTES.NOTICE.NAME,
   },
-  {
-    element: <Business />,
-    path: ROUTES.BUSINESS.PATH,
-    name: ROUTES.BUSINESS.NAME,
-  },
+  // {
+  //   element: <Business />,
+  //   path: ROUTES.BUSINESS.PATH,
+  //   name: ROUTES.BUSINESS.NAME,
+  // },
   {
     // PrivateRouter의 children Element들은 로그인이 완료된 유저에게만 보이는 페이지
     // 비로그인 유저가 접근시에는 /login 으로 리다이렉팅
@@ -78,11 +78,11 @@ const PAGES = [
   {
     element: <PrivateRouter />,
     children: [
-      // {
-      //   element: <Business />,
-      //   path: ROUTES.BUSINESS.PATH,
-      //   name: ROUTES.BUSINESS.NAME,
-      // },
+      {
+        element: <Business />,
+        path: ROUTES.BUSINESS.PATH,
+        name: ROUTES.BUSINESS.NAME,
+      },
       {
         element: <Logout />,
         path: ROUTES.LOGOUT.PATH,

@@ -5,12 +5,15 @@ import { useRecoilState } from 'recoil';
 import { BatteryIcon, ClockIcon, GlobeIcon, MyPageIcon } from '@/assets';
 import { ROUTES } from '@/constants';
 import { navState } from '@/recoil/pagesState';
+import { useNavigate } from 'react-router-dom';
 
 import * as S from './BottomNav.style';
 
 const BottomNav = ({ matches }) => {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [isActive, setIsActive] = useRecoilState(navState);
+  const isUserType = localStorage.getItem('userType');
 
   useEffect(() => {
     if (pathname !== ROUTES.HOME.PATH) {
@@ -50,19 +53,8 @@ const BottomNav = ({ matches }) => {
           </Link>
         </S.List>
         <S.List>
-          <Link to='/mypage'>
-            <S.IconContainer
-            // onClick={() => {
-            //   if (
-            //     localStorage.getItem('accesstoken') ||
-            //     sessionStorage.getItem('accesstoken')
-            //   ) {
-            //     navigate('/mypage');
-            //   } else {
-            //     navigate('/login');
-            //   }
-            // }}
-            >
+          <Link to={isUserType ? '/business' : '/mypage'}>
+            <S.IconContainer>
               <MyPageIcon className='icon' />
               <S.Text className='text'>MyPage</S.Text>
             </S.IconContainer>

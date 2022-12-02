@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { apiClient } from '../../apis/stations';
 
 const useMyPage = () => {
+  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
   const [photo, setPhoto] = useState('');
   const [nickName, setNickName] = useState('');
   const [email, setEmail] = useState('');
@@ -10,13 +11,15 @@ const useMyPage = () => {
   const getUserInfo = () => {
     if (localStorage.getItem('accesstoken')) {
       console.log('if문 axios 직전');
-      apiClient
-        .get(`/members/find`, {
+      axios
+        .get(`${apiUrl}/members/find`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
+            Authorization:
+              `Bearer ${localStorage.getItem('accesstoken')}` ||
+              `Bearer ${sessionStorage.getItem('accesstoken')}`,
           },
         })
         .then((res) => {
@@ -29,10 +32,12 @@ const useMyPage = () => {
           console.log('err : ', err);
         });
     } else if (sessionStorage.getItem('accesstoken')) {
-      apiClient
-        .get(`/members/find`, {
+      axios
+        .get(`${apiUrl}/members/find`, {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
+            Authorization:
+              `Bearer ${localStorage.getItem('accesstoken')}` ||
+              `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
             'Content-Type': 'application/json',
