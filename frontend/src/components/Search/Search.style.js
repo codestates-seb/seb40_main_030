@@ -14,7 +14,7 @@ const SearchInput = styled.input`
 `;
 
 const Body = styled.div`
-  margin-top: 200px;
+  margin-top: 100px;
 `;
 
 export { SearchInput, Body };

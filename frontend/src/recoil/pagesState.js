@@ -11,25 +11,40 @@ const initialReservationValue = {
   minutes: 0,
 };
 
-const localStorageEffect =
+const sessionStorageEffect =
   (key) =>
   ({ setSelf, onSet }) => {
-    const savedValue = localStorage.getItem(key);
+    const savedValue = sessionStorage.getItem(key);
     if (savedValue != null) {
       setSelf(JSON.parse(savedValue));
     }
 
     onSet((newValue, _, isReset) => {
       isReset
-        ? localStorage.removeItem(key)
-        : localStorage.setItem(key, JSON.stringify(newValue));
+        ? sessionStorage.removeItem(key)
+        : sessionStorage.setItem(key, JSON.stringify(newValue));
+    });
+  };
+
+const localStorageEffect =
+  (key) =>
+  ({ setSelf, onSet }) => {
+    const savedValue = sessionStorage.getItem(key);
+    if (savedValue != null) {
+      setSelf(JSON.parse(savedValue));
+    }
+
+    onSet((newValue, _, isReset) => {
+      isReset
+        ? sessionStorage.removeItem(key)
+        : sessionStorage.setItem(key, JSON.stringify(newValue));
     });
   };
 
 const reservationState = atom({
   key: 'reservationState',
   default: initialReservationValue,
-  effects: [localStorageEffect('reservation')],
+  effects: [sessionStorageEffect('reservation')],
 });
 
 const navState = atom({
@@ -49,10 +64,13 @@ const snackBarState = atom({
     message: '',
   },
 });
+
 export {
   initialReservationValue,
   navState,
   currentLocationState,
   reservationState,
+  sessionStorageEffect,
+  localStorageEffect,
   snackBarState,
 };

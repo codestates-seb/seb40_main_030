@@ -1,36 +1,21 @@
-import KakaoLogin from './KakaoLogin';
-import * as S from '../../pages/Login/Login.style';
+import KakaoLogin from './KaKaoLogin/KaKaoLogin';
+
+import { LoginFormContainer } from './LoginForm.style';
+import GenLogin from './GenLogin/GenLogin';
+import { KAKAO_AUTH_CODE_URL } from '@/constants/auth';
+
 import useKakaoLogin from '../../hooks/Login/useKakaoLogin';
-import GenLogin from './GenLogin';
-import SignUp from './SignUp';
+
+import { moveToUrl } from './utils';
 
 const LoginForm = () => {
-  const { loginClickHandler, isAuthorized } = useKakaoLogin();
+  // const { isAuthorized } = useKakaoLogin();
 
   return (
-    <S.LoginContainer>
-      <div
-        style={{
-          margin: '10px',
-          backgroundColor: 'skyblue',
-          border: '1px solid black',
-        }}
-      >
-        {isAuthorized
-          ? `로그인상태창 : ${isAuthorized}`
-          : `로그인상태창 : ${isAuthorized}`}
-      </div>
-      <div style={{ height: '300px', border: '1px solid black' }}>
-        <div>
-          <GenLogin />
-        </div>
-        <div style={{ margin: '20px 0 20px 0' }}>
-          <SignUp />
-        </div>
-      </div>
-
-      <KakaoLogin loginClickHandler={loginClickHandler} />
-    </S.LoginContainer>
+    <LoginFormContainer>
+      <GenLogin />
+      <KakaoLogin loginClickHandler={() => moveToUrl(KAKAO_AUTH_CODE_URL)} />
+    </LoginFormContainer>
   );
 };
 

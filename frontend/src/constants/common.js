@@ -15,8 +15,37 @@ const DEFAULT_LOCATION = {
 const TIME = {
   HOUR: 3600000,
   PERCENTAGE: 100,
+  NULL: 'null',
 };
 
-export { GEOLOCATION_OPTIONS, DEFAULT_LOCATION };
+const BOOKING_TYPE = {
+  MULTIPLE: 'multiple',
+  SINGLE: 'single',
+};
+
+const DESKTOP_MAX_WIDTH = '800px';
+const DESKTOP_MARGIN_LEFT = '30%';
+const DESKTOP_MEDIA_QUERY = '(min-width: 468px)';
+
+const SEARCH_LOCATION_SUGGESTIONS = [
+  '이태원',
+  '삼성동',
+  '상봉동',
+  '노량진',
+  '청량리',
+  '중곡',
+  '이태리',
+  '역삼역',
+];
+
+export {
+  GEOLOCATION_OPTIONS,
+  DEFAULT_LOCATION,
+  SEARCH_LOCATION_SUGGESTIONS,
+  BOOKING_TYPE,
+  DESKTOP_MAX_WIDTH,
+  DESKTOP_MARGIN_LEFT,
+  DESKTOP_MEDIA_QUERY,
+};
 
 export { TIME };

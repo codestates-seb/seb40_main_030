@@ -26,7 +26,7 @@ const createNewOrder = async (newOrder) => {
 const modifyOrder = async (orderId, modifiedOrder) => {
   const { data } = await apiClient.patch(
     `/api/orders/${orderId}`,
-    modifiedOrder
+    modifiedOrder,
   );
 
   return data;

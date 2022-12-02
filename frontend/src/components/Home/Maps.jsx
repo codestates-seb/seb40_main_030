@@ -3,7 +3,7 @@ import { useIsPresent } from 'framer-motion';
 import KakaoMap from './KakaoMap/KakaoMap';
 import * as S from './Maps.style';
 
-const MapArea = () => {
+const MapArea = ({ matches }) => {
   const isPresent = useIsPresent();
 
   return (
@@ -11,8 +11,9 @@ const MapArea = () => {
       animate={{ opacity: 1, transition: { duration: 0.5 } }}
       exit={{ opacity: 1, transition: { duration: 1 } }}
       style={{ originX: isPresent ? 0 : 1 }}
+      matches={matches}
     >
-      <KakaoMap />
+      <KakaoMap matches={matches} />
     </S.Wrapper>
   );
 };

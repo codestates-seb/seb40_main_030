@@ -2,7 +2,7 @@
 const MIN_Y = 300;
 
 // 최 하단까지 내려왔을때의 값
-const MAX_Y = window.innerHeight - 80;
+const MAX_Y = window.innerHeight - 100;
 
 // 세로 길이
 const BOTTOM_SHEET_HEIGHT = window.innerHeight - 95;
