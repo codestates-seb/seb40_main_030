@@ -51,7 +51,18 @@ const BottomNav = ({ matches }) => {
         </S.List>
         <S.List>
           <Link to='/mypage'>
-            <S.IconContainer>
+            <S.IconContainer
+            // onClick={() => {
+            //   if (
+            //     localStorage.getItem('accesstoken') ||
+            //     sessionStorage.getItem('accesstoken')
+            //   ) {
+            //     navigate('/mypage');
+            //   } else {
+            //     navigate('/login');
+            //   }
+            // }}
+            >
               <MyPageIcon className='icon' />
               <S.Text className='text'>MyPage</S.Text>
             </S.IconContainer>

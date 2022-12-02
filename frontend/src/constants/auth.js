@@ -1,6 +1,6 @@
 const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
 const LOGOUT_REDIRECT_URI = import.meta.env.VITE_LOGOUT_REDIRECT_URI;
-// const SIGNUP_REDIRECT_URI = import.meta.env.VITE_SIGNUP_REDIRECT_URI; // 회원가입완료후 로그인페이지로 리다이렉트해줄 변수;
+const SIGNUP_REDIRECT_URI = import.meta.env.VITE_SIGNUP_REDIRECT_URI; // 회원가입완료후 로그인페이지로 리다이렉트해줄 변수;
 const KAKAO_TOKEN_CODE_URL = import.meta.env.VITE_KAKAO_TOKEN_CODE_URL;
 const KAKAO_AUTH_CODE_URL = import.meta.env.VITE_KAKAO_AUTH_CODE_URL;
 const KAKAO_TOKEN_LOGOUT_URL = import.meta.env.VITE_KAKAO_TOKEN_LOGOUT_URL;

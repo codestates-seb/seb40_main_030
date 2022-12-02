@@ -5,13 +5,19 @@ import { ReactComponent as BatteryIcon } from './Battery.svg';
 import { ReactComponent as BatteryPageIcon } from './batteryPage.svg';
 import { ReactComponent as CartIcon } from './cart.svg';
 import { ReactComponent as ClockIcon } from './clock.svg';
-import KaKaoLoginImg from './KaKaoLoginImg.png';
 import { ReactComponent as LogoIcon } from './logo.svg';
 import { ReactComponent as MapIcon } from './map.svg';
 import { ReactComponent as MapMarkerIcon } from './mapMarker.svg';
 import { ReactComponent as MyPageIcon } from './myPage.svg';
 import { ReactComponent as PlusIcon } from './plus.svg';
 import { ReactComponent as SearchIcon } from './search.svg';
+import { ReactComponent as PaymentIcon } from './payMent.svg';
+import { ReactComponent as NoticeIcon } from './noticeIcon.svg';
+
+import ProfileImg from './profileImg.png';
+
+import KaKaoLoginIcon from './KaKaoLoginIcon.png';
+
 import { ReactComponent as ServiceLogo } from './serviceLogo.svg';
 import { ReactComponent as StationPageIcon } from './stationPage.svg';
 
@@ -29,11 +35,13 @@ export {
   MyPageIcon,
   ClockIcon,
   ServiceLogo,
-  KaKaoLoginImg,
-  CurrentLocationIcon,
+  KaKaoLoginIcon,
   UndoIcon,
   ArrowIcon,
   SearchIcon,
+  PaymentIcon,
+  NoticeIcon,
+  ProfileImg,
   BatteryPageIcon,
   StationPageIcon,
   PlusIcon,
@@ -42,4 +50,5 @@ export {
   BatterImg,
   FuelTankImg,
   GlobeIcon,
+  CurrentLocationIcon,
 };

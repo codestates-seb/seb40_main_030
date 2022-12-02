@@ -17,10 +17,6 @@ const App = () => {
   // checkLoginState();
   // useKakaoCheckLogin();
 
-  useEffect(() => {
-    localStorage.setItem('loginState', true);
-  }, []);
-
   return (
     <AnimatePresence>
       {matches && <DesktopWrapper />}
