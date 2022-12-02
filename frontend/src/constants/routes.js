@@ -13,6 +13,10 @@ const ROUTES = Object.freeze({
     PATH: '/signup',
     NAME: 'Signup',
   },
+  ADMIN_SIGNUP: {
+    PATH: '/adminsignup',
+    NAME: 'Adminsignup',
+  },
   MYPAGE: {
     PATH: '/mypage',
     NAME: 'Mypage',

@@ -20,6 +20,7 @@ import SearchAddress from './SearchAddress';
 import MyPage from './MyPage';
 import MyProfile from './MyProfile';
 import Notice from './Notice';
+import AdminSignUp from './AdminSignUp';
 
 const PAGES = [
   {
@@ -36,6 +37,11 @@ const PAGES = [
     element: <SignUp />,
     path: ROUTES.SIGNUP.PATH,
     name: ROUTES.SIGNUP.NAME,
+  },
+  {
+    element: <AdminSignUp />,
+    path: ROUTES.ADMIN_SIGNUP.PATH,
+    name: ROUTES.ADMIN_SIGNUP.NAME,
   },
   {
     element: <SearchAddress />,

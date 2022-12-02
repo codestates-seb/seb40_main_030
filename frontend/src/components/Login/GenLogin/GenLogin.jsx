@@ -5,11 +5,12 @@ import * as S from './GenLogin.style';
 
 import { useForm } from 'react-hook-form';
 
-import { apiLogin } from '../../../apis/apiLogin';
+// import { api } from '../../../apis/apiLogin';
 
 // 일반 로그인 컴포넌트
 
 const GenLogin = () => {
+  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
   const [checkedLogin, setCheckedLogin] = useState(false);
   const [typeState, setTypeState] = useState(true); // 로그인 타입 상태
 
@@ -26,8 +27,8 @@ const GenLogin = () => {
     const loginData = watch();
 
     console.log('axios 직전->loginData:  ', loginData);
-    await apiLogin
-      .post(`/auth/login`, loginData)
+    await axios
+      .post(`${apiUrl}/auth/login`, loginData)
       .then((res) => {
         console.log(' axios-> res : ', res);
         console.log('res.headers: ', res.headers);
@@ -49,6 +50,9 @@ const GenLogin = () => {
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${accesstoken}`;
+        if (res.data === 'Success ADMIN') {
+          localStorage.setItem('userType', 'admin');
+        }
 
         if (checkedLogin) {
           localStorage.setItem('accesstoken', accesstoken);
@@ -93,6 +97,13 @@ const GenLogin = () => {
           <S.NoAdminType
             onClick={() => {
               setTypeState(!typeState);
+              if (
+                confirm(
+                  `승인받은 E-Mail로만 로그인 가능합니다. \n관리자 등록하시겠습니까?\n`,
+                )
+              ) {
+                navigate('/adminsignup');
+              }
             }}
           >
             관리자 로그인

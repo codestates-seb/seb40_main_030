@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiLogin = axios.create({
+const api = axios.create({
   baseURL: import.meta.env.VITE_NGROK,
   headers: {
     'Access-Control-Allow-Origin': '*',
@@ -9,4 +9,8 @@ const apiLogin = axios.create({
   },
 });
 
-export { apiLogin };
+const apiAcc = axios.create({
+  baseURL: import.meta.env.VITE_NGROK,
+});
+
+export { api, apiAcc };
