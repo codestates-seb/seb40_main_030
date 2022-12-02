@@ -1,12 +1,13 @@
 import { ShadowButton, ShadowCard } from '@/components/@commons';
 import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
-import { useGetBookingList } from '@/hooks';
+import { useGetBookingList, useSnackBar } from '@/hooks';
 
 import DateBox from './DateBox';
 
 const BookingList = () => {
   const { data: bookingList } = useGetBookingList();
+  const { openSnackBar } = useSnackBar();
 
   return bookingList.map(({ battery, paymentId, startTime, endTime }) => (
     <S.BatteryContainer key={paymentId}>
@@ -47,7 +48,9 @@ const BookingList = () => {
               padding='10px 5px'
               content='예약 취소하기'
               style={{ fontSize: 13, marginTop: 20 }}
-              onClick={() => alert('정말 취소하시겠습니까 ?')}
+              // 정말로 예약 취소할건지 물어보는 모달
+              // 같은 값 입력시
+              onClick={() => openSnackBar('예약이 성공적으로 취소되었습니다.')}
             />
           </S.ProductInfoContainer>
         </S.ProductWrapper>
