@@ -19,7 +19,7 @@ const SnackBar = styled.div`
   text-align: center;
   border-radius: 5px;
   padding: 16px;
-  z-index: ${({ theme }) => theme.FRONT};
+  z-index: ${({ theme }) => theme.SNACKBAR};
   bottom: 2%;
   font-size: 15px;
 

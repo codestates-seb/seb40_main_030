@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { useState } from 'react';
+
 import { apiClient } from '../../apis/stations';
 
 const useMyPage = () => {
