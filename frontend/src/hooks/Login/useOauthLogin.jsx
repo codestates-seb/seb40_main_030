@@ -37,10 +37,6 @@ const useOauthLogin = () => {
       console.log('전역상태에 저장된 accesstoken', accessTokenValue);
       //헤더에 accesstoken 심기
       //메인페이지로 이동
-      navigate('/', { replace: true });
-    } else {
-      console.log('로그인 실패 엑세스토큰/리프레쉬토큰을 받아오지 못함');
-      navigate('/login', { replace: true });
     }
   };
 

@@ -12,4 +12,12 @@ const BodyWrapper = styled.div`
   z-index: 1;
 `;
 
-export { PageWrapper, BodyWrapper };
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  top: -12px;
+  padding: 0 10px;
+`;
+
+export { PageWrapper, BodyWrapper, HeaderContainer };

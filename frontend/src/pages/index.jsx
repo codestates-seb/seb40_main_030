@@ -18,6 +18,11 @@ import Search from './Search';
 
 const PAGES = [
   {
+    element: <LoginRedirect />,
+    path: ROUTES.LOGIN_REDIRECT.PATH,
+    name: ROUTES.LOGIN_REDIRECT.NAME,
+  },
+  {
     element: <Home />,
     path: ROUTES.HOME.PATH,
     name: ROUTES.HOME.NAME,

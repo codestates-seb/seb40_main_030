@@ -17,6 +17,7 @@ import { ReactComponent as StationPageIcon } from './stationPage.svg';
 
 import { ReactComponent as GlobeIcon } from './globe.svg';
 import { ReactComponent as CurrentLocationIcon } from './currentLocation.svg';
+import { ReactComponent as LogoutIcon } from './logout.svg';
 
 import BatterImg from './battery.png';
 import FuelTankImg from './fuel.jpg';
@@ -42,4 +43,5 @@ export {
   BatterImg,
   FuelTankImg,
   GlobeIcon,
+  LogoutIcon,
 };

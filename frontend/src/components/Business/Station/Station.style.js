@@ -115,8 +115,8 @@ const StationStatusContainer = styled.div`
   display: flex;
   gap: 10px;
   border-radius: 30px;
-  background-color: ${({ isSelected }) =>
-    isSelected ? 'rgb(70,124,237)' : 'rgb(172,195,238)'};
+  background-color: ${({ isSelectedStation }) =>
+    isSelectedStation ? 'rgb(70,124,237)' : 'rgb(172,195,238)'};
   & .status-title {
     height: 30px;
     padding: 0 15px;
