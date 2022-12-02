@@ -1,4 +1,4 @@
-import KakaoLogout from '../../components/Login/KakaoLogout';
+import KakaoLogout from '../../components/Login/KakaoLogout/KakaoLogout';
 import useKakaoLogout from '../../hooks/Login/useKakaoLogout';
 
 const Logout = () => {

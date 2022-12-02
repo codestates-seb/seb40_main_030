@@ -1,27 +1,35 @@
-import LoginForm from '../../components/Login/LoginForm';
-import * as S from './Login.style';
+// import * as S from './Login.style';
 import { useRecoilValue } from 'recoil';
 import { loginState } from '../../recoil/login';
+
+import { PageWrapper } from '../../components/@commons';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
-  const isAuthorized = useRecoilValue(loginState);
-  const navigate = useNavigate();
-  const isLogin = () => {
-    if (isAuthorized) {
-      navigate('/');
-    }
-  };
+import { sendAuthCode } from '@/apis/auth';
+import { getAuthCode } from '@/components/Login/utils';
 
-  useEffect(() => {
-    isLogin();
-  }, [isAuthorized]);
+import LoginForm from '../../components/Login/LoginForm';
+
+import * as S from './Login.style';
+
+const Login = () => {
+  // const isAuthorized = useRecoilValue(loginState);
+  // const navigate = useNavigate();
+  // const isLogin = () => {
+  //   if (isAuthorized) {
+  //     navigate('/');
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   isLogin();
+  // }, [isAuthorized]);
 
   return (
-    <S.LoginPageWrapper>
+    <PageWrapper title={'로그인'} path={'/'}>
       <LoginForm />
-    </S.LoginPageWrapper>
+    </PageWrapper>
   );
 };
 

@@ -13,6 +13,7 @@ const PageWrapper = ({
   path,
   loadingMessage,
   loadingDelay,
+
   children,
 }) => {
   const navigate = useNavigate();

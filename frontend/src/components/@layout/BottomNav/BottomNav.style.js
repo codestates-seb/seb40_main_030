@@ -18,7 +18,7 @@ const Navigation = styled.div`
   max-width: ${({ matches }) => matches && DESKTOP_MAX_WIDTH};
   left: ${({ matches }) => matches && DESKTOP_MARGIN_LEFT};
 
-  z-index: ${({ theme }) => theme.MIDDLE};
+  z-index: ${({ theme }) => theme.FRONT};
 `;
 
 const ListWrap = styled.ul`
