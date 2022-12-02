@@ -9,8 +9,6 @@ const useGetAllStations = () => {
     {
       refetchOnWindowFocus: false,
       suspense: true,
-      // select: (stations) =>
-      //   stations?.filter(({ batteries }) => batteries.length !== 0),
     },
   );
 
