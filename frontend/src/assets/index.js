@@ -1,5 +1,4 @@
 /* eslint-disable import/order */
-// Nav Icons
 import { ReactComponent as ArrowIcon } from './arrow.svg';
 import { ReactComponent as BatteryIcon } from './Battery.svg';
 import { ReactComponent as BatteryPageIcon } from './batteryPage.svg';
@@ -27,6 +26,8 @@ import { ReactComponent as CurrentLocationIcon } from './currentLocation.svg';
 import BatterImg from './battery.png';
 import FuelTankImg from './fuel.jpg';
 import UndoIcon from './undo-button.png';
+
+// Icons
 export {
   BatteryIcon,
   MapIcon,

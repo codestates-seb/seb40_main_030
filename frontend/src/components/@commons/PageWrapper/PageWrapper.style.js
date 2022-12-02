@@ -63,6 +63,11 @@ const MotionWrapper = styled(motion.div)`
   z-index: ${({ theme }) => theme.PAGE_WRAPPER};
 
   margin-bottom: 30px;
+
+  .button {
+    height: 50%;
+    cursor: pointer;
+  }
 `;
 
 const Title = styled.span`

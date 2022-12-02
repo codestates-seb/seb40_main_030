@@ -1,4 +1,4 @@
-// import { useEffect } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { postKakao } from '@/apis/pay';
@@ -6,17 +6,18 @@ import { PRICE_REGEX } from '@/constants';
 
 import * as S from './PayDetail.style';
 
+
 const PayDetail = () => {
     const {state} = useLocation();
-    const totalAmount = state.price + state.defaultPrice;
 
-    console.log('state', state)
-
+    const totalAmount = state?.price + state?.defaultPrice;
+    
     const handleClick = async () => {
         postKakao(state, totalAmount)
     }
+
     return (
-        <S.PayLayout>
+            <S.PayLayout>
                 <S.PayInformationLayout>
                     <S.PayInformation>배터리 기본 금액</S.PayInformation>
                     <S.PayDetails>{state?.defaultPrice.toString().replace(PRICE_REGEX, ',')}원</S.PayDetails>

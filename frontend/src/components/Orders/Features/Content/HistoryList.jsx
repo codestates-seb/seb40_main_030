@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { ShadowButton, ShadowCard } from '@/components/@commons';
 import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
@@ -7,6 +9,7 @@ import DateBox from './DateBox';
 
 const HistoryList = () => {
   const { data: historyList } = useGetHistoryList();
+  const [isActive, setIsActive] = useState(false);
 
   return historyList.map(({ battery, paymentId, startTime, endTime }) => (
     <S.BatteryContainer key={paymentId}>
@@ -26,7 +29,6 @@ const HistoryList = () => {
               {battery.batteryName}
             </S.BatteryName>
           </S.ImageContainer>
-
           <S.ProductInfoContainer>
             <S.PriceContainer>
               <S.Price>
@@ -43,6 +45,9 @@ const HistoryList = () => {
               padding='10px 5px'
               content='삭제 예정'
               style={{ fontSize: 13, marginTop: 20 }}
+              onClick={() => {
+                setIsActive(!isActive);
+              }}
             />
           </S.ProductInfoContainer>
         </S.ProductWrapper>

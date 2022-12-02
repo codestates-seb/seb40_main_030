@@ -6,4 +6,10 @@ const getPaymentsTable = async () => {
   return data?.content;
 };
 
-export { getPaymentsTable };
+const getAvailableExtendPeriod = async (id) => {
+  const { data } = await apiClient.get(`/payments/${id}/extend`);
+
+  return data;
+};
+
+export { getPaymentsTable, getAvailableExtendPeriod };
