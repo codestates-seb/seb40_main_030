@@ -21,6 +21,10 @@ const ROUTES = Object.freeze({
     PATH: '/login',
     NAME: 'Login',
   },
+  LOGIN_REDIRECT: {
+    PATH: '/loginRedirect',
+    NAME: 'LoginRedirect',
+  },
   LOGOUT: {
     PATH: '/logout',
     NAME: 'Logout',

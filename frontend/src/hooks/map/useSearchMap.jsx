@@ -10,15 +10,21 @@ const useSearchMap = () => {
   const qs = new kakao.maps.services.Places();
 
   useEffect(() => {
-    qs.keywordSearch(keyword || '코드스테이츠', (data, status) => {
-      if (status === kakao.maps.services.Status.OK) {
-        const filteredData = data.filter(
-          (location) => location.category_group_code === 'OL7',
-        );
+    const timer = setTimeout(() => {
+      qs.keywordSearch(keyword, (data, status) => {
+        if (keyword === '') {
+          setLocationData('');
+          return;
+        }
+        if (status === kakao.maps.services.Status.OK) {
+          setLocationData(data);
+        }
+      });
+    }, 500);
 
-        setLocationData(filteredData);
-      }
-    });
+    return () => {
+      clearTimeout(timer);
+    };
   }, [keyword]);
 
   return { inputRef, setKeyword, locationData };
