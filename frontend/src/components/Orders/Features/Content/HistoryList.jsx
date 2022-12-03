@@ -40,7 +40,7 @@ const HistoryList = () => {
             </S.PriceContainer>
             <DateBox startTime={startTime} endTime={endTime} border={true} />
             <ShadowButton
-              noShadow={true}
+              shadow={false}
               width='80px'
               padding='10px 5px'
               content='삭제 예정'

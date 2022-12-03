@@ -31,7 +31,6 @@ const BookingList = () => {
               {battery.batteryName}
             </S.BatteryName>
           </S.ImageContainer>
-
           <S.ProductInfoContainer>
             <S.PriceContainer>
               <S.Price>
@@ -43,7 +42,7 @@ const BookingList = () => {
             </S.PriceContainer>
             <DateBox startTime={startTime} endTime={endTime} border={true} />
             <ShadowButton
-              noShadow={true}
+              shadow={false}
               width='80px'
               padding='10px 5px'
               content='예약 취소하기'

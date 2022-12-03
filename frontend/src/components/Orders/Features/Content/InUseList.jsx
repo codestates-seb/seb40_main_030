@@ -5,18 +5,18 @@ import { ShadowCard, ShadowButton } from '@/components/@commons';
 import InputModal from '@/components/Business/InputModal/InputModal';
 import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
-import { useGetInUseList, useSnackBar } from '@/hooks';
+import { useGetInUseList } from '@/hooks';
 
-import Extends from '../Extends/Extends';
+import Extends from '../Options/Extends';
+import Return from '../Options/Return';
 import { ContentModal } from './Content.style';
 import DateBox from './DateBox';
 
 const InUseList = () => {
   const { data: inUseList } = useGetInUseList();
-  const { openSnackBar } = useSnackBar();
-  const [_, setSearchParams] = useSearchParams();
-  _;
-  const [isActive, setIsActive] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const type = searchParams.get('type');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return inUseList?.map(({ battery, paymentId, endTime }) => (
     // 예약 취소 / 반납 / 연장 버튼 scale 애니메이션
@@ -44,31 +44,42 @@ const InUseList = () => {
           <S.ProductInfoContainer>
             <DateBox endTime={endTime} />
             <ShadowButton
-              noShadow={true}
+              shadow={false}
               width='80px'
               padding='10px 5px'
               content='반납할래요'
               style={{ fontSize: 15, marginTop: 20 }}
               // 반납 확인 모달창 띄운 뒤 성공하면 snackbar
-              onClick={() => openSnackBar(`반납이 정상적으로 완료되었습니다.`)}
+              onClick={() => {
+                setSearchParams({ type: 'return' });
+                setIsModalOpen(!isModalOpen);
+              }}
             />
             <ShadowButton
-              noShadow={true}
+              shadow={false}
               width='80px'
               padding='10px 5px'
               content='연장할래요'
               style={{ fontSize: 15, marginTop: 20 }}
               onClick={() => {
-                setSearchParams({ id: battery.batteryId });
-                setIsActive(!isActive);
+                setSearchParams({ type: 'extends' });
+                setIsModalOpen(!isModalOpen);
               }}
             />
           </S.ProductInfoContainer>
         </S.ProductWrapper>
       </ShadowCard>
-      <InputModal isActive={isActive} closeModalHandler={setIsActive}>
-        <ContentModal>
-          <Extends endTime={endTime} paymentsId={paymentId} />
+      <InputModal isModalOpen={isModalOpen} closeModalHandler={setIsModalOpen}>
+        <ContentModal height={type === 'return' ? '30%' : '60%'}>
+          {type === 'return' ? (
+            <Return endTime={endTime} setIsModalOpen={setIsModalOpen} />
+          ) : type === 'extends' ? (
+            <Extends
+              endTime={endTime}
+              paymentsId={paymentId}
+              setIsModalOpen={setIsModalOpen}
+            />
+          ) : null}
         </ContentModal>
       </InputModal>
     </S.BatteryContainer>

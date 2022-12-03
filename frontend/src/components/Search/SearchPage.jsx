@@ -7,7 +7,6 @@ import { MESSAGE, ROUTES } from '@/constants';
 import { useSnackBar } from '@/hooks';
 import { currentLocationState } from '@/recoil/pagesState';
 
-import * as S from './Search.style';
 import SearchBar from './SearchBar/SearchBar';
 
 const SearchPage = ({ stations }) => {
@@ -34,7 +33,11 @@ const SearchPage = ({ stations }) => {
           />
         )}
       </div>
-      <S.Body></S.Body>
+      <ShadowButton
+        content='카카오 페이 요청'
+        width='100%'
+        style={{ marginTop: 100, width: '100%' }}
+      />
       <SnackBar isActive={isActive} message={message} />
     </>
   );
