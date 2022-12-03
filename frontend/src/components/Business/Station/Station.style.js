@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 
-const StationListWrapper = styled.div`
-  /* border-top: 2px solid #d6d9dc; */
-`;
-
 const StationListContainer = styled.ul`
-  height: 580px;
+  height: 565px;
   width: 330px;
   display: flex;
   flex-direction: column;
@@ -115,8 +111,8 @@ const StationStatusContainer = styled.div`
   display: flex;
   gap: 10px;
   border-radius: 30px;
-  background-color: ${({ isSelected }) =>
-    isSelected ? 'rgb(70,124,237)' : 'rgb(172,195,238)'};
+  background-color: ${({ isSelectedStation }) =>
+    isSelectedStation ? 'rgb(70,124,237)' : 'rgb(172,195,238)'};
   & .status-title {
     height: 30px;
     padding: 0 15px;
@@ -154,7 +150,6 @@ export {
   StationButtonWrapper,
   DeleteButtonWrapper,
   StationStatusContainer,
-  StationListWrapper,
   StationStatusTitleContainer,
   StationLocation,
 };

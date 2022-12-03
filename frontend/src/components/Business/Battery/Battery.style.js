@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-const BatteryListWrapper = styled.div`
-  /* border-top: 2px solid #d6d9dc; */
-`;
-
 const BatteryImgContainer = styled.div`
   & > img {
     width: 45px;
@@ -16,11 +12,6 @@ const BatteryImgContainer = styled.div`
 `;
 
 const BatteryTitleContainer = styled.div`
-  & h1 {
-    padding: 0 10px;
-  }
-  position: relative;
-  top: -10px;
   font-size: 25px;
   font-weight: 600;
 `;
@@ -99,8 +90,8 @@ const BatteryStatusContainer = styled.div`
   display: flex;
   /* gap: 10px; */
   border-radius: 30px;
-  background-color: ${({ isSelected }) =>
-    isSelected ? 'rgb(70,124,237)' : 'rgb(172,195,238)'};
+  background-color: ${({ isSelectedBattery }) =>
+    isSelectedBattery ? 'rgb(70,124,237)' : 'rgb(172,195,238)'};
 
   & .status-title {
     height: 30px;
@@ -138,7 +129,7 @@ const BatteryLocation = styled.div`
 `;
 
 const BatteryContainer = styled.div`
-  width: 320px;
+  width: 310px;
   height: 90px;
 
   border-radius: 30px;
@@ -153,7 +144,7 @@ const BatteryContainer = styled.div`
 `;
 
 const BatteryListContainer = styled.ul`
-  height: 580px;
+  height: 565px;
   width: 330px;
   display: flex;
   flex-direction: column;
@@ -203,7 +194,6 @@ export {
   RightAlignWrapper,
   DeleteButtonWrapper,
   BatteryStatusColorContainer,
-  BatteryListWrapper,
   BatteryTitleContainer,
   BatteryLocation,
   BatteryStatusTitleWrapper,

@@ -16,7 +16,7 @@ const sessionState = atom({
 
 const accessToken = atom({
   key: 'accessToken',
-  default: '',
+  effects: [localStorageEffect('accessToken')],
 });
 
 const refreshToken = atom({

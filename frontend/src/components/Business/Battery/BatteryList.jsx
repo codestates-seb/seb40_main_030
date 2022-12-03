@@ -14,9 +14,10 @@ import BatteryCard from './BatteryCard';
 const BatteryList = ({ openSnackBar, batteryList, stationList }) => {
   const [isEditState, setIsEditState] = useState(false);
   const [selectedBatteryInfo, setSelectedBatteryInfo] = useState({});
+
   const openModalHandler = (info) => {
-    setIsEditState(true);
     setSelectedBatteryInfo(info);
+    setIsEditState(true);
   };
 
   const onlyOneBatteryNames = removeDuplicatedBatteryName(batteryList);
@@ -33,6 +34,7 @@ const BatteryList = ({ openSnackBar, batteryList, stationList }) => {
           closeModalHandler={setIsEditState}
         >
           <BatteryEditForm
+            setSelectedBatteryInfo={setSelectedBatteryInfo}
             openSnackBar={openSnackBar}
             closeModalHandler={setIsEditState}
             selectedBatteryInfo={selectedBatteryInfo}
@@ -41,43 +43,42 @@ const BatteryList = ({ openSnackBar, batteryList, stationList }) => {
           />
         </InputModal>
       )}
-      <S.BatteryListWrapper>
-        <BatteryCount batteryCount={batteryList.length} />
-        <S.BatteryListContainer>
-          {batteryList.map((battery) => {
-            return (
-              <li key={battery.batteryId}>
-                <BatteryCard
-                  openModalHandler={() =>
-                    openModalHandler({
-                      batteryId: battery.batteryId,
-                      stationName: battery.stationName,
-                      price: battery.price,
-                      capacity: battery.capacity,
-                      batteryName: battery.batteryName,
-                      status: battery.status,
-                      defaultPrice: battery.defaultPrice,
-                      reservationState: battery.reservations.reservationState,
-                    })
-                  }
-                  imgUrl={battery.photoURL}
-                  details={{
-                    reservationState: battery.reservations.reservationState,
-                    endTime: battery.reservations.endTime,
+
+      <BatteryCount batteryCount={batteryList.length} />
+      <S.BatteryListContainer>
+        {batteryList.map((battery) => {
+          return (
+            <li key={battery.batteryId}>
+              <BatteryCard
+                openModalHandler={() =>
+                  openModalHandler({
+                    batteryId: battery.batteryId,
                     stationName: battery.stationName,
-                    stationId: battery.stationId,
                     price: battery.price,
                     capacity: battery.capacity,
                     batteryName: battery.batteryName,
-                  }}
-                  status={battery.status}
-                  batteryId={battery.batteryId}
-                />
-              </li>
-            );
-          })}
-        </S.BatteryListContainer>
-      </S.BatteryListWrapper>
+                    status: battery.status,
+                    defaultPrice: battery.defaultPrice,
+                    reservationState: battery.reservations.reservationState,
+                  })
+                }
+                imgUrl={battery.photoURL}
+                details={{
+                  reservationState: battery.reservations.reservationState,
+                  endTime: battery.reservations.endTime,
+                  stationName: battery.stationName,
+                  stationId: battery.stationId,
+                  price: battery.price,
+                  capacity: battery.capacity,
+                  batteryName: battery.batteryName,
+                }}
+                status={battery.status}
+                batteryId={battery.batteryId}
+              />
+            </li>
+          );
+        })}
+      </S.BatteryListContainer>
     </>
   );
 };

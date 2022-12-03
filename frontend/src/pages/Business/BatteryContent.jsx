@@ -1,14 +1,10 @@
-import { useState, useEffect } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
+import { LogoutIcon } from '@/assets';
 import BatteryTitle from '@/components/Business/Battery/BatteryTitle';
 import BatteryInputForm from '@/components/Business/InputModal/BatteryInputForm';
 import InputModal from '@/components/Business/InputModal/InputModal';
-import {
-  batteryAddModeState,
-  stationAddModeState,
-  batteryFilterState,
-} from '@/recoil/business';
+import { batteryAddModeState, stationAddModeState } from '@/recoil/business';
 
 import BatteryList from '../../components/Business/Battery/BatteryList';
 import BatteryFilter from '../../components/Business/Filter/BatteryFilter';
@@ -16,13 +12,15 @@ import useGetBatteryList from '../../hooks/Business/useGetBatteryList';
 import useGetStationList from '../../hooks/Business/useGetStationList';
 import * as S from './Business.style';
 
-const BatteryContent = ({ openSnackBar, clickPage }) => {
+const BatteryContent = ({
+  isSelectedBattery,
+  setIsSelectedBattery,
+  openSnackBar,
+  clickPage,
+}) => {
   const { batteryInfo } = useGetBatteryList();
   const { stationInfo } = useGetStationList();
-  // const [selectedFilter, setSelectedFilter] =
-  //   useRecoilState(batteryFilterState);
 
-  // const [isSelected, setIsSelected] = useState([true, false, false, false]);
   let recoilKeyName;
   if (clickPage === 'battery') {
     recoilKeyName = batteryAddModeState;
@@ -30,21 +28,35 @@ const BatteryContent = ({ openSnackBar, clickPage }) => {
     recoilKeyName = stationAddModeState;
   }
   const [isAddMode, setIsAddMode] = useRecoilState(recoilKeyName);
-  // useEffect(() => {
-  //   setSelectedFilter('total');
-  // }, [selectedFilter]);
+
+  const logoutHandler = () => {
+    console.log('로그아웃클릭');
+    localStorage.clear('accesstoken');
+    sessionStorage.clear('accesstoken');
+    localStorage.clear('refreshtoken');
+    localStorage.clear('userType');
+  };
   return (
     <>
-      <InputModal isActive={isAddMode} closeModalHandler={setIsAddMode}>
-        <BatteryInputForm
-          openSnackBar={openSnackBar}
-          batteryList={batteryInfo.batteryList}
-          stationList={stationInfo.stationList}
-        />
-      </InputModal>
+      {isAddMode && (
+        <InputModal isActive={isAddMode} closeModalHandler={setIsAddMode}>
+          <BatteryInputForm
+            openSnackBar={openSnackBar}
+            batteryList={batteryInfo.batteryList}
+            stationList={stationInfo.stationList}
+          />
+        </InputModal>
+      )}
       <S.BodyWrapper>
-        <BatteryTitle title={'My Battery'} />
-        <BatteryFilter countList={batteryInfo.countList} />
+        <S.HeaderContainer>
+          <BatteryTitle title={'My Battery'} />
+          <LogoutIcon onClick={logoutHandler} width='23px' height='23px' />
+        </S.HeaderContainer>
+        <BatteryFilter
+          isSelectedBattery={isSelectedBattery}
+          setIsSelectedBattery={setIsSelectedBattery}
+          countList={batteryInfo.countList}
+        />
         <BatteryList
           openSnackBar={openSnackBar}
           batteryList={batteryInfo.batteryList}

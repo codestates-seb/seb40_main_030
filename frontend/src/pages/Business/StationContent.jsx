@@ -1,5 +1,6 @@
 import { useRecoilState } from 'recoil';
 
+import { LogoutIcon } from '@/assets';
 import BatteryTitle from '@/components/Business/Battery/BatteryTitle';
 import InputModal from '@/components/Business/InputModal/InputModal';
 import StationInputForm from '@/components/Business/InputModal/StationInputForm';
@@ -10,7 +11,12 @@ import StationFilter from '../../components/Business/Filter/StationFilter';
 import useGetStationList from '../../hooks/Business/useGetStationList';
 import * as S from './Business.style';
 
-const StationContent = ({ openSnackBar, clickPage }) => {
+const StationContent = ({
+  isSelectedStation,
+  setIsSelectedStation,
+  openSnackBar,
+  clickPage,
+}) => {
   const { stationInfo } = useGetStationList();
   let recoilKeyName;
   if (clickPage === 'battery') {
@@ -19,22 +25,33 @@ const StationContent = ({ openSnackBar, clickPage }) => {
     recoilKeyName = stationAddModeState;
   }
   const [isAddMode, setIsAddMode] = useRecoilState(recoilKeyName);
-
+  const logoutHandler = () => {
+    console.log('로그아웃클릭');
+  };
   return (
     <>
-      <InputModal
-        name={'station'}
-        isActive={isAddMode}
-        closeModalHandler={setIsAddMode}
-      >
-        <StationInputForm
-          openSnackBar={openSnackBar}
-          stationList={stationInfo.stationList}
-        />
-      </InputModal>
+      {isAddMode && (
+        <InputModal
+          name={'station'}
+          isActive={isAddMode}
+          closeModalHandler={setIsAddMode}
+        >
+          <StationInputForm
+            openSnackBar={openSnackBar}
+            stationList={stationInfo.stationList}
+          />
+        </InputModal>
+      )}
       <S.BodyWrapper>
-        <BatteryTitle title={'My Station'} />
-        <StationFilter countList={stationInfo.countList} />
+        <S.HeaderContainer>
+          <BatteryTitle title={'My Station'} />
+          <LogoutIcon onClick={logoutHandler} width='23px' height='23px' />
+        </S.HeaderContainer>
+        <StationFilter
+          isSelectedStation={isSelectedStation}
+          setIsSelectedStation={setIsSelectedStation}
+          countList={stationInfo.countList}
+        />
         <StationList
           openSnackBar={openSnackBar}
           stationList={stationInfo.stationList}
