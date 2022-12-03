@@ -15,11 +15,9 @@ import {
 import { nowState } from '../../recoil/nowState';
 import * as S from './Mid.style';
 import { ProfileImg } from '../../assets';
-// import { apiAcc } from '../../apis/apiLogin';
+const apiUrl = import.meta.env.VITE_NGROK;
 
 const Mid = () => {
-  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
-
   const [userInfo, setUserInfo] = useState('');
   const [isEdit, setIsEdit] = useRecoilState(recoilIsEdit);
   const [now, setNow] = useRecoilState(nowState);
@@ -285,11 +283,18 @@ const Mid = () => {
                       }}
                     />
                   </S.SignUpPhoto>
+                  {/* <S.ImgBtnDiv> */}
+                  <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
+                  {/* <S.FileLabelEdit>이미지삭제</S.FileLabelEdit> */}
+                  {/* </S.ImgBtnDiv> */}
+
                   <input
+                    id='file'
                     type='file'
                     name='photoURL'
                     accept='image/*'
                     {...register('photoURL')}
+                    style={{ display: 'none' }}
                   />
                 </>
               ) : (
@@ -302,11 +307,18 @@ const Mid = () => {
                       }}
                     />
                   </S.SignUpPhoto>
+                  {/* <S.ImgBtnDiv> */}
+                  <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
+                  {/* <S.FileLabelEdit>이미지삭제</S.FileLabelEdit> */}
+                  {/* </S.ImgBtnDiv> */}
+
                   <input
+                    id='file'
                     type='file'
                     name='photoURL'
                     accept='image/*'
                     {...register('photoURL')}
+                    style={{ display: 'none' }}
                   />
                 </>
               )

@@ -12,10 +12,9 @@ import { nowState } from '../../../recoil/nowState';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { ProfileImg } from '../../../assets';
-// import { apiClient } from '../../../apis/stations';
+const apiUrl = import.meta.env.VITE_NGROK;
 
 const SignUpMid = () => {
-  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
   const navigate = useNavigate();
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
   const [inputState, setInputState] = useRecoilState(userInfoState); // input value 값들을 전역에 저장해둘 상태변수
@@ -144,6 +143,8 @@ const SignUpMid = () => {
               URL.createObjectURL(file),
             );
             data.photoURL = URL.createObjectURL(file).slice(5);
+          } else {
+            data.photoURL = 'http://asdsadsadsas';
           }
           console.log('submit -> axios직전 data : ', data);
           axios

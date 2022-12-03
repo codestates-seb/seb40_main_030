@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './GenLogin.style';
 
 import { useForm } from 'react-hook-form';
-
+// import { useLogin } from '../../../hooks/Login/useLogin';
 // import { api } from '../../../apis/apiLogin';
+const apiUrl = import.meta.env.VITE_NGROK;
 
 // 일반 로그인 컴포넌트
 
 const GenLogin = () => {
-  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
+  // const apiUrl = 'https://eba7-222-233-138-154.jp.ngrok.io';
   const [checkedLogin, setCheckedLogin] = useState(false);
   const [typeState, setTypeState] = useState(true); // 로그인 타입 상태
 
@@ -45,7 +46,7 @@ const GenLogin = () => {
           res.headers.accesstoken,
         );
         const accesstoken = res.headers.accesstoken.split(' ')[1];
-        console.log('accesstoken : ', accesstoken);
+        console.log('GenLogin/ accesstoken : ', accesstoken);
         const refreshtoken = res.headers.refreshtoken;
         axios.defaults.headers.common[
           'Authorization'

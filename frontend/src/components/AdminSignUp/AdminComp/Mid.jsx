@@ -5,9 +5,9 @@ import { isOverLapEmail } from '../../../recoil/userInfoState';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+const apiUrl = import.meta.env.VITE_NGROK;
 
 const Mid = () => {
-  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
   const navigate = useNavigate();
   const [isEmail, setIsEmail] = useRecoilState(isOverLapEmail);
   const [emailMsg, setEmailMsg] = useState('');

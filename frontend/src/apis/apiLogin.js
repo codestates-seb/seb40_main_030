@@ -9,8 +9,4 @@ const api = axios.create({
   },
 });
 
-const apiAcc = axios.create({
-  baseURL: import.meta.env.VITE_NGROK,
-});
-
-export { api, apiAcc };
+export { api };

@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { apiClient } from '../../apis/stations';
+const apiUrl = import.meta.env.VITE_NGROK;
 
 const useMyPageBottom = () => {
-  const apiUrl = 'https://6786-222-233-138-154.jp.ngrok.io';
   const [listData, setListData] = useState([]);
 
   const getUserPayment = () => {

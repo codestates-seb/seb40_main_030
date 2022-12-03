@@ -19,9 +19,7 @@ const GenLogout = () => {
     setUserInfo('');
     navigate('/');
   };
-  // if(!accesstoken && refreshtoken){
-  //   서버로 refreshtoken 보내고 엑세스토큰 받아옴!
-  // }
+
   return <LogoutBtn onClick={onClickLogout}>로그아웃</LogoutBtn>;
 };
 
