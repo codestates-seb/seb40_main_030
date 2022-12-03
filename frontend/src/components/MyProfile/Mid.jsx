@@ -118,7 +118,8 @@ const Mid = () => {
   console.log('userInfo : ', userInfo);
   useEffect(() => {
     if (isEdit && isPostCode) {
-      setValue('detailAddress', userInfo.detailAddress);
+      console.log('isEdit && isPostCode가 true -> userInfo : ', userInfo);
+      setValue('detailAddress', userInfo.detailAddress); // userInfo는 로컬상태이므로 렌더링되면 초기화!
       setValue('address', inSignAddress);
       setValue('nickname', inputState.nickname);
       if (nickState) {

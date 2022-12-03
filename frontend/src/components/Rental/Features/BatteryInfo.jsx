@@ -33,8 +33,9 @@ const BatteryInfo = ({ content, station }) => {
       state: {
         name: station.name,
         price: price * periodInMin,
-        batteryId,
+        defaultPrice,
         capacity,
+        batteryId,
         photoURL,
         startPoint,
         endPoint,

@@ -1,3 +1,4 @@
+import { axiosAdminInstance } from '@/apis/admin';
 const moveToUrl = (pageUrl) => {
   window.location.assign(pageUrl);
 };
@@ -8,4 +9,14 @@ const getAuthCode = () => {
   return authorizationCode;
 };
 
-export { getAuthCode, moveToUrl };
+const checkLoginState = () => {
+  const accesstoken =
+    localStorage.getItem('accesstoken') ||
+    sessionStorage.getItem('accesstoken');
+  if (accesstoken) {
+    axiosAdminInstance.defaults.headers.common[
+      'Authorization'
+    ] = `Bearer ${accesstoken}`;
+  }
+};
+export { getAuthCode, moveToUrl, checkLoginState };

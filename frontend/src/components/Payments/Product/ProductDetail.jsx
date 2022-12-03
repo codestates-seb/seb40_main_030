@@ -4,7 +4,7 @@ import * as S from './ProductDetail.style';
 
 const ProductDetail = () => {
     const {state} = useLocation();
-
+    
     return (
         <S.ItemLayout>        
             <S.ItemImg src={state?.photoURL}/>

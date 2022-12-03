@@ -30,16 +30,18 @@ const StationContent = ({
   };
   return (
     <>
-      <InputModal
-        name={'station'}
-        isActive={isAddMode}
-        closeModalHandler={setIsAddMode}
-      >
-        <StationInputForm
-          openSnackBar={openSnackBar}
-          stationList={stationInfo.stationList}
-        />
-      </InputModal>
+      {isAddMode && (
+        <InputModal
+          name={'station'}
+          isActive={isAddMode}
+          closeModalHandler={setIsAddMode}
+        >
+          <StationInputForm
+            openSnackBar={openSnackBar}
+            stationList={stationInfo.stationList}
+          />
+        </InputModal>
+      )}
       <S.BodyWrapper>
         <S.HeaderContainer>
           <BatteryTitle title={'My Station'} />

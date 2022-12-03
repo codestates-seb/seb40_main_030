@@ -158,6 +158,8 @@ const SignUpMid = () => {
     }
   }, [avatar]);
 
+  console.log('현재상태위치 now : ', now);
+
   return (
     <S.SignUpContainer>
       <form onSubmit={handleSubmit(onValid, onInValid)}>

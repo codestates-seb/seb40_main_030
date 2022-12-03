@@ -32,6 +32,14 @@ export const SignUpPhoto = styled.div`
   height: 70px;
   margin-bottom: 10px;
   font-size: 14px;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #7b8c9f;
+  cursor: pointer;
+  border: 1px solid #d6d9dc;
+  border-bottom-color: #e2e2e2;
+  border-radius: 5px;
+  margin-left: 117px;
 `;
 export const FileLabel = styled.label`
   display: inline-block;
