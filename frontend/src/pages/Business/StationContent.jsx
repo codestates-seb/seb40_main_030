@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { LogoutIcon } from '@/assets';
@@ -17,6 +18,7 @@ const StationContent = ({
   openSnackBar,
   clickPage,
 }) => {
+  const navigate = useNavigate();
   const { stationInfo } = useGetStationList();
   let recoilKeyName;
   if (clickPage === 'battery') {
@@ -26,7 +28,11 @@ const StationContent = ({
   }
   const [isAddMode, setIsAddMode] = useRecoilState(recoilKeyName);
   const logoutHandler = () => {
-    console.log('로그아웃클릭');
+    localStorage.removeItem('accesstoken');
+    sessionStorage.removeItem('accesstoken');
+    localStorage.removeItem('refreshtoken');
+    localStorage.removeItem('userType');
+    navigate('/');
   };
   return (
     <>

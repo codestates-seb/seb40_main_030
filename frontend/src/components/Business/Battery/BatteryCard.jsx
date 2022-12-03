@@ -11,24 +11,26 @@ const BatteryCard = ({ openModalHandler, imgUrl, details, status }) => {
   };
 
   return (
-    <S.BatteryContainer onClick={openModalHandler}>
-      <S.LeftAlignWrapper>
-        <S.BatteryImgContainer>
-          <img
-            src={imgUrl || DEFAULT_BATTERY_IMAGE}
-            onError={errorHandler}
-          ></img>
-        </S.BatteryImgContainer>
-        <BatteryDetails details={details} />
-      </S.LeftAlignWrapper>
-      <S.RightAlignWrapper>
-        <BatteryStatusTitle status={[status, details.reservationState]} />
-        <S.BatteryLocation>
-          <MapMarkerIcon width='15px' height='15px' />
-          <div>{details.stationName}</div>
-        </S.BatteryLocation>
-      </S.RightAlignWrapper>
-    </S.BatteryContainer>
+    <div style={{ width: '100%' }}>
+      <S.BatteryContainer onClick={openModalHandler}>
+        <S.LeftAlignWrapper>
+          <S.BatteryImgContainer>
+            <img
+              src={imgUrl || DEFAULT_BATTERY_IMAGE}
+              onError={errorHandler}
+            ></img>
+          </S.BatteryImgContainer>
+          <BatteryDetails details={details} />
+        </S.LeftAlignWrapper>
+        <S.RightAlignWrapper>
+          <BatteryStatusTitle status={[status, details.reservationState]} />
+          <S.BatteryLocation>
+            <MapMarkerIcon width='15px' height='15px' />
+            <div>{details.stationName}</div>
+          </S.BatteryLocation>
+        </S.RightAlignWrapper>
+      </S.BatteryContainer>
+    </div>
   );
 };
 

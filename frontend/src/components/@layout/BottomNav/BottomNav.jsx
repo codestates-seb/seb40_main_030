@@ -67,7 +67,7 @@ const BottomNav = () => {
             (pathname.includes('my') || pathname.includes('notice')) && 'active'
           }
         >
-          <Link to={isUserType ? '/business' : '/mypage'}>
+          <Link to={isUserType ? ROUTES.BUSINESS.PATH : ROUTES.MYPAGE.PATH}>
             <S.IconContainer>
               <MyPageIcon className='icon' />
               <S.Text className='text'>MyPage</S.Text>
