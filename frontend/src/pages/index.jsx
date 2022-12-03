@@ -6,6 +6,7 @@ import {
 } from '@/components/@helper';
 import { ROUTES } from '@/constants';
 
+import AdminSignUp from './AdminSignUp';
 import Business from './Business';
 import Home from './Home';
 import Login from './Login';
@@ -21,7 +22,6 @@ import Payments from './Payments';
 import Rental from './Rental';
 import Search from './Search';
 import SearchAddress from './SearchAddress';
-import AdminSignUp from './AdminSignUp';
 import SignUp from './SignUp';
 
 const PAGES = [
@@ -50,6 +50,11 @@ const PAGES = [
       },
     ],
   },
+  // {
+  //   element: <Business />,
+  //   path: ROUTES.BUSINESS.PATH,
+  //   name: ROUTES.BUSINESS.NAME,
+  // },
   {
     element: <PrivateRouter />,
     children: [
@@ -74,11 +79,6 @@ const PAGES = [
         name: ROUTES.MYPAGE.NAME,
       },
       {
-        element: <Orders />,
-        path: ROUTES.ORDERS.PATH,
-        name: ROUTES.ORDERS.NAME,
-      },
-      {
         element: <PaymentCompleted />,
         path: ROUTES.PAYMENTCOMPLETED.PATH,
         name: ROUTES.PAYMENTCOMPLETED.NAME,
@@ -100,6 +100,11 @@ const PAGES = [
       },
     ],
   },
+  // {
+  //   element: <Login />,
+  //   path: ROUTES.LOGIN.PATH,
+  //   name: ROUTES.LOGIN.NAME,
+  // },
   {
     element: <PublicRouter />,
     children: [
@@ -135,16 +140,6 @@ const PAGES = [
     element: <NotFound />,
     path: ROUTES.NOT_FOUND.PATH,
     name: ROUTES.NOT_FOUND.NAME,
-  },
-  {
-    element: <Home />,
-    path: ROUTES.HOME.PATH,
-    name: ROUTES.HOME.NAME,
-  },
-  {
-    element: <Search />,
-    path: ROUTES.SEARCH.PATH,
-    name: ROUTES.SEARCH.NAME,
   },
 ];
 

@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 
-const StationListWrapper = styled.div`
-  /* border-top: 2px solid #d6d9dc; */
-`;
-
 const StationListContainer = styled.ul`
-  height: 580px;
+  height: 565px;
   width: 330px;
   display: flex;
   flex-direction: column;
@@ -154,7 +150,6 @@ export {
   StationButtonWrapper,
   DeleteButtonWrapper,
   StationStatusContainer,
-  StationListWrapper,
   StationStatusTitleContainer,
   StationLocation,
 };
