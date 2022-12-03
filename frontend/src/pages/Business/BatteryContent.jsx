@@ -24,7 +24,6 @@ const BatteryContent = ({
   const navigate = useNavigate();
   const { batteryInfo } = useGetBatteryList();
   const { stationInfo } = useGetStationList();
-  const setUserInfo = useSetRecoilState(userInfoState);
   let recoilKeyName;
   if (clickPage === 'battery') {
     recoilKeyName = batteryAddModeState;
@@ -41,7 +40,6 @@ const BatteryContent = ({
     sessionStorage.clear('accesstoken');
     localStorage.clear('refreshtoken');
     localStorage.clear('userType');
-    setUserInfo('');
     navigate('/');
   };
   return (
