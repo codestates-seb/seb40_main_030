@@ -28,7 +28,7 @@ public class KakaoOauthService {
     private final CustomAuthorityUtils customAuthorityUtils;
     private final MemberService memberService;
 
-    public void loginKakao(KakaoToken kakaoToken, KakaoProfile kakaoProfile) {
+    public Member loginKakao(KakaoToken kakaoToken, KakaoProfile kakaoProfile) {
 
         Member kakaoMember = new Member();
         kakaoMember.setId(kakaoProfile.getId());
@@ -40,7 +40,9 @@ public class KakaoOauthService {
         kakaoMember.setKakaoAccessToken(kakaoToken.getAccess_token());
         kakaoMember.setKakaoRefreshToken(kakaoToken.getRefresh_token());
 
-        memberService.createMember(kakaoMember);  // 얘랑 이 밑에 전체랑 같은 소리임.
+        return memberRepository.save(kakaoMember);
+
+//        return memberService.createMember(kakaoMember);  // 얘랑 이 밑에 전체랑 같은 소리임.
 
 //        String encryptedPassword = passwordEncoder.encode(kakaoMember.getPassword());
 //        kakaoMember.setPassword(encryptedPassword);
