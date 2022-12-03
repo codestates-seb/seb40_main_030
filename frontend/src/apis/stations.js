@@ -6,7 +6,7 @@ const apiClient = axios.create({
   baseURL: import.meta.env.VITE_NGROK,
   headers: {
     'Access-Control-Allow-Origin': '*',
-    'ngrok-skip-browser-warning': '111',
+    'ngrok-skip-browser-warning': true,
     'Content-Type': 'application/json',
     Authorization: `Bearer ${accessToken}`,
   },

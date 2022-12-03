@@ -31,7 +31,11 @@ const Home = () => {
             )}
           </div>
         ) : null}
-        <SnackBar isActive={isActive} message={message} />
+        <SnackBar
+          isActive={isActive}
+          message={message}
+          path={ROUTES.HOME.PATH}
+        />
         <BottomNav matches={matches} />
       </Suspense>
     </>

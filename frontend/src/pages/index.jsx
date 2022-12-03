@@ -50,11 +50,6 @@ const PAGES = [
       },
     ],
   },
-  // {
-  //   element: <Business />,
-  //   path: ROUTES.BUSINESS.PATH,
-  //   name: ROUTES.BUSINESS.NAME,
-  // },
   {
     element: <PrivateRouter />,
     children: [

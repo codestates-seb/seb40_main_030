@@ -16,9 +16,6 @@ const BottomNav = () => {
   const { pathname } = useLocation();
   const [isActive, setIsActive] = useRecoilState(navState);
   const isUserType = localStorage.getItem('userType');
-  // const isToken =
-  //   localStorage.getItem('accesstoken') ||
-  //   sessionStorage.getItem('accesstoken');
 
   useEffect(() => {
     if (pathname !== ROUTES.HOME.PATH) {
@@ -67,7 +64,16 @@ const BottomNav = () => {
             (pathname.includes('my') || pathname.includes('notice')) && 'active'
           }
         >
-          <Link to={isUserType ? '/business' : '/mypage'}>
+          <Link
+            to={
+              sessionStorage.getItem('accesstoken') ||
+              localStorage.getItem('accesstoken')
+                ? isUserType
+                  ? '/business'
+                  : '/mypage'
+                : '/login'
+            }
+          >
             <S.IconContainer>
               <MyPageIcon className='icon' />
               <S.Text className='text'>MyPage</S.Text>

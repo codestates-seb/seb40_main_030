@@ -1,17 +1,28 @@
+import { useLocation } from 'react-router-dom';
+
 import { DESKTOP_MEDIA_QUERY } from '@/constants';
-import { useMediaQuery } from '@/hooks';
+import { useMediaQuery, useSnackBar } from '@/hooks';
 
 import * as S from './SnackBar.style';
 
-const SnackBar = ({ isActive, message }) => {
+const SnackBar = ({ isActive, message, confirm = false, path }) => {
+  const { pathname } = useLocation();
+  const { setIsConfirmed, setIsCanceled } = useSnackBar();
   const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
 
-  // snackbar의 fixed 위치가 scroll 대응을 못함
-  return (
-    <S.SnackBar isActive={isActive} matches={matches}>
-      <span>{message}</span>
-    </S.SnackBar>
-  );
+  if (pathname === path) {
+    return (
+      <S.SnackBar isActive={isActive} matches={matches} confirm={confirm}>
+        <span>{message}</span>
+        {confirm && (
+          <S.ButtonContainer>
+            <button onClick={() => setIsConfirmed(true)}>확인</button>
+            <button onClick={() => setIsCanceled(true)}>취소</button>
+          </S.ButtonContainer>
+        )}
+      </S.SnackBar>
+    );
+  }
 };
 
 export default SnackBar;

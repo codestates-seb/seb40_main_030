@@ -87,15 +87,3 @@ const InUseList = () => {
 };
 
 export default InUseList;
-
-// 연장 가능 버튼 클릭시 언제까지 연장 가능한지 ( 시간  )
-
-// 최대 연장 가능한 시간 보여주기
-// 연장 가능 시간은 endTime 부터 다음 예약의 30분 전 까지 ( possibleEndTime )
-//  다이얼로 표현 ( endTime 부터 최대 24시간 까지 )
-
-// endTime : 13시
-
-// 연장하기 버튼 클릭시에 patch 요청 해당 페이먼츠
-// 연장 횟수 ? -> 연장 횟수의 제한이 있을 수 있음 한번 이후의 연장은 ->  고객센터로
-// extended : true
