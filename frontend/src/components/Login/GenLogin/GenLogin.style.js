@@ -87,7 +87,7 @@ export const CheckBoxDiv = styled.div`
 `;
 export const CheckBoxText = styled.div`
   padding: 7px 0 5px 2px;
-  font-size: 5px;
+  font-size: 13px;
 `;
 
 export const LoginBtn = styled.button`

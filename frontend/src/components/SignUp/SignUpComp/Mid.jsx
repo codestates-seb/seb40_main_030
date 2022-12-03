@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-
+import axios from 'axios';
 import { apiClient } from '../../../apis/stations';
 import { ProfileImg } from '../../../assets';
 import {
@@ -11,12 +11,15 @@ import {
   isOverLapEmail,
   isOverLapNick,
 } from '../../../recoil/userInfoState';
+import { nowState } from '../../../recoil/nowState';
+const apiUrl = import.meta.env.VITE_NGROK;
 import * as S from './Mid.style';
 
 const SignUpMid = () => {
   const navigate = useNavigate();
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
   const [inputState, setInputState] = useRecoilState(userInfoState); // input value 값들을 전역에 저장해둘 상태변수
+  const [now, setNow] = useRecoilState(nowState);
 
   const [avatarPreview, setAvatarPreview] = useState('');
 
@@ -54,6 +57,7 @@ const SignUpMid = () => {
   // recoil 즉, 전역상태는 컴포넌트 생명주기와는 별도로 동작하기때문에 페이지이동(랜더링)을해도 그 상태가 유지!
   // 새로고침이나 서비스 종료를 하면 전역상태도 초기화!
   useEffect(() => {
+    setNow('SignUp');
     setValue('email', inputState.email);
     setValue('password', inputState.password);
     setValue('checkpassword', inputState.checkpassword);
@@ -131,7 +135,6 @@ const SignUpMid = () => {
       return new Promise(() =>
         setTimeout(() => {
           console.log(' submit-> onSubmit data : ', data);
-          // data.address = inSignAddress + ' ' + getValues('detailAddress');
 
           if (avatar && avatar.length) {
             const file = avatar[0];
@@ -140,11 +143,19 @@ const SignUpMid = () => {
               URL.createObjectURL(file),
             );
             data.photoURL = URL.createObjectURL(file).slice(5);
+          } else {
+            data.photoURL = 'http://asdsadsadsas';
           }
           console.log('submit -> axios직전 data : ', data);
-          apiClient
-            .post(`/members`, data)
-            .then(() => {
+          axios
+            .post(`${apiUrl}/members`, data, {
+              headers: {
+                'Access-Control-Allow-Origin': '*',
+                'ngrok-skip-browser-warning': '111',
+              },
+            })
+            .then((res) => {
+              setNow('');
               setInputState('');
               setInSignAddress('');
               navigate('/login');
@@ -171,6 +182,8 @@ const SignUpMid = () => {
       console.log('URL.createObjectURL(file) : ', URL.createObjectURL(file));
     }
   }, [avatar]);
+
+  console.log('현재상태위치 now : ', now);
 
   return (
     <S.SignUpContainer>
@@ -229,7 +242,7 @@ const SignUpMid = () => {
               {errors.email?.message}
             </S.SignUpEmailFailMsgDiv>
           )}
-          {emailMsg === '✅ 사용 가능 E-mail입니다.' ? (
+          {isEmail ? (
             <S.SignUpEmailSuccessMsgDiv>{emailMsg}</S.SignUpEmailSuccessMsgDiv>
           ) : (
             <S.SignUpEmailFailMsgDiv>{emailMsg}</S.SignUpEmailFailMsgDiv>
@@ -280,11 +293,11 @@ const SignUpMid = () => {
                 required: '⚠ 사용할 닉네임을 입력하세요.',
                 pattern: {
                   value: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/,
-                  message: '⚠ 영어 / 숫자 / 한글 2~16자리 입력하세요.',
+                  message: '⚠ 영어(소문자) / 숫자 / 한글 2~16자리 입력하세요.',
                 },
               })}
             />
-            {!watch('email') ? (
+            {!watch('nickname') ? (
               <button
                 style={{ backgroundColor: '#d6d9dc' }}
                 type='button'
@@ -303,7 +316,7 @@ const SignUpMid = () => {
               {errors.nickname?.message}
             </S.SignUpNickFailMsgDiv>
           )}
-          {nickMsg === '✅ 사용가능 닉네임입니다.' ? (
+          {isNick ? (
             <S.SignUpNickSuccessMsgDiv>{nickMsg}</S.SignUpNickSuccessMsgDiv>
           ) : (
             <S.SignUpNickFailMsgDiv>{nickMsg}</S.SignUpNickFailMsgDiv>

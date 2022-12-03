@@ -1,6 +1,8 @@
+import axios from 'axios';
 import { useState } from 'react';
+const apiUrl = import.meta.env.VITE_NGROK;
 
-import { apiClient } from '../../apis/stations';
+// import { axios } from '../../apis/stations';
 
 const useMyPage = () => {
   const [photo, setPhoto] = useState('');
@@ -10,8 +12,8 @@ const useMyPage = () => {
   const getUserInfo = () => {
     if (localStorage.getItem('accesstoken')) {
       console.log('if문 axios 직전');
-      apiClient
-        .get(`/members/find`, {
+      axios
+        .get(`${apiUrl}/members/find`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
@@ -29,8 +31,8 @@ const useMyPage = () => {
           console.log('err : ', err);
         });
     } else if (sessionStorage.getItem('accesstoken')) {
-      apiClient
-        .get(`/members/find`, {
+      axios
+        .get(`${apiUrl}/members/find`, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',

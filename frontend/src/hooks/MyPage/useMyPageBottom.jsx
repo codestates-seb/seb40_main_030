@@ -1,14 +1,14 @@
+import axios from 'axios';
 import { useState } from 'react';
-
-import { apiClient } from '../../apis/stations';
+const apiUrl = import.meta.env.VITE_NGROK;
 
 const useMyPageBottom = () => {
   const [listData, setListData] = useState([]);
 
   const getUserPayment = () => {
     if (localStorage.getItem('accesstoken')) {
-      apiClient
-        .get(`/members/find`, {
+      axios
+        .get(`${apiUrl}/members/find`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
@@ -31,8 +31,8 @@ const useMyPageBottom = () => {
           );
         });
     } else if (sessionStorage.getItem('accesstoken')) {
-      apiClient
-        .get(`/members/find`, {
+      axios
+        .get(`${apiUrl}/members/find`, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',

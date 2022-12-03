@@ -27,10 +27,6 @@ const StationContent = ({
   const [isAddMode, setIsAddMode] = useRecoilState(recoilKeyName);
   const logoutHandler = () => {
     console.log('로그아웃클릭');
-    localStorage.clear('accesstoken');
-    sessionStorage.clear('accesstoken');
-    localStorage.clear('refreshtoken');
-    localStorage.clear('userType');
   };
   return (
     <>

@@ -28,6 +28,7 @@ const BatteryContent = ({
     recoilKeyName = stationAddModeState;
   }
   const [isAddMode, setIsAddMode] = useRecoilState(recoilKeyName);
+
   const logoutHandler = () => {
     console.log('로그아웃클릭');
     localStorage.clear('accesstoken');
