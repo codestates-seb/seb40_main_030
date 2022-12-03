@@ -128,11 +128,13 @@
 //                        pathParameters(
 //                                parameterWithName("memberId").description("계정 식별자")
 //                        ),
+
 //                        requestHeaders(
 //                                List.of(
 //                                        headerWithName("AccessToken").description("JWT")
 //                                )
 //                        ),
+
 //                        requestFields(
 //                                List.of(
 //                                        fieldWithPath("nickname").type(JsonFieldType.STRING).description("계정 닉네임"),
@@ -177,11 +179,13 @@
 //                        pathParameters(
 //                                parameterWithName("memberId").description("계정 식별자")
 //                        ),
+
 //                        requestHeaders(
 //                                List.of(
 //                                        headerWithName("AccessToken").description("JWT")
 //                                )
 //                        ),
+
 //                        responseFields(
 //                                List.of(
 //                                        fieldWithPath("data").type(JsonFieldType.STRING).description("요청 성공")

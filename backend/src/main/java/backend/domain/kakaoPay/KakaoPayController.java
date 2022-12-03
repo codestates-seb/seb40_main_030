@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedList;
 import java.util.Queue;
 
+
 @Log
 @Controller
 @RequiredArgsConstructor
@@ -29,10 +30,12 @@ public class KakaoPayController {
     private KakaoPayService kakaopay;
     private final PaymentService paymentService;
     private final JwtExtractUtils jwtExtractUtils;
+
 //    private Queue<Integer> buffer = new LinkedList<>();
 
     @PostMapping("/kakaoPay")
     public String kakaoPay(@RequestParam(name = "itemName") String itemName,
+
                            @RequestParam(name = "totalAmount") int totalAmount,
                            @RequestParam(name = "batteryId") Long batteryId,
                            @RequestParam(name = "startTime") String startTime,
@@ -40,11 +43,13 @@ public class KakaoPayController {
                            HttpServletRequest request) {
         log.info("kakaoPay post............................................");
 
+
 //        if(buffer.size()>1) {
 //            throw new BusinessLogicException(ExceptionCode.PAYMENT_DENIED);
 //        }
 
 //        buffer.add(1);
+
         Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         Payment payment = new Payment(startTime, endTime, totalAmount);
         Payment payment2 = paymentService.postPayment(payment, batteryId, memberId);
@@ -53,6 +58,7 @@ public class KakaoPayController {
         return "redirect:" + kakaopay.kakaoPayReady(itemName, totalAmount, paymentId);
         // 강제 리다이렉트
 //        return new ResponseEntity<>("redirect:" + kakaopay.kakaoPayReady(itemName, totalAmount, paymentId), HttpStatus.MULTIPLE_CHOICES);
+
     }
 
     @GetMapping("/kakaoPaySuccess")
@@ -61,7 +67,9 @@ public class KakaoPayController {
         log.info("kakaoPaySuccess pg_token : " + pg_token);
 
         model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
+
 //        buffer.poll();
+
     }
 
     // 결제 취소시 실행 url

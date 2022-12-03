@@ -147,7 +147,9 @@ public class KakaoPayService {
 
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
+
         headers.add("Authorization", "KakaoAK " + "a017f24b1214df0ab9613301ebda4c5d");
+
         headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 
