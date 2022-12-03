@@ -141,16 +141,6 @@ const PAGES = [
     path: ROUTES.NOT_FOUND.PATH,
     name: ROUTES.NOT_FOUND.NAME,
   },
-  {
-    element: <Home />,
-    path: ROUTES.HOME.PATH,
-    name: ROUTES.HOME.NAME,
-  },
-  {
-    element: <Search />,
-    path: ROUTES.SEARCH.PATH,
-    name: ROUTES.SEARCH.NAME,
-  },
 ];
 
 export default PAGES;
