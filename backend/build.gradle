@@ -33,7 +33,7 @@ dependencies {
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation group: 'com.google.code.gson', name: 'gson'
-//	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'  // AWS 사용시 활성화
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'  // AWS 사용시 활성화
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 
 	compileOnly 'org.projectlombok:lombok'

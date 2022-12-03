@@ -3,9 +3,11 @@ package backend.global.security.oauth;
 import backend.domain.member.dto.MemberDto;
 import backend.domain.member.entity.Member;
 import backend.domain.member.service.MemberService;
+import backend.global.security.jwt.JwtTokenizer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -24,7 +26,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.UUID;
 
-@RestController
+@RestController @RequiredArgsConstructor
 public class KakaoController {
 
 //    KakaoAPI kakaoApi = new KakaoAPI();
@@ -59,8 +61,9 @@ public class KakaoController {
 //        return mav;
 //    }
 
-    @Autowired
     private KakaoOauthService kakaoOauthService;
+
+    private final JwtTokenizer jwtTokenizer;
 
     @GetMapping("/auth/login2")
     public String kakaoLogin(String code) {
@@ -98,8 +101,9 @@ public class KakaoController {
 
         RestTemplate rt2 = new RestTemplate();
         HttpHeaders headers2 = new HttpHeaders();
-        headers2.add("Authorization", "Bearer "+kakaoToken.getAccess_token());
-        headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+//
+        headers2.add("Authorization", "Bearer "+   kakaoToken.getAccess_token());
+        headers2.add("Contet-type", "application/x-www-form-urlencoded;charset=utf-8");
 
 
         HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest =
@@ -123,6 +127,7 @@ public class KakaoController {
         }
 
         kakaoOauthService.loginKakao(kakaoToken, kakaoProfile); //nullPointException 가능성있음
+//        headers2.set("Authorization",jwtTokenizer.delegateAccessToken(member));
 
         return response.getBody()+","+response2.getBody();
     }
