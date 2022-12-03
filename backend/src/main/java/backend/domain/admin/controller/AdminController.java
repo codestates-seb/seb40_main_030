@@ -36,7 +36,7 @@ public class AdminController {
 
     // 관리자 정보 등록
     @PostMapping
-    public ResponseEntity postAdmin(@Valid @RequestBody AdminDto.Post requestBody){
+    public ResponseEntity postAdmin(@RequestBody AdminDto.Post requestBody){
         Admin admin = mapper.adminPostDtoToAdmin(requestBody);
         Admin createAdmin = adminService.createAdmin(admin);
 //        AdminDto.Response response = mapper.adminToAdminResponse(createAdmin);
@@ -47,7 +47,7 @@ public class AdminController {
     // 해당 ID 관리자 수정
     @PatchMapping("/edit")
     public ResponseEntity patchAdmin(HttpServletRequest request,
-                                     @Valid @RequestBody AdminDto.Patch requestBody){
+                                     @RequestBody AdminDto.Patch requestBody){
         Admin admin = mapper.adminPatchDtoToAdmin(requestBody);
         String adminEmail = jwtExtractUtils.extractEmailFromJwt(request);
         admin.setEmail(adminEmail);

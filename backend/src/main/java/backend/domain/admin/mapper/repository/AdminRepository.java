@@ -1,4 +1,4 @@
-package backend.domain.admin.repository;
+package backend.domain.admin.mapper.repository;
 
 import backend.domain.admin.entity.Admin;
 import org.springframework.data.domain.Page;

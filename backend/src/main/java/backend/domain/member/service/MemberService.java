@@ -1,6 +1,5 @@
 package backend.domain.member.service;
 
-import backend.domain.admin.repository.AdminRepository;
 import backend.domain.member.entity.Member;
 import backend.domain.member.repository.MemberRepository;
 import backend.global.exception.dto.BusinessLogicException;

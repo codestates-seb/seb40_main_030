@@ -1,7 +1,7 @@
 package backend.domain.admin.service;
 
 import backend.domain.admin.entity.Admin;
-import backend.domain.admin.repository.AdminRepository;
+import backend.domain.admin.mapper.repository.AdminRepository;
 import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.exceptionCode.ExceptionCode;
 import backend.global.security.utils.CustomAuthorityUtils;
