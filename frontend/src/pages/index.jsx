@@ -21,6 +21,7 @@ import Payments from './Payments';
 import Rental from './Rental';
 import Search from './Search';
 import SearchAddress from './SearchAddress';
+import AdminSignUp from './AdminSignUp';
 import SignUp from './SignUp';
 
 const PAGES = [
@@ -38,17 +39,6 @@ const PAGES = [
     element: <Search />,
     path: ROUTES.SEARCH.PATH,
     name: ROUTES.SEARCH.NAME,
-  },
-  {
-    element: <Rental />,
-    path: ROUTES.RENTAL.PATH,
-    name: ROUTES.RENTAL.NAME,
-  },
-
-  {
-    element: <NotFound />,
-    path: ROUTES.NOT_FOUND.PATH,
-    name: ROUTES.NOT_FOUND.NAME,
   },
   {
     element: <DateFixedRouter />,
@@ -122,6 +112,11 @@ const PAGES = [
         element: <SignUp />,
         path: ROUTES.SIGNUP.PATH,
         name: ROUTES.SIGNUP.NAME,
+      },
+      {
+        element: <AdminSignUp />,
+        path: ROUTES.ADMIN_SIGNUP.PATH,
+        name: ROUTES.ADMIN_SIGNUP.NAME,
       },
     ],
   },

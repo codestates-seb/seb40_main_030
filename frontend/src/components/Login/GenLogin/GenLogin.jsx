@@ -5,7 +5,7 @@ import * as S from './GenLogin.style';
 
 import { useForm } from 'react-hook-form';
 
-import { apiLogin } from '../../../apis/apiLogin';
+const apiUrl = import.meta.env.VITE_NGROK;
 
 // 일반 로그인 컴포넌트
 
@@ -26,8 +26,8 @@ const GenLogin = () => {
     const loginData = watch();
 
     console.log('axios 직전->loginData:  ', loginData);
-    await apiLogin
-      .post(`/auth/login`, loginData)
+    await axios
+      .post(`${apiUrl}/auth/login`, loginData)
       .then((res) => {
         console.log(' axios-> res : ', res);
         console.log('res.headers: ', res.headers);
@@ -44,11 +44,14 @@ const GenLogin = () => {
           res.headers.accesstoken,
         );
         const accesstoken = res.headers.accesstoken.split(' ')[1];
-        console.log('accesstoken : ', accesstoken);
+        console.log('GenLogin/ accesstoken : ', accesstoken);
         const refreshtoken = res.headers.refreshtoken;
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${accesstoken}`;
+        if (res.data === 'Success ADMIN') {
+          localStorage.setItem('userType', 'admin');
+        }
 
         if (checkedLogin) {
           localStorage.setItem('accesstoken', accesstoken);
@@ -93,6 +96,13 @@ const GenLogin = () => {
           <S.NoAdminType
             onClick={() => {
               setTypeState(!typeState);
+              if (
+                confirm(
+                  `승인받은 E-Mail로만 로그인 가능합니다. \n관리자 등록하시겠습니까?\n`,
+                )
+              ) {
+                navigate('/adminsignup');
+              }
             }}
           >
             관리자 로그인
