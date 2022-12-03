@@ -1,9 +1,10 @@
 // 일반 로그아웃 컴포넌트
 import { useNavigate } from 'react-router-dom';
-import { LogoutBtn } from './GenLogout.style';
 import { useRecoilState } from 'recoil';
+
 import { userInfoState } from '../../../recoil/userInfoState';
 import { nowState } from '../../../recoil/nowState';
+import { LogoutBtn } from './GenLogout.style';
 
 const GenLogout = () => {
   const navigate = useNavigate();

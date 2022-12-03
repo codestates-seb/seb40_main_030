@@ -63,6 +63,11 @@ const Header = styled.header`
   z-index: ${({ theme }) => theme.PAGE_WRAPPER};
 
   margin-bottom: 30px;
+
+  .button {
+    height: 50%;
+    cursor: pointer;
+  }
 `;
 
 const Title = styled.span`

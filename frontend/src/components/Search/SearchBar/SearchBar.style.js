@@ -33,6 +33,7 @@ const AutoCompleteContainer = styled.ul`
   max-height: 280px;
   overflow-y: auto;
   margin-top: 10px;
+  cursor: pointer;
 `;
 
 const AutoCompleteList = styled.li`
@@ -41,6 +42,8 @@ const AutoCompleteList = styled.li`
   padding: 10px 20px;
   width: 100%;
   border-radius: 3px;
+
+  cursor: pointer;
 `;
 
 export {

@@ -1,3 +1,4 @@
+// import LoginRedirect from './LoginRedirect/index';
 import {
   DateFixedRouter,
   PrivateRouter,
@@ -10,19 +11,25 @@ import Home from './Home';
 import Login from './Login';
 import LoginRedirect from './LoginRedirect/index';
 import Logout from './Logout/index';
+import MyPage from './MyPage';
+import MyProfile from './MyProfile';
 import NotFound from './NotFound';
+import Notice from './Notice';
 import Orders from './Orders';
+import PaymentCompleted from './PaymentCompleted';
 import Payments from './Payments';
 import Rental from './Rental';
 import Search from './Search';
-import SignUp from './SignUp';
 import SearchAddress from './SearchAddress';
-import MyPage from './MyPage';
-import MyProfile from './MyProfile';
-import Notice from './Notice';
 import AdminSignUp from './AdminSignUp';
+import SignUp from './SignUp';
 
 const PAGES = [
+  {
+    element: <LoginRedirect />,
+    path: ROUTES.LOGIN_REDIRECT.PATH,
+    name: ROUTES.LOGIN_REDIRECT.NAME,
+  },
   {
     element: <Home />,
     path: ROUTES.HOME.PATH,
@@ -34,38 +41,6 @@ const PAGES = [
     name: ROUTES.SEARCH.NAME,
   },
   {
-    element: <SignUp />,
-    path: ROUTES.SIGNUP.PATH,
-    name: ROUTES.SIGNUP.NAME,
-  },
-  {
-    element: <AdminSignUp />,
-    path: ROUTES.ADMIN_SIGNUP.PATH,
-    name: ROUTES.ADMIN_SIGNUP.NAME,
-  },
-  {
-    element: <SearchAddress />,
-    path: ROUTES.SEARCH_ADDRESS.PATH,
-    name: ROUTES.SEARCH_ADDRESS.NAME,
-  },
-  {
-    element: <MyProfile />,
-    path: ROUTES.MYPROFILE.PATH,
-    name: ROUTES.MYPROFILE.NAME,
-  },
-  {
-    element: <Notice />,
-    path: ROUTES.NOTICE.PATH,
-    name: ROUTES.NOTICE.NAME,
-  },
-  // {
-  //   element: <Business />,
-  //   path: ROUTES.BUSINESS.PATH,
-  //   name: ROUTES.BUSINESS.NAME,
-  // },
-  {
-    // PrivateRouter의 children Element들은 로그인이 완료된 유저에게만 보이는 페이지
-    // 비로그인 유저가 접근시에는 /login 으로 리다이렉팅
     element: <DateFixedRouter />,
     children: [
       {
@@ -98,6 +73,31 @@ const PAGES = [
         path: ROUTES.MYPAGE.PATH,
         name: ROUTES.MYPAGE.NAME,
       },
+      {
+        element: <Orders />,
+        path: ROUTES.ORDERS.PATH,
+        name: ROUTES.ORDERS.NAME,
+      },
+      {
+        element: <PaymentCompleted />,
+        path: ROUTES.PAYMENTCOMPLETED.PATH,
+        name: ROUTES.PAYMENTCOMPLETED.NAME,
+      },
+      {
+        element: <Payments />,
+        path: ROUTES.PAYMENTS.PATH,
+        name: ROUTES.PAYMENTS.NAME,
+      },
+      {
+        element: <Notice />,
+        path: ROUTES.NOTICE.PATH,
+        name: ROUTES.NOTICE.NAME,
+      },
+      {
+        element: <MyProfile />,
+        path: ROUTES.MYPROFILE.PATH,
+        name: ROUTES.MYPROFILE.NAME,
+      },
     ],
   },
   {
@@ -108,6 +108,16 @@ const PAGES = [
         path: ROUTES.LOGIN.PATH,
         name: ROUTES.LOGIN.NAME,
       },
+      {
+        element: <SignUp />,
+        path: ROUTES.SIGNUP.PATH,
+        name: ROUTES.SIGNUP.NAME,
+      },
+      {
+        element: <AdminSignUp />,
+        path: ROUTES.ADMIN_SIGNUP.PATH,
+        name: ROUTES.ADMIN_SIGNUP.NAME,
+      },
     ],
   },
   // { element: <Login />, path: ROUTES.LOGIN.PATH, name: ROUTES.LOGIN.NAME },
@@ -117,14 +127,24 @@ const PAGES = [
   //   name: ROUTES.LOGIN_REDIRECT.NAME,
   // },
   {
+    element: <SearchAddress />,
+    path: ROUTES.SEARCH_ADDRESS.PATH,
+    name: ROUTES.SEARCH_ADDRESS.NAME,
+  },
+  {
     element: <NotFound />,
     path: ROUTES.NOT_FOUND.PATH,
     name: ROUTES.NOT_FOUND.NAME,
   },
   {
-    element: <Payments />,
-    path: ROUTES.PAYMENTS.PATH,
-    name: ROUTES.PAYMENTS.NAME,
+    element: <Home />,
+    path: ROUTES.HOME.PATH,
+    name: ROUTES.HOME.NAME,
+  },
+  {
+    element: <Search />,
+    path: ROUTES.SEARCH.PATH,
+    name: ROUTES.SEARCH.NAME,
   },
 ];
 

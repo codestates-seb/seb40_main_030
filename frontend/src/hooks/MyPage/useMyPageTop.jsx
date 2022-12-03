@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useState } from 'react';
 const apiUrl = import.meta.env.VITE_NGROK;
 
+// import { axios } from '../../apis/stations';
+
 const useMyPage = () => {
   const [photo, setPhoto] = useState('');
   const [nickName, setNickName] = useState('');
@@ -16,9 +18,7 @@ const useMyPage = () => {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
             'Content-Type': 'application/json',
-            Authorization:
-              `Bearer ${localStorage.getItem('accesstoken')}` ||
-              `Bearer ${sessionStorage.getItem('accesstoken')}`,
+            Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
           },
         })
         .then((res) => {
@@ -34,9 +34,7 @@ const useMyPage = () => {
       axios
         .get(`${apiUrl}/members/find`, {
           headers: {
-            Authorization:
-              `Bearer ${localStorage.getItem('accesstoken')}` ||
-              `Bearer ${sessionStorage.getItem('accesstoken')}`,
+            Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
             'Content-Type': 'application/json',

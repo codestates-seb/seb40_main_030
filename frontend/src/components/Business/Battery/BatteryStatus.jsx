@@ -1,12 +1,12 @@
 import * as S from './Battery.style';
 
-const BatteryStatus = ({ isSelected, clickHandler, idx, status }) => {
+const BatteryStatus = ({ isSelectedBattery, clickHandler, idx, status }) => {
   return (
     <>
       <S.BatteryStatusContainer
         onClick={() => clickHandler(idx, status)}
         status={status}
-        isSelected={isSelected}
+        isSelectedBattery={isSelectedBattery}
       >
         <div className='status-title'>
           {status === 'total'

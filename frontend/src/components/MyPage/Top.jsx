@@ -16,6 +16,12 @@ const Top = () => {
   const { getUserInfo, nickName, email, photo } = useMyPage();
   const [inputState, setInputState] = useRecoilState(userInfoState);
 
+  console.log(
+    'accesstoken ? ',
+
+    sessionStorage.getItem('accesstoken'),
+  );
+
   const handleErrorImg = (e) => {
     e.target.src = ProfileImg;
   };

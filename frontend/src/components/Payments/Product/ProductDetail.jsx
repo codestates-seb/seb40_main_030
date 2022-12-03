@@ -1,6 +1,6 @@
-import * as S from './ProductDetail.style';
-import React from 'react';
 import { useLocation } from 'react-router-dom';
+
+import * as S from './ProductDetail.style';
 
 const ProductDetail = () => {
     const {state} = useLocation();
@@ -18,7 +18,7 @@ const ProductDetail = () => {
                 <S.PayDetail>{state?.name}</S.PayDetail>
                 <S.PayDetail>{state?.batteryName}</S.PayDetail>
                 <S.PayDetail>{state?.capacity}</S.PayDetail>
-                <S.PayDetail>{state?.startPoint}<br/>{state?.endPoint}</S.PayDetail>
+                <S.PayDetail>{state?.startPoint.replace('T', ' ').replace(':','시 ')+'분'}<br/>{state?.endPoint.replace('T', ' ').replace(':','시 ')+'분'}</S.PayDetail>
             </S.PayDetails>
         </S.ItemLayout>
     );

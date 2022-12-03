@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
-import * as S from './Mid.style';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import axios from 'axios';
+import { apiClient } from '../../../apis/stations';
+import { ProfileImg } from '../../../assets';
 import {
   recoilPostAddress,
   userInfoState,
@@ -9,10 +12,8 @@ import {
   isOverLapNick,
 } from '../../../recoil/userInfoState';
 import { nowState } from '../../../recoil/nowState';
-import { useRecoilState } from 'recoil';
-import { useNavigate } from 'react-router-dom';
-import { ProfileImg } from '../../../assets';
 const apiUrl = import.meta.env.VITE_NGROK;
+import * as S from './Mid.style';
 
 const SignUpMid = () => {
   const navigate = useNavigate();
@@ -37,9 +38,8 @@ const SignUpMid = () => {
     register,
     handleSubmit,
     watch,
-    getValues,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -75,8 +75,8 @@ const SignUpMid = () => {
     if (!watch('email')) {
       alert('E-mail을 입력해주세요.');
     } else {
-      axios
-        .get(`${apiUrl}/members`, {
+      apiClient
+        .get(`/members`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
@@ -101,8 +101,8 @@ const SignUpMid = () => {
   };
 
   const checkedNick = () => {
-    axios
-      .get(`${apiUrl}/members`, {
+    apiClient
+      .get(`/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',

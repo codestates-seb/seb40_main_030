@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { batteryFilterState } from '@/recoil/business';
@@ -6,16 +5,19 @@ import { batteryFilterState } from '@/recoil/business';
 import BatteryStatus from '../Battery/BatteryStatus';
 import * as S from './BatteryFilter.style';
 
-const BatteryFilter = ({ countList }) => {
-  const [isSelected, setIsSelected] = useState([true, false, false, false]);
+const BatteryFilter = ({
+  isSelectedBattery,
+  setIsSelectedBattery,
+  countList,
+}) => {
   const setSelectedFilter = useSetRecoilState(batteryFilterState);
   const clickHandler = (idx, status) => {
     const stateArr = [false, false, false, false];
     stateArr[idx] = true;
-    console.log('status', status);
     setSelectedFilter(status);
-    setIsSelected([...stateArr]);
+    setIsSelectedBattery([...stateArr]);
   };
+
   return (
     <>
       <S.BatteryFilterContainer>
@@ -33,7 +35,7 @@ const BatteryFilter = ({ countList }) => {
           return (
             <BatteryStatus
               key={idx}
-              isSelected={isSelected[idx]}
+              isSelectedBattery={isSelectedBattery[idx]}
               clickHandler={clickHandler}
               idx={idx}
               status={state}

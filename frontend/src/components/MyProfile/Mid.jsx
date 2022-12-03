@@ -1,8 +1,10 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import axios from 'axios';
+import { apiClient } from '../../apis/stations';
+import { ProfileImg } from '../../assets';
 import {
   recoilPostAddress,
   userInfoState,
@@ -14,7 +16,6 @@ import {
 } from '../../recoil/userInfoState';
 import { nowState } from '../../recoil/nowState';
 import * as S from './Mid.style';
-import { ProfileImg } from '../../assets';
 const apiUrl = import.meta.env.VITE_NGROK;
 
 const Mid = () => {
@@ -58,7 +59,7 @@ const Mid = () => {
     handleSubmit,
     watch,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -72,9 +73,9 @@ const Mid = () => {
 
   console.log('watch() : ', watch());
 
-  const checkedNick = (e) => {
-    axios
-      .get(`${apiUrl}/members`, {
+  const checkedNick = () => {
+    apiClient
+      .get(`/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
@@ -178,8 +179,8 @@ const Mid = () => {
           // }
 
           console.log('onValid -> axios 직전 data : ', data);
-          axios
-            .patch(`${apiUrl}/members/edit`, data, {
+          apiClient
+            .patch(`/members/edit`, data, {
               headers: {
                 'Access-Control-Allow-Origin': '*',
                 'ngrok-skip-browser-warning': '111',

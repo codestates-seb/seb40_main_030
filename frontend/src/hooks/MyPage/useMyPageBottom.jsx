@@ -10,9 +10,7 @@ const useMyPageBottom = () => {
       axios
         .get(`${apiUrl}/members/find`, {
           headers: {
-            Authorization:
-              `Bearer ${localStorage.getItem('accesstoken')}` ||
-              `Bearer ${sessionStorage.getItem('accesstoken')}`,
+            Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
           },
@@ -36,9 +34,7 @@ const useMyPageBottom = () => {
       axios
         .get(`${apiUrl}/members/find`, {
           headers: {
-            Authorization:
-              `Bearer ${localStorage.getItem('accesstoken')}` ||
-              `Bearer ${sessionStorage.getItem('accesstoken')}`,
+            Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
           },
