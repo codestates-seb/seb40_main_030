@@ -3,6 +3,7 @@ import { cloneElement } from 'react';
 import { useLocation, useRoutes } from 'react-router-dom';
 
 import { DesktopWrapper } from './components/@commons';
+import { checkLoginState } from './components/Login/utils';
 import { DESKTOP_MEDIA_QUERY } from './constants';
 import { useMediaQuery } from './hooks';
 import useOauthLoginCheck from './hooks/Login/useOauthLoginCheck';
@@ -13,6 +14,8 @@ const App = () => {
   const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
   const location = useLocation();
   const pages = useRoutes(PAGES);
+  checkLoginState();
+
   // const { checkLoginState } = useOauthLoginCheck();
   // checkLoginState();
   // useKakaoCheckLogin();

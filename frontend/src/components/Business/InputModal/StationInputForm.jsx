@@ -100,6 +100,7 @@ const StationInputForm = ({ openSnackBar }) => {
               onChange={(e) => {
                 setKeyword(e.target.value);
               }}
+              onKeyDown={(e) => checkKeyDown(e)}
               placeholder='대여소주소를 검색하세요'
               ref={inputRef}
               // {...register('location', {
