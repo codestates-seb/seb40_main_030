@@ -1,11 +1,12 @@
 package backend.global.exception.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor @Builder
 public class ErrorResponse {
     private int status;  // 에러코드번호
 
