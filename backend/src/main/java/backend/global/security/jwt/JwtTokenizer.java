@@ -19,7 +19,7 @@ import java.util.*;
 
 @Component
 public class JwtTokenizer {
-    @Getter @Value("${jwt.secret-key}")
+    @Getter @Value("${jwt.key.secret}")
     private String secretKey;
 
     @Getter @Value("${jwt.access-token-expiration-minutes}")
