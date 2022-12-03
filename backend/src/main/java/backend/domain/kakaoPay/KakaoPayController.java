@@ -30,7 +30,6 @@ public class KakaoPayController {
     private KakaoPayService kakaopay;
     private final PaymentService paymentService;
     private final JwtExtractUtils jwtExtractUtils;
-
     private Queue<Integer> buffer = new LinkedList<>();
 
     @PostMapping("/kakaoPay")
@@ -64,6 +63,8 @@ public class KakaoPayController {
         buffer.poll();
 
         model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
+
+//        buffer.poll();
 
     }
 
