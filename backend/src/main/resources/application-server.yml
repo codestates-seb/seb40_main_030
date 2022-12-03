@@ -1,12 +1,15 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${RDS_URL}
-    username: ${RDS_USERNAME}
-    password: ${RDS_PASSWORD}
+    url: jdbc:mysql://database-1.cg1z6nbd91zq.ap-northeast-2.rds.amazonaws.com:13306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: admin
+    password: tlxltlf1!A
   jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+    defer-datasource-initialization: true
 
 decorator:
   datasource:
