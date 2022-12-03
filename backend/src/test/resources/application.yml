@@ -27,10 +27,10 @@ spring:
       hibernate:
         default_batch_fetch_size: 100
     defer-datasource-initialization: true
-  sql:
-    init:
-      data-locations: classpath:static/db/data.sql
-      mode: always
+#  sql:
+#    init:
+#      data-locations: classpath:static/db/data.sql
+#      mode: always
   data:
     web:
       pageable:
@@ -39,17 +39,12 @@ spring:
 
 jwt:
   key:
-    secret: ${JWT_SECRET_KEY}
+    secret: nyong123412341234123412341234123412341234
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
 
 file:
   img: Img/
-
-iam:
-  access-key: ${IAM_ACCESS_KEY}
-  secret-key: ${IAM_SECRET_KEY}
-  region: ap-northeast-2
 
 cloud:
   aws:
