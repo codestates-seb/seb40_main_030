@@ -19,7 +19,7 @@
 | 김명환 | 김효중 | 오성환  | 이건희) |
 |:----------:|:----------:|:----------:|:----------:|
 |[<img src ="https://avatars.githubusercontent.com/u/106420520?v=4" width=100px>](https://github.com/kongchip)|[<img src ="https://avatars.githubusercontent.com/u/89366562?v=4" width=100px>](https://github.com/rlgywnd)|[<img src ="https://avatars.githubusercontent.com/u/104765779?v=4" width=100px>](https://github.com/tlsrb100)|[<img src ="https://avatars.githubusercontent.com/u/83988230?v=4" width=100px>](https://github.com/leezer94)|
-https://avatars.githubusercontent.com/u/73528227?v=4
+
 ### BE
 | 김동진(팀장) | 김민구 | 이동원  |
 |:----------:|:----------:|:----------:|
