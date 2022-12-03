@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { BatteryIcon, ClockIcon, GlobeIcon, MyPageIcon } from '@/assets';
@@ -12,7 +11,6 @@ import * as S from './BottomNav.style';
 
 const BottomNav = () => {
   const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
-  // const navigate = useNavigate();
   const { pathname } = useLocation();
   const [isActive, setIsActive] = useRecoilState(navState);
   const isUserType = localStorage.getItem('userType');

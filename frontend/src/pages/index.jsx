@@ -1,4 +1,3 @@
-// import LoginRedirect from './LoginRedirect/index';
 import {
   DateFixedRouter,
   PrivateRouter,
@@ -95,11 +94,6 @@ const PAGES = [
       },
     ],
   },
-  // {
-  //   element: <Login />,
-  //   path: ROUTES.LOGIN.PATH,
-  //   name: ROUTES.LOGIN.NAME,
-  // },
   {
     element: <PublicRouter />,
     children: [
@@ -126,14 +120,19 @@ const PAGES = [
     name: ROUTES.SEARCH_ADDRESS.NAME,
   },
   {
-    element: <SearchAddress />,
-    path: ROUTES.SEARCH_ADDRESS.PATH,
-    name: ROUTES.SEARCH_ADDRESS.NAME,
-  },
-  {
     element: <NotFound />,
     path: ROUTES.NOT_FOUND.PATH,
     name: ROUTES.NOT_FOUND.NAME,
+  },
+  {
+    element: <Home />,
+    path: ROUTES.HOME.PATH,
+    name: ROUTES.HOME.NAME,
+  },
+  {
+    element: <Search />,
+    path: ROUTES.SEARCH.PATH,
+    name: ROUTES.SEARCH.NAME,
   },
 ];
 

@@ -27,6 +27,7 @@ import UndoIcon from './undo-button.png';
 
 // Icons
 export {
+  LogoutIcon,
   BatteryIcon,
   MapIcon,
   LogoIcon,
@@ -46,12 +47,4 @@ export {
   CompletedIcon,
 };
 
-export {
-  ServiceLogo,
-  ProfileImg,
-  PlusIcon,
-  CartIcon,
-  BatterImg,
-  FuelTankImg,
-  LogoutIcon,
-};
+export { ServiceLogo, ProfileImg, PlusIcon, CartIcon, BatterImg, FuelTankImg };
