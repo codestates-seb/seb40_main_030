@@ -2,6 +2,7 @@ package backend.global.exception.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
@@ -11,4 +12,12 @@ public class ErrorResponse {
     private String exception; // 예외명 (예외 분류)
 
     private String message; // 에러메세지
+
+    public static ErrorResponse of(HttpStatus httpStatus) {
+        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
+    }
+    private ErrorResponse(int status, String message) {
+        this.status = status;
+        this.message = message;
+    }
 }
