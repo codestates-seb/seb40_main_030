@@ -16,11 +16,11 @@
 ### :sunglasses: 팀원
 
 ### FE
-| 김명환 (팀장) | 방기현 (서기) | 권수현 (UI/UX)  | 우상헌 (Git 관리) |
+| 김명환 | 김효중 | 오성환  | 이건희) |
 |:----------:|:----------:|:----------:|:----------:|
-|[<img src ="https://avatars.githubusercontent.com/u/106420520?v=4" width=100px>](https://github.com/kongchip)|[<img src ="https://avatars.githubusercontent.com/u/102677317?v=4" width=100px>](https://github.com/kihyeoon)|[<img src ="https://avatars.githubusercontent.com/u/99517342?v=4" width=100px>](https://github.com/x-xuhxun)|[<img src ="https://avatars.githubusercontent.com/u/98410418?v=4" width=100px>](https://github.com/Withlaw)|
+|[<img src ="https://avatars.githubusercontent.com/u/106420520?v=4" width=100px>](https://github.com/kongchip)|[<img src ="https://avatars.githubusercontent.com/u/89366562?v=4" width=100px>](https://github.com/rlgywnd)|[<img src ="https://avatars.githubusercontent.com/u/104765779?v=4" width=100px>](https://github.com/tlsrb100)|[<img src ="https://avatars.githubusercontent.com/u/83988230?v=4" width=100px>](https://github.com/leezer94)|
 
 ### BE
-| 신승현 (BE PL) | 김영희 (QA) | 제민혜 (B/R)
+| 김동진(팀장) | 김민구 | 이동원  |
 |:----------:|:----------:|:----------:|
 |[<img src ="https://avatars.githubusercontent.com/u/59863297?v=4" width=100px>](https://github.com/Shin-seung-hyun)| [<img src ="https://avatars.githubusercontent.com/u/71127157?v=4" width=100px>](https://github.com/kyh0113)|[<img src ="https://avatars.githubusercontent.com/u/106645091?v=4" width=100px>](https://github.com/domadoes)|
