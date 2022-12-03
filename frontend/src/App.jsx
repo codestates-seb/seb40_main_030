@@ -5,7 +5,7 @@ import { useLocation, useRoutes } from 'react-router-dom';
 import { DesktopWrapper } from './components/@commons';
 import { DESKTOP_MEDIA_QUERY } from './constants';
 import { useMediaQuery } from './hooks';
-// import useOauthLoginCheck from './hooks/Login/useOauthLoginCheck';
+import useOauthLoginCheck from './hooks/Login/useOauthLoginCheck';
 import PAGES from './pages';
 // import useKakaoCheckLogin from './hooks/Login/useKakaoCheckLogin';
 

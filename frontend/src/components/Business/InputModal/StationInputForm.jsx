@@ -33,14 +33,6 @@ const StationInputForm = ({ openSnackBar }) => {
   const checkKeyDown = (e) => {
     if (e.code === 'Enter') e.preventDefault();
   };
-  const onInvalidHandler = (errors) => {
-    const message = `${errors.name ? `name : ${errors.name.message}` : ''} 
-    ${errors.details ? `details : ${errors.details.message}` : ''}
-    ${errors.phone ? `phone : ${errors.phone.message}` : ''}
-    ${errors.location ? `location : ${errors.location.message}` : ''}`;
-
-    openSnackBar(message);
-  };
 
   const onClickHandler = (e, location) => {
     setLocation({ latitude: location.x, longitude: location.y });
@@ -51,7 +43,7 @@ const StationInputForm = ({ openSnackBar }) => {
     <>
       <S.InputModalContainer>
         <form
-          onSubmit={handleSubmit(onValidHandler, onInvalidHandler)}
+          onSubmit={handleSubmit(onValidHandler)}
           onKeyDown={(e) => checkKeyDown(e)}
         >
           <div className='input-container'>

@@ -16,11 +16,6 @@ const BatteryImgContainer = styled.div`
 `;
 
 const BatteryTitleContainer = styled.div`
-  & h1 {
-    padding: 0 10px;
-  }
-  position: relative;
-  top: -10px;
   font-size: 25px;
   font-weight: 600;
 `;
@@ -99,8 +94,8 @@ const BatteryStatusContainer = styled.div`
   display: flex;
   /* gap: 10px; */
   border-radius: 30px;
-  background-color: ${({ isSelected }) =>
-    isSelected ? 'rgb(70,124,237)' : 'rgb(172,195,238)'};
+  background-color: ${({ isSelectedBattery }) =>
+    isSelectedBattery ? 'rgb(70,124,237)' : 'rgb(172,195,238)'};
 
   & .status-title {
     height: 30px;

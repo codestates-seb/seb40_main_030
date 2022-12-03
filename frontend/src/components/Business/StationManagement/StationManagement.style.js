@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 const CounterContainer = styled.div`
   height: 20px;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 0 10px 0 0;
   display: flex;
   justify-content: end;
   align-items: end;

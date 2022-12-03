@@ -2,7 +2,7 @@ import * as S from './Station.style';
 
 const StationStatus = ({
   idx,
-  isSelected,
+  isSelectedStation,
   clickHandler,
   batteryCount,
   status,
@@ -13,7 +13,7 @@ const StationStatus = ({
         onClick={() => clickHandler(idx, status)}
         batteryCount={batteryCount}
         status={status}
-        isSelected={isSelected}
+        isSelectedStation={isSelectedStation}
       >
         <div className='status-title'>
           {status === 'total'

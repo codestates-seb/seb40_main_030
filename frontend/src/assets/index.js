@@ -12,44 +12,39 @@ import { ReactComponent as PlusIcon } from './plus.svg';
 import { ReactComponent as SearchIcon } from './search.svg';
 import { ReactComponent as PaymentIcon } from './payMent.svg';
 import { ReactComponent as NoticeIcon } from './noticeIcon.svg';
-import CompletedIcon from './completed.png'
-
-import ProfileImg from './profileImg.png';
-
-import KaKaoLoginIcon from './KaKaoLoginIcon.png';
-
 import { ReactComponent as ServiceLogo } from './serviceLogo.svg';
 import { ReactComponent as StationPageIcon } from './stationPage.svg';
-
-import { ReactComponent as GlobeIcon } from './globe.svg';
 import { ReactComponent as CurrentLocationIcon } from './currentLocation.svg';
+import { ReactComponent as GlobeIcon } from './globe.svg';
+import { ReactComponent as LogoutIcon } from './logout.svg';
+
+import CompletedIcon from './completed.png';
+import ProfileImg from './profileImg.png';
+import KaKaoLoginIcon from './KaKaoLoginIcon.png';
 import BatterImg from './battery.png';
 import FuelTankImg from './fuel.jpg';
 import UndoIcon from './undo-button.png';
 
 // Icons
 export {
+  LogoutIcon,
   BatteryIcon,
   MapIcon,
   LogoIcon,
   MyPageIcon,
   ClockIcon,
-  ServiceLogo,
   KaKaoLoginIcon,
   UndoIcon,
   ArrowIcon,
   SearchIcon,
   PaymentIcon,
   NoticeIcon,
-  ProfileImg,
   BatteryPageIcon,
   StationPageIcon,
-  PlusIcon,
   MapMarkerIcon,
-  CartIcon,
-  BatterImg,
-  FuelTankImg,
-  GlobeIcon,
   CurrentLocationIcon,
-  CompletedIcon
+  GlobeIcon,
+  CompletedIcon,
 };
+
+export { ServiceLogo, ProfileImg, PlusIcon, CartIcon, BatterImg, FuelTankImg };
