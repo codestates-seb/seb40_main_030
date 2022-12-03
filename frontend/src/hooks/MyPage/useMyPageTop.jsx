@@ -2,8 +2,6 @@ import axios from 'axios';
 import { useState } from 'react';
 const apiUrl = import.meta.env.VITE_NGROK;
 
-// import { axios } from '../../apis/stations';
-
 const useMyPage = () => {
   const [photo, setPhoto] = useState('');
   const [nickName, setNickName] = useState('');
@@ -11,7 +9,6 @@ const useMyPage = () => {
 
   const getUserInfo = () => {
     if (localStorage.getItem('accesstoken')) {
-      console.log('if문 axios 직전');
       axios
         .get(`${apiUrl}/members/find`, {
           headers: {
@@ -22,7 +19,6 @@ const useMyPage = () => {
           },
         })
         .then((res) => {
-          console.log('axios 내부 -> res : ', res);
           setNickName(res.data.nickname);
           setEmail(res.data.email);
           setPhoto(res.data.photoURL);
@@ -41,7 +37,6 @@ const useMyPage = () => {
           },
         })
         .then((res) => {
-          console.log('axios -> res : ', res);
           setNickName(res.data.nickname);
           setEmail(res.data.email);
           setPhoto(res.data.photoURL);

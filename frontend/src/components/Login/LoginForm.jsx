@@ -7,8 +7,6 @@ import { LoginFormContainer } from './LoginForm.style';
 import { moveToUrl } from './utils';
 
 const LoginForm = () => {
-  // const { isAuthorized } = useKakaoLogin();
-
   return (
     <LoginFormContainer>
       <GenLogin />

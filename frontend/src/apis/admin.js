@@ -8,9 +8,7 @@ const axiosAdminInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     'ngrok-skip-browser-warning': '111',
-    authorization:
-      `Bearer ${localStorage.getItem('accesstoken')}` ||
-      `Bearer ${sessionStorage.getItem('accesstoken')}`,
+    authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
   },
 });
 // console.log('ACCESS_TOKEN : ', ACCESS_TOKEN);

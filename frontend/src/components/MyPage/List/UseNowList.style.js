@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-/* main-01 : #5584AC
-  font-01 : #7b8c9f */
 export const UseNowListContainer = styled.div`
   border-bottom: 2px solid #d6d9dc;
   padding: 7px 10px 10px 10px;

@@ -1,6 +1,6 @@
-import { PageWrapper } from '../../components/@commons';
-import BottomNav from '../../components/@layout/BottomNav/BottomNav';
-import MyProfileForm from '../../components/MyProfile/MyProfileForm';
+import { PageWrapper } from '../../../components/@commons';
+import BottomNav from '../../../components/@layout/BottomNav/BottomNav';
+import MyProfileForm from '../../../components/MyProfile/MyProfileForm';
 
 const MyProfile = () => {
   return (

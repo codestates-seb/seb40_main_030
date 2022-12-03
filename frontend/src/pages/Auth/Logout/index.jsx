@@ -1,5 +1,5 @@
-import KakaoLogout from '../../components/Login/KakaoLogout/KakaoLogout';
-import useKakaoLogout from '../../hooks/Login/useKakaoLogout';
+import KakaoLogout from '../../../components/Login/KakaoLogout/KakaoLogout';
+import useKakaoLogout from '../../../hooks/Login/useKakaoLogout';
 
 const Logout = () => {
   const { isAuthorized, logoutClickHandler } = useKakaoLogout();

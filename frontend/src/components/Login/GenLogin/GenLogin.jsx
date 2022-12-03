@@ -7,11 +7,9 @@ import { useForm } from 'react-hook-form';
 
 const apiUrl = import.meta.env.VITE_NGROK;
 
-// 일반 로그인 컴포넌트
-
 const GenLogin = () => {
   const [checkedLogin, setCheckedLogin] = useState(false);
-  const [typeState, setTypeState] = useState(true); // 로그인 타입 상태
+  const [typeState, setTypeState] = useState(true);
 
   const navigate = useNavigate();
 
@@ -24,27 +22,10 @@ const GenLogin = () => {
 
   const onValid = async () => {
     const loginData = watch();
-
-    console.log('axios 직전->loginData:  ', loginData);
     await axios
       .post(`${apiUrl}/auth/login`, loginData)
       .then((res) => {
-        console.log(' axios-> res : ', res);
-        console.log('res.headers: ', res.headers);
-        console.log(
-          'res.headers.Accesstoken: ',
-          res.headers.get('accesstoken'),
-        );
-        console.log(
-          'res.headers.refreshtoken: ',
-          res.headers.get('refreshtoken'),
-        );
-        console.log(
-          'GenLogin에서 로그인 axios요청으로 오는 res -> : ',
-          res.headers.accesstoken,
-        );
         const accesstoken = res.headers.accesstoken.split(' ')[1];
-        console.log('GenLogin/ accesstoken : ', accesstoken);
         const refreshtoken = res.headers.refreshtoken;
         axios.defaults.headers.common[
           'Authorization'
@@ -52,14 +33,9 @@ const GenLogin = () => {
         if (res.data === 'Success ADMIN') {
           localStorage.setItem('userType', 'admin');
         }
-
         if (checkedLogin) {
           localStorage.setItem('accesstoken', accesstoken);
           localStorage.setItem('refreshtoken', refreshtoken);
-          console.log(
-            'localStorage에 넣어진 accesstoken : ',
-            localStorage.getItem('accesstoken'),
-          );
         } else if (!checkedLogin) {
           sessionStorage.setItem('accesstoken', accesstoken);
         }

@@ -1,6 +1,6 @@
-import { PageWrapper } from '../../components/@commons';
-import BottomNav from '../../components/@layout/BottomNav/BottomNav';
-import NoticeForm from '../../components/Notice/NoticeForm';
+import { PageWrapper } from '../../../components/@commons';
+import BottomNav from '../../../components/@layout/BottomNav/BottomNav';
+import NoticeForm from '../../../components/Notice/NoticeForm';
 
 const Notice = () => {
   return (

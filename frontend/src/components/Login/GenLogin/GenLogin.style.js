@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import '@kfonts/bm-dohyeon';
 
-/* main-01 : #5584AC
-  font-01 : #7b8c9f */
 export const LoginMidContainer = styled.div`
   padding: 70px 10px 0 10px;
 `;

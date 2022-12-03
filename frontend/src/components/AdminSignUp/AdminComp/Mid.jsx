@@ -50,7 +50,6 @@ const Mid = () => {
     }
   };
   const onValid = (data) => {
-    console.log('submit->data : ', data);
     checkedEmail();
     if (
       isEmail &&
@@ -58,7 +57,6 @@ const Mid = () => {
       watch('password') === watch('checkpassword')
     ) {
       delete data.checkpassword;
-      console.log('delete후 data : ', data);
       axios
         .post(`${apiUrl}/admins`, data, {
           headers: {
@@ -172,10 +170,6 @@ const Mid = () => {
                 placeholder='휴대폰번호(- 생략)'
                 {...register('phone', {
                   required: '⚠ 휴대폰번호 입력',
-                  // pattern: {
-                  //   value: /^\d{3}\d{3,4}\d{4}$/,
-                  //   message: '⚠ 숫자만 입력하세요.',
-                  // },
                 })}
               />
             </S.SignUpPhoneInputDiv>
