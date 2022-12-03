@@ -6,12 +6,18 @@ server:
       enabled: true
       force: true
 
+#spring:
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:test
+#    username: sa
+#    password:
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test
-    username: sa
-    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test2
+    username: root
+    password: tlxltlf1!A
   jpa:
     hibernate:
       ddl-auto: create
@@ -53,3 +59,8 @@ cloud:
       auto: false
 
 mod: server
+
+mail:
+  address:
+    admin:
+      list: admin@gmail.com,admin1@gmail.com,admin2@gmail.com,admin3@gmail.com

@@ -18,7 +18,7 @@ spring:
     active: local   # 로컬 프로파일 사용을 위한 설정
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       profiles:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -35,3 +35,8 @@ jwt:
     secret: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 1440
   refresh-token-expiration-minutes: 1440
+ 
+mail:
+  address:
+    admin:
+      list: admin@gmail.com,admin1@gmail.com,admin2@gmail.com,admin3@gmail.com
