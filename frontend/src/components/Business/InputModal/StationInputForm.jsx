@@ -55,7 +55,6 @@ const StationInputForm = ({ openSnackBar }) => {
               placeholder='주유소 이름을 입력하세요'
               {...register('name', {
                 required: '필수입력입니다',
-                min: { value: 1, message: '1이상 입력하세요' },
               })}
             />
           </div>
@@ -69,7 +68,6 @@ const StationInputForm = ({ openSnackBar }) => {
               placeholder='상세 설명을 입력하세요'
               {...register('details', {
                 required: '필수입력입니다',
-                min: { value: 1, message: '1이상 입력하세요' },
               })}
             />
           </div>
@@ -83,7 +81,6 @@ const StationInputForm = ({ openSnackBar }) => {
               placeholder='전화번호를 입력하세요'
               {...register('phone', {
                 required: '필수입력입니다',
-                min: { value: 1, message: '1이상 입력하세요' },
               })}
             />
           </div>

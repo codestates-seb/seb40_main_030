@@ -34,7 +34,7 @@ const Business = () => {
   login().then((res) => console.log(res.data.split(' ')[1])); //로긴 테스트
 
   return (
-    <PageWrapper title={'사장님'} path={'/'}>
+    <PageWrapper title={'관리자페이지'} path={'/'}>
       {clickPage === 'battery' ? (
         <BatteryContent
           isSelectedBattery={isSelectedBattery}
