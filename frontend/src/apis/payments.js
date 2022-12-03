@@ -12,4 +12,14 @@ const getAvailableExtendPeriod = async (id) => {
   return data;
 };
 
-export { getPaymentsTable, getAvailableExtendPeriod };
+const patchExtendBookingPeriod = async (id, extendTime) => {
+  const response = await apiClient.patch(
+    `/payments/${id}/extend?extendTime=${extendTime}`,
+  );
+
+  console.log(response);
+
+  return response;
+};
+
+export { getPaymentsTable, getAvailableExtendPeriod, patchExtendBookingPeriod };

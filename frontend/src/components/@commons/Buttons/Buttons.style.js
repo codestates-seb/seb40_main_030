@@ -8,8 +8,8 @@ const ShadowButton = styled.a`
   border: 1px solid none;
   border-radius: 8px;
   background-color: ${({ color, theme }) => (color ? color : theme.COLOR_BLUE)};
-  box-shadow: ${({ noShadow }) =>
-    noShadow ? '' : '20px 30px 30px 0 rgb(0 31 68 / 30%)'};
+  box-shadow: ${({ shadow }) =>
+    shadow ? '20px 30px 30px 0 rgb(0 31 68 / 30%)' : ''};
   color: white;
   font-weight: 500;
   text-align: center;
@@ -17,7 +17,7 @@ const ShadowButton = styled.a`
   text-decoration: none;
 
   width: 90%;
-  
+
   letter-spacing: 1px;
 `;
 
