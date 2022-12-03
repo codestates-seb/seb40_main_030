@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { BatteryIcon, ClockIcon, GlobeIcon, MyPageIcon } from '@/assets';
 import { DESKTOP_MEDIA_QUERY, ROUTES } from '@/constants';
 import { useMediaQuery } from '@/hooks';
 import { navState } from '@/recoil/pagesState';
-import { useNavigate } from 'react-router-dom';
 
 import * as S from './BottomNav.style';
 

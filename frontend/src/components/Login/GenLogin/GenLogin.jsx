@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import * as S from './GenLogin.style';
-
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+
+import { axiosAdminInstance } from '@/apis/admin';
+
+import * as S from './GenLogin.style';
 
 const apiUrl = import.meta.env.VITE_NGROK;
 
@@ -47,6 +49,9 @@ const GenLogin = () => {
         console.log('GenLogin/ accesstoken : ', accesstoken);
         const refreshtoken = res.headers.refreshtoken;
         axios.defaults.headers.common[
+          'Authorization'
+        ] = `Bearer ${accesstoken}`;
+        axiosAdminInstance.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${accesstoken}`;
         if (res.data === 'Success ADMIN') {

@@ -13,9 +13,10 @@ const axiosAdminInstance = axios.create({
   headers: {
     'ngrok-skip-browser-warning': '111',
     // authorization: `Bearer ${ACCESS_TOKEN}`,
-    authorization:
-      `Bearer ${localStorage.getItem('accesstoken')}` ||
-      `Bearer ${sessionStorage.getItem('accesstoken')}`,
+    // authorization: `Bearer ${
+    //   localStorage.getItem('accesstoken') ||
+    //   sessionStorage.getItem('accesstoken')
+    // }}`,
   },
 });
 // console.log('ACCESS_TOKEN : ', ACCESS_TOKEN);
