@@ -53,7 +53,7 @@ const MotionWrapper = styled(motion.div)`
   }
 `;
 
-const Header = styled.header`
+ const Header = styled.header`
   display: flex;
   align-items: center;
   width: 100%;

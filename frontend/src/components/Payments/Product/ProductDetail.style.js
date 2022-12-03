@@ -3,8 +3,7 @@ import styled from 'styled-components';
 const ItemLayout = styled.div`
 display: flex;
 height: 200px;
-padding-left: 10px;
-margin-top: 50px;
+margin-top: 60px;
 margin-bottom: 30px;
 width: 100%;
 `
