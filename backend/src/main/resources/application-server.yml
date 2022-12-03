@@ -6,7 +6,7 @@ spring:
     password: ${RDS_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
 decorator:
   datasource:
@@ -15,11 +15,6 @@ decorator:
 
 file:
   img: Img/                       # 각 이미지 파일 저장 경로
-
-iam:
-  access-key: ${IAM_ACCESS_KEY}
-  secret-key: ${IAM_SECRET_KEY}
-  region: ap-northeast-2
 
 cloud:
   aws:
