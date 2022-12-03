@@ -5,10 +5,11 @@ import {
 } from '@/components/@helper';
 import { ROUTES } from '@/constants';
 
+import AdminSignUp from './AdminSignUp';
 import Business from './Business';
 import Home from './Home';
 import Login from './Login';
-// import LoginRedirect from './LoginRedirect/index';
+import LoginRedirect from './LoginRedirect/index';
 import Logout from './Logout/index';
 import MyPage from './MyPage';
 import MyProfile from './MyProfile';
@@ -24,6 +25,21 @@ import SignUp from './SignUp';
 
 const PAGES = [
   {
+    element: <LoginRedirect />,
+    path: ROUTES.LOGIN_REDIRECT.PATH,
+    name: ROUTES.LOGIN_REDIRECT.NAME,
+  },
+  {
+    element: <Home />,
+    path: ROUTES.HOME.PATH,
+    name: ROUTES.HOME.NAME,
+  },
+  {
+    element: <Search />,
+    path: ROUTES.SEARCH.PATH,
+    name: ROUTES.SEARCH.NAME,
+  },
+  {
     element: <DateFixedRouter />,
     children: [
       {
@@ -32,6 +48,11 @@ const PAGES = [
         name: ROUTES.RENTAL.NAME,
       },
     ],
+  },
+  {
+    element: <Business />,
+    path: ROUTES.BUSINESS.PATH,
+    name: ROUTES.BUSINESS.NAME,
   },
   {
     element: <PrivateRouter />,
@@ -57,9 +78,14 @@ const PAGES = [
         name: ROUTES.MYPAGE.NAME,
       },
       {
-        element: <Orders />,
-        path: ROUTES.ORDERS.PATH,
-        name: ROUTES.ORDERS.NAME,
+        element: <PaymentCompleted />,
+        path: ROUTES.PAYMENTCOMPLETED.PATH,
+        name: ROUTES.PAYMENTCOMPLETED.NAME,
+      },
+      {
+        element: <Payments />,
+        path: ROUTES.PAYMENTS.PATH,
+        name: ROUTES.PAYMENTS.NAME,
       },
       {
         element: <Notice />,
@@ -73,6 +99,11 @@ const PAGES = [
       },
     ],
   },
+  // {
+  //   element: <Login />,
+  //   path: ROUTES.LOGIN.PATH,
+  //   name: ROUTES.LOGIN.NAME,
+  // },
   {
     element: <PublicRouter />,
     children: [
@@ -85,6 +116,11 @@ const PAGES = [
         element: <SignUp />,
         path: ROUTES.SIGNUP.PATH,
         name: ROUTES.SIGNUP.NAME,
+      },
+      {
+        element: <AdminSignUp />,
+        path: ROUTES.ADMIN_SIGNUP.PATH,
+        name: ROUTES.ADMIN_SIGNUP.NAME,
       },
     ],
   },
@@ -107,16 +143,6 @@ const PAGES = [
     element: <Search />,
     path: ROUTES.SEARCH.PATH,
     name: ROUTES.SEARCH.NAME,
-  },
-  {
-    element: <PaymentCompleted />,
-    path: ROUTES.PAYMENTCOMPLETED.PATH,
-    name: ROUTES.PAYMENTCOMPLETED.NAME,
-  },
-  {
-    element: <Payments />,
-    path: ROUTES.PAYMENTS.PATH,
-    name: ROUTES.PAYMENTS.NAME,
   },
 ];
 

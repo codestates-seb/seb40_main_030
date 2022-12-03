@@ -28,18 +28,25 @@ const BatteryContent = ({
     recoilKeyName = stationAddModeState;
   }
   const [isAddMode, setIsAddMode] = useRecoilState(recoilKeyName);
+
   const logoutHandler = () => {
     console.log('로그아웃클릭');
+    localStorage.clear('accesstoken');
+    sessionStorage.clear('accesstoken');
+    localStorage.clear('refreshtoken');
+    localStorage.clear('userType');
   };
   return (
     <>
-      <InputModal isActive={isAddMode} closeModalHandler={setIsAddMode}>
-        <BatteryInputForm
-          openSnackBar={openSnackBar}
-          batteryList={batteryInfo.batteryList}
-          stationList={stationInfo.stationList}
-        />
-      </InputModal>
+      {isAddMode && (
+        <InputModal isActive={isAddMode} closeModalHandler={setIsAddMode}>
+          <BatteryInputForm
+            openSnackBar={openSnackBar}
+            batteryList={batteryInfo.batteryList}
+            stationList={stationInfo.stationList}
+          />
+        </InputModal>
+      )}
       <S.BodyWrapper>
         <S.HeaderContainer>
           <BatteryTitle title={'My Battery'} />

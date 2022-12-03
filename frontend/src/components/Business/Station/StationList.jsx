@@ -21,7 +21,7 @@ const StationList = ({ openSnackBar, stationList }) => {
       {isEditState && (
         <InputModal
           isActive={
-            selectedStationInfo.batteryCount > 0 ? true : false && isEditState
+            selectedStationInfo.batteryCount === 0 ? true : false && isEditState
           }
           closeModalHandler={setIsEditState}
         >
@@ -32,38 +32,37 @@ const StationList = ({ openSnackBar, stationList }) => {
           />
         </InputModal>
       )}
-      <S.StationListWrapper>
-        <StationCount count={`${stationList.length}개`} />
-        <S.StationListContainer>
-          {stationList.map((station) => {
-            return (
-              <li key={station.stationId}>
-                <StationCard
-                  openModalHandler={() =>
-                    openModalHandler({
-                      stationName: station.stationName,
-                      phone: station.phone,
-                      details: station.details,
-                      stationId: station.stationId,
-                      location: station.location,
-                      batteryCount: station.batteryCount,
-                    })
-                  }
-                  imgUrl={station.photoURL}
-                  details={{
+
+      <StationCount count={`${stationList.length}개`} />
+      <S.StationListContainer>
+        {stationList.map((station) => {
+          return (
+            <li key={station.stationId}>
+              <StationCard
+                openModalHandler={() =>
+                  openModalHandler({
                     stationName: station.stationName,
                     phone: station.phone,
-                    photoURL: station.photoURL,
                     details: station.details,
-                  }}
-                  batteryCount={station.batteryCount}
-                  stationId={station.stationId}
-                />
-              </li>
-            );
-          })}
-        </S.StationListContainer>
-      </S.StationListWrapper>
+                    stationId: station.stationId,
+                    location: station.location,
+                    batteryCount: station.batteryCount,
+                  })
+                }
+                imgUrl={station.photoURL}
+                details={{
+                  stationName: station.stationName,
+                  phone: station.phone,
+                  photoURL: station.photoURL,
+                  details: station.details,
+                }}
+                batteryCount={station.batteryCount}
+                stationId={station.stationId}
+              />
+            </li>
+          );
+        })}
+      </S.StationListContainer>
     </>
   );
 };

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-
+import axios from 'axios';
 import { apiClient } from '../../apis/stations';
 import { ProfileImg } from '../../assets';
 import {
@@ -14,12 +14,14 @@ import {
   recoilNickname,
   recoilPhone,
 } from '../../recoil/userInfoState';
+import { nowState } from '../../recoil/nowState';
 import * as S from './Mid.style';
-
+const apiUrl = import.meta.env.VITE_NGROK;
 
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');
   const [isEdit, setIsEdit] = useRecoilState(recoilIsEdit);
+  const [now, setNow] = useRecoilState(nowState);
 
   const navigate = useNavigate();
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
@@ -32,13 +34,17 @@ const Mid = () => {
   const [nickMsg, setNickMsg] = useState('');
 
   useEffect(() => {
-    apiClient
-      .get(`/members/find`, {
+    setNow('MyProfile');
+    console.log('현재상태위치 now : ', now);
+    axios
+      .get(`${apiUrl}/members/find`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
+          Authorization:
+            `Bearer ${localStorage.getItem('accesstoken')}` ||
+            `Bearer ${sessionStorage.getItem('accesstoken')}`,
         },
       })
       .then((res) => {
@@ -107,10 +113,11 @@ const Mid = () => {
         console.log('에러: ', err);
       });
   };
-
+  console.log('userInfo : ', userInfo);
   useEffect(() => {
     if (isEdit && isPostCode) {
-      setValue('detailAddress', userInfo.detailAddress);
+      console.log('isEdit && isPostCode가 true -> userInfo : ', userInfo);
+      setValue('detailAddress', userInfo.detailAddress); // userInfo는 로컬상태이므로 렌더링되면 초기화!
       setValue('address', inSignAddress);
       setValue('nickname', inputState.nickname); // 만약 바꾼상태로 주소찾기를 갈떄 전역상태 inputState로 들어감
       if (nickState) {
@@ -126,6 +133,7 @@ const Mid = () => {
   }, []);
 
   const avatar = watch('photoURL');
+  // setAvatarPreview(`blob:${userInfo.photoURL}`);
   console.log('avatar선언 바로 아래 watch(photoURL) : ', watch('photoURL'));
   useEffect(() => {
     if (avatar && avatar.length > 0) {
@@ -138,6 +146,7 @@ const Mid = () => {
   const onValid = async (data) => {
     checkedNick();
     console.log('정보수정완료버튼 누르고 여긴 onValid함수 -> data : ', data);
+
     if (isNick) {
       return await new Promise(() => {
         setTimeout(() => {
@@ -163,11 +172,11 @@ const Mid = () => {
           if (!watch('address')) {
             delete data.address;
           }
-          if (watch('address') && !watch('detailAddress')) {
-            data.detailAddress = '';
-          } else if (!watch('detailAddress')) {
-            delete data.detailAddress;
-          }
+          // if (watch('address') && !watch('detailAddress')) {
+          //   data.detailAddress = '';
+          // } else if (!watch('detailAddress')) {
+          //   delete data.detailAddress;
+          // }
 
           console.log('onValid -> axios 직전 data : ', data);
           apiClient
@@ -176,11 +185,14 @@ const Mid = () => {
                 'Access-Control-Allow-Origin': '*',
                 'ngrok-skip-browser-warning': '111',
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
+                Authorization:
+                  `Bearer ${localStorage.getItem('accesstoken')}` ||
+                  `Bearer ${sessionStorage.getItem('accesstoken')}`,
               },
             })
             .then((res) => {
               console.log('MyProfile -> onValid -> axios 내부 res : ', res);
+              setNow('');
               setIsPostCode(false);
               setInputState('');
               setIsEdit(false);
@@ -206,18 +218,54 @@ const Mid = () => {
   const removeUser = async () => {
     if (confirm('정말 탈퇴하시겠습니까?')) {
       console.log('확인누름');
-      await apiClient.delete(`/members/remove`).then((res) => {
-        setUserInfo('');
-        setInSignAddress('');
-        setIsPostCode(false);
-        localStorage.removeItem('accesstoken');
-        localStorage.removeItem('refreshtoken');
-        navigate('/');
-        console.log('회원탈퇴버튼 누르고 res : ', res);
-      });
+      await axios
+        .delete(`${apiUrl}/members/remove`, {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'ngrok-skip-browser-warning': '111',
+            'Content-Type': 'application/json',
+            Authorization:
+              `Bearer ${localStorage.getItem('accesstoken')}` ||
+              `Bearer ${sessionStorage.getItem('accesstoken')}`,
+          },
+        })
+        .then((res) => {
+          setNow('');
+          setUserInfo('');
+          setInSignAddress('');
+          setIsPostCode(false);
+          localStorage.removeItem('accesstoken');
+          localStorage.removeItem('refreshtoken');
+          navigate('/');
+          console.log('회원탈퇴버튼 누르고 res : ', res);
+        });
     } else {
       console.log('취소누름');
     }
+  };
+
+  const callBackUserInfo = () => {
+    axios
+      .get(`${apiUrl}/members/find`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'ngrok-skip-browser-warning': '111',
+          'Content-Type': 'application/json',
+          Authorization:
+            `Bearer ${localStorage.getItem('accesstoken')}` ||
+            `Bearer ${sessionStorage.getItem('accesstoken')}`,
+        },
+      })
+      .then((res) => {
+        console.log('callBackUserInfo 수정 취소 눌렀을때 axios res : -> ', res);
+        setValue('nickname', res.data.nickname);
+        setValue('phone', res.data.phone);
+        // if (res.data.photoURL) {
+        //   setValue('photoURL', 'blob:' + res.data.photoURL);
+        // }
+        setValue('address', res.data.address);
+        setValue('detailAddress', res.data.detailAddress);
+      });
   };
 
   return (
@@ -236,11 +284,18 @@ const Mid = () => {
                       }}
                     />
                   </S.SignUpPhoto>
+                  {/* <S.ImgBtnDiv> */}
+                  <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
+                  {/* <S.FileLabelEdit>이미지삭제</S.FileLabelEdit> */}
+                  {/* </S.ImgBtnDiv> */}
+
                   <input
+                    id='file'
                     type='file'
                     name='photoURL'
                     accept='image/*'
                     {...register('photoURL')}
+                    style={{ display: 'none' }}
                   />
                 </>
               ) : (
@@ -253,11 +308,18 @@ const Mid = () => {
                       }}
                     />
                   </S.SignUpPhoto>
+                  {/* <S.ImgBtnDiv> */}
+                  <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
+                  {/* <S.FileLabelEdit>이미지삭제</S.FileLabelEdit> */}
+                  {/* </S.ImgBtnDiv> */}
+
                   <input
+                    id='file'
                     type='file'
                     name='photoURL'
                     accept='image/*'
                     {...register('photoURL')}
+                    style={{ display: 'none' }}
                   />
                 </>
               )
@@ -351,7 +413,7 @@ const Mid = () => {
               />
             )}
           </S.SignUpPhoneInputDiv>
-          {errors.phone?.message && (
+          {isEdit && errors.phone?.message && (
             <S.SignUpPhoneFailMsgDiv>
               {errors.phone?.message}
             </S.SignUpPhoneFailMsgDiv>
@@ -425,6 +487,9 @@ const Mid = () => {
               <S.MyProfileEditBtn
                 onClick={() => {
                   setIsEdit(!isEdit);
+                  callBackUserInfo();
+
+                  // 취소했을때 이전에 수정모드에서 바꾸려고  바꿧던 값들 다시 초기화되며 userInfo data가 다시 들어옴
                 }}
               >
                 수정 취소
