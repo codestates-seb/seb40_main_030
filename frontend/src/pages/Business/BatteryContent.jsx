@@ -1,10 +1,13 @@
-import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
+import { axiosAdminInstance } from '@/apis/admin';
 import { LogoutIcon } from '@/assets';
 import BatteryTitle from '@/components/Business/Battery/BatteryTitle';
 import BatteryInputForm from '@/components/Business/InputModal/BatteryInputForm';
 import InputModal from '@/components/Business/InputModal/InputModal';
 import { batteryAddModeState, stationAddModeState } from '@/recoil/business';
+import { userInfoState } from '@/recoil/userInfoState';
 
 import BatteryList from '../../components/Business/Battery/BatteryList';
 import BatteryFilter from '../../components/Business/Filter/BatteryFilter';
@@ -18,9 +21,10 @@ const BatteryContent = ({
   openSnackBar,
   clickPage,
 }) => {
+  const navigate = useNavigate();
   const { batteryInfo } = useGetBatteryList();
   const { stationInfo } = useGetStationList();
-
+  const setUserInfo = useSetRecoilState(userInfoState);
   let recoilKeyName;
   if (clickPage === 'battery') {
     recoilKeyName = batteryAddModeState;
@@ -31,10 +35,14 @@ const BatteryContent = ({
 
   const logoutHandler = () => {
     console.log('로그아웃클릭');
+
+    axiosAdminInstance.defaults.headers.common['Authorization'] = ``;
     localStorage.clear('accesstoken');
     sessionStorage.clear('accesstoken');
     localStorage.clear('refreshtoken');
     localStorage.clear('userType');
+    setUserInfo('');
+    navigate('/');
   };
   return (
     <>
