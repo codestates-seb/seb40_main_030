@@ -1,6 +1,8 @@
 # 이상과 감성의 보배드림
+<img src ="https://cdn.discordapp.com/attachments/1048516340572487760/1048911518080696360/10b23957c2efb752.png" width=800px>
 
-### :sunglasses: 팀원
+## :sunglasses: 팀원
+
 
 ### FE
 | 김명환 | 김효중 | 오성환  | 이건희) |
@@ -14,6 +16,30 @@
 <br>
 
 ## Tech Stack
+FE <br/>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/>
+  <img src="https://img.shields.io/badge/vite-764ABC?style=flat&logo=Vite&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Styled components-DB7093?style=flat&logo=styled-components&logoColor=white"/>
+  <img src="https://img.shields.io/badge/React Query-FF4154?style=flat&logo=React Query&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Recoil-F26B00?style=flat&logo=Relay&logoColor=white"/>
+  
+BE<br/>
+  <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=Spring Boot&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Spring JPA-6DB33F?style=flat&logo=Spring&logoColor=white"/>
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Java-0B4EA2?style=flat&logo=Jabber&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Gradle-000b47?style=flat&logo=Jabber&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat&logo=Spring Security&logoColor=white"/>
+  
+Infrastructures<br/>
+    <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=flat&logo=Amazon EC2&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=flat&logo=AmazonRDS&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=Vercel&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Amazon S3-569A31?style=flat&logo=Amazon S3&logoColor=white"/>
+    
+Communication Tools<br/>
+    <img src="https://img.shields.io/badge/Discord-4207EF?style=flat&logo=Discord&logoColor=white"/>
+    <img src="https://img.shields.io/badge/KaKaoTalk-FFCD00?style=flat&logo=KakaoTalk&logoColor=white"/>
 
 <br>
 
