@@ -64,8 +64,6 @@ public class KakaoPayController {
 
         model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
 
-//        buffer.poll();
-
     }
 
     // 결제 취소시 실행 url

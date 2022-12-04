@@ -1,14 +1,13 @@
 package backend.domain.battery.service;
 
 import backend.domain.admin.entity.Admin;
-import backend.domain.admin.repository.AdminRepository;
+import backend.domain.admin.mapper.repository.AdminRepository;
 import backend.domain.battery.entity.Battery;
 import backend.domain.battery.repository.BatteryRepository;
 import backend.domain.station.entity.Station;
 import backend.domain.station.repository.StationRepository;
 import backend.global.exception.dto.BusinessLogicException;
 import backend.global.exception.exceptionCode.ExceptionCode;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
