@@ -15,6 +15,7 @@ const GenLogout = () => {
     localStorage.removeItem('accesstoken');
     localStorage.removeItem('refreshtoken');
     localStorage.removeItem('userType');
+    sessionStorage.removeItem('userType');
     setNow('');
     setUserInfo('');
     navigate('/');

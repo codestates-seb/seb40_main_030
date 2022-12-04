@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil';
 import { recoilPostAddress } from '../../../recoil/userInfoState';
 
 import { axiosAdminInstance } from '@/apis/admin';
+import { setUserLogin, setAdminLogin } from '../../../apis/apiLogin';
 
 import * as S from './GenLogin.style';
 
@@ -35,7 +36,6 @@ const GenLogin = () => {
       .then((res) => {
         const accesstoken = res.headers.accesstoken.split(' ')[1];
         const refreshtoken = res.headers.refreshtoken;
-        const isAdmin = false;
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${accesstoken}`;
@@ -43,22 +43,12 @@ const GenLogin = () => {
           'Authorization'
         ] = `Bearer ${accesstoken}`;
 
-        if (checkedLogin) {
-          if (res.data === 'Success ADMIN') {
-            localStorage.setItem('accesstoken', accesstoken);
-            localStorage.setItem('refreshtoken', refreshtoken);
-            localStorage.setItem('userType', 'admin');
-          } else {
-            localStorage.setItem('accesstoken', accesstoken);
-            localStorage.setItem('refreshtoken', refreshtoken);
-          }
-        } else if (!checkedLogin) {
-          if (res.data === 'Success ADMIN') {
-            sessionStorage.setItem('accesstoken', accesstoken);
-            sessionStorage.setItem('userType', 'admin');
-          } else {
-            sessionStorage.setItem('accesstoken', accesstoken);
-          }
+        if (res.data === 'Success ADMIN') {
+          setAdminLogin(accesstoken, checkedLogin, refreshtoken);
+          console.log('setAdminLogin 함수 실행!');
+        } else {
+          setUserLogin(accesstoken, checkedLogin, refreshtoken);
+          console.log('setUserLogin 함수 실행!');
         }
         console.log('로그인 성공!');
         navigate('/');

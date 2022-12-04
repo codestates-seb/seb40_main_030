@@ -22,7 +22,7 @@ export const SpanTextDiv = styled.div`
   color: black;
 `;
 export const SpanData = styled.span`
-  font-size: 10px;
+  font-size: 13px;
   font-weight: bold;
 `;
 export const SpanStatus = styled.div`

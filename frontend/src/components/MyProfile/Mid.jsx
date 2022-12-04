@@ -460,6 +460,7 @@ const Mid = () => {
                   <input
                     type='text'
                     defaultValue={userInfo.address}
+                    placeholder='주소'
                     disabled
                     style={{ width: '100%' }}
                   />
