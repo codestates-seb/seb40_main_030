@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-const apiUrl = import.meta.env.VITE_NGROK;
+const apiUrl = import.meta.env.VITE_SERVER_URL;
 
 const useMyPageBottom = () => {
   const [listData, setListData] = useState([]);
@@ -12,7 +12,6 @@ const useMyPageBottom = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then((res) => {
@@ -28,7 +27,6 @@ const useMyPageBottom = () => {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then((res) => {

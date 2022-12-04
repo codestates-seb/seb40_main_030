@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 
 import { isOverLapEmail } from '../../../recoil/userInfoState';
 import * as S from './Mid.style';
-const apiUrl = import.meta.env.VITE_NGROK;
+const apiUrl = import.meta.env.VITE_SERVER_URL;
 
 const Mid = () => {
   const navigate = useNavigate();
@@ -30,7 +30,6 @@ const Mid = () => {
         .get(`${apiUrl}/admins`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then((res) => {
@@ -62,7 +61,6 @@ const Mid = () => {
         .post(`${apiUrl}/admins`, data, {
           headers: {
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then(() => {

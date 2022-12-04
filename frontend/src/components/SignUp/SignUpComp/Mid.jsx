@@ -13,7 +13,7 @@ import {
   isOverLapEmail,
   isOverLapNick,
 } from '../../../recoil/userInfoState';
-const apiUrl = import.meta.env.VITE_NGROK;
+const apiUrl = import.meta.env.VITE_SERVER_URL;
 import * as S from './Mid.style';
 
 const SignUpMid = () => {
@@ -64,7 +64,6 @@ const SignUpMid = () => {
         .get(`${apiUrl}/members`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then((res) => {
@@ -90,7 +89,6 @@ const SignUpMid = () => {
       .get(`${apiUrl}/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'ngrok-skip-browser-warning': '111',
         },
       })
       .then((res) => {
@@ -129,7 +127,6 @@ const SignUpMid = () => {
             .post(`${apiUrl}/members`, data, {
               headers: {
                 'Access-Control-Allow-Origin': '*',
-                'ngrok-skip-browser-warning': '111',
               },
             })
             .then(() => {

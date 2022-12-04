@@ -17,7 +17,7 @@ import {
   recoilPhone,
 } from '../../recoil/userInfoState';
 import * as S from './Mid.style';
-const apiUrl = import.meta.env.VITE_NGROK;
+const apiUrl = import.meta.env.VITE_SERVER_URL;
 
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');
@@ -36,6 +36,7 @@ const Mid = () => {
 
   useEffect(() => {
     setNow('MyProfile');
+<<<<<<< HEAD
     if (localStorage.getItem('accesstoken')) {
       axios
         .get(`${apiUrl}/members/find`, {
@@ -63,6 +64,21 @@ const Mid = () => {
           setUserInfo(res.data);
         });
     }
+=======
+    axios
+      .get(`${apiUrl}/members/find`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+          Authorization:
+            `Bearer ${localStorage.getItem('accesstoken')}` ||
+            `Bearer ${sessionStorage.getItem('accesstoken')}`,
+        },
+      })
+      .then((res) => {
+        setUserInfo(res.data);
+      });
+>>>>>>> 6550940c72040829553e2a0c312cd5ad47fb424a
   }, []);
 
   const {
@@ -87,7 +103,6 @@ const Mid = () => {
       .get(`${apiUrl}/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'ngrok-skip-browser-warning': '111',
         },
       })
       .then((res) => {
@@ -163,7 +178,6 @@ const Mid = () => {
             .patch(`${apiUrl}/members/edit`, data, {
               headers: {
                 'Access-Control-Allow-Origin': '*',
-                'ngrok-skip-browser-warning': '111',
                 'Content-Type': 'application/json',
                 Authorization:
                   `Bearer ${localStorage.getItem('accesstoken')}` ||
@@ -200,7 +214,6 @@ const Mid = () => {
           .delete(`${apiUrl}/members/remove`, {
             headers: {
               'Access-Control-Allow-Origin': '*',
-              'ngrok-skip-browser-warning': '111',
               'Content-Type': 'application/json',
               Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
             },
@@ -220,7 +233,6 @@ const Mid = () => {
           .delete(`${apiUrl}/members/remove`, {
             headers: {
               'Access-Control-Allow-Origin': '*',
-              'ngrok-skip-browser-warning': '111',
               'Content-Type': 'application/json',
               Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             },
@@ -245,8 +257,12 @@ const Mid = () => {
       axios
         .get(`${apiUrl}/members/find`, {
           headers: {
+<<<<<<< HEAD
             'Access-Control-Allow-Origin': '',
             'ngrok-skip-browser-warning': '111',
+=======
+            'Access-Control-Allow-Origin': '*',
+>>>>>>> 6550940c72040829553e2a0c312cd5ad47fb424a
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
           },

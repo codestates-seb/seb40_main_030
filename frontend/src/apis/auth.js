@@ -13,7 +13,7 @@ import { axiosAdminInstance } from './admin';
 import { apiClient } from './stations';
 
 const axiosOauthInstance = axios.create({
-  baseURL: import.meta.env.VITE_NGROK,
+  baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'ngrok-skip-browser-warning': '111',
     // authorization: `Bearer ${ACCESS_TOKEN}`,
