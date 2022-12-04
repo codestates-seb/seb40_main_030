@@ -6,7 +6,6 @@ import { DesktopWrapper } from './components/@commons';
 import { checkLoginState } from './components/Login/utils';
 import { DESKTOP_MEDIA_QUERY } from './constants';
 import { useMediaQuery } from './hooks';
-// import useOauthLoginCheck from './hooks/Login/useOauthLoginCheck';
 import PAGES from './pages';
 
 const App = () => {
