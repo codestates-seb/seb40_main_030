@@ -1,67 +1,61 @@
-import { Map } from 'react-kakao-maps-sdk';
 import { useState } from 'react';
-import { useGetAllZones, useGetFilteredZone } from './hooks';
-import { useRecoilValue } from 'recoil';
-import {
-  reservationState,
-  currentLocationState,
-} from '../../../recoil/pagesState';
+import { Map } from 'react-kakao-maps-sdk';
+import { useRecoilState } from 'recoil';
 
-import KakaoRoadView from './RoadView';
-import MarkerContainer from './MarkerContainer';
-import MapIndicator from './MapIndicator/MapIndicator';
+import MapIndicator from '@/components/Home/KakaoMap/Features/MapIndicator';
+import MarkerContainer from '@/components/Home/KakaoMap/Features/MarkerContainer';
+import KakaoRoadView from '@/components/Home/KakaoMap/Features/RoadView';
+import { DEFAULT_LOCATION, DESKTOP_MAX_WIDTH } from '@/constants';
+import { useCheckDateFixed, useGetAllStations } from '@/hooks';
+import useGetFilteredStationsBySetTime from '@/hooks/stations/useGetFilteredStationsBySetTime';
+import { currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './KakaoMap.style';
 
-// type Location = {
-//   location: {
-//     latitude: number;
-//     longitude: number;
-//   };
-//   toggle: boolean;
-// };
-
-const KakaoMap = () => {
+const KakaoMap = ({ matches }) => {
   const [toggle, setToggle] = useState(false);
+  const { data: stations } = useGetAllStations();
+  const [currentLocation, setCurrentLocation] =
+    useRecoilState(currentLocationState);
 
-  const { data: zones, isSuccess } = useGetAllZones();
-  const { filteredZones } = useGetFilteredZone();
-  const { dateFixed } = useRecoilValue(reservationState);
-  const currentLocation = useRecoilValue(currentLocationState);
+  const { isDateFixed } = useCheckDateFixed();
+  const { data: filteredStations } = useGetFilteredStationsBySetTime();
+  const latitude = currentLocation?.latitude || DEFAULT_LOCATION.latitude;
+  const longitude = currentLocation?.longitude || DEFAULT_LOCATION.longitude;
 
-  const latitude = currentLocation?.latitude || 37.4965;
-  const longitude = currentLocation?.longitude || 127.0248;
-
-  // location 기반 필터링시에 범위를 어디까지 할것인가를 알아봐야함
-
-  if (isSuccess) {
-    return (
-      <S.MapWrapper>
-        <MapIndicator toggle={toggle} setToggle={setToggle} />
-        {!toggle ? (
-          <Map
-            center={{
-              lat: latitude,
-              lng: longitude,
-            }}
-            isPanto={true}
-            style={{ width: '100%', height: '100%' }}
-            level={3}
-          >
-            {dateFixed.date && dateFixed.time
-              ? filteredZones?.map((content) => (
-                  <MarkerContainer key={content.zoneId} content={content} />
-                ))
-              : zones?.map((content) => (
-                  <MarkerContainer key={content.zoneId} content={content} />
-                ))}
-          </Map>
-        ) : (
-          <KakaoRoadView location={{ latitude, longitude }} />
-        )}
-      </S.MapWrapper>
-    );
-  }
+  return (
+    <S.MapWrapper matches={matches}>
+      <MapIndicator toggle={toggle} setToggle={setToggle} matches={matches} />
+      {!toggle ? (
+        <Map
+          center={{
+            lat: latitude,
+            lng: longitude,
+          }}
+          isPanto={true}
+          style={{ width: '100%', height: '100%', maxWidth: DESKTOP_MAX_WIDTH }}
+          onDragEnd={(map) =>
+            setCurrentLocation({
+              latitude: map.getCenter().getLat(),
+              longitude: map.getCenter().getLng(),
+            })
+          }
+          level={5}
+        >
+          {/* 예약시간 설정 된 경우  /  안된경우  */}
+          {isDateFixed
+            ? filteredStations?.map((content) => (
+                <MarkerContainer key={content.id} content={content} />
+              ))
+            : stations.map((content) => (
+                <MarkerContainer key={content.id} content={content} />
+              ))}
+        </Map>
+      ) : (
+        <KakaoRoadView location={{ latitude, longitude }} />
+      )}
+    </S.MapWrapper>
+  );
 };
 
 export default KakaoMap;

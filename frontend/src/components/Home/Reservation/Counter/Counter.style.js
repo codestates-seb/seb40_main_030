@@ -24,7 +24,7 @@ const NumberInput = styled.input`
   background: none;
   border: none;
   text-align: center;
-  color: #fff;
+  color: ${({ theme }) => theme.WHITE};
   font-weight: 600;
   font-size: 1.5rem;
   outline: none;

@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
 import { Datepicker } from '@meinefinsternis/react-horizontal-date-picker';
 import { enUS } from 'date-fns/locale';
-import { useCalendar } from '../hooks';
+import { useEffect } from 'react';
+
+import { useCalendar } from '@/hooks';
 
 const HorizontalDatePicker = () => {
-  const { date, handleChange } = useCalendar();
+  const { date, handleChange, addMonths } = useCalendar();
 
   const buttons = document.querySelectorAll('.Kq');
 
@@ -19,6 +20,8 @@ const HorizontalDatePicker = () => {
       locale={enUS}
       startValue={date.startValue}
       endValue={date.endValue}
+      startDate={new Date()}
+      endDate={addMonths(1)}
     />
   );
 };

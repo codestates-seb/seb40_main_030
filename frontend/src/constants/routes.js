@@ -2,44 +2,72 @@
 
 const ROUTES = Object.freeze({
   HOME: {
-    PATH: "/",
-    NAME: "Home",
+    PATH: '/',
+    NAME: 'Home',
   },
   NOT_FOUND: {
-    PATH: "*",
-    NAME: "Page Not Found",
-  },
-  ENTRANCE: {
-    PATH: "/entrance",
-    NAME: "Entrance",
-  },
-  LOGIN: {
-    PATH: "/login",
-    NAME: "Login",
-  },
-  LOGOUT: {
-    PATH: "/logout",
-    NAME: "Logout",
+    PATH: '*',
+    NAME: 'Page Not Found',
   },
   SIGNUP: {
-    PATH: "/signup",
-    NAME: "Signup",
+    PATH: '/signup',
+    NAME: 'Signup',
   },
-  EMPTY: {
-    PATH: '/empty',
-    NAME: 'Empty',
+  ADMIN_SIGNUP: {
+    PATH: '/adminsignup',
+    NAME: 'Adminsignup',
   },
-  ENTRANCE: {
-    PATH: '/entrance',
-    NAME: 'Entrance',
+  MYPAGE: {
+    PATH: '/mypage',
+    NAME: 'Mypage',
+  },
+  MYPROFILE: {
+    PATH: '/myprofile',
+    NAME: 'Myprofile',
+  },
+  NOTICE: {
+    PATH: '/notice',
+    NAME: 'Notice',
+  },
+  BUSINESS: {
+    PATH: '/business',
+    NAME: 'Business',
   },
   LOGIN: {
     PATH: '/login',
     NAME: 'Login',
   },
+  LOGIN_REDIRECT: {
+    PATH: '/loginRedirect',
+    NAME: 'LoginRedirect',
+  },
   LOGOUT: {
     PATH: '/logout',
     NAME: 'Logout',
+  },
+  SEARCH: {
+    PATH: '/search',
+    NAME: 'Search',
+  },
+  RENTAL: {
+    PATH: '/rental/:stationId',
+    NAME: 'Rental',
+  },
+  SEARCH_ADDRESS: {
+    PATH: '/searchaddress',
+    NAME: 'Searchaddress',
+  },
+  PAYMENTS: {
+    PATH: '/payments/:batteryId',
+    NAME: 'Payments',
+  },
+  ORDERS: {
+    PATH: '/orders/list',
+    NAME: 'Orders',
+  },
+  PAYMENTCOMPLETED: {
+    PATH: '/payments/payment_completed',
+    NAME: 'Payments',
   },
 });
 

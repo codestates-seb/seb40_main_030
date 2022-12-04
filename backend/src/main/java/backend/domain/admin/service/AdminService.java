@@ -39,6 +39,9 @@ public class AdminService {
         // 서버에서 관리하는 대여소 관리자(admin)용 이메일이 아닌 값이 들어오면 튕겨냄
         if (!adminMailAddress.contains(admin.getEmail())) throw new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH);
 
+        adminRepository.findByEmail(admin.getEmail())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ADMIN_EXIST));
+
         String encryptedPassword = passwordEncoder.encode(admin.getPassword());
         admin.setPassword(encryptedPassword);
 

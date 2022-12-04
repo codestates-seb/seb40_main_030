@@ -182,7 +182,7 @@ public class PaymentService {
         String possibleExtendTime; // 한계 시간 ,니 여기까지밖에 예약할 수 있어
         if (LocalDateTime.parse(endTime).plusHours(24).isBefore(nearStartTime)) {
             possibleExtendTime = LocalDateTime.parse(endTime).plusHours(24).toString();
-        } else if (LocalDateTime.parse(endTime).plusMinutes(30).isAfter(nearStartTime)) {
+        } else if (LocalDateTime.parse(endTime).plusMinutes(30).isBefore(nearStartTime)) {
             throw new BusinessLogicException(ExceptionCode.NOT_EXTEND_TIME);
         } else {
             possibleExtendTime = (nearStartTime.minusMinutes(30)).toString(); // 제일 가까운 reservation의 startTiem에서 30분 뺌

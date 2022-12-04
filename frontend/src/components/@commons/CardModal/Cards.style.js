@@ -1,13 +1,14 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-const Main = styled.div`
+const Main = styled(motion.div)`
   display: grid;
   height: 100vh;
   place-items: center center;
   font-family: 'Poppins', sans-serif;
 `;
 
-const Cards = styled.div`
+const CardWrapper = styled(motion.div)`
   display: grid;
   width: 15rem;
   position: relative;
@@ -19,14 +20,9 @@ const Cards = styled.div`
   cursor: pointer;
   text-decoration: none;
   transition: all 0.3s ease-out;
-
-  /* &:hover {
-    transform: scale(0.7);
-    transition: all 0.3s ease-out;
-  } */
 `;
 
-const Card = styled.div`
+const Card = styled(motion.div)`
   width: 13rem;
   background-color: #1c1b29;
   border-radius: 20px;
@@ -49,11 +45,11 @@ const Container = styled.div`
   }
 `;
 
-const Image = styled.img`
+const Image = styled(motion.img)`
   width: 100%;
   display: block;
   border-radius: 20px 20px 0 0;
-  z-index: 100;
+  z-index: ${({ theme }) => theme.DEFAULT};
 `;
 
 const Details = styled.div`
@@ -85,8 +81,22 @@ const Details = styled.div`
     justify-content: end;
     margin-right: 10px;
     font-size: 20px;
-    z-index: 30;
+    z-index: ${({ theme }) => theme.SNACKBAR};
   }
 `;
 
-export { Main, Cards, Card, Container, Image, Details };
+// ShadowCard
+
+const ShadowCard = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+  background: ${({ theme }) => theme.WHITE};
+  border-radius: 20px;
+
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+`;
+
+export { Main, CardWrapper, Card, Container, Image, Details, ShadowCard };

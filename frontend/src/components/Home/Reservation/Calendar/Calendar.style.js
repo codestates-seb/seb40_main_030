@@ -9,6 +9,7 @@ const Wrapper = styled.div`
 `;
 
 const ReservationContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,6 +17,7 @@ const ReservationContainer = styled.div`
 
 const ReservationBox = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-bottom: 10px;
 
@@ -25,7 +27,8 @@ const ReservationBox = styled.div`
 `;
 
 const DateStatus = styled.div`
-  width: 50px;
+  width: 60px;
+  max-width: 70px;
   border: 1px solid lightgrey;
   border-radius: 50px;
   text-align: center;
@@ -36,23 +39,4 @@ const DateStatus = styled.div`
   margin-right: 20px;
 `;
 
-const BookingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  button {
-    width: 300px;
-    height: 40px;
-    border: 1px solid black;
-  }
-`;
-
-export {
-  Wrapper,
-  ReservationContainer,
-  ReservationBox,
-  DateStatus,
-  BookingContainer,
-};
+export { Wrapper, ReservationContainer, ReservationBox, DateStatus };

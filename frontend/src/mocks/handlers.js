@@ -1,11 +1,22 @@
 import { rest } from 'msw';
-import { mockOrder, mockUser, mockZone } from './data';
-import { KAKAO_TOKENCODE_URL, KAKAO_TOKEN_LOGOUT_URL } from '../constants/auth';
-import { getTokenDirectly, invalidateTokenDirectly } from '../apis/auth';
 
+import {
+  getTokenDirectly,
+  getUserInfo,
+  invalidateTokenDirectly,
+  renewTokenDirectly,
+} from '../apis/auth';
+import {
+  KAKAO_TOKEN_CODE_URL,
+  KAKAO_TOKEN_LOGOUT_URL,
+  KAKAO_USERINFO_URL,
+} from '../constants/auth';
+import { mockOrder, mockUser, mockStations } from './data';
+import mockAdmin from './data/admin';
+
+let MockStations = [...mockStations];
 let MockOrder = [...mockOrder];
 let MockUsers = [...mockUser];
-let MockZone = [...mockZone];
 
 export const handlers = [
   // OAuth
@@ -15,7 +26,7 @@ export const handlers = [
       ctx.delay(),
       ctx.json({ token: 'token', id: 12345 }),
       ctx.status(200),
-      ctx.cookie('shadowToken', 'true')
+      ctx.cookie('shadowToken', 'true'),
     );
   }),
 
@@ -31,7 +42,7 @@ export const handlers = [
     const { orderId } = req.params;
 
     const filteredOrder = MockOrder.find(
-      (mock) => mock.orderId === Number(orderId)
+      (mock) => mock.orderId === Number(orderId),
     );
 
     return res(ctx.delay(200), ctx.status(200), ctx.json(filteredOrder));
@@ -90,13 +101,14 @@ export const handlers = [
 
   // 유저 정보 등록
   rest.post('/api/members', (req, res, ctx) => {
+    // MockUsers.unshift(newUser);
+    let id = MockUsers.length + 1;
     const newUser = req.body;
-
-    MockUsers.unshift(newUser);
+    const resultUser = { memberId: id, ...newUser };
+    MockUsers.push(resultUser);
 
     return res(ctx.delay(), ctx.status(201), ctx.json(newUser));
   }),
-
   // 유저 정보 수정
   rest.patch('/api/members/:memberId', (req, res, ctx) => {
     const { memberId } = req.params;
@@ -117,41 +129,147 @@ export const handlers = [
       return res(ctx.delay(), ctx.status(403));
     }
 
-    const index = MockUsers.findIndex((user) => user.memberId === memberId);
+    const index = MockUsers.findIndex(
+      (user) => user.memberId === Number(memberId),
+    );
 
     MockUsers.splice(index, 1);
 
     return res(ctx.delay(), ctx.status(204));
   }),
 
-  // Zone related
-  rest.get('/api/zones', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(MockZone));
-  }),
-  /**
-   * 클라이언트에서 인증코드 받아서
-   * 카카오인증서버로 요청 후 토큰 받아옴
-   */
-  rest.post('/login/token', async (req, res, ctx) => {
-    const authCode = req.body.authorizationCode;
-    const type = req.body.type;
-    let token = await getTokenDirectly(KAKAO_TOKENCODE_URL, authCode);
-    return res(ctx.delay(200), ctx.status(200), ctx.json(token));
+  // Stations related
+  rest.get('/api/stations', (req, res, ctx) => {
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(MockStations));
   }),
 
-  /**
-   * 클라이언트에서 로그아웃 요청 받아서 처리
-   * 카카오인증 서버로 로그아웃 요청 보냄
-   */
-  rest.post('/logout', async (req, res, ctx) => {
-    const logoutRes = await invalidateTokenDirectly(KAKAO_TOKEN_LOGOUT_URL);
-    console.log('moc logout res', logoutRes);
+  rest.get('/api/stations/:stationId', (req, res, ctx) => {
+    const { stationId } = req.params;
+
+    const index = MockStations.findIndex(
+      (station) => station.id === Number(stationId),
+    );
+
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(MockStations[index]));
+  }),
+  //단일 관리자 조회
+  rest.get('admins/:adminId', (req, res, ctx) => {
+    const adminInfo = mockAdmin;
+    return res(ctx.status(200), ctx.json(adminInfo));
+  }),
+
+  //배터리 등록
+  rest.post('/batteries', (req, res, ctx) => {
+    const body = req.body;
+    mockAdmin.stationList[0].battery.unshift(body);
+    return res(ctx.status(200), ctx.json(mockAdmin));
+  }),
+
+  //배터리 삭제
+  rest.delete('/batteries/:batteryId', (req, res, ctx) => {
+    const { batteryId } = req.params;
+
+    const deleteBattery = (batteryId) => {
+      mockAdmin.stationList[0].battery =
+        mockAdmin.stationList[0].battery.filter((battery) => {
+          return battery.batteryId !== +batteryId;
+        });
+    };
+
+    deleteBattery(batteryId);
+
+    return res(ctx.status(200), ctx.json(mockAdmin));
+  }),
+
+  //요청에서 토큰 유효성 검사 - 모든 api요청은 백엔드에서 토큰 유효성 검사를 할예정으로 임시로 /test api에 대해서만 체크후 응답보내줌
+  rest.all('/test', (req, res, ctx) => {
     return res(
       ctx.delay(200),
-      ctx.cookie('auth-token', 'abc-123'),
+      ctx.status(401),
+      ctx.json('토큰이 유효하지 않습니다. 재발급요망'),
+    );
+  }),
+
+  rest.get('/test', (req, res, ctx) => {
+    return res(
+      ctx.delay(200),
       ctx.status(200),
-      ctx.json(logoutRes)
+      ctx.json('테스트 api 응답성공'),
+    );
+  }),
+
+  // 카카오인증서버로 요청 후 토큰,사용자정보 받아옴
+  rest.post('/login/token', async (req, res, ctx) => {
+    const authCode = req.body.authorizationCode;
+    const token = await getTokenDirectly(KAKAO_TOKEN_CODE_URL, authCode);
+    const accessToken = token.access_token;
+    const refreshToken = token.refresh_token;
+    const userInfo = await getUserInfo(KAKAO_USERINFO_URL, accessToken);
+
+    return res(
+      ctx.delay(200),
+      ctx.cookie('refresh_token', refreshToken),
+      ctx.status(200),
+      ctx.json({ access_token: accessToken, userInfo: userInfo }),
+    );
+  }),
+
+  //카카오인증 서버로 로그아웃 요청 보냄
+  rest.post('/logout', async (req, res, ctx) => {
+    const accessToken = req.body.accessToken;
+    const logoutRes = await invalidateTokenDirectly(
+      KAKAO_TOKEN_LOGOUT_URL,
+      accessToken,
+    );
+
+    document.cookie = 'refresh_token=';
+
+    return res(
+      ctx.delay(200),
+      ctx.status(200),
+      ctx.cookie('refresh_token', ''),
+      ctx.set('Authorization', ''),
+      ctx.json(logoutRes),
+    );
+  }),
+  //토큰 헤더[0], 쿠키, 바디
+
+  // GenLogin
+  rest.post('/genlogin', async (req, res, ctx) => {
+    console.log('MSW에 genlogin api로 오는 요청값 req.body: ', req.body);
+    console.log('MSW-> /genlogin->api로 오는 MockUsers : ', MockUsers);
+    let resultUser;
+    let isUser = MockUsers.filter((user) => {
+      console.log('user : ', user);
+      return (
+        user.email === req.body.email && user.password === req.body.password
+      );
+    });
+    if (isUser.length !== 0) {
+      const access_token = { accesstoken: '나! 엑세스토큰!' };
+      resultUser = { ...access_token, body: isUser };
+    } else {
+      const err = '일치하지 않은 ID,PW 입니다.';
+      return res(ctx.delay(200), ctx.status(401), ctx.json(err));
+    }
+    console.log('MSW서버->post(/genlogin) -> isUser : ', isUser);
+    return res(ctx.delay(200), ctx.status(200), ctx.json(resultUser));
+  }),
+
+  //카카오인증 서버로 재발급 요청 보냄
+  rest.get('/login/renew', async (req, res, ctx) => {
+    const header = new Headers(req.headers);
+    const refreshToken = header.get('cookie');
+    const renewRes = await renewTokenDirectly(refreshToken);
+    const userInfo = await getUserInfo(
+      KAKAO_USERINFO_URL,
+      renewRes.access_token,
+    );
+
+    return res(
+      ctx.delay(200),
+      ctx.status(200),
+      ctx.json({ access_token: renewRes, userInfo: userInfo }),
     );
   }),
 ];
-//토큰 헤더[0], 쿠키, 바디
