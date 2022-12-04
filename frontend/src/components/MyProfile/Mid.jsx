@@ -40,7 +40,6 @@ const Mid = () => {
       .get(`${apiUrl}/members/find`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'ngrok-skip-browser-warning': '111',
           'Content-Type': 'application/json',
           Authorization:
             `Bearer ${localStorage.getItem('accesstoken')}` ||
@@ -70,20 +69,17 @@ const Mid = () => {
   });
 
   const checkedNick = () => {
-    apiClient
-      .get(`/members`, {
+    axios
+      .get(`${apiUrl}/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'ngrok-skip-browser-warning': '111',
         },
       })
       .then((res) => {
         let nowUserNick = false;
-
         if (userInfo.nickname === watch('nickname')) {
           nowUserNick = true;
         }
-
         let existNick = res.data.content.find(
           (user) => user.nickname === watch('nickname'),
         );
@@ -107,9 +103,8 @@ const Mid = () => {
     if (isEdit && isPostCode) {
       setValue('detailAddress', userInfo.detailAddress); // userInfo는 로컬상태이므로 렌더링되면 초기화!
       setValue('address', inSignAddress);
-      setValue('nickname', inputState.nickname); // 만약 바꾼상태로 주소찾기를 갈떄 전역상태 inputState로 들어감
+      setValue('nickname', inputState.nickname);
       if (nickState) {
-        // 얘는 닉을 안바꾼상태로 그대로 주소찾기로 들어갈떄 따로 nickState 전역상태로 저장
         setValue('nickname', nickState);
       }
       setValue('phone', inputState.phone);
@@ -121,24 +116,20 @@ const Mid = () => {
   }, []);
 
   const avatar = watch('photoURL');
-  // setAvatarPreview(`blob:${userInfo.photoURL}`);
   useEffect(() => {
     if (avatar && avatar.length > 0) {
       const file = avatar[0];
       setAvatarPreview(URL.createObjectURL(file));
-      console.log('URL.createObjectURL(file) : ', URL.createObjectURL(file));
     }
   }, [avatar]);
 
   const onValid = async (data) => {
     checkedNick();
-
     if (isNick) {
       return await new Promise(() => {
         setTimeout(() => {
           if (avatar && avatar.length) {
             const file = avatar[0];
-
             data.photoURL = URL.createObjectURL(file).slice(5);
           }
           if (!data.photoURL.length) {
@@ -153,17 +144,10 @@ const Mid = () => {
           if (!watch('address')) {
             delete data.address;
           }
-          // if (watch('address') && !watch('detailAddress')) {
-          //   data.detailAddress = '';
-          // } else if (!watch('detailAddress')) {
-          //   delete data.detailAddress;
-          // }
-
-          apiClient
-            .patch(`/members/edit`, data, {
+          axios
+            .patch(`${apiUrl}/members/edit`, data, {
               headers: {
                 'Access-Control-Allow-Origin': '*',
-                'ngrok-skip-browser-warning': '111',
                 'Content-Type': 'application/json',
                 Authorization:
                   `Bearer ${localStorage.getItem('accesstoken')}` ||
@@ -195,13 +179,11 @@ const Mid = () => {
 
   const removeUser = async () => {
     if (confirm('정말 탈퇴하시겠습니까?')) {
-      console.log('확인누름');
       if (localStorage.getItem('accesstoken')) {
         await axios
           .delete(`${apiUrl}/members/remove`, {
             headers: {
               'Access-Control-Allow-Origin': '*',
-              'ngrok-skip-browser-warning': '111',
               'Content-Type': 'application/json',
               Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
             },
@@ -213,16 +195,14 @@ const Mid = () => {
             setIsPostCode(false);
             localStorage.removeItem('accesstoken');
             localStorage.removeItem('refreshtoken');
-
             navigate('/');
-            console.log('회원탈퇴버튼 누르고 res : ', res);
+            console.log('탈퇴 완료!');
           });
       } else if (sessionStorage.getItem('accesstoken')) {
         await axios
           .delete(`${apiUrl}/members/remove`, {
             headers: {
               'Access-Control-Allow-Origin': '*',
-              'ngrok-skip-browser-warning': '111',
               'Content-Type': 'application/json',
               Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             },
@@ -234,7 +214,7 @@ const Mid = () => {
             setIsPostCode(false);
             sessionStorage.removeItem('accesstoken');
             navigate('/');
-            console.log('회원탈퇴버튼 누르고 res : ', res);
+            console.log('탈퇴 완료!');
           });
       }
     } else {
@@ -248,19 +228,31 @@ const Mid = () => {
         .get(`${apiUrl}/members/find`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
           },
         })
         .then((res) => {
-          setNow('');
-          setUserInfo('');
-          setInSignAddress('');
-          setIsPostCode(false);
-          localStorage.removeItem('accesstoken');
-          localStorage.removeItem('refreshtoken');
-          navigate('/');
+          setValue('nickname', res.data.nickname);
+          setValue('phone', res.data.phone);
+          setValue('address', res.data.address);
+          setValue('detailAddress', res.data.detailAddress);
+        });
+    } else if (sessionStorage.getItem('accesstoken')) {
+      axios
+        .get(`${apiUrl}/members/find`, {
+          headers: {
+            'Access-Control-Allow-Origin': '',
+            'ngrok-skip-browser-warning': '111',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
+          },
+        })
+        .then((res) => {
+          setValue('nickname', res.data.nickname);
+          setValue('phone', res.data.phone);
+          setValue('address', res.data.address);
+          setValue('detailAddress', res.data.detailAddress);
         });
     }
   };
@@ -270,66 +262,60 @@ const Mid = () => {
       <form onSubmit={handleSubmit(onValid, onInValid)}>
         <S.SignUpMidContainer>
           <S.SignUpPhotoDiv>
-            {isEdit ? (
-              avatarPreview ? (
-                <>
-                  <S.SignUpPhoto>
-                    <S.PreviewImg
-                      src={avatarPreview}
-                      onError={(e) => {
-                        e.target.src = ProfileImg;
-                      }}
+            <S.SignUpPhotoDivInDiv>
+              {isEdit ? (
+                avatarPreview ? (
+                  <>
+                    <S.SignUpPhoto>
+                      <S.PreviewImg
+                        src={avatarPreview}
+                        onError={(e) => {
+                          e.target.src = ProfileImg;
+                        }}
+                      />
+                    </S.SignUpPhoto>
+                    <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
+                    <input
+                      id='file'
+                      type='file'
+                      name='photoURL'
+                      accept='image/*'
+                      {...register('photoURL')}
+                      style={{ display: 'none' }}
                     />
-                  </S.SignUpPhoto>
-                  {/* <S.ImgBtnDiv> */}
-                  <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
-                  {/* <S.FileLabelEdit>이미지삭제</S.FileLabelEdit> */}
-                  {/* </S.ImgBtnDiv> */}
-
-                  <input
-                    id='file'
-                    type='file'
-                    name='photoURL'
-                    accept='image/*'
-                    {...register('photoURL')}
-                    style={{ display: 'none' }}
-                  />
-                </>
+                  </>
+                ) : (
+                  <>
+                    <S.SignUpPhoto>
+                      <S.PreviewImg
+                        src={`blob:${userInfo.photoURL}`}
+                        onError={(e) => {
+                          e.target.src = ProfileImg;
+                        }}
+                      />
+                    </S.SignUpPhoto>
+                    <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
+                    <input
+                      id='file'
+                      type='file'
+                      name='photoURL'
+                      accept='image/*'
+                      {...register('photoURL')}
+                      style={{ display: 'none' }}
+                    />
+                  </>
+                )
               ) : (
-                <>
-                  <S.SignUpPhoto>
-                    <S.PreviewImg
-                      src={`blob:${userInfo.photoURL}`}
-                      onError={(e) => {
-                        e.target.src = ProfileImg;
-                      }}
-                    />
-                  </S.SignUpPhoto>
-                  {/* <S.ImgBtnDiv> */}
-                  <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
-                  {/* <S.FileLabelEdit>이미지삭제</S.FileLabelEdit> */}
-                  {/* </S.ImgBtnDiv> */}
-
-                  <input
-                    id='file'
-                    type='file'
-                    name='photoURL'
-                    accept='image/*'
-                    {...register('photoURL')}
-                    style={{ display: 'none' }}
+                <S.SignUpPhoto>
+                  <S.PreviewImg
+                    src={`blob:${userInfo.photoURL}`}
+                    onError={(e) => {
+                      e.target.src = ProfileImg;
+                    }}
                   />
-                </>
-              )
-            ) : (
-              <S.SignUpPhoto>
-                <S.PreviewImg
-                  src={`blob:${userInfo.photoURL}`}
-                  onError={(e) => {
-                    e.target.src = ProfileImg;
-                  }}
-                />
-              </S.SignUpPhoto>
-            )}
+                </S.SignUpPhoto>
+              )}
+            </S.SignUpPhotoDivInDiv>
           </S.SignUpPhotoDiv>
           <S.SignUpEmailInputDiv>
             <input type='email' defaultValue={userInfo.email} disabled />
@@ -382,7 +368,6 @@ const Mid = () => {
           ) : (
             <S.SignUpNickFailMsgDiv>{nickMsg}</S.SignUpNickFailMsgDiv>
           )}
-
           <S.SignUpPhoneInputDiv>
             {isEdit ? (
               <input
@@ -424,7 +409,6 @@ const Mid = () => {
                   <S.SearchAddressBtn
                     type='button'
                     onClick={() => {
-                      // setInputState(watch());
                       if (!watch('nickname')) {
                         setNickState(userInfo.nickname);
                       }
@@ -455,6 +439,7 @@ const Mid = () => {
                   <input
                     type='text'
                     defaultValue={userInfo.address}
+                    placeholder='주소'
                     disabled
                     style={{ width: '100%' }}
                   />
@@ -480,8 +465,6 @@ const Mid = () => {
                 onClick={() => {
                   setIsEdit(!isEdit);
                   callBackUserInfo();
-
-                  // 취소했을때 이전에 수정모드에서 바꾸려고  바꿧던 값들 다시 초기화되며 userInfo data가 다시 들어옴
                 }}
               >
                 수정 취소

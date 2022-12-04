@@ -13,7 +13,7 @@ const PayDetail = () => {
     const totalAmount = state?.price + state?.defaultPrice;
     
     const handleClick = async () => {
-        postKakao(state, totalAmount)
+        postKakao()
     }
 
     return (

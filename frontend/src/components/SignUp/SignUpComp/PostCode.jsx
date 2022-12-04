@@ -17,7 +17,6 @@ const PostCode = (data) => {
     let fullAddress = data.address;
     let extraAddress = '';
 
-    // 도로명 눌렀을때
     if (data.userSelectedType === 'R') {
       if (data.bname !== '') {
         extraAddress += data.bname;
@@ -28,7 +27,6 @@ const PostCode = (data) => {
       }
       fullAddress += extraAddress !== '' ? `(${extraAddress})` : '';
     }
-    // 지번 눌렀을때
     if (data.userSelectedType === 'J') {
       if (data.bname !== '') {
         extraAddress += data.bname;
@@ -56,7 +54,7 @@ const PostCode = (data) => {
     ) {
       navigate('/signup');
     } else if (now !== 'MyProfile' && now !== 'SignUp') {
-      // navigate('*');
+      navigate('*');
     }
   };
   return <DaumPostcode onComplete={complete} />;

@@ -1,5 +1,5 @@
-import AdminSignUpForm from '../../components/AdminSignUp/AdminSignUpForm';
-import { PageWrapper } from '../../components/@commons';
+import AdminSignUpForm from '../../../components/AdminSignUp/AdminSignUpForm';
+import { PageWrapper } from '../../../components/@commons';
 
 const AdminSignUp = () => {
   return (

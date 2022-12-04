@@ -4,11 +4,9 @@ import { useEffect } from 'react';
 
 const ReservingList = ({ data }) => {
   const img = data.batteryPhotoURL;
-
-  // 시간 props로 받은거 배열로 만들어주기
   const start = data.startTime.split('');
   const end = data.endTime.split('');
-  // 시간 깔끔하게 해주는 함수
+
   const timeRefresh = () => {
     let newStart = [...start];
     let newEnd = [...end];

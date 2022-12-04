@@ -2,8 +2,6 @@ import axios from 'axios';
 import { useState } from 'react';
 const apiUrl = import.meta.env.VITE_SERVER_URL;
 
-// import { axios } from '../../apis/stations';
-
 const useMyPage = () => {
   const [photo, setPhoto] = useState('');
   const [nickName, setNickName] = useState('');
@@ -15,13 +13,11 @@ const useMyPage = () => {
         .get(`${apiUrl}/members/find`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
           },
         })
         .then((res) => {
-          console.log('axios 내부 -> res : ', res);
           setNickName(res.data.nickname);
           setEmail(res.data.email);
           setPhoto(res.data.photoURL);
@@ -35,7 +31,6 @@ const useMyPage = () => {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
             'Content-Type': 'application/json',
           },
         })

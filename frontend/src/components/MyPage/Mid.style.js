@@ -21,6 +21,4 @@ export const IconTextDiv = styled.div`
 export const PaymentTextDiv = styled.div`
   margin-right: 10px;
 `;
-export const NoticeTextDiv = styled.div`
-  /* margin-right: 5px; */
-`;
+export const NoticeTextDiv = styled.div``;

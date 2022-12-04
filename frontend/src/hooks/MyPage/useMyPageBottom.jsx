@@ -12,20 +12,14 @@ const useMyPageBottom = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then((res) => {
           const payData = res.data.payment;
-
-          console.log('payData.length : ', payData.length);
           setListData([...payData]);
         })
         .catch((err) => {
-          console.log(
-            'mypage-> 예약,사용현황 리스트 받아오는 요청 err : ',
-            err,
-          );
+          console.log(' err : ', err);
         });
     } else if (sessionStorage.getItem('accesstoken')) {
       axios
@@ -33,15 +27,10 @@ const useMyPageBottom = () => {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then((res) => {
           const payData = res.data.payment;
-          console.log(
-            'mypage-> 예약,사용현황 리스트 받아오는 요청 res.data.payment : ',
-            res.data.payment,
-          );
           setListData([...payData]);
         })
         .catch((err) => {

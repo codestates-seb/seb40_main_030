@@ -1,23 +1,26 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { recoilPostAddress } from '../../../recoil/userInfoState';
+import { loginCheckState } from '../../../recoil/login';
 
 import { axiosAdminInstance } from '@/apis/admin';
-// import { postCheckedLogin, postLogin } from '@/apis/auth';
-import { loginCheckState } from '@/recoil/login';
+import { setUserLogin, setAdminLogin } from '../../../apis/apiLogin';
 
 import * as S from './GenLogin.style';
 
-axiosAdminInstance;
-
-// 일반 로그인 컴포넌트
 const GenLogin = () => {
+  const [postAddress, setPostAddress] = useRecoilState(recoilPostAddress);
+  const [typeState, setTypeState] = useState(true);
   const [checkedLogin, setCheckedLogin] = useRecoilState(loginCheckState);
-  const [typeState, setTypeState] = useState(true); // 로그인 타입 상태
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setPostAddress('');
+  }, []);
 
   const {
     register,
@@ -26,21 +29,8 @@ const GenLogin = () => {
     formState: { errors },
   } = useForm({ mode: 'onChange' });
 
-  // const onValid2 = () => {
-  //   const loginData = watch();
-
-  //   if (checkedLogin) {
-  //     postLogin(loginData);
-  //   } else {
-  //     postCheckedLogin(loginData);
-  //   }
-
-  //   navigate('/');
-  // };
-
   const onValid = async () => {
     const loginData = watch();
-
     await axios
       .post(`${import.meta.env.VITE_SERVER_URL}/auth/login`, loginData)
       .then((res) => {
@@ -57,22 +47,12 @@ const GenLogin = () => {
           'Authorization'
         ] = `Bearer ${accesstoken}`;
 
-        if (checkedLogin) {
-          if (res.data === 'Success ADMIN') {
-            localStorage.setItem('accesstoken', accesstoken);
-            localStorage.setItem('refreshtoken', refreshtoken);
-            localStorage.setItem('userType', 'admin');
-          } else {
-            localStorage.setItem('accesstoken', accesstoken);
-            localStorage.setItem('refreshtoken', refreshtoken);
-          }
-        } else if (!checkedLogin) {
-          if (res.data === 'Success ADMIN') {
-            sessionStorage.setItem('accesstoken', accesstoken);
-            sessionStorage.setItem('userType', 'admin');
-          } else {
-            sessionStorage.setItem('accesstoken', accesstoken);
-          }
+        if (res.data === 'Success ADMIN') {
+          setAdminLogin(accesstoken, checkedLogin, refreshtoken);
+          console.log('setAdminLogin 함수 실행!');
+        } else {
+          setUserLogin(accesstoken, checkedLogin, refreshtoken);
+          console.log('setUserLogin 함수 실행!');
         }
         navigate('/');
       })

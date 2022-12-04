@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
 export const SignUpContainer = styled.div`
-  width: 305px;
-  /* width: 100%; */
+  width: 100%;
   height: 100%;
-  /* border: 1px solid black; */
 `;
 export const SignUpMidContainer = styled.div`
   padding: 40px 10px 0 10px;
@@ -14,11 +12,18 @@ export const SignUpMidContainer = styled.div`
 
 export const SignUpPhotoDiv = styled.div`
   width: 100%;
-
   margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
   input {
     width: 24%;
   }
+`;
+export const SignUpPhotoDivInDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 100px;
 `;
 
 export const SignUpPhoto = styled.div`
@@ -26,7 +31,6 @@ export const SignUpPhoto = styled.div`
   height: 70px;
   margin-bottom: 10px;
   font-size: 14px;
-  /* position: absolute; */
 `;
 export const FileLabel = styled.label`
   display: inline-block;
@@ -40,7 +44,7 @@ export const FileLabel = styled.label`
   border: 1px solid #d6d9dc;
   border-bottom-color: #e2e2e2;
   border-radius: 5px;
-  margin-left: 117px;
+  margin-left: 111px;
 `;
 export const PreviewImg = styled.img`
   margin: 0 0 0 110px;
@@ -50,12 +54,14 @@ export const PreviewImg = styled.img`
   object-fit: cover;
 `;
 export const SignUpEmailInputDiv = styled.div`
+  display: flex;
   width: 100%;
   height: 40px;
-  padding: 5px;
+  padding: 5px 5px 5px 5px;
   border: 1px solid #d6d9dc;
   border-radius: 3px;
   margin-bottom: 5px;
+  justify-content: space-between;
   input {
     width: 78%;
     height: 30px;
@@ -125,12 +131,14 @@ export const SignUpCheckPasswordFailMsgDiv = styled.div`
   font-size: 12px;
 `;
 export const SignUpNickInputDiv = styled.div`
+  display: flex;
   width: 100%;
   height: 40px;
-  padding: 5px;
+  padding: 5px 5px 5px 5px;
   border: 1px solid #d6d9dc;
   border-radius: 3px;
   margin: 10px 0 5px 0;
+  justify-content: space-between;
   input {
     width: 78%;
     height: 30px;
@@ -177,12 +185,14 @@ export const SignUpAddressContainer = styled.div`
   margin-top: 15px;
 `;
 export const SignUpAddressInputDiv = styled.div`
+  display: flex;
   width: 100%;
   height: 40px;
-  padding: 5px;
+  padding: 5px 5px 5px 5px;
   border: 1px solid #d6d9dc;
   border-radius: 3px;
   margin-bottom: 7px;
+  justify-content: space-between;
   input {
     width: 78%;
     height: 30px;

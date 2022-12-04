@@ -9,7 +9,7 @@ const Bottom = () => {
 
   useEffect(() => {
     getUserPayment();
-  }, []); // 저장해서 리랜더링되면 계속해서 실행돼서 상태값 계속 늘어남... 흠... 상관없나??
+  }, []);
 
   const filterReserving = listData.filter((list) => {
     return list.status === 'WAITING_FOR_RESERVATION';
@@ -25,7 +25,6 @@ const Bottom = () => {
           filterReserving.map((data) => (
             <ReservingList data={data} key={data.id} />
           ))}
-        {/* 0 일때 삼항연산자 ㄱ  */}
       </S.ReservingListDiv>
       <S.UseNowListDiv>
         <S.UseNowText>사용 현황</S.UseNowText>

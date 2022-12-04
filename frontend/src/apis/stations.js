@@ -8,8 +8,6 @@ const apiClient = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'Access-Control-Allow-Origin': '*',
-    'ngrok-skip-browser-warning': '111',
-    'Content-Type': 'application/json',
     Authorization: `Bearer ${
       localToken !== null
         ? localToken
