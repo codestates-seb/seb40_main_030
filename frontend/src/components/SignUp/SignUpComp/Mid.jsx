@@ -13,7 +13,7 @@ import {
   isOverLapEmail,
   isOverLapNick,
 } from '../../../recoil/userInfoState';
-const apiUrl = import.meta.env.VITE_NGROK;
+const apiUrl = import.meta.env.VITE_SERVER_URL;
 import * as S from './Mid.style';
 
 const SignUpMid = () => {

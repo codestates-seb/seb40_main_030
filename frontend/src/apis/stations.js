@@ -5,7 +5,7 @@ const localToken = localStorage.getItem('accesstoken');
 const sessionToken = sessionStorage.getItem('accesstoken');
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_NGROK,
+  baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'Access-Control-Allow-Origin': '*',
     'ngrok-skip-browser-warning': '111',
