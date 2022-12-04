@@ -42,10 +42,12 @@ const GenLogin = () => {
     const loginData = watch();
 
     await axios
-      .post(`${import.meta.env.VITE_NGROK}/auth/login`, loginData)
+      .post(`${import.meta.env.VITE_SERVER_URL}/auth/login`, loginData)
       .then((res) => {
         const accesstoken = res.headers.accesstoken.split(' ')[1];
         const refreshtoken = res.headers.refreshtoken;
+
+        console.log('refresh', refreshtoken);
 
         axios.defaults.headers.common[
           'Authorization'

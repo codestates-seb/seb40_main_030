@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-const apiUrl = import.meta.env.VITE_NGROK;
+const apiUrl = import.meta.env.VITE_SERVER_URL;
 
 const useMyPageBottom = () => {
   const [listData, setListData] = useState([]);
