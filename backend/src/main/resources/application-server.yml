@@ -10,10 +10,6 @@ spring:
     hibernate:
       ddl-auto: update
     defer-datasource-initialization: true
-#  sql:
-#    init:
-#      data-locations: classpath:static/db/data.sql
-#      mode: always
 
 decorator:
   datasource:
@@ -31,3 +27,8 @@ cloud:
       auto: false
 
 mod: server
+
+mail:
+  address:
+    admin:
+      list: admin@gmail.com,admin1@gmail.com,admin2@gmail.com,admin3@gmail.com

@@ -1,4 +1,4 @@
-//package backend.domain.memberTest;
+package backend.domain.memberTest;
 //
 //import backend.domain.member.dto.MemberDto;
 //import backend.domain.member.entity.Member;
@@ -32,7 +32,7 @@
 //@SpringBootTest
 //@AutoConfigureMockMvc
 //@AutoConfigureRestDocs
-//public class MemberTest {
+public class MemberTest {
 //
 //    @Autowired
 //    private MockMvc mockMvc;
@@ -356,4 +356,4 @@
 //                ));
 //    }
 //
-//}
+}

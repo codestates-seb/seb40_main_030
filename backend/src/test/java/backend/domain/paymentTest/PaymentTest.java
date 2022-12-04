@@ -1,5 +1,5 @@
 
-//package backend.domain.paymentTest;
-//
-//public class PaymentTest {
-//}
+package backend.domain.paymentTest;
+
+public class PaymentTest {
+}
