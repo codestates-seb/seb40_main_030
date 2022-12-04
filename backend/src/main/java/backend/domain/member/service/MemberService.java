@@ -7,8 +7,10 @@ import backend.global.exception.exceptionCode.ExceptionCode;
 
 import backend.global.security.utils.CustomAuthorityUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -84,8 +86,10 @@ public class MemberService {
 
     private Member verifyExistsMember(Long memberId) {
 
-        return memberRepository.findById(memberId).orElseThrow(()->
-        {throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);});
+        return memberRepository.findById(memberId).orElseThrow(() ->
+        {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
+        });
 
     }
 
@@ -96,4 +100,19 @@ public class MemberService {
 //        valueOperations.set("logout_"+jws,username, Duration.ofMinutes(jwtTokenizer.getAccessTokenExpirationMinutes()));
 //    }
 
+    @Transactional(readOnly = true)
+    public Member find(String nickname) {
+        Member member = memberRepository.findByMemberNickname(nickname).get();
+        return member;
+    }
+
+    @Transactional
+    public void create(Member member) {
+        String rawPassword = member.getPassword();
+        String encPassword = passwordEncoder.encode(rawPassword);
+        member.setPassword(encPassword);
+        List<String> roles = customAuthorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
+        memberRepository.save(member);
+    }
 }

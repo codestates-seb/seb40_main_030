@@ -40,3 +40,6 @@ mail:
   address:
     admin:
       list: admin@gmail.com,admin1@gmail.com,admin2@gmail.com,admin3@gmail.com
+
+cos:
+  key: cos1234
