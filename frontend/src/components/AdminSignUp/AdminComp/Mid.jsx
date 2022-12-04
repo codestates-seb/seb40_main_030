@@ -1,11 +1,12 @@
-import * as S from './Mid.style';
-import { useForm } from 'react-hook-form';
-import { useRecoilState } from 'recoil';
-import { isOverLapEmail } from '../../../recoil/userInfoState';
-import { useState } from 'react';
 import axios from 'axios';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-const apiUrl = import.meta.env.VITE_NGROK;
+import { useRecoilState } from 'recoil';
+
+import { isOverLapEmail } from '../../../recoil/userInfoState';
+import * as S from './Mid.style';
+const apiUrl = import.meta.env.VITE_SERVER_URL;
 
 const Mid = () => {
   const navigate = useNavigate();
@@ -29,7 +30,6 @@ const Mid = () => {
         .get(`${apiUrl}/admins`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then((res) => {
@@ -50,7 +50,6 @@ const Mid = () => {
     }
   };
   const onValid = (data) => {
-    console.log('submit->data : ', data);
     checkedEmail();
     if (
       isEmail &&
@@ -58,22 +57,18 @@ const Mid = () => {
       watch('password') === watch('checkpassword')
     ) {
       delete data.checkpassword;
-      console.log('delete후 data : ', data);
       axios
         .post(`${apiUrl}/admins`, data, {
           headers: {
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
-        .then((res) => {
-          console.log('관리자 등록 성공!');
+        .then(() => {
           setIsEmail(false);
           navigate(-1);
         })
-        .catch((err) => {
+        .catch(() => {
           alert(`승인되지 않은 E-Mail입니다.\n☎️ 서비스센터 문의.`);
-          console.log('err : ', err);
         });
     }
   };
@@ -172,10 +167,6 @@ const Mid = () => {
                 placeholder='휴대폰번호(- 생략)'
                 {...register('phone', {
                   required: '⚠ 휴대폰번호 입력',
-                  // pattern: {
-                  //   value: /^\d{3}\d{3,4}\d{4}$/,
-                  //   message: '⚠ 숫자만 입력하세요.',
-                  // },
                 })}
               />
             </S.SignUpPhoneInputDiv>

@@ -5,6 +5,5 @@ export const LogoutBtn = styled.button`
   font-size: 8px;
   font-weight: bold;
   border-radius: 3px;
-  /* color: white; */
   color: black;
 `;

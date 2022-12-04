@@ -4,7 +4,7 @@ import { getPaymentsTable } from '@/apis/payments';
 
 const useGetInUseList = () => {
   const { data, status } = useQuery(['order-inUse'], getPaymentsTable, {
-    useErrorBoundary: false,
+    useErrorBoundary: true,
     suspense: true,
     select: (lists) =>
       lists

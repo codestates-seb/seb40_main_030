@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
 const ItemLayout = styled.div`
-/* width: 100%; */
+display: flex;
+height: 200px;
+margin-top: 60px;
+margin-bottom: 30px;
+width: 100%;
 `
 
 const ItemImg = styled.img`

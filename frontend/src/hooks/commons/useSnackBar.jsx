@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { snackBarState } from '@/recoil/pagesState';
 
 const useSnackBar = () => {
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [isCanceled, setIsCanceled] = useState(false);
   const [snackBar, setSnackBar] = useRecoilState(snackBarState);
   const { isActive, message } = snackBar;
 
@@ -11,8 +13,9 @@ const useSnackBar = () => {
     if (isActive) {
       setTimeout(() => {
         setSnackBar({ ...snackBar, isActive: false });
-      }, 3000);
+      }, 4000);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive]);
 
@@ -20,7 +23,15 @@ const useSnackBar = () => {
     setSnackBar({ message, isActive: true });
   };
 
-  return { isActive, message, openSnackBar };
+  return {
+    setIsCanceled,
+    setIsConfirmed,
+    isConfirmed,
+    isCanceled,
+    isActive,
+    message,
+    openSnackBar,
+  };
 };
 
 export default useSnackBar;

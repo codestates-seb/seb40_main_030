@@ -10,15 +10,96 @@ Kim Dong Jin, Kim Min Gu, Lee Dong Won
 v1.0.0, 2022.11.10
 
 ***
-== Zone Controller
+== Member API
+=== 회원 가입
 .curl-request
-include::{snippets}/
+include::{snippets}/createMember/curl-request.adoc[]
+
+.http-request
+include::{snippets}/createMember/http-request.adoc[]
 
 .request-fields
-include::{snippets}/
+include::{snippets}/createMember/request-fields.adoc[]
 
 .http-response
-include::{snippets}/
+include::{snippets}/createMember/http-response.adoc[]
+
+.response-body
+include::{snippets}/createMember/response-body.adoc[]
+
+***
+=== 회원 정보 수정
+.curl-request
+include::{snippets}/modifyMember/curl-request.adoc[]
+
+.http-request
+include::{snippets}/modifyMember/http-request.adoc[]
+
+.request-header
+include::{snippets}/modifyMember/request-headers.adoc[]
+
+.request-path_params
+include::{snippets}/modifyMember/path-parameters.adoc[]
+
+.request-body
+include::{snippets}/modifyMember/request-body.adoc[]
+
+.http-response
+include::{snippets}/modifyMember/http-response.adoc[]
+
+.response-body
+include::{snippets}/modifyMember/response-body.adoc[]
+
+***
+=== 회원 탈퇴 (계정 삭제)
+.curl-request
+include::{snippets}/removeMember/curl-request.adoc[]
+
+.http-request
+include::{snippets}/removeMember/http-request.adoc[]
+
+.request-headers
+include::{snippets}/removeMember/request-headers.adoc[]
+
+.request-path-parameters
+include::{snippets}/removeMember/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/removeMember/http-response.adoc[]
 
 .response-fields
-include::{snippets}/
+include::{snippets}/removeMember/response-fields.adoc[]
+
+***
+=== 단일 회원 조회
+.curl-request
+include::{snippets}/getMember/curl-request.adoc[]
+
+.http-request
+include::{snippets}/getMember/http-request.adoc[]
+
+.request-path_parameters
+include::{snippets}/getMember/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/getMember/http-response.adoc[]
+
+.response-fields
+include::{snippets}/getMember/response-fields.adoc[]
+
+***
+=== 전체 회원 조회
+.curl-request
+include::{snippets}/getMembers/curl-request.adoc[]
+
+.http-request
+include::{snippets}/getMembers/http-request.adoc[]
+
+.http-response
+include::{snippets}/getMembers/http-response.adoc[]
+
+.response-fields
+include::{snippets}/getMembers/response-fields.adoc[]
+
+
+***

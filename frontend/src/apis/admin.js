@@ -1,14 +1,9 @@
 import axios from 'axios';
 
 import { BASE_URL } from '@/constants/admin';
-
 const axiosAdminInstance = axios.create({
   baseURL: BASE_URL,
-  headers: {
-    'ngrok-skip-browser-warning': '111',
-  },
 });
-// console.log('ACCESS_TOKEN : ', ACCESS_TOKEN);
 //관리자 정보 가져옴 (배터리, 주유소 정보)
 const getAdminById = async () => {
   const res = await axiosAdminInstance.get(`/admins/find`);

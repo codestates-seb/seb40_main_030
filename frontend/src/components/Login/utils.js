@@ -10,13 +10,16 @@ const getAuthCode = () => {
 };
 
 const checkLoginState = () => {
-  const accesstoken =
-    localStorage.getItem('accesstoken') ||
-    sessionStorage.getItem('accesstoken');
-  if (accesstoken) {
+  const isLocalAuth = localStorage.getItem('accesstoken');
+  const isSessionAuth = sessionStorage.getItem('accesstoken');
+  const isAuth = isLocalAuth || isSessionAuth;
+
+  if (isAuth) {
     axiosAdminInstance.defaults.headers.common[
       'Authorization'
-    ] = `Bearer ${accesstoken}`;
+    ] = `Bearer ${isAuth}`;
+  } else {
+    axiosAdminInstance.defaults.headers.common['Authorization'] = ``;
   }
 };
 export { getAuthCode, moveToUrl, checkLoginState };

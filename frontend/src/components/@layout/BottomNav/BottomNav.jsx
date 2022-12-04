@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { BatteryIcon, ClockIcon, GlobeIcon, MyPageIcon } from '@/assets';
@@ -11,14 +10,14 @@ import { navState } from '@/recoil/pagesState';
 import * as S from './BottomNav.style';
 
 const BottomNav = () => {
-  const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
   const navigate = useNavigate();
+  const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
   const { pathname } = useLocation();
   const [isActive, setIsActive] = useRecoilState(navState);
-  const isUserType = localStorage.getItem('userType');
-  const isToken =
-    localStorage.getItem('accesstoken') ||
-    sessionStorage.getItem('accesstoken');
+  const localUserType = localStorage.getItem('userType');
+  const sessionUserType = sessionStorage.getItem('userType');
+  const localToken = localStorage.getItem('accesstoken');
+  const sessionToken = sessionStorage.getItem('accesstoken');
 
   useEffect(() => {
     if (pathname !== ROUTES.HOME.PATH) {
@@ -67,12 +66,22 @@ const BottomNav = () => {
             (pathname.includes('my') || pathname.includes('notice')) && 'active'
           }
         >
-          <Link to={isUserType ? '/business' : '/mypage'}>
-            <S.IconContainer>
-              <MyPageIcon className='icon' />
-              <S.Text className='text'>MyPage</S.Text>
-            </S.IconContainer>
-          </Link>
+          <S.IconContainer
+            onClick={() => {
+              if (localUserType === 'admin' || sessionUserType === 'admin') {
+                navigate(ROUTES.BUSINESS.PATH);
+              } else {
+                navigate(ROUTES.MYPAGE.PATH);
+              }
+
+              if (localToken === null && sessionToken === null) {
+                navigate(ROUTES.LOGIN.PATH);
+              }
+            }}
+          >
+            <MyPageIcon className='icon' />
+            <S.Text className='text'>MyPage</S.Text>
+          </S.IconContainer>
         </S.List>
       </S.ListWrap>
     </S.Navigation>

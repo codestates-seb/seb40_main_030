@@ -1,6 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
+import setAuthToken from '@/components/@helper/utils/setAuthToken';
 import { BASE_URL } from '@/constants/admin';
 
 import {
@@ -9,9 +10,10 @@ import {
   REDIRECT_URI,
 } from '../constants/auth';
 import { axiosAdminInstance } from './admin';
+import { apiClient } from './stations';
 
 const axiosOauthInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'ngrok-skip-browser-warning': '111',
     // authorization: `Bearer ${ACCESS_TOKEN}`,
@@ -20,7 +22,6 @@ const axiosOauthInstance = axios.create({
 
 const setHeaderAccessToken = (token) => {
   if (token) {
-    console.log('엑세스 토큰 헤더 세팅');
     axiosAdminInstance.defaults.headers.common[
       'Authorization'
     ] = `Bearer ${token}`;
@@ -29,7 +30,6 @@ const setHeaderAccessToken = (token) => {
 
 const sendAuthCode = async (authCode) => {
   const { res } = await axiosOauthInstance.post('/login', authCode);
-  console.log('인증코드 보낸후 응답');
   return res;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -195,6 +195,47 @@ const login = async () => {
   return res;
 };
 
+const postLogin = async (loginInfo) => {
+  return await axiosOauthInstance
+    .post('/auth/login', loginInfo)
+    .then((res) => {
+      const token = res.headers.get('accesstoken');
+
+      const [_, jwt] = token.split(' ');
+      _;
+
+      if (res.data === 'Success ADMIN') {
+        localStorage.setItem('userType', 'admin');
+      }
+
+      localStorage.setItem('accesstoken', jwt);
+      setAuthToken(jwt);
+    })
+    .catch(() => alert('로그인 실패'));
+};
+
+const postCheckedLogin = async (loginInfo) => {
+  return await apiClient
+    .post('/auth/login', loginInfo)
+    .then((res) => {
+      const token = res.headers.get('accesstoken');
+      const refreshToken = res.headers.get('refreshtoken');
+
+      const [_, jwt] = token.split(' ');
+      _;
+
+      if (res.data === 'Success ADMIN') {
+        localStorage.setItem('userType', 'admin');
+      }
+
+      sessionStorage.setItem('accesstoken', jwt);
+      localStorage.setItem('refreshtoken', refreshToken);
+
+      setAuthToken(jwt);
+    })
+    .catch(() => alert('로그인 실패'));
+};
+
 export {
   setHeaderAccessToken,
   sendAuthCode,
@@ -206,5 +247,7 @@ export {
   getUserInfo,
   renewTokenIndirectly,
   logoutAccountSessionDirectly,
+  postLogin,
+  postCheckedLogin,
   login,
 };

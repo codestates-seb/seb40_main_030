@@ -1,39 +1,32 @@
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import axios from 'axios';
+
 import { apiClient } from '../../../apis/stations';
 import { ProfileImg } from '../../../assets';
+import { nowState } from '../../../recoil/nowState';
 import {
   recoilPostAddress,
   userInfoState,
   isOverLapEmail,
   isOverLapNick,
 } from '../../../recoil/userInfoState';
-import { nowState } from '../../../recoil/nowState';
-const apiUrl = import.meta.env.VITE_NGROK;
+const apiUrl = import.meta.env.VITE_SERVER_URL;
 import * as S from './Mid.style';
 
 const SignUpMid = () => {
   const navigate = useNavigate();
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
-  const [inputState, setInputState] = useRecoilState(userInfoState); // input value 값들을 전역에 저장해둘 상태변수
+  const [inputState, setInputState] = useRecoilState(userInfoState);
   const [now, setNow] = useRecoilState(nowState);
-
   const [avatarPreview, setAvatarPreview] = useState('');
-
-  console.log('userInfoState : ', userInfoState);
-  console.log('inputState : ', inputState);
-
-  // ----- email,nickname이 올바른 or 중복이 없는 사용가능한 value인지 boolean 상태
   const [isEmail, setIsEmail] = useRecoilState(isOverLapEmail);
   const [isNick, setIsNick] = useRecoilState(isOverLapNick);
-
-  // ----- email, nickname 중복오류 메시지 상태
   const [nickMsg, setNickMsg] = useState('');
   const [emailMsg, setEmailMsg] = useState('');
-  // ---- react-hook-form -----
+
   const {
     register,
     handleSubmit,
@@ -50,12 +43,8 @@ const SignUpMid = () => {
       address: '',
       photoURL: '',
     },
-  }); // 제출버튼 누른적없어도 input value가 바뀔때마다 ->
-  // -> 바로바로 유효성 errors 메시지를 화면에 출력할 수 있음 <- onchange 모드 설정을 안해주면 한번 제출버튼을 누르고 나서야 에러메시지가 화면에 바뀔때마다 출력댐
+  });
 
-  // 주소찾기 마치고 다시 SignUp 페이지로 리다이렉션될때(렌더링) 이전 input value들 전역상태에서 가져오기
-  // recoil 즉, 전역상태는 컴포넌트 생명주기와는 별도로 동작하기때문에 페이지이동(랜더링)을해도 그 상태가 유지!
-  // 새로고침이나 서비스 종료를 하면 전역상태도 초기화!
   useEffect(() => {
     setNow('SignUp');
     setValue('email', inputState.email);
@@ -65,21 +54,16 @@ const SignUpMid = () => {
     setValue('phone', inputState.phone);
     setValue('address', inSignAddress);
     setValue('photoURL', inputState.photoURL);
-    console.log('useEffect -> watch(photoURL) : ', watch('photoURL'));
-    console.log('useEffect inputState.photoURL : ', inputState.photoURL);
   }, []);
-  console.log(watch('photoURL'));
-  console.log('watch() : ', watch());
 
   const checkedEmail = () => {
     if (!watch('email')) {
       alert('E-mail을 입력해주세요.');
     } else {
-      apiClient
-        .get(`/members`, {
+      axios
+        .get(`${apiUrl}/members`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then((res) => {
@@ -101,11 +85,10 @@ const SignUpMid = () => {
   };
 
   const checkedNick = () => {
-    apiClient
-      .get(`/members`, {
+    axios
+      .get(`${apiUrl}/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'ngrok-skip-browser-warning': '111',
         },
       })
       .then((res) => {
@@ -134,27 +117,19 @@ const SignUpMid = () => {
     ) {
       return new Promise(() =>
         setTimeout(() => {
-          console.log(' submit-> onSubmit data : ', data);
-
           if (avatar && avatar.length) {
             const file = avatar[0];
-            console.log(
-              'submit-> if문 내부 URL.createObjectURL(file) : ',
-              URL.createObjectURL(file),
-            );
             data.photoURL = URL.createObjectURL(file).slice(5);
           } else {
             data.photoURL = 'http://asdsadsadsas';
           }
-          console.log('submit -> axios직전 data : ', data);
           axios
             .post(`${apiUrl}/members`, data, {
               headers: {
                 'Access-Control-Allow-Origin': '*',
-                'ngrok-skip-browser-warning': '111',
               },
             })
-            .then((res) => {
+            .then(() => {
               setNow('');
               setInputState('');
               setInSignAddress('');
@@ -171,7 +146,6 @@ const SignUpMid = () => {
   const onInValid = (data) => {
     const errorlist = Object.keys(data).join(' / ');
     alert(errorlist + ' 입력폼의 입력방식을 확인하세요.');
-    console.log('onInValid : ', data);
   };
 
   const avatar = watch('photoURL');
@@ -179,34 +153,32 @@ const SignUpMid = () => {
     if (avatar && avatar.length > 0) {
       const file = avatar[0];
       setAvatarPreview(URL.createObjectURL(file));
-      console.log('URL.createObjectURL(file) : ', URL.createObjectURL(file));
     }
   }, [avatar]);
-
-  console.log('현재상태위치 now : ', now);
-
   return (
     <S.SignUpContainer>
       <form onSubmit={handleSubmit(onValid, onInValid)}>
         <S.SignUpMidContainer>
           <S.SignUpPhotoDiv>
-            <S.SignUpPhoto>
-              <S.PreviewImg
-                src={avatarPreview}
-                onError={(e) => {
-                  e.target.src = ProfileImg;
-                }}
+            <S.SignUpPhotoDivInDiv>
+              <S.SignUpPhoto>
+                <S.PreviewImg
+                  src={avatarPreview}
+                  onError={(e) => {
+                    e.target.src = ProfileImg;
+                  }}
+                />
+              </S.SignUpPhoto>
+              <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
+              <input
+                id='file'
+                type='file'
+                name='photoURL'
+                accept='image/*'
+                {...register('photoURL')}
+                style={{ display: 'none' }}
               />
-            </S.SignUpPhoto>
-            <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
-            <input
-              id='file'
-              type='file'
-              name='photoURL'
-              accept='image/*'
-              {...register('photoURL')}
-              style={{ display: 'none' }}
-            />
+            </S.SignUpPhotoDivInDiv>
           </S.SignUpPhotoDiv>
 
           <S.SignUpEmailInputDiv>

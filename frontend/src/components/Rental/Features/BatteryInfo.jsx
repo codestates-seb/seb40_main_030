@@ -83,7 +83,7 @@ const BatteryInfo = ({ content, station }) => {
               <span>기본요금</span>
             </S.PricePerMin>
             <ShadowButton
-              noShadow={true}
+              shadow={false}
               color='#22577e'
               width='150px'
               padding='10px 5px'
