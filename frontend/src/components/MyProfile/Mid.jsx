@@ -40,7 +40,6 @@ const Mid = () => {
       .get(`${apiUrl}/members/find`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'ngrok-skip-browser-warning': '111',
           'Content-Type': 'application/json',
           Authorization:
             `Bearer ${localStorage.getItem('accesstoken')}` ||
@@ -74,7 +73,6 @@ const Mid = () => {
       .get(`/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'ngrok-skip-browser-warning': '111',
         },
       })
       .then((res) => {
@@ -163,7 +161,6 @@ const Mid = () => {
             .patch(`/members/edit`, data, {
               headers: {
                 'Access-Control-Allow-Origin': '*',
-                'ngrok-skip-browser-warning': '111',
                 'Content-Type': 'application/json',
                 Authorization:
                   `Bearer ${localStorage.getItem('accesstoken')}` ||
@@ -201,7 +198,6 @@ const Mid = () => {
           .delete(`${apiUrl}/members/remove`, {
             headers: {
               'Access-Control-Allow-Origin': '*',
-              'ngrok-skip-browser-warning': '111',
               'Content-Type': 'application/json',
               Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
             },
@@ -222,7 +218,6 @@ const Mid = () => {
           .delete(`${apiUrl}/members/remove`, {
             headers: {
               'Access-Control-Allow-Origin': '*',
-              'ngrok-skip-browser-warning': '111',
               'Content-Type': 'application/json',
               Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             },
@@ -248,7 +243,6 @@ const Mid = () => {
         .get(`${apiUrl}/members/find`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
           },

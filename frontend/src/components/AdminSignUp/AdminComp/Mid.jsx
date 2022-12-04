@@ -30,7 +30,6 @@ const Mid = () => {
         .get(`${apiUrl}/admins`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then((res) => {
@@ -62,7 +61,6 @@ const Mid = () => {
         .post(`${apiUrl}/admins`, data, {
           headers: {
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then(() => {
