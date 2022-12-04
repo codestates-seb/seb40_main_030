@@ -100,8 +100,7 @@ public class PaymentController {
                                                        @PathVariable Long paymentId,
                                                        @RequestParam String extendTime) {
         Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
-
-        Payment modifiedPayment = paymentService.extendEndTime(paymentId, extendTime);
+        Payment modifiedPayment = paymentService.extendEndTime(paymentId, extendTime, memberId);
         ExtendTimeDto response = new ExtendTimeDto(modifiedPayment);
 
         return new ResponseEntity<>(response, HttpStatus.OK);

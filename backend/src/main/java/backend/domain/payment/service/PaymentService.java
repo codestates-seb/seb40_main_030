@@ -192,7 +192,9 @@ public class PaymentService {
 
     // 반납 시간 연장하기
     @Transactional
-    public Payment extendEndTime(Long paymentId, String extendTime) {
+    public Payment extendEndTime(Long paymentId, String extendTime, Long memberId) {
+        memberRepository.findById(memberId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NON_ACCESS_AUTH));
         Payment savedPayment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
         Reservation reservation = reservationRepository.findById(savedPayment.getReservations().get(0).getReservationId())
