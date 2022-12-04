@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-//import.meta.env.VITE_ACCESS_TOKEN
 const localToken = localStorage.getItem('accesstoken');
 const sessionToken = sessionStorage.getItem('accesstoken');
 
@@ -16,7 +15,6 @@ const apiClient = axios.create({
         : null
     }`,
   },
-  withCredentials: true,
 });
 
 const getAllStations = async () => {
