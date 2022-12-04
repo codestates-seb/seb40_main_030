@@ -16,12 +16,6 @@ const Top = () => {
   const [inputState, setInputState] = useRecoilState(userInfoState);
   const [isEdit, setIsEdit] = useRecoilState(recoilIsEdit);
 
-  console.log(
-    'accesstoken ? ',
-
-    sessionStorage.getItem('accesstoken'),
-  );
-
   const handleErrorImg = (e) => {
     e.target.src = ProfileImg;
   };
