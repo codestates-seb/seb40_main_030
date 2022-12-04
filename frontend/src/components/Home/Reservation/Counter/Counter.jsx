@@ -1,20 +1,24 @@
-import { useCounter } from '../hooks';
+import { useCounter } from '@/hooks';
 
 import * as S from './Counter.style';
 
-const Counter = ({ type, min, max, range }) => {
+const Counter = ({ type, min, max, range, externalRef }) => {
   const { inputRef, handleTime, currentTime } = useCounter(
     type,
     min,
     max,
-    range
+    range,
   );
 
   return (
     <S.Container>
       <S.UpDownButton onClick={() => handleTime('up')}>+</S.UpDownButton>
       <S.NumberBox>
-        <S.NumberInput ref={inputRef} value={currentTime} readOnly />
+        <S.NumberInput
+          ref={externalRef ? externalRef : inputRef}
+          value={currentTime}
+          readOnly
+        />
       </S.NumberBox>
       <S.UpDownButton onClick={() => handleTime('down')}>-</S.UpDownButton>
     </S.Container>

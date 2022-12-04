@@ -1,11 +1,23 @@
-import BatteryCharging from '../../@commons/Loading/BatteryCharging';
+import { LogoImage } from '@/assets';
+
 import * as S from './SplashScreen.style';
 
-const SplashScreen = () => {
+const SplashScreen = ({ matches }) => {
   return (
-    <S.Wrapper>
+    <S.Wrapper
+      matches={matches}
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 0, transition: { duration: 4 } }}
+    >
       {/* 추후 적합한 Splash 화면으로 변경필요 */}
-      <BatteryCharging />
+      {matches && (
+        <S.DesktopMessage>
+          본 웹페이지는 모바일에 최적화 되어있습니다.
+        </S.DesktopMessage>
+      )}
+      <S.SplashImageContainer matches={matches}>
+        <S.SplashImage src={LogoImage} />
+      </S.SplashImageContainer>
     </S.Wrapper>
   );
 };
