@@ -8,18 +8,22 @@ const ProductDetail = () => {
     return (
         <S.ItemLayout>        
             <S.ItemImg src={state?.photoURL}/>
-            <S.ItemDetails>
+            <S.ItemDetailLayout>
                 <S.ItemDetail>주유소 이름 :</S.ItemDetail>
-                <S.ItemDetail>상품명 :</S.ItemDetail>
-                <S.ItemDetail>용량 :</S.ItemDetail>
-                <S.ItemDate>예약날짜 :</S.ItemDate>
-            </S.ItemDetails>
-            <S.PayDetails>
                 <S.PayDetail>{state?.name}</S.PayDetail>
+            </S.ItemDetailLayout>
+            <S.ItemDetailLayout>
+                <S.ItemDetail>상품명 :</S.ItemDetail>
                 <S.PayDetail>{state?.batteryName}</S.PayDetail>
+            </S.ItemDetailLayout>
+            <S.ItemDetailLayout>
+                <S.ItemDetail>용량 :</S.ItemDetail>
                 <S.PayDetail>{state?.capacity}</S.PayDetail>
-                <S.PayDetail>{state?.startPoint.replace('T', ' ').replace(':','시 ')+'분'}<br/>{state?.endPoint.replace('T', ' ').replace(':','시 ')+'분'}</S.PayDetail>
-            </S.PayDetails>
+            </S.ItemDetailLayout>
+            <S.ItemDetailLayout>
+                <S.ItemDate>예약날짜 :</S.ItemDate>
+                <S.PayDetail>{state?.startPoint.replace('T', ' ').replace(':','시')+'분'}<br/>{state?.endPoint.replace('T', ' ').replace(':','시')+'분'}</S.PayDetail>
+            </S.ItemDetailLayout>
         </S.ItemLayout>
     );
 };
