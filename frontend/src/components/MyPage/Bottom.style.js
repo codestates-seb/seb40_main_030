@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import '@kfonts/bm-dohyeon';
 
 export const MyPageBottomContainer = styled.div`
   height: 410px;
@@ -14,12 +13,10 @@ export const ReservingListDiv = styled.div`
 export const ReservingText = styled.div`
   font-size: 15px;
   margin-bottom: 15px;
-  font-family: 'bm-dohyeon';
 `;
 export const UseNowText = styled.div`
   font-size: 15px;
   margin-bottom: 15px;
-  font-family: 'bm-dohyeon';
 `;
 
 export const UseNowListDiv = styled.div`

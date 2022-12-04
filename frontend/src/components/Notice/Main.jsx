@@ -1,9 +1,8 @@
+import { noticeList } from '../../mocks/data';
 import NoticeList from './List/NoticeList';
 import * as S from './Main.style';
-import { noticeList } from '../../mocks/data';
 
 const Main = () => {
-  console.log('noticeList : ', noticeList);
   return (
     <S.MainContainer>
       {noticeList &&

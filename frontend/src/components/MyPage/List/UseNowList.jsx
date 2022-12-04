@@ -1,5 +1,5 @@
-import * as S from './UseNowList.style';
 import styled from 'styled-components';
+import * as S from './UseNowList.style';
 
 const UseNowList = ({ data }) => {
   const img = data.batteryPhotoURL;

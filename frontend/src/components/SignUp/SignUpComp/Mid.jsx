@@ -132,7 +132,7 @@ const SignUpMid = () => {
                 'ngrok-skip-browser-warning': '111',
               },
             })
-            .then((res) => {
+            .then(() => {
               setNow('');
               setInputState('');
               setInSignAddress('');

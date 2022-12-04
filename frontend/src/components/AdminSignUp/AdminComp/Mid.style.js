@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import '@kfonts/bm-dohyeon';
-
 export const AdminMidContainer = styled.div`
   width: 100%;
   height: 100%;

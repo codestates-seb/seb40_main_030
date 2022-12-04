@@ -7,7 +7,6 @@ import SearchPage from '../../components/Search/SearchPage';
 
 const Search = () => {
   const { isDateFixed } = useCheckDateFixed();
-
   const { stations } = useGetAllStations();
   const { filteredStations } = useGetFilteredStationsBySetTime();
 

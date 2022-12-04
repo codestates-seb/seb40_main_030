@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
+//import.meta.env.VITE_ACCESS_TOKEN
 const localToken = localStorage.getItem('accesstoken');
 const sessionToken = sessionStorage.getItem('accesstoken');
 
@@ -11,8 +11,12 @@ const apiClient = axios.create({
     'ngrok-skip-browser-warning': '111',
     'Content-Type': 'application/json',
     Authorization: `Bearer ${
-      localToken ? localToken : sessionToken ? sessionToken : null
-    },`,
+      localToken !== null
+        ? localToken
+        : sessionToken !== null
+        ? sessionToken
+        : null
+    }`,
   },
   withCredentials: true,
 });

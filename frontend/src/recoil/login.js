@@ -25,4 +25,9 @@ const refreshToken = atom({
   effects: [localStorageEffect('refreshToken')],
 });
 
-export { sessionState, loginState, accessToken, refreshToken };
+const loginCheckState = atom({
+  key: 'checkLogin',
+  default: false,
+});
+
+export { sessionState, loginState, accessToken, refreshToken, loginCheckState };

@@ -4,18 +4,18 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { recoilPostAddress } from '../../../recoil/userInfoState';
+import { loginCheckState } from '../../../recoil/login';
 
 import { axiosAdminInstance } from '@/apis/admin';
 import { setUserLogin, setAdminLogin } from '../../../apis/apiLogin';
 
 import * as S from './GenLogin.style';
 
-const apiUrl = import.meta.env.VITE_NGROK;
-
 const GenLogin = () => {
   const [postAddress, setPostAddress] = useRecoilState(recoilPostAddress);
-  const [checkedLogin, setCheckedLogin] = useState(false);
   const [typeState, setTypeState] = useState(true);
+  const [checkedLogin, setCheckedLogin] = useRecoilState(loginCheckState);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,19 +26,21 @@ const GenLogin = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({ mode: 'onChange' });
 
   const onValid = async () => {
     const loginData = watch();
     await axios
-      .post(`${apiUrl}/auth/login`, loginData)
+      .post(`${import.meta.env.VITE_NGROK}/auth/login`, loginData)
       .then((res) => {
         const accesstoken = res.headers.accesstoken.split(' ')[1];
         const refreshtoken = res.headers.refreshtoken;
+
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${accesstoken}`;
+
         axiosAdminInstance.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${accesstoken}`;
@@ -50,7 +52,6 @@ const GenLogin = () => {
           setUserLogin(accesstoken, checkedLogin, refreshtoken);
           console.log('setUserLogin 함수 실행!');
         }
-        console.log('로그인 성공!');
         navigate('/');
       })
       .catch((err) => {
@@ -69,11 +70,7 @@ const GenLogin = () => {
         {typeState ? (
           <S.UserTypeLogin>회원 로그인</S.UserTypeLogin>
         ) : (
-          <S.NoUserType
-            onClick={() => {
-              setTypeState(!typeState);
-            }}
-          >
+          <S.NoUserType onClick={() => setTypeState(!typeState)}>
             회원 로그인
           </S.NoUserType>
         )}
@@ -163,9 +160,7 @@ const GenLogin = () => {
           <input
             type='checkbox'
             checked={checkedLogin}
-            onChange={() => {
-              setCheckedLogin(!checkedLogin);
-            }}
+            onChange={() => setCheckedLogin(!checkedLogin)}
           />
           <S.CheckBoxText>로그인 유지</S.CheckBoxText>
         </S.CheckBoxDiv>

@@ -83,8 +83,8 @@ const Mid = () => {
   });
 
   const checkedNick = () => {
-    apiClient
-      .get(`/members`, {
+    axios
+      .get(`${apiUrl}/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'ngrok-skip-browser-warning': '111',
@@ -114,7 +114,6 @@ const Mid = () => {
         console.log('에러: ', err);
       });
   };
-
   useEffect(() => {
     if (isEdit && isPostCode) {
       setValue('detailAddress', userInfo.detailAddress); // userInfo는 로컬상태이므로 렌더링되면 초기화!
@@ -160,8 +159,8 @@ const Mid = () => {
           if (!watch('address')) {
             delete data.address;
           }
-          apiClient
-            .patch(`/members/edit`, data, {
+          axios
+            .patch(`${apiUrl}/members/edit`, data, {
               headers: {
                 'Access-Control-Allow-Origin': '*',
                 'ngrok-skip-browser-warning': '111',
@@ -191,7 +190,6 @@ const Mid = () => {
 
   const onInValid = (data) => {
     const errorlist = Object.keys(data).join(' / ');
-    console.log(errorlist + ' 입력폼의 입력방식을 확인하세요.');
     console.log('onInValid : ', data);
   };
 
@@ -247,7 +245,7 @@ const Mid = () => {
       axios
         .get(`${apiUrl}/members/find`, {
           headers: {
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': '',
             'ngrok-skip-browser-warning': '111',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
@@ -263,7 +261,7 @@ const Mid = () => {
       axios
         .get(`${apiUrl}/members/find`, {
           headers: {
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': '',
             'ngrok-skip-browser-warning': '111',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,

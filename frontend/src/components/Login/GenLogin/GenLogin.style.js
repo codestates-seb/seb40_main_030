@@ -1,6 +1,5 @@
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import '@kfonts/bm-dohyeon';
+import styled from 'styled-components';
 
 export const LoginMidContainer = styled.div`
   padding: 70px 10px 0 10px;
@@ -10,7 +9,6 @@ export const LoginTypeDiv = styled.div`
   padding: 0px 0 15px 0;
   font-size: 15px;
   font-weight: bold;
-  font-family: 'bm-dohyeon';
 `;
 export const UserTypeLogin = styled.div`
   margin-right: 10px;

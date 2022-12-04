@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import '@kfonts/bm-dohyeon';
+
 export const MyPageTopContainer = styled.div`
   width: 100%;
   text-align: center;
@@ -19,19 +19,14 @@ export const EmailDiv = styled.div`
   font-size: 13px;
 `;
 export const MyInfoAndLogoutContainer = styled.div`
-  /* border: 1px solid black; */
   margin-left: 40%;
   padding: 0 10px 5px 0;
 `;
 export const MyInfoAndLogoutDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  /* margin-left: 40%; */
-  /* margin: 0 10px 10px 45%; */
-  /* gap: 65px; */
 `;
 export const MyInfoDiv = styled.div`
-  /* border: 1px solid red; */
   background-color: #d6d9dc;
   width: 70px;
   padding: 4px 7px 4px 4px;

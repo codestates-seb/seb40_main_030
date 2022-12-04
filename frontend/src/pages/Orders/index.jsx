@@ -10,7 +10,7 @@ const Orders = () => {
   const { isActive, message } = useSnackBar();
 
   return (
-    <PageWrapper title='대여 현황 확인' path={ROUTES.HOME.PATH}>
+    <PageWrapper title='대여 이력 확인' path={ROUTES.HOME.PATH}>
       <Category
         currentCategory={currentCategory}
         handleSwitchCategory={handleSwitchCategory}

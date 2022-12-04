@@ -101,13 +101,11 @@ export const handlers = [
 
   // 유저 정보 등록
   rest.post('/api/members', (req, res, ctx) => {
-    console.log('MSW에 회원정보등록할때 오는 요청 : ', req.body);
     // MockUsers.unshift(newUser);
     let id = MockUsers.length + 1;
     const newUser = req.body;
     const resultUser = { memberId: id, ...newUser };
     MockUsers.push(resultUser);
-    console.log('회원가입->MSW->MockUsers : ', MockUsers);
 
     return res(ctx.delay(), ctx.status(201), ctx.json(newUser));
   }),

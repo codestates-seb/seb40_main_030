@@ -21,6 +21,23 @@ import SearchAddress from './SearchAddress';
 import AdminSignUp from './SignUp/AdminSignUp';
 import SignUp from './SignUp';
 
+// W/O Page Animation
+// const PaymentCompleted = lazy(() => import('./PaymentCompleted'));
+// const NotFound = lazy(() => import('./NotFound'));
+// const SearchAddress = lazy(() => import('./SearchAddress'));
+// const Notice = lazy(() => import('./Notice'));
+// const Login = lazy(() => import('./Login'));
+// const Home = lazy(() => import('./Home'));
+// const MyPage = lazy(() => import('./MyPage'));
+// const MyProfile = lazy(() => import('./MyProfile'));
+// const Orders = lazy(() => import('./Orders'));
+// const Payments = lazy(() => import('./Payments'));
+// const Rental = lazy(() => import('./Rental'));
+// const Search = lazy(() => import('./Search'));
+// const AdminSignUp = lazy(() => import('./AdminSignUp'));
+// const Business = lazy(() => import('./Business'));
+// const SignUp = lazy(() => import('./SignUp'));
+
 const PAGES = [
   {
     element: <Home />,
@@ -41,11 +58,6 @@ const PAGES = [
         name: ROUTES.RENTAL.NAME,
       },
     ],
-  },
-  {
-    element: <Business />,
-    path: ROUTES.BUSINESS.PATH,
-    name: ROUTES.BUSINESS.NAME,
   },
   {
     element: <PrivateRouter />,
