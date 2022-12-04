@@ -12,7 +12,7 @@ const useSplashScreen = () => {
       setTimeout(() => {
         setLoading(false);
         sessionStorage.setItem('isSplashed', true);
-      }, 3000);
+      }, 3500);
     } else {
       setLoading(false);
     }

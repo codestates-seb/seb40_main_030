@@ -31,7 +31,6 @@ const BatteryEditForm = ({
       status: true,
       ...data,
     };
-    console.log('수정 body', body);
     editMutate([selectedBatteryInfo.batteryId, body]);
     openSnackBar('수정되었습니다');
     closeModalHandler(false);

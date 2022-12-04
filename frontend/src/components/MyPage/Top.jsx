@@ -16,29 +16,14 @@ const Top = () => {
   const { getUserInfo, nickName, email, photo } = useMyPage();
   const [inputState, setInputState] = useRecoilState(userInfoState);
 
-  console.log(
-    'accesstoken ? ',
-
-    sessionStorage.getItem('accesstoken'),
-  );
-
   const handleErrorImg = (e) => {
     e.target.src = ProfileImg;
   };
 
   useEffect(() => {
-    console.log(
-      'mypage/ localStorage ->  accesstoken  값 : ',
-      localStorage.getItem('accesstoken'),
-    );
-    console.log(
-      'MyPage-> sessionStorage -> accesstoken 값 : ',
-      sessionStorage.getItem('accesstoken'),
-    );
     // setInputState('');
     getUserInfo();
   }, []);
-  console.log('MyPage-> photo : ', photo);
   const PhotoImgDiv = styled.img`
     display: block;
     margin: auto;
@@ -49,7 +34,6 @@ const Top = () => {
     object-fit: cover;
   `;
 
-  console.log('photo : ', photo);
   return (
     <S.MyPageTopContainer>
       <PhotoImgDiv src={`blob:${photo}`} onError={handleErrorImg} />

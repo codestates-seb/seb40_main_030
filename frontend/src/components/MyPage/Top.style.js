@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import '@kfonts/bm-dohyeon';
 /* main-01 : #5584AC
   font-01 : #7b8c9f */
 export const MyPageTopContainer = styled.div`

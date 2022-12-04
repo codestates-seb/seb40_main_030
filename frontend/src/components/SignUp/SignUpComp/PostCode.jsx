@@ -40,9 +40,6 @@ const PostCode = (data) => {
       fullAddress += extraAddress !== '' ? `(${extraAddress})` : '';
     }
 
-    console.log('data :', data);
-    console.log('fullAddress : ', fullAddress);
-    console.log('주소찾기들어왔을떄 방금상태위치 now : ', now);
     setInPostAddress(fullAddress);
     if (now === 'MyProfile') {
       if (

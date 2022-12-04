@@ -6,7 +6,6 @@ import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
 import ErrorBoundary from '@/components/@helper/ErrorBoundary';
-// import { worker } from '@/mocks/browser';
 import { GlobalStyles, theme } from '@/styles';
 
 import App from './App';

@@ -1,16 +1,21 @@
+import { useState } from 'react';
+
 import { ShadowButton, ShadowCard } from '@/components/@commons';
+import InputModal from '@/components/Business/InputModal/InputModal';
 import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
-import { useGetBookingList, useSnackBar } from '@/hooks';
+import { useGetBookingList } from '@/hooks';
 
+import Cancel from '../Options/Cancel';
+import { ContentModal } from './Content.style';
 import DateBox from './DateBox';
 
 const BookingList = () => {
   const { data: bookingList } = useGetBookingList();
-  const { openSnackBar } = useSnackBar();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return bookingList?.map(({ battery, paymentId, startTime, endTime }) => (
-    <S.BatteryContainer key={paymentId}>
+    <S.BatteryContainer key={paymentId} id={paymentId}>
       <ShadowCard
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -31,7 +36,6 @@ const BookingList = () => {
               {battery.batteryName}
             </S.BatteryName>
           </S.ImageContainer>
-
           <S.ProductInfoContainer>
             <S.PriceContainer>
               <S.Price>
@@ -43,18 +47,29 @@ const BookingList = () => {
             </S.PriceContainer>
             <DateBox startTime={startTime} endTime={endTime} border={true} />
             <ShadowButton
-              noShadow={true}
+              shadow={false}
               width='80px'
               padding='10px 5px'
               content='예약 취소하기'
               style={{ fontSize: 13, marginTop: 20 }}
               // 정말로 예약 취소할건지 물어보는 모달
               // 같은 값 입력시
-              onClick={() => openSnackBar('예약이 성공적으로 취소되었습니다.')}
+              onClick={() => {
+                setIsModalOpen(true);
+              }}
             />
           </S.ProductInfoContainer>
         </S.ProductWrapper>
       </ShadowCard>
+      <InputModal isModalOpen={isModalOpen} closeModalHandler={setIsModalOpen}>
+        <ContentModal height={'30%'}>
+          <Cancel
+            startTime={startTime}
+            endTime={endTime}
+            setIsModalOpen={setIsModalOpen}
+          />
+        </ContentModal>
+      </InputModal>
     </S.BatteryContainer>
   ));
 };

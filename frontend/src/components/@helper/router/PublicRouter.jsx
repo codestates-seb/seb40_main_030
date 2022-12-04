@@ -6,18 +6,22 @@ import { useSnackBar } from '@/hooks';
 
 const PublicRouter = () => {
   const { openSnackBar } = useSnackBar();
-  const isAuth = localStorage.getItem('loginState');
+  const isLocalAuth = localStorage.getItem('accesstoken');
+  const isSessionAuth = sessionStorage.getItem('accesstoken');
 
   useEffect(() => {
-    if (isAuth) {
-      // 추후에 모달로 변경
+    if (isLocalAuth || isSessionAuth) {
       openSnackBar(MESSAGE.AUTHENTICATED);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuth]);
+  }, [isSessionAuth, isLocalAuth]);
 
-  return isAuth ? <Navigate to={ROUTES.HOME.PATH} replace /> : <Outlet />;
+  return isLocalAuth || isSessionAuth ? (
+    <Navigate to={ROUTES.HOME.PATH} replace />
+  ) : (
+    <Outlet />
+  );
 };
 
 export default PublicRouter;
