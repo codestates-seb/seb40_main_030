@@ -35,7 +35,6 @@ const Mid = () => {
 
   useEffect(() => {
     setNow('MyProfile');
-    console.log('현재상태위치 now : ', now);
     axios
       .get(`${apiUrl}/members/find`, {
         headers: {
@@ -48,8 +47,6 @@ const Mid = () => {
         },
       })
       .then((res) => {
-        console.log('res : ', res);
-        console.log('res.data : ', res.data);
         setUserInfo(res.data);
       });
   }, []);
@@ -71,8 +68,6 @@ const Mid = () => {
     },
   });
 
-  console.log('watch() : ', watch());
-
   const checkedNick = () => {
     apiClient
       .get(`/members`, {
@@ -83,17 +78,11 @@ const Mid = () => {
       })
       .then((res) => {
         let nowUserNick = false;
-        console.log(
-          'MyProfile / checkedNick userInfo.nickname : -> ',
-          userInfo.nickname,
-        );
+
         if (userInfo.nickname === watch('nickname')) {
           nowUserNick = true;
         }
-        console.log(
-          'MyProfile/checkedNick/ watch(nickname) : ',
-          watch('nickname'),
-        );
+
         let existNick = res.data.content.find(
           (user) => user.nickname === watch('nickname'),
         );
@@ -113,10 +102,8 @@ const Mid = () => {
         console.log('에러: ', err);
       });
   };
-  console.log('userInfo : ', userInfo);
   useEffect(() => {
     if (isEdit && isPostCode) {
-      console.log('isEdit && isPostCode가 true -> userInfo : ', userInfo);
       setValue('detailAddress', userInfo.detailAddress); // userInfo는 로컬상태이므로 렌더링되면 초기화!
       setValue('address', inSignAddress);
       setValue('nickname', inputState.nickname); // 만약 바꾼상태로 주소찾기를 갈떄 전역상태 inputState로 들어감
@@ -134,7 +121,6 @@ const Mid = () => {
 
   const avatar = watch('photoURL');
   // setAvatarPreview(`blob:${userInfo.photoURL}`);
-  console.log('avatar선언 바로 아래 watch(photoURL) : ', watch('photoURL'));
   useEffect(() => {
     if (avatar && avatar.length > 0) {
       const file = avatar[0];
@@ -145,19 +131,13 @@ const Mid = () => {
 
   const onValid = async (data) => {
     checkedNick();
-    console.log('정보수정완료버튼 누르고 여긴 onValid함수 -> data : ', data);
 
     if (isNick) {
       return await new Promise(() => {
         setTimeout(() => {
-          console.log(' submit-> onSubmit data : ', data);
-
           if (avatar && avatar.length) {
             const file = avatar[0];
-            console.log(
-              'submit-> if문 내부 URL.createObjectURL(file) : ',
-              URL.createObjectURL(file),
-            );
+
             data.photoURL = URL.createObjectURL(file).slice(5);
           }
           if (!data.photoURL.length) {
@@ -178,7 +158,6 @@ const Mid = () => {
           //   delete data.detailAddress;
           // }
 
-          console.log('onValid -> axios 직전 data : ', data);
           apiClient
             .patch(`/members/edit`, data, {
               headers: {
@@ -191,7 +170,6 @@ const Mid = () => {
               },
             })
             .then((res) => {
-              console.log('MyProfile -> onValid -> axios 내부 res : ', res);
               setNow('');
               setIsPostCode(false);
               setInputState('');
@@ -211,7 +189,6 @@ const Mid = () => {
 
   const onInValid = (data) => {
     const errorlist = Object.keys(data).join(' / ');
-    console.log(errorlist + ' 입력폼의 입력방식을 확인하세요.');
     console.log('onInValid : ', data);
   };
 
@@ -237,10 +214,7 @@ const Mid = () => {
           localStorage.removeItem('accesstoken');
           localStorage.removeItem('refreshtoken');
           navigate('/');
-          console.log('회원탈퇴버튼 누르고 res : ', res);
         });
-    } else {
-      console.log('취소누름');
     }
   };
 
@@ -257,7 +231,6 @@ const Mid = () => {
         },
       })
       .then((res) => {
-        console.log('callBackUserInfo 수정 취소 눌렀을때 axios res : -> ', res);
         setValue('nickname', res.data.nickname);
         setValue('phone', res.data.phone);
         // if (res.data.photoURL) {
@@ -333,10 +306,6 @@ const Mid = () => {
                 />
               </S.SignUpPhoto>
             )}
-
-            {console.log('watch(photoURL) : ', watch('photoURL'))}
-            {console.log('userInfo.photoURL : ', userInfo.photoURL)}
-            {console.log('avatarPreview : ', avatarPreview)}
           </S.SignUpPhotoDiv>
           <S.SignUpEmailInputDiv>
             <input type='email' defaultValue={userInfo.email} disabled />
@@ -478,7 +447,6 @@ const Mid = () => {
                 </S.SignUpAddressInputAddDiv>
               </>
             )}
-            {console.log('isEdit : ', isEdit)}
           </S.SignUpAddressContainer>
         </S.SignUpMidContainer>
         <S.SignUpBottomContainer>
@@ -500,7 +468,6 @@ const Mid = () => {
             <>
               <S.MyProfileEditBtn
                 onClick={() => {
-                  console.log('정보수정 버튼 눌렀음!');
                   setIsEdit(!isEdit);
                 }}
               >

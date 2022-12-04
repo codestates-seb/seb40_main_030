@@ -24,6 +24,7 @@ import KaKaoLoginIcon from './KaKaoLoginIcon.png';
 import BatterImg from './battery.png';
 import FuelTankImg from './fuel.jpg';
 import UndoIcon from './undo-button.png';
+import LogoImage from './logo-image.png';
 
 // Icons
 export {
@@ -47,4 +48,12 @@ export {
   CompletedIcon,
 };
 
-export { ServiceLogo, ProfileImg, PlusIcon, CartIcon, BatterImg, FuelTankImg };
+export {
+  ServiceLogo,
+  ProfileImg,
+  PlusIcon,
+  CartIcon,
+  BatterImg,
+  FuelTankImg,
+  LogoImage,
+};

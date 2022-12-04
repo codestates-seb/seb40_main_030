@@ -13,11 +13,11 @@ const getAvailableExtendPeriod = async (id) => {
 };
 
 const patchExtendBookingPeriod = async (id, extendTime) => {
-  const response = await apiClient.patch(
-    `/payments/${id}/extend?extendTime=${extendTime}`,
-  );
-
-  console.log(response);
+  const response = await apiClient
+    .patch(`/payments/${id}/extend?extendTime=${extendTime}`)
+    .catch((err) => {
+      console.log(err);
+    });
 
   return response;
 };

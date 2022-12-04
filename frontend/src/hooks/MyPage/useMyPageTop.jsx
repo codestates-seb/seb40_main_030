@@ -11,7 +11,6 @@ const useMyPage = () => {
 
   const getUserInfo = () => {
     if (localStorage.getItem('accesstoken')) {
-      console.log('if문 axios 직전');
       axios
         .get(`${apiUrl}/members/find`, {
           headers: {
@@ -41,7 +40,6 @@ const useMyPage = () => {
           },
         })
         .then((res) => {
-          console.log('axios -> res : ', res);
           setNickName(res.data.nickname);
           setEmail(res.data.email);
           setPhoto(res.data.photoURL);

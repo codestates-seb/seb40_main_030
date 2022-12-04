@@ -1,9 +1,10 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 import { DESKTOP_MARGIN_LEFT, DESKTOP_MAX_WIDTH } from '@/constants';
 
-const Wrapper = styled.div`
-  position: relative;
+const Wrapper = styled(motion.div)`
+  position: fixed;
   width: 100%;
   height: 100%;
 
@@ -24,4 +25,22 @@ const DesktopMessage = styled.h1`
   font-size: 30px;
 `;
 
-export { Wrapper, DesktopMessage };
+const SplashImageContainer = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+
+  right: ${({ matches }) => matches && '1%'};
+
+  width: 100%;
+  height: 100%;
+  background: ${({ theme }) => theme.WHITE};
+`;
+
+const SplashImage = styled(motion.img)`
+  position: fixed;
+  background: ${({ theme }) => theme.WHITE};
+`;
+
+export { Wrapper, DesktopMessage, SplashImageContainer, SplashImage };

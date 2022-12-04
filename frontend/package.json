@@ -47,6 +47,5 @@
   },
   "msw": {
     "workerDirectory": "public"
-  },
-    "proxy": "https://kapi.kakao.com"
+  }
 }

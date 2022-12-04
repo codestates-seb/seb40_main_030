@@ -15,6 +15,17 @@ const SearchPage = ({ stations }) => {
   const navigate = useNavigate();
   const setLocation = useSetRecoilState(currentLocationState);
 
+  // const apiClient = axios.create({
+  //   baseURL:
+  //     'http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com:8080',
+  //   headers: {
+  //     'Access-Control-Allow-Origin': '*',
+  //     'content-type': 'application/json;charset=UTF-8',
+  //     Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
+  //   },
+  //   withCredentials: true,
+  // });
+
   return (
     <>
       <div>
@@ -33,11 +44,20 @@ const SearchPage = ({ stations }) => {
           />
         )}
       </div>
-      <ShadowButton
+      {/* <ShadowButton
         content='카카오 페이 요청'
         width='100%'
         style={{ marginTop: 100, width: '100%' }}
+        onClick={(e) => {
+          e.preventDefault();
+          postKakao();
+        }}
       />
+
+      <form method='post' action='/kakaoPay'>
+        <button>카카오페이로 결제하기</button>
+      </form> */}
+
       <SnackBar isActive={isActive} message={message} />
     </>
   );

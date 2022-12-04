@@ -17,6 +17,7 @@ const Home = () => {
 
   return (
     <>
+      {/* <SplashScreen matches={matches} /> */}
       {isLoading && <SplashScreen matches={matches} />}
       <Suspense fallback={<BatteryCharging />}>
         <MapArea matches={matches} />

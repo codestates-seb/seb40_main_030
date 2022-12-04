@@ -33,8 +33,6 @@ const BatteryContent = ({
   const [isAddMode, setIsAddMode] = useRecoilState(recoilKeyName);
 
   const logoutHandler = () => {
-    console.log('로그아웃클릭');
-
     axiosAdminInstance.defaults.headers.common['Authorization'] = ``;
     localStorage.clear('accesstoken');
     sessionStorage.clear('accesstoken');

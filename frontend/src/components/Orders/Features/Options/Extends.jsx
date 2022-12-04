@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { ShadowButton } from '@/components/@commons';
 import Counter from '@/components/Home/Reservation/Counter/Counter';
 import {
@@ -15,23 +17,26 @@ const Extends = ({ endTime, paymentsId, setIsModalOpen }) => {
   const { handleBookingPeriod } = useExtendBookingPeriod();
   const { openSnackBar } = useSnackBar();
   const { data } = useGetAvailableExtendPeriod(paymentsId);
-  const { possibleEndTime } = data;
-
   const {
     extendedDate,
     externalHourRef,
     externalMinutesRef,
     timeDifferenceInHour,
     isValidExtendPeriod,
-  } = useExtendReservation(endTime, possibleEndTime);
+  } = useExtendReservation(endTime, data?.possibleEndTime);
 
-  if (possibleEndTime) {
+  useEffect(() => {
+    if (!data?.possibleEndTime) {
+      setIsModalOpen(false);
+    }
+  }, [data?.possibleEndTime]);
+
+  if (data?.possibleEndTime) {
     return (
       <S.ContentWrapper>
         <span className='max-extend-time'>
           최대 연장가능 시간은{' '}
           <b>{timeDifferenceInHour >= 24 ? 24 : timeDifferenceInHour}</b> 시간
-          입니다.
         </span>
         <ModalHeader title='배터리 대여기간 연장하기' />
         <DateBox endTime={endTime} fontSize='20px' />
@@ -77,6 +82,8 @@ const Extends = ({ endTime, paymentsId, setIsModalOpen }) => {
         />
       </S.ContentWrapper>
     );
+  } else {
+    return null;
   }
 };
 export default Extends;
