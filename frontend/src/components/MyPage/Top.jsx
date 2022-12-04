@@ -7,13 +7,14 @@ import { MyPageIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import useMyPage from '../../hooks/MyPage/useMyPageTop';
 import { useRecoilState } from 'recoil';
-import { userInfoState } from '../../recoil/userInfoState';
+import { userInfoState, recoilIsEdit } from '../../recoil/userInfoState';
 import { ProfileImg } from '../../assets';
 
 const Top = () => {
   const navigate = useNavigate();
   const { getUserInfo, nickName, email, photo } = useMyPage();
   const [inputState, setInputState] = useRecoilState(userInfoState);
+  const [isEdit, setIsEdit] = useRecoilState(recoilIsEdit);
 
   console.log(
     'accesstoken ? ',
@@ -26,6 +27,7 @@ const Top = () => {
   };
 
   useEffect(() => {
+    setIsEdit(false);
     getUserInfo();
   }, []);
   const PhotoImgDiv = styled.img`

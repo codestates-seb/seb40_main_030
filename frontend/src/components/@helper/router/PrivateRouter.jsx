@@ -6,17 +6,21 @@ import { useSnackBar } from '@/hooks';
 
 const PrivateRouter = () => {
   const { openSnackBar } = useSnackBar();
-  const isAuth =
-    localStorage.getItem('accesstoken') ||
-    sessionStorage.getItem('accesstoken');
+  const isLocalAuth = localStorage.getItem('accesstoken');
+  const isSessionAuth = sessionStorage.getItem('accesstoken');
+
   useEffect(() => {
-    if (!isAuth) {
+    if (!isLocalAuth && !isSessionAuth) {
       //  추후에 모달로 변경되야함
       openSnackBar(MESSAGE.NOT_AUTHENTICATED);
     }
-  }, [isAuth]);
+  }, [isLocalAuth, isSessionAuth]);
 
-  return isAuth ? <Outlet /> : <Navigate to={ROUTES.LOGIN.PATH} replace />;
+  return isLocalAuth || isSessionAuth ? (
+    <Outlet />
+  ) : (
+    <Navigate to={ROUTES.LOGIN.PATH} replace />
+  );
 };
 
 export default PrivateRouter;

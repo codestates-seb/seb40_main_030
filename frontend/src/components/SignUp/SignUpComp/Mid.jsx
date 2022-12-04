@@ -1,17 +1,18 @@
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import axios from 'axios';
+
 import { apiClient } from '../../../apis/stations';
 import { ProfileImg } from '../../../assets';
+import { nowState } from '../../../recoil/nowState';
 import {
   recoilPostAddress,
   userInfoState,
   isOverLapEmail,
   isOverLapNick,
 } from '../../../recoil/userInfoState';
-import { nowState } from '../../../recoil/nowState';
 const apiUrl = import.meta.env.VITE_NGROK;
 import * as S from './Mid.style';
 
@@ -157,9 +158,6 @@ const SignUpMid = () => {
       setAvatarPreview(URL.createObjectURL(file));
     }
   }, [avatar]);
-
-  console.log('현재상태위치 now : ', now);
-
   return (
     <S.SignUpContainer>
       <form onSubmit={handleSubmit(onValid, onInValid)}>

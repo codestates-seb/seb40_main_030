@@ -1,10 +1,12 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import axios from 'axios';
+
 import { apiClient } from '../../apis/stations';
 import { ProfileImg } from '../../assets';
+import { nowState } from '../../recoil/nowState';
 import {
   recoilPostAddress,
   userInfoState,
@@ -14,7 +16,6 @@ import {
   recoilNickname,
   recoilPhone,
 } from '../../recoil/userInfoState';
-import { nowState } from '../../recoil/nowState';
 import * as S from './Mid.style';
 const apiUrl = import.meta.env.VITE_NGROK;
 
@@ -59,8 +60,6 @@ const Mid = () => {
           },
         })
         .then((res) => {
-          console.log('res : ', res);
-          console.log('res.data : ', res.data);
           setUserInfo(res.data);
         });
     }
@@ -115,10 +114,9 @@ const Mid = () => {
         console.log('에러: ', err);
       });
   };
-  console.log('userInfo : ', userInfo);
+
   useEffect(() => {
     if (isEdit && isPostCode) {
-      console.log('isEdit && isPostCode가 true -> userInfo : ', userInfo);
       setValue('detailAddress', userInfo.detailAddress); // userInfo는 로컬상태이므로 렌더링되면 초기화!
       setValue('address', inSignAddress);
       setValue('nickname', inputState.nickname);
@@ -199,7 +197,6 @@ const Mid = () => {
 
   const removeUser = async () => {
     if (confirm('정말 탈퇴하시겠습니까?')) {
-      console.log('확인누름');
       if (localStorage.getItem('accesstoken')) {
         await axios
           .delete(`${apiUrl}/members/remove`, {

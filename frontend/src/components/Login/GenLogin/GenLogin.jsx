@@ -1,7 +1,9 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { recoilPostAddress } from '../../../recoil/userInfoState';
 
 import { axiosAdminInstance } from '@/apis/admin';
 
@@ -10,10 +12,14 @@ import * as S from './GenLogin.style';
 const apiUrl = import.meta.env.VITE_NGROK;
 
 const GenLogin = () => {
+  const [postAddress, setPostAddress] = useRecoilState(recoilPostAddress);
   const [checkedLogin, setCheckedLogin] = useState(false);
   const [typeState, setTypeState] = useState(true);
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setPostAddress('');
+  }, []);
 
   const {
     register,
@@ -29,21 +35,30 @@ const GenLogin = () => {
       .then((res) => {
         const accesstoken = res.headers.accesstoken.split(' ')[1];
         const refreshtoken = res.headers.refreshtoken;
+        const isAdmin = false;
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${accesstoken}`;
         axiosAdminInstance.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${accesstoken}`;
-        if (res.data === 'Success ADMIN') {
-          localStorage.setItem('userType', 'admin');
-        }
 
         if (checkedLogin) {
-          localStorage.setItem('accesstoken', accesstoken);
-          localStorage.setItem('refreshtoken', refreshtoken);
+          if (res.data === 'Success ADMIN') {
+            localStorage.setItem('accesstoken', accesstoken);
+            localStorage.setItem('refreshtoken', refreshtoken);
+            localStorage.setItem('userType', 'admin');
+          } else {
+            localStorage.setItem('accesstoken', accesstoken);
+            localStorage.setItem('refreshtoken', refreshtoken);
+          }
         } else if (!checkedLogin) {
-          sessionStorage.setItem('accesstoken', accesstoken);
+          if (res.data === 'Success ADMIN') {
+            sessionStorage.setItem('accesstoken', accesstoken);
+            sessionStorage.setItem('userType', 'admin');
+          } else {
+            sessionStorage.setItem('accesstoken', accesstoken);
+          }
         }
         console.log('로그인 성공!');
         navigate('/');

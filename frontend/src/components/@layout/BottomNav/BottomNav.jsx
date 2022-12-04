@@ -6,19 +6,14 @@ import { BatteryIcon, ClockIcon, GlobeIcon, MyPageIcon } from '@/assets';
 import { DESKTOP_MEDIA_QUERY, ROUTES } from '@/constants';
 import { useMediaQuery } from '@/hooks';
 import { navState } from '@/recoil/pagesState';
-import { useNavigate } from 'react-router-dom';
 
 import * as S from './BottomNav.style';
 
 const BottomNav = () => {
   const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [isActive, setIsActive] = useRecoilState(navState);
   const isUserType = localStorage.getItem('userType');
-  const isToken =
-    localStorage.getItem('accesstoken') ||
-    sessionStorage.getItem('accesstoken');
 
   useEffect(() => {
     if (pathname !== ROUTES.HOME.PATH) {
