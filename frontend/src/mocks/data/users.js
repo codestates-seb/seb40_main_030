@@ -2,7 +2,8 @@ const mockUser = [
   {
     memberId: 1,
     email: 'test@test.com',
-    nickName: 'testUser',
+    password: 'a12345678',
+    nickname: 'testuser',
     phone: '011-123-1234',
     address: 'somewhere over the rainbow',
     photoUrl: 'url',

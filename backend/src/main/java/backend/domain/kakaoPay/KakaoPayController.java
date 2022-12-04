@@ -30,12 +30,10 @@ public class KakaoPayController {
     private KakaoPayService kakaopay;
     private final PaymentService paymentService;
     private final JwtExtractUtils jwtExtractUtils;
-
-//    private Queue<Integer> buffer = new LinkedList<>();
+    private Queue<Integer> buffer = new LinkedList<>();
 
     @PostMapping("/kakaoPay")
     public String kakaoPay(@RequestParam(name = "itemName") String itemName,
-
                            @RequestParam(name = "totalAmount") int totalAmount,
                            @RequestParam(name = "batteryId") Long batteryId,
                            @RequestParam(name = "startTime") String startTime,
@@ -43,12 +41,8 @@ public class KakaoPayController {
                            HttpServletRequest request) {
         log.info("kakaoPay post............................................");
 
-
-//        if(buffer.size()>1) {
-//            throw new BusinessLogicException(ExceptionCode.PAYMENT_DENIED);
-//        }
-
-//        buffer.add(1);
+        if(buffer.size()>0) return "결제를 다시 요청해주세요.";
+        buffer.add(1);
 
         Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         Payment payment = new Payment(startTime, endTime, totalAmount);
@@ -65,6 +59,8 @@ public class KakaoPayController {
     public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
+
+        buffer.poll();
 
         model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
 

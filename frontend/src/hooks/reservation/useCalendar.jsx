@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { reservationState } from '../../recoil/pagesState';
+
+import { reservationState } from '@/recoil/pagesState';
 
 const useCalendar = () => {
   const [reservationStatus, setReservationStatus] =
@@ -11,17 +12,33 @@ const useCalendar = () => {
     rangeDates: [],
   });
 
+  const currentDate = {
+    month: new Date().getMonth() + 1,
+    date: new Date().getDate(),
+  };
+
+  const currentTime = {
+    hours: new Date().getHours(),
+    minutes: new Date().getMinutes(),
+  };
+
+  const addMonths = (numOfMonths, date = new Date()) => {
+    date.setMonth(date.getMonth() + numOfMonths);
+
+    return date;
+  };
+
+  const year = new Date().getFullYear();
+  const startMonth = new Date(date.startValue).getMonth() + 1;
+  const endMonth = new Date(date.endValue).getMonth() + 1;
+
+  const startDate = new Date(date.startValue).getDate();
+  const endDate = new Date(date.endValue).getDate();
+
   const handleChange = (d) => {
     const [startValue, endValue, rangeDates] = d;
     setDate((prev) => ({ ...prev, endValue, startValue, rangeDates }));
   };
-
-  const year = new Date().getFullYear();
-  const startMonth = new Date(date.startValue).getMonth();
-  const endMonth = new Date(date.endValue).getMonth();
-
-  const startDate = new Date(date.startValue).getDate();
-  const endDate = new Date(date.endValue).getDate();
 
   useEffect(() => {
     if (date.startValue !== null && date.endValue !== null) {
@@ -34,7 +51,13 @@ const useCalendar = () => {
     }
   }, [date]);
 
-  return { reservationStatus, date, handleChange };
+  return {
+    date,
+    currentDate,
+    currentTime,
+    handleChange,
+    addMonths,
+  };
 };
 
 export default useCalendar;

@@ -1,15 +1,30 @@
 import { atom } from 'recoil';
 
 const initialReservationValue = {
-  startTime: { hours: 1, minutes: 0 },
-  endTime: { hours: 1, minutes: 0 },
-  startDate: { year: 2022, month: null, date: null },
-  endDate: { year: 2022, month: null, date: null },
+  startTime: { hours: null, minutes: null },
+  endTime: { hours: null, minutes: null },
+  startDate: { year: null, month: null, date: null },
+  endDate: { year: null, month: null, date: null },
   dateFixed: { date: false, time: false },
-  singeDate: undefined,
+  bookingType: null,
   hours: 1,
   minutes: 0,
 };
+
+const sessionStorageEffect =
+  (key) =>
+  ({ setSelf, onSet }) => {
+    const savedValue = sessionStorage.getItem(key);
+    if (savedValue != null) {
+      setSelf(JSON.parse(savedValue));
+    }
+
+    onSet((newValue, _, isReset) => {
+      isReset
+        ? sessionStorage.removeItem(key)
+        : sessionStorage.setItem(key, JSON.stringify(newValue));
+    });
+  };
 
 const localStorageEffect =
   (key) =>
@@ -29,7 +44,7 @@ const localStorageEffect =
 const reservationState = atom({
   key: 'reservationState',
   default: initialReservationValue,
-  effects: [localStorageEffect('reservation')],
+  effects: [sessionStorageEffect('reservation')],
 });
 
 const navState = atom({
@@ -42,9 +57,20 @@ const currentLocationState = atom({
   default: { latitude: 37.4965, longitude: 127.0248 },
 });
 
+const snackBarState = atom({
+  key: 'snackbarState',
+  default: {
+    isActive: false,
+    message: '',
+  },
+});
+
 export {
   initialReservationValue,
   navState,
   currentLocationState,
   reservationState,
+  sessionStorageEffect,
+  localStorageEffect,
+  snackBarState,
 };

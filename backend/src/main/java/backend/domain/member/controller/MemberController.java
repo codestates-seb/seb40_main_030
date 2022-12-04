@@ -33,7 +33,7 @@ public class MemberController {
     private final JwtExtractUtils jwtExtractUtils;
 
     @PostMapping
-    public ResponseEntity<MemberDto.PostResDto> postMember(@Valid @RequestBody MemberDto.Post dto) {
+    public ResponseEntity<MemberDto.PostResDto> postMember(@RequestBody MemberDto.Post dto) {
 
         Member member = mapper.memberDtoPostToMember(dto);
         Member createdMember = service.createMember(member);
