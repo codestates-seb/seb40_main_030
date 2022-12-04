@@ -1,7 +1,7 @@
 package backend.domain.station.service;
 
 import backend.domain.admin.entity.Admin;
-import backend.domain.admin.repository.AdminRepository;
+import backend.domain.admin.mapper.repository.AdminRepository;
 import backend.domain.battery.entity.Battery;
 import backend.domain.battery.entity.Reservation;
 import backend.domain.station.entity.Station;

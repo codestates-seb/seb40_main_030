@@ -1,7 +1,7 @@
 package backend.global.security.userDetails;
 
 import backend.domain.admin.entity.Admin;
-import backend.domain.admin.repository.AdminRepository;
+import backend.domain.admin.mapper.repository.AdminRepository;
 import backend.domain.member.entity.Member;
 import backend.domain.member.repository.MemberRepository;
 import backend.global.exception.dto.BusinessLogicException;

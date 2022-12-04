@@ -31,8 +31,8 @@ public class SecurityConfiguration {
 
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils customAuthorityUtil;
-    private final MemberMapper memberMapper;
     private final RedisTemplate redisTemplate;
+    private final MemberMapper memberMapper;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {

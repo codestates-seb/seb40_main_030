@@ -1,12 +1,15 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${RDS_URL}
-    username: ${RDS_USERNAME}
-    password: ${RDS_PASSWORD}
+    url: jdbc:mysql://database-1.cg1z6nbd91zq.ap-northeast-2.rds.amazonaws.com:13306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: admin
+    password: tlxltlf1!A # 테스트용 임시 (추후 AWS 파라미터로 옮길 예정)
   jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
+    defer-datasource-initialization: true
 
 decorator:
   datasource:
@@ -16,11 +19,6 @@ decorator:
 file:
   img: Img/                       # 각 이미지 파일 저장 경로
 
-iam:
-  access-key: ${IAM_ACCESS_KEY}
-  secret-key: ${IAM_SECRET_KEY}
-  region: ap-northeast-2
-
 cloud:
   aws:
     region:
@@ -29,3 +27,8 @@ cloud:
       auto: false
 
 mod: server
+
+mail:
+  address:
+    admin:
+      list: admin@gmail.com,admin1@gmail.com,admin2@gmail.com,admin3@gmail.com

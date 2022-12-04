@@ -37,9 +37,9 @@ public class Member extends BaseTime {
     @Column(nullable = false)
     private String photoURL;
 
-    private String kakaoAccessToken;
+    private String kakaoAccessToken = null;
 
-    private String kakaoRefreshToken;
+    private String kakaoRefreshToken = null;
 
     @ElementCollection(fetch = FetchType.EAGER)
     List<String> roles = new ArrayList<>();
@@ -49,3 +49,4 @@ public class Member extends BaseTime {
     private List<Payment> payment;
 
 }
+
