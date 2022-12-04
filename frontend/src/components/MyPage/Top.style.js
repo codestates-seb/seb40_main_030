@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-/* main-01 : #5584AC
-  font-01 : #7b8c9f */
+
 export const MyPageTopContainer = styled.div`
   width: 100%;
   text-align: center;
@@ -10,6 +9,7 @@ export const MyPageTopContainer = styled.div`
   border-radius: 5px;
   background-color: #7b8c9f;
 `;
+export const ImgNickEmailDiv = styled.div``;
 export const NickNameDiv = styled.div`
   margin: 7px 0 5px 0;
   font-size: 15px;
@@ -18,10 +18,13 @@ export const EmailDiv = styled.div`
   margin: 0 0 7px 5px;
   font-size: 13px;
 `;
+export const MyInfoAndLogoutContainer = styled.div`
+  margin-left: 40%;
+  padding: 0 10px 5px 0;
+`;
 export const MyInfoAndLogoutDiv = styled.div`
   display: flex;
-  margin: 0 10px 10px 39.5%;
-  gap: 65px;
+  justify-content: space-between;
 `;
 export const MyInfoDiv = styled.div`
   background-color: #d6d9dc;

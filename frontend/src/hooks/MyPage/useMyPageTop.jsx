@@ -2,8 +2,6 @@ import axios from 'axios';
 import { useState } from 'react';
 const apiUrl = import.meta.env.VITE_SERVER_URL;
 
-// import { axios } from '../../apis/stations';
-
 const useMyPage = () => {
   const [photo, setPhoto] = useState('');
   const [nickName, setNickName] = useState('');
@@ -20,7 +18,6 @@ const useMyPage = () => {
           },
         })
         .then((res) => {
-          console.log('axios 내부 -> res : ', res);
           setNickName(res.data.nickname);
           setEmail(res.data.email);
           setPhoto(res.data.photoURL);

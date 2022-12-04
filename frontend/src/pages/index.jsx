@@ -5,20 +5,20 @@ import {
 } from '@/components/@helper';
 import { ROUTES } from '@/constants';
 
-import AdminSignUp from './AdminSignUp';
 import Business from './Business';
 import Home from './Home';
-import Login from './Login';
+import Login from './Auth/Login';
 import MyPage from './MyPage';
-import MyProfile from './MyProfile';
+import MyProfile from './MyPage/MyProfile';
 import NotFound from './NotFound';
-import Notice from './Notice';
+import Notice from './MyPage/Notice';
 import Orders from './Orders';
 import PaymentCompleted from './PaymentCompleted';
 import Payments from './Payments';
 import Rental from './Rental';
 import Search from './Search';
 import SearchAddress from './SearchAddress';
+import AdminSignUp from './SignUp/AdminSignUp';
 import SignUp from './SignUp';
 
 // W/O Page Animation

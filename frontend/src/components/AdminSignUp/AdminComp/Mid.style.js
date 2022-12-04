@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
 export const AdminMidContainer = styled.div`
-  /* width: 305px; */
   width: 100%;
   height: 100%;
-  /* border: 1px solid black; */
 `;
 export const SignUpMidContainer = styled.div`
   padding: 40px 10px 0 10px;
@@ -26,7 +24,6 @@ export const SignUpPhoto = styled.div`
   height: 70px;
   margin-bottom: 10px;
   font-size: 14px;
-  /* position: absolute; */
 `;
 export const FileLabel = styled.label`
   display: inline-block;
@@ -50,12 +47,14 @@ export const PreviewImg = styled.img`
   object-fit: cover;
 `;
 export const SignUpEmailInputDiv = styled.div`
+  display: flex;
   width: 100%;
   height: 40px;
-  padding: 5px;
+  padding: 5px 5px 5px 5px;
   border: 1px solid #d6d9dc;
   border-radius: 3px;
-  margin-bottom: 5px;
+  margin: 10px 0 5px 0;
+  justify-content: space-between;
   input {
     width: 78%;
     height: 30px;

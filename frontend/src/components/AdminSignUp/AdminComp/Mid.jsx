@@ -167,10 +167,6 @@ const Mid = () => {
                 placeholder='휴대폰번호(- 생략)'
                 {...register('phone', {
                   required: '⚠ 휴대폰번호 입력',
-                  // pattern: {
-                  //   value: /^\d{3}\d{3,4}\d{4}$/,
-                  //   message: '⚠ 숫자만 입력하세요.',
-                  // },
                 })}
               />
             </S.SignUpPhoneInputDiv>
