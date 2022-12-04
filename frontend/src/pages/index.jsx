@@ -5,7 +5,6 @@ import {
 } from '@/components/@helper';
 import { ROUTES } from '@/constants';
 
-// with Page Animation
 import AdminSignUp from './AdminSignUp';
 import Business from './Business';
 import Home from './Home';

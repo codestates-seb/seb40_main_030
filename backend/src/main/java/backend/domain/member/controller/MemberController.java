@@ -2,11 +2,15 @@ package backend.domain.member.controller;
 
 
 import backend.domain.member.dto.MemberDto;
+import backend.domain.member.dto.MemberResDto;
 import backend.domain.member.entity.Member;
 import backend.domain.member.mapper.MemberMapper;
 import backend.domain.member.service.MemberService;
 import backend.global.dto.PageInfoDto;
 import backend.global.dto.SingleResDto;
+import backend.global.exception.dto.BusinessLogicException;
+import backend.global.exception.exceptionCode.ExceptionCode;
+import backend.global.security.utils.JwtExtractUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
@@ -25,41 +30,42 @@ import javax.validation.constraints.Positive;
 public class MemberController {
     private final MemberMapper mapper;
     private final MemberService service;
+    private final JwtExtractUtils jwtExtractUtils;
 
     @PostMapping
-    public ResponseEntity<MemberDto.Response> postMember(@Valid @RequestBody MemberDto.Post dto) {
+    public ResponseEntity<MemberDto.PostResDto> postMember(@RequestBody MemberDto.Post dto) {
 
-        Member member = mapper.memberDtoPostToMember(dto);  // 식별자 값이 DB저장까지는 나오지 않아 mapper가 식별자 값을 못잡는 주의문구가 뜹니다. 사용에는 지장이 없으니 주의문구는 무시하셔도 좋습니다.
+        Member member = mapper.memberDtoPostToMember(dto);
         Member createdMember = service.createMember(member);
-//        MemberDto.Response response = mapper.memberToMemberDtoResponse(createdMember); // 매퍼에서 일부 값을 받지 못해 null값이 반환되어 우선 생성자를 사용한 변환방법으로 사용했습니다
-        MemberDto.Response response = new MemberDto.Response(createdMember);
+        MemberDto.PostResDto response = new MemberDto.PostResDto(createdMember);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{member-id}")
-    public ResponseEntity<MemberDto.Response> getMember(@Positive @PathVariable("member-id") Long memberId) {
-
+    @GetMapping("/find")
+    public ResponseEntity<MemberResDto> getMember(HttpServletRequest request) {
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         Member findMember = service.findMember(memberId);
-//        MemberDto.Response response = mapper.memberToMemberDtoResponse(findMember);  // 매퍼에서 일부 값을 받지 못해 null값이 반환되어 우선 생성자를 사용한 변환방법으로 사용했습니다
-        MemberDto.Response response = new MemberDto.Response(findMember);
+        MemberResDto response = new MemberResDto(findMember);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PatchMapping("/{member-id}")
-    public ResponseEntity<MemberDto.Response> patchMember (@PathVariable("member-id") Long memberId,
-                                                                      @RequestBody MemberDto.Patch dto) {
+    @PatchMapping("/edit")
+    public ResponseEntity<MemberDto.PatchResDto> patchMember (HttpServletRequest request,
+                                                              @RequestBody MemberDto.Patch dto) {
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         Member member = mapper.memberDtoPatchToMember(dto);
         member.setId(memberId);
         Member modifiedMember = service.patchMember(member);
-        MemberDto.Response response = new MemberDto.Response(modifiedMember);
+        MemberDto.PatchResDto response = new MemberDto.PatchResDto(modifiedMember);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{member-id}")
-    public ResponseEntity<SingleResDto<String>> deleteMember (@PathVariable("member-id") Long memberId) {
+    @DeleteMapping("/remove")
+    public ResponseEntity<SingleResDto<String>> deleteMember (HttpServletRequest request) {
+        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         service.deleteMember(memberId);
 
         return new ResponseEntity<>(new SingleResDto<>("Success Delete"), HttpStatus.OK);
@@ -68,8 +74,9 @@ public class MemberController {
     @GetMapping
     public ResponseEntity<PageInfoDto> getMembers (Pageable pageable) {
         Page<Member> page = service.findMembers(pageable);
+        Page<MemberResDto> dtoPage = page.map(MemberResDto::new);
 
-        return new ResponseEntity<>(new PageInfoDto(page), HttpStatus.OK);
+        return new ResponseEntity<>(new PageInfoDto(dtoPage), HttpStatus.OK);
     }
 
 //    @PostMapping("/logout")                   // 현재 시큐리티 미적용 상태이므로 주석처리 해두었습니다.
