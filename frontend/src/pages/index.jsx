@@ -5,6 +5,7 @@ import {
 } from '@/components/@helper';
 import { ROUTES } from '@/constants';
 
+// with Page Animation
 import AdminSignUp from './AdminSignUp';
 import Business from './Business';
 import Home from './Home';
@@ -20,6 +21,23 @@ import Rental from './Rental';
 import Search from './Search';
 import SearchAddress from './SearchAddress';
 import SignUp from './SignUp';
+
+// W/O Page Animation
+// const PaymentCompleted = lazy(() => import('./PaymentCompleted'));
+// const NotFound = lazy(() => import('./NotFound'));
+// const SearchAddress = lazy(() => import('./SearchAddress'));
+// const Notice = lazy(() => import('./Notice'));
+// const Login = lazy(() => import('./Login'));
+// const Home = lazy(() => import('./Home'));
+// const MyPage = lazy(() => import('./MyPage'));
+// const MyProfile = lazy(() => import('./MyProfile'));
+// const Orders = lazy(() => import('./Orders'));
+// const Payments = lazy(() => import('./Payments'));
+// const Rental = lazy(() => import('./Rental'));
+// const Search = lazy(() => import('./Search'));
+// const AdminSignUp = lazy(() => import('./AdminSignUp'));
+// const Business = lazy(() => import('./Business'));
+// const SignUp = lazy(() => import('./SignUp'));
 
 const PAGES = [
   {

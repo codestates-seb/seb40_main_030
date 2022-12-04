@@ -13,7 +13,6 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@kfonts/bm-dohyeon": "^0.1.3",
     "@meinefinsternis/react-horizontal-date-picker": "^1.0.1",
     "@tanstack/react-query": "^4.14.5",
     "axios": "^1.1.3",
