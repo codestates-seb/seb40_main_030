@@ -12,7 +12,6 @@ const useMyPageBottom = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then((res) => {
@@ -33,7 +32,6 @@ const useMyPageBottom = () => {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then((res) => {

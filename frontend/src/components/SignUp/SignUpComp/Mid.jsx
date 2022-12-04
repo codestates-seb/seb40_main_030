@@ -73,7 +73,6 @@ const SignUpMid = () => {
         .get(`/members`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
           },
         })
         .then((res) => {
@@ -99,7 +98,6 @@ const SignUpMid = () => {
       .get(`/members`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'ngrok-skip-browser-warning': '111',
         },
       })
       .then((res) => {
@@ -142,7 +140,6 @@ const SignUpMid = () => {
             .post(`${apiUrl}/members`, data, {
               headers: {
                 'Access-Control-Allow-Origin': '*',
-                'ngrok-skip-browser-warning': '111',
               },
             })
             .then(() => {

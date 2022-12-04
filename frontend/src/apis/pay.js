@@ -4,7 +4,6 @@ const apiPay = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'Acess-Control-Allow-Origin': '*',
-    'ngrok-skip-browser-warning': '111',
     'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
     Authorization: import.meta.env.VITE_PAY_KEY,
   },
