@@ -49,4 +49,3 @@ public class Member extends BaseTime {
     private List<Payment> payment;
 
 }
-
