@@ -15,7 +15,7 @@ spring:
 #  datasource:
 #    url: jdbc:h2:mem:test
   profiles:
-    active: server   # 로컬 프로파일 사용을 위한 설정
+    active: local   # 로컬 프로파일 사용을 위한 설정
   jpa:
     hibernate:
       ddl-auto: create
@@ -41,3 +41,6 @@ mail:
   address:
     admin:
       list: admin@gmail.com,admin1@gmail.com,admin2@gmail.com,admin3@gmail.com
+
+cos:
+  key: cos1234
