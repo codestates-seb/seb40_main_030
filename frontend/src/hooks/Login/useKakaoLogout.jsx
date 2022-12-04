@@ -17,7 +17,6 @@ const useKakaoLogout = () => {
   const navigate = useNavigate();
 
   const logoutClickHandler = () => {
-    console.log('로그아웃 클릭');
     setIsSessioned(false);
     window.location.assign(KAKAO_ACCOUNT_LOGOUT_URL);
   };

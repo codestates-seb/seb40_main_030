@@ -2,17 +2,19 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 import { axiosAdminInstance } from '@/apis/admin';
+// import { postCheckedLogin, postLogin } from '@/apis/auth';
+import { loginCheckState } from '@/recoil/login';
 
 import * as S from './GenLogin.style';
 
-const apiUrl = import.meta.env.VITE_NGROK;
+axiosAdminInstance;
 
 // 일반 로그인 컴포넌트
-
 const GenLogin = () => {
-  const [checkedLogin, setCheckedLogin] = useState(false);
+  const [checkedLogin, setCheckedLogin] = useRecoilState(loginCheckState);
   const [typeState, setTypeState] = useState(true); // 로그인 타입 상태
 
   const navigate = useNavigate();
@@ -21,54 +23,55 @@ const GenLogin = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({ mode: 'onChange' });
+
+  // const onValid2 = () => {
+  //   const loginData = watch();
+
+  //   if (checkedLogin) {
+  //     postLogin(loginData);
+  //   } else {
+  //     postCheckedLogin(loginData);
+  //   }
+
+  //   navigate('/');
+  // };
 
   const onValid = async () => {
     const loginData = watch();
 
-    console.log('axios 직전->loginData:  ', loginData);
     await axios
-      .post(`${apiUrl}/auth/login`, loginData)
+      .post(`${import.meta.env.VITE_NGROK}/auth/login`, loginData)
       .then((res) => {
-        console.log(' axios-> res : ', res);
-        console.log('res.headers: ', res.headers);
-        console.log(
-          'res.headers.Accesstoken: ',
-          res.headers.get('accesstoken'),
-        );
-        console.log(
-          'res.headers.refreshtoken: ',
-          res.headers.get('refreshtoken'),
-        );
-        console.log(
-          'GenLogin에서 로그인 axios요청으로 오는 res -> : ',
-          res.headers.accesstoken,
-        );
         const accesstoken = res.headers.accesstoken.split(' ')[1];
-        console.log('GenLogin/ accesstoken : ', accesstoken);
         const refreshtoken = res.headers.refreshtoken;
+
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${accesstoken}`;
+
         axiosAdminInstance.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${accesstoken}`;
-        if (res.data === 'Success ADMIN') {
-          localStorage.setItem('userType', 'admin');
-        }
 
         if (checkedLogin) {
-          localStorage.setItem('accesstoken', accesstoken);
-          localStorage.setItem('refreshtoken', refreshtoken);
-          console.log(
-            'localStorage에 넣어진 accesstoken : ',
-            localStorage.getItem('accesstoken'),
-          );
+          if (res.data === 'Success ADMIN') {
+            localStorage.setItem('accesstoken', accesstoken);
+            localStorage.setItem('refreshtoken', refreshtoken);
+            localStorage.setItem('userType', 'admin');
+          } else {
+            localStorage.setItem('accesstoken', accesstoken);
+            localStorage.setItem('refreshtoken', refreshtoken);
+          }
         } else if (!checkedLogin) {
-          sessionStorage.setItem('accesstoken', accesstoken);
+          if (res.data === 'Success ADMIN') {
+            sessionStorage.setItem('accesstoken', accesstoken);
+            sessionStorage.setItem('userType', 'admin');
+          } else {
+            sessionStorage.setItem('accesstoken', accesstoken);
+          }
         }
-        console.log('로그인 성공!');
         navigate('/');
       })
       .catch((err) => {
@@ -87,11 +90,7 @@ const GenLogin = () => {
         {typeState ? (
           <S.UserTypeLogin>회원 로그인</S.UserTypeLogin>
         ) : (
-          <S.NoUserType
-            onClick={() => {
-              setTypeState(!typeState);
-            }}
-          >
+          <S.NoUserType onClick={() => setTypeState(!typeState)}>
             회원 로그인
           </S.NoUserType>
         )}
@@ -181,9 +180,7 @@ const GenLogin = () => {
           <input
             type='checkbox'
             checked={checkedLogin}
-            onChange={() => {
-              setCheckedLogin(!checkedLogin);
-            }}
+            onChange={() => setCheckedLogin(!checkedLogin)}
           />
           <S.CheckBoxText>로그인 유지</S.CheckBoxText>
         </S.CheckBoxDiv>

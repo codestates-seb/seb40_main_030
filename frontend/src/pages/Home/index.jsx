@@ -17,6 +17,7 @@ const Home = () => {
 
   return (
     <>
+      {/* <SplashScreen matches={matches} /> */}
       {isLoading && <SplashScreen matches={matches} />}
       <Suspense fallback={<BatteryCharging />}>
         <MapArea matches={matches} />
@@ -31,7 +32,11 @@ const Home = () => {
             )}
           </div>
         ) : null}
-        <SnackBar isActive={isActive} message={message} />
+        <SnackBar
+          isActive={isActive}
+          message={message}
+          path={ROUTES.HOME.PATH}
+        />
         <BottomNav matches={matches} />
       </Suspense>
     </>

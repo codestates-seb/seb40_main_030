@@ -24,9 +24,6 @@ const SignUpMid = () => {
 
   const [avatarPreview, setAvatarPreview] = useState('');
 
-  console.log('userInfoState : ', userInfoState);
-  console.log('inputState : ', inputState);
-
   // ----- email,nickname이 올바른 or 중복이 없는 사용가능한 value인지 boolean 상태
   const [isEmail, setIsEmail] = useRecoilState(isOverLapEmail);
   const [isNick, setIsNick] = useRecoilState(isOverLapNick);
@@ -66,11 +63,7 @@ const SignUpMid = () => {
     setValue('phone', inputState.phone);
     setValue('address', inSignAddress);
     setValue('photoURL', inputState.photoURL);
-    console.log('useEffect -> watch(photoURL) : ', watch('photoURL'));
-    console.log('useEffect inputState.photoURL : ', inputState.photoURL);
   }, []);
-  console.log(watch('photoURL'));
-  console.log('watch() : ', watch());
 
   const checkedEmail = () => {
     if (!watch('email')) {
@@ -135,8 +128,6 @@ const SignUpMid = () => {
     ) {
       return new Promise(() =>
         setTimeout(() => {
-          console.log(' submit-> onSubmit data : ', data);
-
           if (avatar && avatar.length) {
             const file = avatar[0];
             console.log(
@@ -147,7 +138,6 @@ const SignUpMid = () => {
           } else {
             data.photoURL = 'http://asdsadsadsas';
           }
-          console.log('submit -> axios직전 data : ', data);
           axios
             .post(`${apiUrl}/members`, data, {
               headers: {
@@ -155,7 +145,7 @@ const SignUpMid = () => {
                 'ngrok-skip-browser-warning': '111',
               },
             })
-            .then((res) => {
+            .then(() => {
               setNow('');
               setInputState('');
               setInSignAddress('');
@@ -172,7 +162,6 @@ const SignUpMid = () => {
   const onInValid = (data) => {
     const errorlist = Object.keys(data).join(' / ');
     alert(errorlist + ' 입력폼의 입력방식을 확인하세요.');
-    console.log('onInValid : ', data);
   };
 
   const avatar = watch('photoURL');
@@ -180,11 +169,8 @@ const SignUpMid = () => {
     if (avatar && avatar.length > 0) {
       const file = avatar[0];
       setAvatarPreview(URL.createObjectURL(file));
-      console.log('URL.createObjectURL(file) : ', URL.createObjectURL(file));
     }
   }, [avatar]);
-
-  console.log('현재상태위치 now : ', now);
 
   return (
     <S.SignUpContainer>

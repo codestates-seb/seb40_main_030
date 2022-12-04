@@ -1,9 +1,8 @@
-import * as S from './UseNowList.style';
 import styled from 'styled-components';
 
-const UseNowList = ({ data }) => {
-  console.log('List/UseNowList-> props data : ', data);
+import * as S from './UseNowList.style';
 
+const UseNowList = ({ data }) => {
   const img = data.batteryPhotoURL;
 
   // 시간 props로 받은거 배열로 만들어주기

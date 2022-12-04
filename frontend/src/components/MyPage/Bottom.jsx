@@ -11,12 +11,9 @@ const Bottom = () => {
     getUserPayment();
   }, []); // 저장해서 리랜더링되면 계속해서 실행돼서 상태값 계속 늘어남... 흠... 상관없나??
 
-  console.log('listData : ', listData);
-
   const filterReserving = listData.filter((list) => {
     return list.status === 'WAITING_FOR_RESERVATION';
   });
-  console.log('filterReserving : ', filterReserving);
   const filterUseNow = listData.filter((list) => {
     return list.status === 'USE_NOW';
   });

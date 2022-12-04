@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 
 const ReservingList = ({ data }) => {
-  console.log('List/Reserving컴포 props-> data : ', data);
-  console.log('batteryPhotoURL : ', data.batteryPhotoURL);
-
   const img = data.batteryPhotoURL;
 
   // 시간 props로 받은거 배열로 만들어주기

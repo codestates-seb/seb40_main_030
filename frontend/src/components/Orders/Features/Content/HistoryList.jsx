@@ -40,10 +40,10 @@ const HistoryList = () => {
             </S.PriceContainer>
             <DateBox startTime={startTime} endTime={endTime} border={true} />
             <ShadowButton
-              noShadow={true}
+              shadow={false}
               width='80px'
               padding='10px 5px'
-              content='삭제 예정'
+              content='반납 완료된 배터리'
               style={{ fontSize: 13, marginTop: 20 }}
               onClick={() => {
                 setIsActive(!isActive);

@@ -11,10 +11,9 @@ const PrivateRouter = () => {
 
   useEffect(() => {
     if (!isLocalAuth && !isSessionAuth) {
-      //  추후에 모달로 변경되야함
       openSnackBar(MESSAGE.NOT_AUTHENTICATED);
     }
-  }, [isLocalAuth, isSessionAuth]);
+  }, [isSessionAuth, isLocalAuth]);
 
   return isLocalAuth || isSessionAuth ? (
     <Outlet />
