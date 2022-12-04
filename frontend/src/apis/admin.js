@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-import { BASE_URL } from '@/constants/admin';
-
 const axiosAdminInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
-    'ngrok-skip-browser-warning': '111',
+    // 'ngrok-skip-browser-warning': '111',
   },
 });
 //관리자 정보 가져옴 (배터리, 주유소 정보)
