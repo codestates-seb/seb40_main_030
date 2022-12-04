@@ -1,24 +1,26 @@
-import { useRoutes } from "react-router-dom";
-import PAGES from "./pages";
-import { useRecoilState } from "recoil";
-import { loginState } from "./recoil/login";
-import { useEffect } from "react";
+import { AnimatePresence } from 'framer-motion';
+import { cloneElement } from 'react';
+import { useLocation, useRoutes } from 'react-router-dom';
+
+import { DesktopWrapper } from './components/@commons';
+import { checkLoginState } from './components/Login/utils';
+import { DESKTOP_MEDIA_QUERY } from './constants';
+import { useMediaQuery } from './hooks';
+// import useOauthLoginCheck from './hooks/Login/useOauthLoginCheck';
+import PAGES from './pages';
+
 const App = () => {
+  const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
+  const location = useLocation();
   const pages = useRoutes(PAGES);
-  const [isAuthorized, setIsAuthorized] = useRecoilState(loginState);
-  // axios.defaults.withCredentials = true;
-  const checkLogin = () => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      setIsAuthorized(true);
-    }
-  };
+  checkLoginState();
 
-  useEffect(() => {
-    checkLogin();
-  }, []);
-
-  return pages;
+  return (
+    <AnimatePresence>
+      {matches && <DesktopWrapper />}
+      {cloneElement(pages, { key: location.pathname, location })}
+    </AnimatePresence>
+  );
 };
 
 export default App;

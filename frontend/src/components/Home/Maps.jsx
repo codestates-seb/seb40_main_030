@@ -1,11 +1,19 @@
+import { useIsPresent } from 'framer-motion';
+
 import KakaoMap from './KakaoMap/KakaoMap';
 import * as S from './Maps.style';
 
-const MapArea = () => {
+const MapArea = ({ matches }) => {
+  const isPresent = useIsPresent();
+
   return (
-    <S.Wrapper>
-      {/* 상단에 검색창 추후 구현시 이자리 */}
-      <KakaoMap />
+    <S.Wrapper
+      animate={{ opacity: 1, transition: { duration: 0.5 } }}
+      exit={{ opacity: 1, transition: { duration: 1 } }}
+      style={{ originX: isPresent ? 0 : 1 }}
+      matches={matches}
+    >
+      <KakaoMap matches={matches} />
     </S.Wrapper>
   );
 };

@@ -1,44 +1,22 @@
-import { useRecoilState } from 'recoil';
-import HorizontalDatePicker from './HorizontalDatePicker';
+import { useReservation } from '@/hooks';
+
 import * as S from './Calendar.style';
-import { useReservation } from '../hooks';
+import DateStatus from './DateStatus';
+import HorizontalDatePicker from './HorizontalDatePicker';
 
 const Calendar = () => {
-  const { reservationStatus, setReservationStatus } = useReservation();
+  const { reservationStatus } = useReservation();
   const { startDate, endDate, startTime, endTime, dateFixed } =
     reservationStatus;
 
   return (
-    // 단일예약 복수일 예약하기 따로
     <S.Wrapper>
       {!dateFixed?.date ? (
-        <S.BookingContainer>
-          <button
-            onClick={() =>
-              setReservationStatus({ ...reservationStatus, singeDate: true })
-            }
-          >
-            단일
-          </button>
-          <button
-            onClick={() =>
-              setReservationStatus({ ...reservationStatus, singeDate: false })
-            }
-          >
-            복수일
-          </button>
-        </S.BookingContainer>
+        <HorizontalDatePicker />
       ) : (
-        // <HorizontalDatePicker />
         <S.ReservationContainer>
-          <S.ReservationBox>
-            <S.DateStatus>대여</S.DateStatus>
-            <span>{`${startDate?.month} 월 ${startDate?.date} 일 ${startTime?.hours} 시 ${startTime?.minutes} 분 부터`}</span>
-          </S.ReservationBox>
-          <S.ReservationBox>
-            <S.DateStatus>반납</S.DateStatus>
-            <span>{`${endDate?.month} 월 ${endDate?.date} 일 ${endTime?.hours} 시 ${endTime?.minutes} 분 까지`}</span>
-          </S.ReservationBox>
+          <DateStatus content='대여' date={startDate} time={startTime} />
+          <DateStatus content='반납' date={endDate} time={endTime} />
         </S.ReservationContainer>
       )}
     </S.Wrapper>

@@ -7,7 +7,6 @@ const apiClient = axios.create({
 // 전체 주문 조회
 const getAllOrders = async () => {
   const { data } = await apiClient.get('/api/orders');
-
   return data;
 };
 
@@ -27,7 +26,7 @@ const createNewOrder = async (newOrder) => {
 const modifyOrder = async (orderId, modifiedOrder) => {
   const { data } = await apiClient.patch(
     `/api/orders/${orderId}`,
-    modifiedOrder
+    modifiedOrder,
   );
 
   return data;
