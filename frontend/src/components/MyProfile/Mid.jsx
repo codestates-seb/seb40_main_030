@@ -1,10 +1,12 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import axios from 'axios';
+
 import { apiClient } from '../../apis/stations';
 import { ProfileImg } from '../../assets';
+import { nowState } from '../../recoil/nowState';
 import {
   recoilPostAddress,
   userInfoState,
@@ -14,7 +16,6 @@ import {
   recoilNickname,
   recoilPhone,
 } from '../../recoil/userInfoState';
-import { nowState } from '../../recoil/nowState';
 import * as S from './Mid.style';
 const apiUrl = import.meta.env.VITE_NGROK;
 
@@ -195,15 +196,61 @@ const Mid = () => {
   const removeUser = async () => {
     if (confirm('정말 탈퇴하시겠습니까?')) {
       console.log('확인누름');
-      await axios
-        .delete(`${apiUrl}/members/remove`, {
+      if (localStorage.getItem('accesstoken')) {
+        await axios
+          .delete(`${apiUrl}/members/remove`, {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'ngrok-skip-browser-warning': '111',
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
+            },
+          })
+          .then((res) => {
+            setNow('');
+            setUserInfo('');
+            setInSignAddress('');
+            setIsPostCode(false);
+            localStorage.removeItem('accesstoken');
+            localStorage.removeItem('refreshtoken');
+
+            navigate('/');
+            console.log('회원탈퇴버튼 누르고 res : ', res);
+          });
+      } else if (sessionStorage.getItem('accesstoken')) {
+        await axios
+          .delete(`${apiUrl}/members/remove`, {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'ngrok-skip-browser-warning': '111',
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
+            },
+          })
+          .then((res) => {
+            setNow('');
+            setUserInfo('');
+            setInSignAddress('');
+            setIsPostCode(false);
+            sessionStorage.removeItem('accesstoken');
+            navigate('/');
+            console.log('회원탈퇴버튼 누르고 res : ', res);
+          });
+      }
+    } else {
+      console.log('취소누름');
+    }
+  };
+
+  const callBackUserInfo = () => {
+    if (localStorage.getItem('accesstoken')) {
+      axios
+        .get(`${apiUrl}/members/find`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': '111',
             'Content-Type': 'application/json',
-            Authorization:
-              `Bearer ${localStorage.getItem('accesstoken')}` ||
-              `Bearer ${sessionStorage.getItem('accesstoken')}`,
+            Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
           },
         })
         .then((res) => {
@@ -216,29 +263,6 @@ const Mid = () => {
           navigate('/');
         });
     }
-  };
-
-  const callBackUserInfo = () => {
-    axios
-      .get(`${apiUrl}/members/find`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'ngrok-skip-browser-warning': '111',
-          'Content-Type': 'application/json',
-          Authorization:
-            `Bearer ${localStorage.getItem('accesstoken')}` ||
-            `Bearer ${sessionStorage.getItem('accesstoken')}`,
-        },
-      })
-      .then((res) => {
-        setValue('nickname', res.data.nickname);
-        setValue('phone', res.data.phone);
-        // if (res.data.photoURL) {
-        //   setValue('photoURL', 'blob:' + res.data.photoURL);
-        // }
-        setValue('address', res.data.address);
-        setValue('detailAddress', res.data.detailAddress);
-      });
   };
 
   return (

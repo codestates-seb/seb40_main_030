@@ -9,8 +9,6 @@ import AdminSignUp from './AdminSignUp';
 import Business from './Business';
 import Home from './Home';
 import Login from './Login';
-import LoginRedirect from './LoginRedirect/index';
-import Logout from './Logout/index';
 import MyPage from './MyPage';
 import MyProfile from './MyProfile';
 import NotFound from './NotFound';
@@ -24,11 +22,6 @@ import SearchAddress from './SearchAddress';
 import SignUp from './SignUp';
 
 const PAGES = [
-  {
-    element: <LoginRedirect />,
-    path: ROUTES.LOGIN_REDIRECT.PATH,
-    name: ROUTES.LOGIN_REDIRECT.NAME,
-  },
   {
     element: <Home />,
     path: ROUTES.HOME.PATH,
@@ -56,11 +49,6 @@ const PAGES = [
         element: <Business />,
         path: ROUTES.BUSINESS.PATH,
         name: ROUTES.BUSINESS.NAME,
-      },
-      {
-        element: <Logout />,
-        path: ROUTES.LOGOUT.PATH,
-        name: ROUTES.LOGOUT.NAME,
       },
       {
         element: <Orders />,

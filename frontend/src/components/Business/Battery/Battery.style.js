@@ -129,7 +129,7 @@ const BatteryLocation = styled.div`
 `;
 
 const BatteryContainer = styled.div`
-  width: 310px;
+  width: 100%;
   height: 90px;
 
   border-radius: 30px;
@@ -145,17 +145,22 @@ const BatteryContainer = styled.div`
 
 const BatteryListContainer = styled.ul`
   height: 565px;
-  width: 330px;
+  /* width: 100%; */
   display: flex;
   flex-direction: column;
 
   align-items: center;
   gap: 15px;
   overflow: auto;
+  padding: 0 5px;
   padding-top: 5px;
   /* 
   border-top: 1px solid gray; */
   border-bottom: 1px solid gray;
+
+  & li {
+    width: 100%;
+  }
 `;
 
 const DeleteButtonWrapper = styled.div`

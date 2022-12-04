@@ -1,11 +1,7 @@
 import Mid from './SignUpComp/Mid';
 
 const SignUpForm = () => {
-  return (
-    <div>
-      <Mid />
-    </div>
-  );
+  return <Mid />;
 };
 
 export default SignUpForm;
