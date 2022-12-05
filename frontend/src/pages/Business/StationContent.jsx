@@ -39,7 +39,7 @@ const StationContent = ({
       {isAddMode && (
         <InputModal
           name={'station'}
-          isActive={isAddMode}
+          isModalOpen={isAddMode}
           closeModalHandler={setIsAddMode}
         >
           <StationInputForm

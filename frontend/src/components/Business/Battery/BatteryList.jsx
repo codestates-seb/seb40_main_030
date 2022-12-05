@@ -26,7 +26,7 @@ const BatteryList = ({ openSnackBar, batteryList, stationList }) => {
     <>
       {isEditState && (
         <InputModal
-          isActive={
+          isModalOpen={
             selectedBatteryInfo.status &&
             selectedBatteryInfo.reservationState === 0 &&
             isEditState
