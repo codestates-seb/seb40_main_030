@@ -17,6 +17,21 @@ const apiIsToken = axios.create({
   },
 });
 
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_SERVER_URL,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    Authorization: `Bearer ${
+      localToken !== null
+        ? localToken
+        : sessionToken !== null
+        ? sessionToken
+        : null
+    }`,
+  },
+});
+
+// authClient
 const apiNotToken = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
@@ -24,4 +39,4 @@ const apiNotToken = axios.create({
   },
 });
 
-export { apiIsToken, apiNotToken };
+export { apiIsToken, apiNotToken, apiClient };

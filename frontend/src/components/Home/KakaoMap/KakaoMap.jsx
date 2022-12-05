@@ -6,7 +6,7 @@ import MapIndicator from '@/components/Home/KakaoMap/Features/MapIndicator';
 import MarkerContainer from '@/components/Home/KakaoMap/Features/MarkerContainer';
 import KakaoRoadView from '@/components/Home/KakaoMap/Features/RoadView';
 import { DEFAULT_LOCATION, DESKTOP_MAX_WIDTH } from '@/constants';
-import { useCheckDateFixed } from '@/hooks';
+import { useCheckDateFixed, useGetAllStations } from '@/hooks';
 import useGetFilteredStationsBySetTime from '@/hooks/stations/useGetFilteredStationsBySetTime';
 import { currentLocationState } from '@/recoil/pagesState';
 
@@ -14,10 +14,9 @@ import * as S from './KakaoMap.style';
 
 const KakaoMap = ({ matches }) => {
   const [toggle, setToggle] = useState(false);
-  // const { data: stations } = useGetAllStations();
+  const { data: stations } = useGetAllStations();
   const [currentLocation, setCurrentLocation] =
     useRecoilState(currentLocationState);
-
   const { isDateFixed } = useCheckDateFixed();
   const { data: filteredStations, refetch } = useGetFilteredStationsBySetTime();
   const latitude = currentLocation?.latitude || DEFAULT_LOCATION.latitude;
@@ -41,21 +40,15 @@ const KakaoMap = ({ matches }) => {
             });
             refetch();
           }}
-          level={5}
+          level={3}
         >
-          {/* 예약시간 설정 된 경우  /  안된경우  */}
           {isDateFixed
             ? filteredStations?.map((content) => (
                 <MarkerContainer key={content.id} content={content} />
               ))
-            : filteredStations.map((content) => (
+            : stations.map((content) => (
                 <MarkerContainer key={content.id} content={content} />
               ))}
-          {/* {filteredStations.map((content)) => (
-                <MarkerContainer key={content.id} content={content} />
-              )} */}
-          {/* {   filteredStations.map((content)) => (
-          <MarkerContainer key={content.id} content={content} />)} */}
         </Map>
       ) : (
         <KakaoRoadView location={{ latitude, longitude }} />

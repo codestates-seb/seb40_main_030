@@ -14,7 +14,7 @@ const useGetAllStations = () => {
 
   const stations = [];
 
-  data.map(({ id, name, location, confirmId }) => {
+  data?.map(({ id, name, location, confirmId }) => {
     const data = { id, name, location, confirmId };
 
     stations.push(data);

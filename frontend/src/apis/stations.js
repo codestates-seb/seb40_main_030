@@ -1,21 +1,4 @@
-import axios from 'axios';
-
-const localToken = localStorage.getItem('accesstoken');
-const sessionToken = sessionStorage.getItem('accesstoken');
-
-const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL,
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    Authorization: `Bearer ${
-      localToken !== null
-        ? localToken
-        : sessionToken !== null
-        ? sessionToken
-        : null
-    }`,
-  },
-});
+import { apiClient } from './api';
 
 const getAllStations = async () => {
   const { data } = await apiClient.get('/stations');
@@ -39,18 +22,16 @@ const getStationByKeyword = async (keyword) => {
   return response;
 };
 
-const getBatteryBySetTime = async (id, setTime) => {
-  const { data } = await apiClient.get(`/stations/batteries/${id}`, {
+const getBatteryBySetTime = async (setTime) => {
+  const { data } = await apiClient.get(`/stations/searchAll`, {
     params: setTime,
   });
 
   return data;
 };
 
-const getFilteredStationsBySetTime = async (location, setTime) => {
-  console.log('현재위치', location);
-  console.log('설정시간대', setTime);
-
+const getBatteryByLocationAndSetTime = async (location, setTime) => {
+  console.log(location);
   const { data } = await apiClient.get('/stations/search', {
     params: {
       latitude: location.latitude,
@@ -70,5 +51,5 @@ export {
   deleteStationById,
   getStationByKeyword,
   getBatteryBySetTime,
-  getFilteredStationsBySetTime,
+  getBatteryByLocationAndSetTime,
 };
