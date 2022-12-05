@@ -20,8 +20,8 @@ const Top = () => {
   };
 
   useEffect(() => {
-    setIsEdit(false);
     getUserInfo();
+    setIsEdit(false);
   }, []);
   const PhotoImgDiv = styled.img`
     display: block;

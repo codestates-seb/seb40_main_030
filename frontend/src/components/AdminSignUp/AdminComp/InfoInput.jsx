@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +6,12 @@ import { useRecoilState } from 'recoil';
 import { isOverLapEmail } from '../../../recoil/userInfoState';
 import * as S from './InfoInput.style';
 import { apiNotToken } from '../../../apis/api';
-// const apiUrl = import.meta.env.VITE_SERVER_URL;
+import {
+  EMAIL_REGEX,
+  PASSWORD_REGEX,
+  NICK_REGEX,
+  PHONE_REGEX,
+} from '../../../constants/regex';
 
 const Mid = () => {
   const navigate = useNavigate();
@@ -16,9 +20,8 @@ const Mid = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     mode: 'onChange',
   });
@@ -55,7 +58,7 @@ const Mid = () => {
     ) {
       delete data.checkpassword;
       apiNotToken
-        .post(`${apiUrl}/admins`, data)
+        .post(`/admins`, data)
         .then(() => {
           setIsEmail(false);
           navigate(-1);
@@ -83,8 +86,7 @@ const Mid = () => {
                 {...register('email', {
                   required: '⚠ 승인된 E-Mail을 입력하세요.',
                   pattern: {
-                    value:
-                      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+                    value: EMAIL_REGEX,
                     message: '⚠ 승인된 E-Mail을 입력하세요.',
                   },
                 })}
@@ -123,8 +125,7 @@ const Mid = () => {
                 {...register('password', {
                   required: '⚠ 비밀번호 입력',
                   pattern: {
-                    value:
-                      /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+                    value: PASSWORD_REGEX,
                     message:
                       '⚠ 특수문자 / 문자 / 숫자 포함 8~20자리 입력하세요.',
                   },
@@ -160,6 +161,10 @@ const Mid = () => {
                 placeholder='휴대폰번호(- 생략)'
                 {...register('phone', {
                   required: '⚠ 휴대폰번호 입력',
+                  pattern: {
+                    value: PHONE_REGEX,
+                    message: '⚠ 숫자만 입력하세요.',
+                  },
                 })}
               />
             </S.SignUpPhoneInputDiv>
