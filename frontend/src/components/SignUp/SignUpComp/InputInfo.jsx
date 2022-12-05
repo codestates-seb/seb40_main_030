@@ -308,13 +308,11 @@ const SignUpMid = () => {
                 type='text'
                 defaultValue={inSignAddress}
                 placeholder='주소'
-                // onChange={(e) => setInSignAddress(e.target.value)}
               />
               <S.SearchAddressBtn
-                type='button' // 버튼에 type을 지정을 안해주면 디폴트값은 'submit'이다 그래서 이렇게 지정해줌!
+                type='button'
                 onClick={() => {
                   setInputState(watch());
-                  // setInputState({photoURL:URL.createObjectURL(avatar[0])});
                   navigate('/searchaddress');
                 }}
               >

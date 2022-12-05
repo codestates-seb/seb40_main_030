@@ -8,15 +8,8 @@ const useMyPage = () => {
   const getUserInfo = async () => {
     console.log('useMyPage -> token : ', localStorage.getItem('accesstoken'));
     const { data } = await apiNeedToken.get(`/members/find`, getConfig());
-    // .then((res) => {
-    //   console.log('getUserInfo -> res.data : ', res.data);
-    // })
-    // .catch((err) => {
-    //   console.log('err : ', err);
-    // });
     setUserInfo(data);
   };
-
   return { getUserInfo };
 };
 
