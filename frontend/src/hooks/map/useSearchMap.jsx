@@ -1,4 +1,6 @@
 /* eslint-disable no-undef */
+/*global kakao*/
+
 import { useEffect, useRef, useState } from 'react';
 
 const useSearchMap = () => {
@@ -7,11 +9,11 @@ const useSearchMap = () => {
   const [locationData, setLocationData] = useState([]);
 
   // maxLength 가 15인듯
-  const qs = new window.kakao.maps.services.Places();
+  const qs = new kakao.maps.services.Places();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const kakaoStatus = new window.kakao.maps.services.Status();
+      const kakaoStatus = new kakao.maps.services.Status();
       qs.keywordSearch(keyword, (data, status) => {
         if (keyword === '') {
           setLocationData('');

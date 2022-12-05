@@ -54,7 +54,7 @@ const KakaoMap = ({ matches }) => {
             });
             updateLocation();
           }}
-          level={3}
+          level={4}
         >
           {isDateFixed
             ? filteredStations?.map((content) => (

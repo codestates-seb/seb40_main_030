@@ -11,11 +11,11 @@ const HistoryList = () => {
   const { data: historyList } = useGetHistoryList();
   const [isActive, setIsActive] = useState(false);
 
-  if (historyList.length === 0) {
+  if (historyList?.length === 0) {
     return <BatteryEmpty />;
   }
 
-  return historyList.map(({ battery, paymentId, startTime, endTime }) => (
+  return historyList?.map(({ battery, paymentId, startTime, endTime }) => (
     <S.BatteryContainer key={paymentId}>
       <ShadowCard
         initial={{ opacity: 0 }}

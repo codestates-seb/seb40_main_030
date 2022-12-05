@@ -22,7 +22,7 @@ const InUseList = () => {
     return <BatteryEmpty />;
   }
 
-  return inUseList.map(({ battery, paymentId, endTime }) => (
+  return inUseList?.map(({ battery, paymentId, endTime }) => (
     // 예약 취소 / 반납 / 연장 버튼 scale 애니메이션
     <S.BatteryContainer key={paymentId} id={paymentId}>
       <ShadowCard

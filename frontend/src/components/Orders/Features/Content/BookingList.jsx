@@ -18,7 +18,7 @@ const BookingList = () => {
     return <BatteryEmpty />;
   }
 
-  return bookingList.map(({ battery, paymentId, startTime, endTime }) => (
+  return bookingList?.map(({ battery, paymentId, startTime, endTime }) => (
     <S.BatteryContainer key={paymentId} id={paymentId}>
       <ShadowCard
         initial={{ opacity: 0 }}

@@ -11,8 +11,11 @@ const useGetHistoryList = () => {
     ['order-history'],
     () =>
       getPaymentsTable().catch((err) => {
-        if (err.response.status === 400 || err.response.status === 404) {
-          openSnackBar('데이터를 읽어올 수 없습니다.');
+        const statusCode = err.response.status;
+        if (statusCode === 400 || statusCode === 404) {
+          openSnackBar(
+            `데이터를 읽어올 수 없습니다. error code : ${statusCode}`,
+          );
 
           return [];
         } else {
