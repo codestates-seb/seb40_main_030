@@ -13,7 +13,7 @@ import {
   recoilNickname,
   recoilPhone,
 } from '../../recoil/userInfoState';
-import * as S from './Mid.style';
+import * as S from './UserInfo.style';
 import { apiIsToken, apiNotToken } from '../../apis/api';
 
 const Mid = () => {
