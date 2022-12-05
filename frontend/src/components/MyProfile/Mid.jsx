@@ -1,10 +1,7 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-
-import { apiClient } from '../../apis/stations';
 import { ProfileImg } from '../../assets';
 import { nowState } from '../../recoil/nowState';
 import {
@@ -17,7 +14,7 @@ import {
   recoilPhone,
 } from '../../recoil/userInfoState';
 import * as S from './Mid.style';
-const apiUrl = import.meta.env.VITE_SERVER_URL;
+import { apiIsToken, apiNotToken } from '../../apis/api';
 
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');
@@ -36,49 +33,9 @@ const Mid = () => {
 
   useEffect(() => {
     setNow('MyProfile');
-<<<<<<< HEAD
-    if (localStorage.getItem('accesstoken')) {
-      axios
-        .get(`${apiUrl}/members/find`, {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
-          },
-        })
-        .then((res) => {
-          setUserInfo(res.data);
-        });
-    } else if (sessionStorage.getItem('accesstoken')) {
-      axios
-        .get(`${apiUrl}/members/find`, {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': '111',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
-          },
-        })
-        .then((res) => {
-          setUserInfo(res.data);
-        });
-    }
-=======
-    axios
-      .get(`${apiUrl}/members/find`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json',
-          Authorization:
-            `Bearer ${localStorage.getItem('accesstoken')}` ||
-            `Bearer ${sessionStorage.getItem('accesstoken')}`,
-        },
-      })
-      .then((res) => {
-        setUserInfo(res.data);
-      });
->>>>>>> 6550940c72040829553e2a0c312cd5ad47fb424a
+    apiIsToken.get(`/members/find`).then((res) => {
+      setUserInfo(res.data);
+    });
   }, []);
 
   const {
@@ -99,12 +56,8 @@ const Mid = () => {
   });
 
   const checkedNick = () => {
-    axios
-      .get(`${apiUrl}/members`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-      })
+    apiNotToken
+      .get(`/members`)
       .then((res) => {
         let nowUserNick = false;
         if (userInfo.nickname === watch('nickname')) {
@@ -131,7 +84,7 @@ const Mid = () => {
   };
   useEffect(() => {
     if (isEdit && isPostCode) {
-      setValue('detailAddress', userInfo.detailAddress); // userInfo는 로컬상태이므로 렌더링되면 초기화!
+      setValue('detailAddress', userInfo.detailAddress);
       setValue('address', inSignAddress);
       setValue('nickname', inputState.nickname);
       if (nickState) {
@@ -174,16 +127,8 @@ const Mid = () => {
           if (!watch('address')) {
             delete data.address;
           }
-          axios
-            .patch(`${apiUrl}/members/edit`, data, {
-              headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json',
-                Authorization:
-                  `Bearer ${localStorage.getItem('accesstoken')}` ||
-                  `Bearer ${sessionStorage.getItem('accesstoken')}`,
-              },
-            })
+          apiIsToken
+            .patch(`/members/edit`, data)
             .then((res) => {
               setNow('');
               setIsPostCode(false);
@@ -209,87 +154,28 @@ const Mid = () => {
 
   const removeUser = async () => {
     if (confirm('정말 탈퇴하시겠습니까?')) {
-      if (localStorage.getItem('accesstoken')) {
-        await axios
-          .delete(`${apiUrl}/members/remove`, {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
-            },
-          })
-          .then((res) => {
-            setNow('');
-            setUserInfo('');
-            setInSignAddress('');
-            setIsPostCode(false);
-            localStorage.removeItem('accesstoken');
-            localStorage.removeItem('refreshtoken');
-            navigate('/');
-            console.log('탈퇴 완료!');
-          });
-      } else if (sessionStorage.getItem('accesstoken')) {
-        await axios
-          .delete(`${apiUrl}/members/remove`, {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
-            },
-          })
-          .then((res) => {
-            setNow('');
-            setUserInfo('');
-            setInSignAddress('');
-            setIsPostCode(false);
-            sessionStorage.removeItem('accesstoken');
-            navigate('/');
-            console.log('탈퇴 완료!');
-          });
-      }
+      await apiIsToken.delete(`/members/remove`).then((res) => {
+        setNow('');
+        setUserInfo('');
+        setInSignAddress('');
+        setIsPostCode(false);
+        localStorage.removeItem('accesstoken');
+        localStorage.removeItem('refreshtoken');
+        navigate('/');
+        console.log('탈퇴 완료!');
+      });
     } else {
       console.log('취소누름');
     }
   };
 
   const callBackUserInfo = () => {
-    if (localStorage.getItem('accesstoken')) {
-      axios
-        .get(`${apiUrl}/members/find`, {
-          headers: {
-<<<<<<< HEAD
-            'Access-Control-Allow-Origin': '',
-            'ngrok-skip-browser-warning': '111',
-=======
-            'Access-Control-Allow-Origin': '*',
->>>>>>> 6550940c72040829553e2a0c312cd5ad47fb424a
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
-          },
-        })
-        .then((res) => {
-          setValue('nickname', res.data.nickname);
-          setValue('phone', res.data.phone);
-          setValue('address', res.data.address);
-          setValue('detailAddress', res.data.detailAddress);
-        });
-    } else if (sessionStorage.getItem('accesstoken')) {
-      axios
-        .get(`${apiUrl}/members/find`, {
-          headers: {
-            'Access-Control-Allow-Origin': '',
-            'ngrok-skip-browser-warning': '111',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
-          },
-        })
-        .then((res) => {
-          setValue('nickname', res.data.nickname);
-          setValue('phone', res.data.phone);
-          setValue('address', res.data.address);
-          setValue('detailAddress', res.data.detailAddress);
-        });
-    }
+    apiIsToken.get(`/members/find`).then((res) => {
+      setValue('nickname', res.data.nickname);
+      setValue('phone', res.data.phone);
+      setValue('address', res.data.address);
+      setValue('detailAddress', res.data.detailAddress);
+    });
   };
 
   return (

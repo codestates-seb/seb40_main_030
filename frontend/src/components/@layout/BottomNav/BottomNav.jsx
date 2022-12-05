@@ -68,14 +68,15 @@ const BottomNav = () => {
         >
           <S.IconContainer
             onClick={() => {
-              if (localUserType === 'admin' || sessionUserType === 'admin') {
+              if (localToken !== null && sessionToken !== null) {
+                navigate(ROUTES.LOGIN.PATH);
+              } else if (
+                localUserType === 'admin' ||
+                sessionUserType === 'admin'
+              ) {
                 navigate(ROUTES.BUSINESS.PATH);
               } else {
                 navigate(ROUTES.MYPAGE.PATH);
-              }
-
-              if (localToken === null && sessionToken === null) {
-                navigate(ROUTES.LOGIN.PATH);
               }
             }}
           >

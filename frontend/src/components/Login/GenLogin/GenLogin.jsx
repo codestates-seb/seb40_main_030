@@ -8,6 +8,7 @@ import { loginCheckState } from '../../../recoil/login';
 
 import { axiosAdminInstance } from '@/apis/admin';
 import { setUserLogin, setAdminLogin } from '../../../apis/apiLogin';
+import { apiNotToken } from '../../../apis/api';
 
 import * as S from './GenLogin.style';
 
@@ -31,8 +32,8 @@ const GenLogin = () => {
 
   const onValid = async () => {
     const loginData = watch();
-    await axios
-      .post(`${import.meta.env.VITE_SERVER_URL}/auth/login`, loginData)
+    await apiNotToken
+      .post(`/auth/login`, loginData)
       .then((res) => {
         const accesstoken = res.headers.accesstoken.split(' ')[1];
         const refreshtoken = res.headers.refreshtoken;
