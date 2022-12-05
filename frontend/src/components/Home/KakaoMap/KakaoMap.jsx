@@ -19,7 +19,6 @@ import { currentLocationState } from '@/recoil/pagesState';
 import * as S from './KakaoMap.style';
 
 const KakaoMap = ({ matches }) => {
-  const [currentPosition, setCurrentPosition] = useState();
   const [toggle, setToggle] = useState(false);
   const { location } = useCurrentLocation();
   const { data: stations } = useGetAllStations();

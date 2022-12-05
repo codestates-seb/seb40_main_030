@@ -28,12 +28,12 @@ const DesktopMessage = styled.h1`
 `;
 
 const SplashImageContainer = styled(motion.div)`
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
 
-  right: ${({ matches }) => (matches ? '1%' : '1%')};
+  /* right: ${({ matches }) => (matches ? '1%' : '1%')}; */
 
   width: 100%;
   height: 100%;

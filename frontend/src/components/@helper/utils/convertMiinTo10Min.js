@@ -1,5 +1,5 @@
 const convertMinTo10Min = (min) => {
-  if (min > 60 || min <= 60) {
+  if (min > 50 && min <= 60) {
     return 50;
   }
 
