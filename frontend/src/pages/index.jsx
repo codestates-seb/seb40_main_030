@@ -5,21 +5,21 @@ import {
 } from '@/components/@helper';
 import { ROUTES } from '@/constants';
 
-import Login from './Auth/Login';
 import Business from './Business';
 import Home from './Home';
+import Login from './Auth/Login';
 import MyPage from './MyPage';
 import MyProfile from './MyPage/MyProfile';
-import Notice from './MyPage/Notice';
 import NotFound from './NotFound';
+import Notice from './MyPage/Notice';
 import Orders from './Orders';
 import PaymentCompleted from './PaymentCompleted';
 import Payments from './Payments';
 import Rental from './Rental';
 import Search from './Search';
 import SearchAddress from './SearchAddress';
-import SignUp from './SignUp';
 import AdminSignUp from './SignUp/AdminSignUp';
+import SignUp from './SignUp';
 
 // W/O Page Animation
 // const PaymentCompleted = lazy(() => import('./PaymentCompleted'));
