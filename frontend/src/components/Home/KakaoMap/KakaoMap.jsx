@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
+import { MapMarker } from 'react-kakao-maps-sdk';
 import { useRecoilState } from 'recoil';
 
+import { UserMapMarker } from '@/assets';
 import MapIndicator from '@/components/Home/KakaoMap/Features/MapIndicator';
 import MarkerContainer from '@/components/Home/KakaoMap/Features/MarkerContainer';
 import KakaoRoadView from '@/components/Home/KakaoMap/Features/RoadView';
 import { DEFAULT_LOCATION, DESKTOP_MAX_WIDTH } from '@/constants';
-import { useCheckDateFixed, useGetAllStations } from '@/hooks';
+import {
+  useCheckDateFixed,
+  useCurrentLocation,
+  useGetAllStations,
+} from '@/hooks';
 import useGetFilteredStationsBySetTime from '@/hooks/stations/useGetFilteredStationsBySetTime';
 import { currentLocationState } from '@/recoil/pagesState';
 
@@ -14,13 +20,17 @@ import * as S from './KakaoMap.style';
 
 const KakaoMap = ({ matches }) => {
   const [toggle, setToggle] = useState(false);
+  const { location } = useCurrentLocation();
   const { data: stations } = useGetAllStations();
   const [currentLocation, setCurrentLocation] =
     useRecoilState(currentLocationState);
   const { isDateFixed } = useCheckDateFixed();
-  const { data: filteredStations, refetch } = useGetFilteredStationsBySetTime();
+  const { data: filteredStations, refetch: updateLocation } =
+    useGetFilteredStationsBySetTime();
   const latitude = currentLocation?.latitude || DEFAULT_LOCATION.latitude;
   const longitude = currentLocation?.longitude || DEFAULT_LOCATION.longitude;
+
+  console.log('location', location);
 
   return (
     <S.MapWrapper matches={matches}>
@@ -38,7 +48,7 @@ const KakaoMap = ({ matches }) => {
               latitude: map.getCenter().getLat(),
               longitude: map.getCenter().getLng(),
             });
-            refetch();
+            updateLocation();
           }}
           level={3}
         >
@@ -49,6 +59,19 @@ const KakaoMap = ({ matches }) => {
             : stations.map((content) => (
                 <MarkerContainer key={content.id} content={content} />
               ))}
+          <MapMarker
+            position={{
+              lat: location?.latitude,
+              lng: location?.longitude,
+            }}
+            image={{
+              src: UserMapMarker, // 마커이미지의 주소입니다
+              size: {
+                width: 50,
+                height: 50,
+              },
+            }}
+          ></MapMarker>
         </Map>
       ) : (
         <KakaoRoadView location={{ latitude, longitude }} />

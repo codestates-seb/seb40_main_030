@@ -1,12 +1,13 @@
 const convertMinTo10Min = (min) => {
+  if (min > 60 || min <= 60) {
+    return 50;
+  }
+
   if (min % 10 !== 0) {
     const converted = Math.round(min / 10) * 10;
 
-    console.log(converted);
-
     return converted;
   } else {
-    console.log(min);
     return min;
   }
 };

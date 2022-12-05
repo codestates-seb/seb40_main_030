@@ -27,6 +27,7 @@ import UndoIcon from './undo-button.png';
 import LogoImage from './logo-image.png';
 import BatteryEmptyImg from './battery-empty.png';
 import TeongImg from './battery-empty2.png';
+import UserMapMarker from './userMapMarker.png';
 
 // Icons
 export {
@@ -60,4 +61,5 @@ export {
   LogoImage,
   BatteryEmptyImg,
   TeongImg,
+  UserMapMarker,
 };
