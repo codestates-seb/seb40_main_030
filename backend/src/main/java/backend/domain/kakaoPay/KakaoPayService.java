@@ -20,6 +20,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log
@@ -32,19 +34,12 @@ public class KakaoPayService {
     private final ReservationRepository reservationRepository;
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
-    private String itemName;
-    private int totalAmount;
     private Long paymentId;
 
     public String kakaoPayReady(String itemName, int totalAmount, Long paymentId) {
-//        Payment payment2 = paymentRepository.findById(payment.getId())
-//                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
-//        this.userId = payment2.getMember().getNickname();
-        this.itemName = itemName;
-        this.totalAmount = totalAmount;
-        this.paymentId = paymentId;
-        RestTemplate restTemplate = new RestTemplate();
 
+        RestTemplate restTemplate = new RestTemplate();
+        this.paymentId = paymentId;
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "a017f24b1214df0ab9613301ebda4c5d");
@@ -61,7 +56,7 @@ public class KakaoPayService {
         params.add("total_amount", String.valueOf(totalAmount));//상품 총 금액
         params.add("tax_free_amount", "100");
         params.add("approval_url", "http://localhost:8080/kakaoPaySuccess");// 결제 승인시 url
-        params.add("cancel_url", "http://localhost:8080/kakaoPayCancel"); // 결제 취소시 urlgit pu
+        params.add("cancel_url", "http://localhost:8080/kakaoPayCancel"); // 결제 취소시 url
         params.add("fail_url", "http://localhost:8080/kakaoPaySuccessFail"); // 결제 실패시 url
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
@@ -105,16 +100,17 @@ public class KakaoPayService {
         params.add("partner_order_id", String.valueOf(paymentId)); //가맹점 주문번호
         params.add("partner_user_id", "userId"); //가맹점 회원 id
         params.add("pg_token", pg_token);
-        params.add("total_amount", String.valueOf(totalAmount));//상품 총 금액
+//        params.add("total_amount", String.valueOf(totalAmount));//상품 총 금액
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
         try {
             kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
             log.info("" + kakaoPayApprovalVO);
-            Payment payment = paymentRepository.findById(paymentId).get();
+//            Long paymentId = Long.parseLong(kakaoPayReadyVO.getPartner_order_id());
+            Payment payment = paymentRepository.findById(paymentId)
+                    .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
 
-//            try{
             payment.setStatus(PayStatus.WAITING_FOR_RESERVATION);
             payment.setTid(kakaoPayReadyVO.getTid());
             payment.setPayMethod(kakaoPayApprovalVO.getCard_info().getPurchase_corp());
@@ -122,10 +118,6 @@ public class KakaoPayService {
 
             return kakaoPayApprovalVO;
 
-//            } catch (Exception e) {
-//                payment.setStatus(PayStatus.FAIL);
-//                paymentRepository.save(payment);
-//            }
 
         } catch (RestClientException e) {
             // TODO Auto-generated catch block
@@ -147,9 +139,7 @@ public class KakaoPayService {
 
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
-
-        headers.add("Authorization", "KakaoAK " + "a017f24b1214df0ab9613301ebda4c5d");
-
+        headers.add("Authorization", "KakaoAK " + "82d314b8fd7c2c1f79dadd248f79a7b0");
         headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 
