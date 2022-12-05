@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-
-import { apiClient } from '../../../apis/stations';
 import { ProfileImg } from '../../../assets';
 import { nowState } from '../../../recoil/nowState';
 import {
@@ -13,8 +11,14 @@ import {
   isOverLapEmail,
   isOverLapNick,
 } from '../../../recoil/userInfoState';
-const apiUrl = import.meta.env.VITE_SERVER_URL;
 import * as S from './Mid.style';
+import { apiNotToken } from '../../../apis/api';
+import {
+  EMAIL_REGEX,
+  PASSWORD_REGEX,
+  NICK_REGEX,
+  PHONE_REGEX,
+} from '../../../constants/regex';
 
 const SignUpMid = () => {
   const navigate = useNavigate();
@@ -60,12 +64,8 @@ const SignUpMid = () => {
     if (!watch('email')) {
       alert('E-mail을 입력해주세요.');
     } else {
-      axios
-        .get(`${apiUrl}/members`, {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-          },
-        })
+      apiNotToken
+        .get(`/members`)
         .then((res) => {
           let existEmail = res.data.content.find(
             (user) => user.email === watch('email'),
@@ -85,12 +85,8 @@ const SignUpMid = () => {
   };
 
   const checkedNick = () => {
-    axios
-      .get(`${apiUrl}/members`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-      })
+    apiNotToken
+      .get(`/members`)
       .then((res) => {
         let existNick = res.data.content.find(
           (user) => user.nickname === watch('nickname'),
@@ -123,12 +119,8 @@ const SignUpMid = () => {
           } else {
             data.photoURL = 'http://asdsadsadsas';
           }
-          axios
-            .post(`${apiUrl}/members`, data, {
-              headers: {
-                'Access-Control-Allow-Origin': '*',
-              },
-            })
+          apiNotToken
+            .post(`/members`, data)
             .then(() => {
               setNow('');
               setInputState('');
@@ -136,6 +128,7 @@ const SignUpMid = () => {
               navigate('/login');
             })
             .catch((err) => {
+              alert('회원가입 실패');
               console.log('err : ', err);
             });
         }, 1000),
@@ -189,8 +182,7 @@ const SignUpMid = () => {
               {...register('email', {
                 required: '⚠ E-mail 필수입력',
                 pattern: {
-                  value:
-                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+                  value: EMAIL_REGEX,
                   message: '⚠ E-mail형식에 맞지 않습니다.',
                 },
               })}
@@ -227,8 +219,7 @@ const SignUpMid = () => {
               {...register('password', {
                 required: '⚠ 비밀번호 입력',
                 pattern: {
-                  value:
-                    /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+                  value: PASSWORD_REGEX,
                   message: '⚠ 특수문자 / 문자 / 숫자 포함 8~20자리 입력하세요.',
                 },
               })}
@@ -264,7 +255,7 @@ const SignUpMid = () => {
               {...register('nickname', {
                 required: '⚠ 사용할 닉네임을 입력하세요.',
                 pattern: {
-                  value: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/,
+                  value: NICK_REGEX,
                   message: '⚠ 영어(소문자) / 숫자 / 한글 2~16자리 입력하세요.',
                 },
               })}
@@ -301,7 +292,7 @@ const SignUpMid = () => {
               {...register('phone', {
                 required: '⚠ 휴대폰번호 입력',
                 pattern: {
-                  value: /^\d{3}\d{3,4}\d{4}$/,
+                  value: PHONE_REGEX,
                   message: '⚠ 숫자만 입력하세요.',
                 },
               })}

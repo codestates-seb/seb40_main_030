@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import GenLogout from '../Login/GenLogout/GenLogout';
-
 import styled from 'styled-components';
 import * as S from './Top.style';
 import { MyPageIcon } from '../../assets';
