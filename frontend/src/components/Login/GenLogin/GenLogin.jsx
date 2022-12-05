@@ -9,7 +9,7 @@ import { loginCheckState } from '../../../recoil/login';
 import { axiosAdminInstance } from '@/apis/admin';
 // import { setUserLogin, setAdminLogin } from '../../../apis/apiLogin';
 import useLogin from '../../../hooks/Login/useLogin';
-import { apiNotToken } from '../../../apis/isTokenApi';
+import { apiNotToken } from '../../../apis/api';
 
 import * as S from './GenLogin.style';
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { apiIsToken } from '../../apis/isTokenApi';
+import { apiIsToken } from '../../apis/api';
 
 const useMyPage = () => {
   const [photo, setPhoto] = useState('');

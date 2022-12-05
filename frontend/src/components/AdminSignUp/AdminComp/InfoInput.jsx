@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 
 import { isOverLapEmail } from '../../../recoil/userInfoState';
 import * as S from './InfoInput.style';
-import { apiNotToken } from '../../../apis/isTokenApi';
+import { apiNotToken } from '../../../apis/api';
 // const apiUrl = import.meta.env.VITE_SERVER_URL;
 
 const Mid = () => {

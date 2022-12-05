@@ -14,7 +14,7 @@ import {
   recoilPhone,
 } from '../../recoil/userInfoState';
 import * as S from './UserInfo.style';
-import { apiIsToken, apiNotToken } from '../../apis/isTokenApi';
+import { apiIsToken, apiNotToken } from '../../apis/api';
 
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');
