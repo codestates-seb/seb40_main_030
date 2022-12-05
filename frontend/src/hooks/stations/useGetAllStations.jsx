@@ -6,7 +6,10 @@ const useGetAllStations = () => {
   const { data, isLoading, isSuccess } = useQuery(
     ['stations'],
     getAllStations,
+
     {
+      // select: (stations) =>
+      //   stations?.filter(({ batteries }) => batteries.length !== 0),
       refetchOnWindowFocus: false,
       suspense: true,
     },

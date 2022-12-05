@@ -55,6 +55,7 @@ const KakaoMap = ({ matches }) => {
             updateLocation();
           }}
           level={4}
+          draggable={true}
         >
           {isDateFixed
             ? filteredStations?.map((content) => (

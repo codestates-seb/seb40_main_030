@@ -3,12 +3,11 @@ import { LogoImage } from '@/assets';
 import * as S from './SplashScreen.style';
 
 const SplashScreen = ({ matches }) => {
-  console.log(matches);
   return (
     <S.Wrapper
       matches={matches}
       initial={{ opacity: 1 }}
-      animate={{ opacity: 0, transition: { duration: 10 } }}
+      animate={{ opacity: 0, transition: { duration: 5 } }}
     >
       {/* 추후 적합한 Splash 화면으로 변경필요 */}
       {matches && (
