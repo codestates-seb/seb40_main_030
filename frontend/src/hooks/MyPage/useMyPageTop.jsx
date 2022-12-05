@@ -1,25 +1,23 @@
-import { useState } from 'react';
-import { apiIsToken } from '../../apis/api';
+import { apiNeedToken, getConfig } from '../../apis/api';
+import { useRecoilState } from 'recoil';
+import { userInfoState } from '../../recoil/userInfoState';
 
 const useMyPage = () => {
-  const [photo, setPhoto] = useState('');
-  const [nickName, setNickName] = useState('');
-  const [email, setEmail] = useState('');
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
-  const getUserInfo = () => {
-    apiIsToken
-      .get(`/members/find`)
-      .then((res) => {
-        setNickName(res.data.nickname);
-        setEmail(res.data.email);
-        setPhoto(res.data.photoURL);
-      })
-      .catch((err) => {
-        console.log('err : ', err);
-      });
+  const getUserInfo = async () => {
+    console.log('useMyPage -> token : ', localStorage.getItem('accesstoken'));
+    const { data } = await apiNeedToken.get(`/members/find`, getConfig());
+    // .then((res) => {
+    //   console.log('getUserInfo -> res.data : ', res.data);
+    // })
+    // .catch((err) => {
+    //   console.log('err : ', err);
+    // });
+    setUserInfo(data);
   };
 
-  return { getUserInfo, nickName, email, photo };
+  return { getUserInfo };
 };
 
 export default useMyPage;

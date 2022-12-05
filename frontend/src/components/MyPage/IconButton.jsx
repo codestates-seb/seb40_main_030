@@ -1,4 +1,4 @@
-import * as S from './Mid.style';
+import * as S from './IconButton.style';
 import { PaymentIcon, NoticeIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 
