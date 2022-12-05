@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getBatteryBySetTime } from '@/apis/stations';
+import { getSearchDataBySetTime } from '@/apis/stations';
 
 import { useCheckValidReserveTable } from '..';
 
@@ -10,7 +10,7 @@ const useGetFilteredStation = () => {
   const { data } = useQuery(
     ['stations'],
     () =>
-      getBatteryBySetTime({
+      getSearchDataBySetTime({
         startTime: startPoint?.replace(' ', 'T'),
         endTime: endPoint?.replace(' ', 'T'),
       }).catch((err) => {

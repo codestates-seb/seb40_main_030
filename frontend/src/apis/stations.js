@@ -22,7 +22,15 @@ const getStationByKeyword = async (keyword) => {
   return response;
 };
 
-const getBatteryBySetTime = async (setTime) => {
+const getBatteryBySetTime = async (id, setTime) => {
+  const { data } = await apiClient.get(`/stations/batteries/${id}`, {
+    params: setTime,
+  });
+
+  return data;
+};
+
+const getSearchDataBySetTime = async (setTime) => {
   const { data } = await apiClient.get(`/stations/searchAll`, {
     params: setTime,
   });
@@ -52,4 +60,5 @@ export {
   getStationByKeyword,
   getBatteryBySetTime,
   getBatteryByLocationAndSetTime,
+  getSearchDataBySetTime,
 };
