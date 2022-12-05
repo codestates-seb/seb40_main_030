@@ -1,21 +1,21 @@
 import { useState } from 'react';
-import { apiIsToken } from '../../apis/api';
+import { apiNeedToken, getConfig } from '../../apis/api';
 
 const useMyPageBottom = () => {
   const [listData, setListData] = useState([]);
 
-  const getUserPayment = () => {
-    apiIsToken
-      .get(`/members/find`)
-      .then((res) => {
-        const payData = res.data.payment;
-        setListData([...payData]);
-      })
-      .catch((err) => {
-        console.log(' err : ', err);
-      });
-  };
+  const getUserPayment = async () => {
+    const { data } = await apiNeedToken.get(`/members/find`, getConfig());
+    // .then((res) => {
+    //   const payData = res.data.payment;
+    //   setListData([...payData]);
+    // })
+    // .catch((err) => {
+    //   console.log(' err : ', err);
+    // });
 
+    setListData([...data.payment]);
+  };
   return { getUserPayment, listData };
 };
 

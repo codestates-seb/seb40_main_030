@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-
-import { apiIsToken, apiNotToken } from '../../apis/api';
 import { ProfileImg } from '../../assets';
 import { nowState } from '../../recoil/nowState';
 import {
@@ -15,7 +13,9 @@ import {
   recoilNickname,
   recoilPhone,
 } from '../../recoil/userInfoState';
-import * as S from './Mid.style';
+import * as S from './UserInfo.style';
+import { NICK_REGEX, PHONE_REGEX } from '../../constants/regex';
+import { apiNeedToken, apiNotToken, getConfig } from '../../apis/api';
 
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');
@@ -34,7 +34,7 @@ const Mid = () => {
 
   useEffect(() => {
     setNow('MyProfile');
-    apiIsToken.get(`/members/find`).then((res) => {
+    apiNeedToken.get(`/members/find`, getConfig()).then((res) => {
       setUserInfo(res.data);
     });
   }, []);
@@ -128,8 +128,8 @@ const Mid = () => {
           if (!watch('address')) {
             delete data.address;
           }
-          apiIsToken
-            .patch(`/members/edit`, data)
+          apiNeedToken
+            .patch(`/members/edit`, data, getConfig())
             .then((res) => {
               setNow('');
               setIsPostCode(false);
@@ -155,7 +155,7 @@ const Mid = () => {
 
   const removeUser = async () => {
     if (confirm('정말 탈퇴하시겠습니까?')) {
-      await apiIsToken.delete(`/members/remove`).then((res) => {
+      await apiNeedToken.delete(`/members/remove`, getConfig()).then((res) => {
         setNow('');
         setUserInfo('');
         setInSignAddress('');
@@ -171,7 +171,7 @@ const Mid = () => {
   };
 
   const callBackUserInfo = () => {
-    apiIsToken.get(`/members/find`).then((res) => {
+    apiNeedToken.get(`/members/find`, getConfig()).then((res) => {
       setValue('nickname', res.data.nickname);
       setValue('phone', res.data.phone);
       setValue('address', res.data.address);
@@ -251,7 +251,7 @@ const Mid = () => {
                   defaultValue={userInfo.nickname}
                   {...register('nickname', {
                     pattern: {
-                      value: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/,
+                      value: NICK_REGEX,
                       message: '⚠ 영어 / 숫자 / 한글 2~16자리 입력하세요.',
                     },
                   })}
@@ -299,7 +299,7 @@ const Mid = () => {
                 {...register('phone', {
                   required: '⚠ 휴대폰번호 입력',
                   pattern: {
-                    value: /^\d{3}\d{3,4}\d{4}$/,
+                    value: PHONE_REGEX,
                     message: '⚠ 숫자만 입력하세요.',
                   },
                 })}
