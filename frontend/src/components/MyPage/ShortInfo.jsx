@@ -11,8 +11,8 @@ import { ProfileImg } from '../../assets';
 
 const Top = () => {
   const navigate = useNavigate();
-  const { getUserInfo, nickName, email, photo } = useMyPage();
-  const [inputState, setInputState] = useRecoilState(userInfoState);
+  const { getUserInfo } = useMyPage();
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [isEdit, setIsEdit] = useRecoilState(recoilIsEdit);
 
   const handleErrorImg = (e) => {
@@ -20,6 +20,11 @@ const Top = () => {
   };
 
   useEffect(() => {
+    console.log(
+      'Mypage/shortInfo -> token : ',
+      localStorage.getItem('accesstoken'),
+    );
+    console.log('mypage/shortInfo -> recoil userInfoState : ', userInfo);
     getUserInfo();
     setIsEdit(false);
   }, []);
@@ -35,9 +40,12 @@ const Top = () => {
   return (
     <S.MyPageTopContainer>
       <S.ImgNickEmailDiv>
-        <PhotoImgDiv src={`blob:${photo}`} onError={handleErrorImg} />
-        <S.NickNameDiv>{nickName} 님</S.NickNameDiv>
-        <S.EmailDiv>{email}</S.EmailDiv>
+        <PhotoImgDiv
+          src={`blob:${userInfo.photoURL}`}
+          onError={handleErrorImg}
+        />
+        <S.NickNameDiv>{userInfo.nickname} 님</S.NickNameDiv>
+        <S.EmailDiv>{userInfo.email}</S.EmailDiv>
       </S.ImgNickEmailDiv>
 
       <S.MyInfoAndLogoutContainer>

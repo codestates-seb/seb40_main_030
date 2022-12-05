@@ -14,7 +14,7 @@ import {
   recoilPhone,
 } from '../../recoil/userInfoState';
 import * as S from './UserInfo.style';
-import { apiIsToken, apiNotToken } from '../../apis/api';
+import { apiNeedToken, apiNotToken, getConfig } from '../../apis/api';
 
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');
@@ -33,7 +33,7 @@ const Mid = () => {
 
   useEffect(() => {
     setNow('MyProfile');
-    apiIsToken.get(`/members/find`).then((res) => {
+    apiNeedToken.get(`/members/find`, getConfig()).then((res) => {
       setUserInfo(res.data);
     });
   }, []);
@@ -127,8 +127,8 @@ const Mid = () => {
           if (!watch('address')) {
             delete data.address;
           }
-          apiIsToken
-            .patch(`/members/edit`, data)
+          apiNeedToken
+            .patch(`/members/edit`, data, getConfig())
             .then((res) => {
               setNow('');
               setIsPostCode(false);
@@ -154,7 +154,7 @@ const Mid = () => {
 
   const removeUser = async () => {
     if (confirm('정말 탈퇴하시겠습니까?')) {
-      await apiIsToken.delete(`/members/remove`).then((res) => {
+      await apiNeedToken.delete(`/members/remove`, getConfig()).then((res) => {
         setNow('');
         setUserInfo('');
         setInSignAddress('');
@@ -170,7 +170,7 @@ const Mid = () => {
   };
 
   const callBackUserInfo = () => {
-    apiIsToken.get(`/members/find`).then((res) => {
+    apiNeedToken.get(`/members/find`, getConfig()).then((res) => {
       setValue('nickname', res.data.nickname);
       setValue('phone', res.data.phone);
       setValue('address', res.data.address);
