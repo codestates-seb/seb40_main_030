@@ -42,9 +42,11 @@ const ReturnDateContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  height: 20%;
+  height: 60%;
+`;
 
-  margin-bottom: 40px;
+const Border = styled.div`
+  margin: 5px 0;
 `;
 
 export {
@@ -52,4 +54,5 @@ export {
   DateSelectContainer,
   ExtendedDate,
   ReturnDateContainer,
+  Border,
 };

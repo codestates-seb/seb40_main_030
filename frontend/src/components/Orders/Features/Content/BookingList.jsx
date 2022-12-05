@@ -8,6 +8,7 @@ import { useGetBookingList } from '@/hooks';
 
 import Cancel from '../Options/Cancel';
 import { ContentModal } from './Content.style';
+import * as S2 from './Content.style';
 import DateBox from './DateBox';
 
 const BookingList = () => {
@@ -27,8 +28,8 @@ const BookingList = () => {
         transition={{ duration: 0.3 }}
       >
         <S.ProductWrapper>
-          <S.ImageContainer>
-            <S.BatteryImage
+          <S2.ImageContainer>
+            <S2.BatteryImage
               src={battery.photoURL}
               alt='batteryImage'
               // onError={(e) => imageOnErrorHandler(e)}
@@ -39,11 +40,16 @@ const BookingList = () => {
             <S.BatteryName style={{ marginTop: 10, fontSize: 18 }}>
               {battery.batteryName}
             </S.BatteryName>
-          </S.ImageContainer>
+          </S2.ImageContainer>
           <S.ProductInfoContainer>
             <S.PriceContainer>
               <S.Price>
-                {(battery.price + battery.defaultPrice)
+                {(
+                  ((battery.price + battery.defaultPrice) *
+                    (new Date(endTime).getTime() -
+                      new Date(startTime).getTime())) /
+                  (1000 * 60)
+                )
                   .toString()
                   .replace(PRICE_REGEX, ',')}
               </S.Price>

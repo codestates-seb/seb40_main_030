@@ -59,4 +59,32 @@ const ContentModal = styled(motion.div)`
   z-index: ${({ theme }) => theme.SNACKBAR};
 `;
 
-export { ButtonContainer, DateContainer, DateStatus, ContentModal };
+const ImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 40%;
+  height: 100%;
+
+  span {
+    font-size: 13px;
+    color: gray;
+  }
+`;
+
+const BatteryImage = styled.img`
+  width: 100%;
+  height: 70%;
+
+  margin: 20px 0;
+`;
+
+export {
+  ButtonContainer,
+  DateContainer,
+  DateStatus,
+  ContentModal,
+  ImageContainer,
+  BatteryImage,
+};

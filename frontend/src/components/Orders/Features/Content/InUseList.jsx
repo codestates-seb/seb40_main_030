@@ -10,6 +10,7 @@ import { useGetInUseList } from '@/hooks';
 import Extends from '../Options/Extends';
 import Return from '../Options/Return';
 import { ContentModal } from './Content.style';
+import * as S2 from './Content.style';
 import DateBox from './DateBox';
 
 const InUseList = () => {
@@ -32,8 +33,8 @@ const InUseList = () => {
         transition={{ duration: 0.3 }}
       >
         <S.ProductWrapper>
-          <S.ImageContainer>
-            <S.BatteryImage
+          <S2.ImageContainer>
+            <S2.BatteryImage
               src={battery.photoURL}
               alt='batteryImage'
               // onError={(e) => imageOnErrorHandler(e)}
@@ -44,7 +45,7 @@ const InUseList = () => {
             <S.BatteryName style={{ marginTop: 10, fontSize: 18 }}>
               {battery.batteryName}
             </S.BatteryName>
-          </S.ImageContainer>
+          </S2.ImageContainer>
           <S.ProductInfoContainer>
             <DateBox endTime={endTime} />
             <ShadowButton

@@ -1,15 +1,13 @@
-import { useState } from 'react';
-
 import { BatteryEmpty, ShadowButton, ShadowCard } from '@/components/@commons';
 import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
 import { useGetHistoryList } from '@/hooks';
 
+import * as S2 from './Content.style';
 import DateBox from './DateBox';
 
 const HistoryList = () => {
   const { data: historyList } = useGetHistoryList();
-  const [isActive, setIsActive] = useState(false);
 
   if (historyList?.length === 0) {
     return <BatteryEmpty />;
@@ -24,19 +22,24 @@ const HistoryList = () => {
         transition={{ duration: 0.3 }}
       >
         <S.ProductWrapper>
-          <S.ImageContainer>
-            <S.BatteryImage src={battery.photoURL} alt='batteryImage' />
+          <S2.ImageContainer>
+            <S2.BatteryImage src={battery.photoURL} alt='batteryImage' />
             <S.Capacity>
               {battery.capacity.toString().replace(PRICE_REGEX, ',')}
             </S.Capacity>
             <S.BatteryName style={{ marginTop: 10, fontSize: 18 }}>
               {battery.batteryName}
             </S.BatteryName>
-          </S.ImageContainer>
+          </S2.ImageContainer>
           <S.ProductInfoContainer>
             <S.PriceContainer>
               <S.Price>
-                {(battery.price + battery.defaultPrice)
+                {(
+                  ((battery.price + battery.defaultPrice) *
+                    (new Date(endTime).getTime() -
+                      new Date(startTime).getTime())) /
+                  (1000 * 60)
+                )
                   .toString()
                   .replace(PRICE_REGEX, ',')}
               </S.Price>
@@ -49,9 +52,7 @@ const HistoryList = () => {
               padding='10px 5px'
               content='반납 완료된 배터리'
               style={{ fontSize: 13, marginTop: 20 }}
-              onClick={() => {
-                setIsActive(!isActive);
-              }}
+              disabled={true}
             />
           </S.ProductInfoContainer>
         </S.ProductWrapper>

@@ -13,7 +13,9 @@ const Return = ({ endTime, setIsModalOpen }) => {
     <S.ContentWrapper>
       <ModalHeader title='배터리 반납하기' />
       <S.ReturnDateContainer>
+        <S.Border />
         <DateBox endTime={endTime} fontSize='20px' />
+        <S.Border />
         <DateBox endTime={new Date().getTime()} fontSize='20px' type='현재' />
       </S.ReturnDateContainer>
       <ShadowButton

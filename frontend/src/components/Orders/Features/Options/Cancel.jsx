@@ -13,7 +13,9 @@ const Cancel = ({ startTime, endTime, setIsModalOpen }) => {
     <S.ContentWrapper>
       <ModalHeader title='예약 취소하기' />
       <S.ReturnDateContainer>
+        <S.Border />
         <DateBox startTime={startTime} fontSize='20px' />
+        <S.Border />
         <DateBox endTime={endTime} fontSize='20px' />
       </S.ReturnDateContainer>
       <ShadowButton
