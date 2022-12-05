@@ -6,7 +6,8 @@ import { useRecoilState } from 'recoil';
 
 import { isOverLapEmail } from '../../../recoil/userInfoState';
 import * as S from './Mid.style';
-const apiUrl = import.meta.env.VITE_SERVER_URL;
+import { apiNotToken } from '../../../apis/api';
+// const apiUrl = import.meta.env.VITE_SERVER_URL;
 
 const Mid = () => {
   const navigate = useNavigate();
@@ -26,12 +27,8 @@ const Mid = () => {
     if (!watch('email')) {
       alert('E-mail을 입력해주세요.');
     } else {
-      axios
-        .get(`${apiUrl}/admins`, {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-          },
-        })
+      apiNotToken
+        .get(`/admins`)
         .then((res) => {
           let existEmail = res.data.content.find(
             (user) => user.email === watch('email'),
@@ -57,12 +54,8 @@ const Mid = () => {
       watch('password') === watch('checkpassword')
     ) {
       delete data.checkpassword;
-      axios
-        .post(`${apiUrl}/admins`, data, {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-          },
-        })
+      apiNotToken
+        .post(`${apiUrl}/admins`, data)
         .then(() => {
           setIsEmail(false);
           navigate(-1);

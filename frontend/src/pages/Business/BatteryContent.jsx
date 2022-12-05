@@ -42,7 +42,7 @@ const BatteryContent = ({
   return (
     <>
       {isAddMode && (
-        <InputModal isActive={isAddMode} closeModalHandler={setIsAddMode}>
+        <InputModal isModalOpen={isAddMode} closeModalHandler={setIsAddMode}>
           <BatteryInputForm
             openSnackBar={openSnackBar}
             batteryList={batteryInfo.batteryList}
