@@ -38,13 +38,13 @@ public class PaymentService {
 
     @Transactional
     public Payment postPayment(Payment payment, Long batteryId, Long memberId) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND)); // 로그인 한 계정이 존재하는지 확인
+//        Member member = memberRepository.findById(memberId)
+//                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND)); // 로그인 한 계정이 존재하는지 확인
         Battery battery = batteryRepository.findById(batteryId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.BATTERY_NOT_FOUND)); // 예약하는 배터리가 존재하는지 확인
         Station station = stationRepository.findById(battery.getStation().getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND)); // 해당 스테이션이 실존하는지 확인
-        payment.setMember(member);
+//        payment.setMember(member);
         payment.setBattery(battery);
         payment.setStation(station);
 
