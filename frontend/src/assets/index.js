@@ -25,6 +25,7 @@ import BatterImg from './battery.png';
 import FuelTankImg from './fuel.jpg';
 import UndoIcon from './undo-button.png';
 import LogoImage from './logo-image.png';
+import BatteryEmptyImg from './battery-empty.png';
 
 // Icons
 export {
@@ -56,4 +57,5 @@ export {
   BatterImg,
   FuelTankImg,
   LogoImage,
+  BatteryEmptyImg,
 };
