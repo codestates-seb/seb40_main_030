@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +10,7 @@ import {
   isOverLapEmail,
   isOverLapNick,
 } from '../../../recoil/userInfoState';
-import * as S from './Mid.style';
+import * as S from './InfoInput.style';
 import { apiNotToken } from '../../../apis/api';
 import {
   EMAIL_REGEX,

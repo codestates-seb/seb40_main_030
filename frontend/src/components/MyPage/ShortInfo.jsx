@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import GenLogout from '../Login/GenLogout/GenLogout';
 import styled from 'styled-components';
-import * as S from './Top.style';
+import * as S from './ShortInfo.style';
 import { MyPageIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import useMyPage from '../../hooks/MyPage/useMyPageTop';
