@@ -6,6 +6,7 @@ import {
 import { ROUTES } from '@/constants';
 
 import Login from './Auth/Login';
+import LoginRedirect from './Auth/LoginRedirect/index';
 import Business from './Business';
 import Home from './Home';
 import MyPage from './MyPage';
@@ -138,6 +139,11 @@ const PAGES = [
     element: <Search />,
     path: ROUTES.SEARCH.PATH,
     name: ROUTES.SEARCH.NAME,
+  },
+  {
+    element: <LoginRedirect />,
+    path: ROUTES.LOGINREDIRECT.PATH,
+    name: ROUTES.LOGINREDIRECT.NAME,
   },
 ];
 

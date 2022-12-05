@@ -12,13 +12,11 @@ import {
 import { axiosAdminInstance } from './admin';
 import { apiClient } from './stations';
 
-const axiosOauthInstance = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL,
-  headers: {
-    'ngrok-skip-browser-warning': '111',
-    // authorization: `Bearer ${ACCESS_TOKEN}`,
-  },
-});
+const sendAuthCode = async (code) => {
+  const res = await axiosAdminInstance.post(`/auth/login2/${code}`);
+  console.log(res);
+  return res;
+};
 
 const setHeaderAccessToken = (token) => {
   if (token) {
@@ -28,10 +26,6 @@ const setHeaderAccessToken = (token) => {
   } else delete axios.defaults.headers.common['Authorization'];
 };
 
-const sendAuthCode = async (authCode) => {
-  const { res } = await axiosOauthInstance.post('/login', authCode);
-  return res;
-};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
