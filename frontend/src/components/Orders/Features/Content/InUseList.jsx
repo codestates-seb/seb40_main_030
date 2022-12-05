@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { ShadowCard, ShadowButton } from '@/components/@commons';
+import { ShadowCard, ShadowButton, BatteryEmpty } from '@/components/@commons';
 import InputModal from '@/components/Business/InputModal/InputModal';
 import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
@@ -18,7 +18,11 @@ const InUseList = () => {
   const type = searchParams.get('type');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  return inUseList?.map(({ battery, paymentId, endTime }) => (
+  if (inUseList.length === 0) {
+    return <BatteryEmpty />;
+  }
+
+  return inUseList.map(({ battery, paymentId, endTime }) => (
     // 예약 취소 / 반납 / 연장 버튼 scale 애니메이션
     <S.BatteryContainer key={paymentId} id={paymentId}>
       <ShadowCard

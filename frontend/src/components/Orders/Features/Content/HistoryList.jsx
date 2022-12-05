@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ShadowButton, ShadowCard } from '@/components/@commons';
+import { BatteryEmpty, ShadowButton, ShadowCard } from '@/components/@commons';
 import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
 import { useGetHistoryList } from '@/hooks';
@@ -10,6 +10,10 @@ import DateBox from './DateBox';
 const HistoryList = () => {
   const { data: historyList } = useGetHistoryList();
   const [isActive, setIsActive] = useState(false);
+
+  if (historyList.length === 0) {
+    return <BatteryEmpty />;
+  }
 
   return historyList.map(({ battery, paymentId, startTime, endTime }) => (
     <S.BatteryContainer key={paymentId}>
