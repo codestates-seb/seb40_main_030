@@ -26,8 +26,8 @@ const Mid = () => {
     if (!watch('email')) {
       alert('E-mail을 입력해주세요.');
     } else {
-      axios
-        .get(`${apiUrl}/admins`, {
+      apiClient
+        .get(`/admins`, {
           headers: {
             'Access-Control-Allow-Origin': '*',
           },
@@ -57,8 +57,8 @@ const Mid = () => {
       watch('password') === watch('checkpassword')
     ) {
       delete data.checkpassword;
-      axios
-        .post(`${apiUrl}/admins`, data, {
+      apiClient
+        .post(`/admins`, data, {
           headers: {
             'Access-Control-Allow-Origin': '*',
           },

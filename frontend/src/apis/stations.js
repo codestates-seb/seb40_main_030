@@ -47,9 +47,17 @@ const getBatteryBySetTime = async (id, setTime) => {
   return data;
 };
 
-const getFilteredStationsBySetTime = async (setTime) => {
-  const { data } = await apiClient.get('/stations/searchAll', {
-    params: setTime,
+const getFilteredStationsBySetTime = async (location, setTime) => {
+  console.log('현재위치', location);
+  console.log('설정시간대', setTime);
+
+  const { data } = await apiClient.get('/stations/search', {
+    params: {
+      latitude: location.latitude,
+      longitude: location.longitude,
+      startTime: setTime.startTime,
+      endTime: setTime.endTime,
+    },
   });
 
   return data?.content;

@@ -1,18 +1,20 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { useRecoilValue } from 'recoil';
 
 import { getFilteredStationsBySetTime } from '@/apis/stations';
+import { currentLocationState } from '@/recoil/pagesState';
 
 import { useCheckValidReserveTable } from '..';
 
 const useGetFilteredStationsBySetTime = () => {
   const { startPoint, endPoint } = useCheckValidReserveTable();
-  const queryClient = useQueryClient();
+  const currentLocation = useRecoilValue(currentLocationState);
   // 아래 로직은 에러 핸들링이 되는 로직 제데로 한번 찾아봐야함
 
   const { data, refetch } = useQuery(
     ['filtered-stations-setTime', 'stations'],
     () =>
-      getFilteredStationsBySetTime({
+      getFilteredStationsBySetTime(currentLocation, {
         startTime: startPoint?.replace(' ', 'T'),
         endTime: endPoint?.replace(' ', 'T'),
       }).catch((err) => {
@@ -23,14 +25,13 @@ const useGetFilteredStationsBySetTime = () => {
         }
       }),
     {
-      select: (stations) =>
-        stations?.filter(
-          ({ availableBatteryCount }) => availableBatteryCount !== 0,
-        ),
+      // select: (stations) =>
+      //   stations?.filter(
+      //     ({ availableBatteryCount }) => availableBatteryCount !== 0,
+      //   ),
       refetchOnWindowFocus: true,
-      refetchOnReconnect: false,
+      refetchOnReconnect: true,
       suspense: true,
-      onSettled: () => queryClient.invalidateQueries(['stations']),
     },
   );
 
@@ -43,6 +44,7 @@ const useGetFilteredStationsBySetTime = () => {
   });
 
   if (data !== null || data !== undefined) {
+    console.log('예약시간 범위 설정 데이터 ', data);
     return { data, refetch, filteredStations };
   }
 };
