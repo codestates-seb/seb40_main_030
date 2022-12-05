@@ -30,6 +30,8 @@ const SingleDateSelection = ({ currentDate, currentTime }) => {
     handleTime();
   }, []);
 
+  console.log(startTime, endTime);
+
   return (
     <S.ReservationContainer>
       <DateStatus content='대여' date={currentDate} time={startTime} />
