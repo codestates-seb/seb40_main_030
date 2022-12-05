@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const MyPageStatusContainer = styled.div`
+export const MyPageBottomContainer = styled.div`
   height: 410px;
 `;
 

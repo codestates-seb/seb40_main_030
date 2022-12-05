@@ -7,15 +7,13 @@ import { recoilPostAddress } from '../../../recoil/userInfoState';
 import { loginCheckState } from '../../../recoil/login';
 
 import { axiosAdminInstance } from '@/apis/admin';
-// import { setUserLogin, setAdminLogin } from '../../../apis/apiLogin';
-import useLogin from '../../../hooks/Login/useLogin';
+import { setUserLogin, setAdminLogin } from '../../../apis/apiLogin';
 import { apiNotToken } from '../../../apis/api';
 
 import * as S from './GenLogin.style';
 
 const GenLogin = () => {
   const [postAddress, setPostAddress] = useRecoilState(recoilPostAddress);
-  const { setAdminLogin, setUserLogin } = useLogin();
   const [typeState, setTypeState] = useState(true);
   const [checkedLogin, setCheckedLogin] = useRecoilState(loginCheckState);
 

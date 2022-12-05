@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const SignUpContainer = styled.div`
   width: 100%;
   height: 100%;
-  overflow: auto;
 `;
 export const SignUpMidContainer = styled.div`
   padding: 40px 10px 0 10px;

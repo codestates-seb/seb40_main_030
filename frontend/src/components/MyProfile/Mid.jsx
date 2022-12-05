@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+
+import { apiIsToken, apiNotToken } from '../../apis/api';
 import { ProfileImg } from '../../assets';
 import { nowState } from '../../recoil/nowState';
 import {
@@ -13,8 +15,7 @@ import {
   recoilNickname,
   recoilPhone,
 } from '../../recoil/userInfoState';
-import * as S from './UserInfo.style';
-import { apiIsToken, apiNotToken } from '../../apis/api';
+import * as S from './Mid.style';
 
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');

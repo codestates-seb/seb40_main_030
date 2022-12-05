@@ -1,5 +1,5 @@
 import * as S from './MyProfileForm.style';
-import Mid from './UserInfo';
+import Mid from './Mid';
 
 const MyProfileForm = () => {
   return (
