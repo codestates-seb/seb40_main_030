@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { apiIsToken } from '../../apis/api';
+import { apiIsToken } from '../../apis/isTokenApi';
 
 const useMyPageBottom = () => {
   const [listData, setListData] = useState([]);

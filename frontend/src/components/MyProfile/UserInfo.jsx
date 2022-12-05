@@ -13,8 +13,8 @@ import {
   recoilNickname,
   recoilPhone,
 } from '../../recoil/userInfoState';
-import * as S from './Mid.style';
-import { apiIsToken, apiNotToken } from '../../apis/api';
+import * as S from './UserInfo.style';
+import { apiIsToken, apiNotToken } from '../../apis/isTokenApi';
 
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');

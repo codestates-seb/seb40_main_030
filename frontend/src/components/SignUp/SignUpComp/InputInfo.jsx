@@ -11,8 +11,8 @@ import {
   isOverLapEmail,
   isOverLapNick,
 } from '../../../recoil/userInfoState';
-import * as S from './Mid.style';
-import { apiNotToken } from '../../../apis/api';
+import * as S from './InfoInput.style';
+import { apiNotToken } from '../../../apis/isTokenApi';
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
