@@ -10,7 +10,7 @@ const useGetAvailablePeriod = (id) => {
     ['extend-time'],
     () =>
       getAvailableExtendPeriod(id).catch((err) => {
-        if (err.response.status === 404 || err.response.status === 401) {
+        if (err.response.status === 404) {
           openSnackBar('연장 가능한 시간이 없습니다.');
           return null;
         } else {

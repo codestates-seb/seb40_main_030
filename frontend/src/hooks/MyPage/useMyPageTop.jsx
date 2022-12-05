@@ -1,51 +1,23 @@
-import axios from 'axios';
-import { useState } from 'react';
-const apiUrl = import.meta.env.VITE_SERVER_URL;
+import { apiNeedToken, getConfig } from '../../apis/api';
+import { useRecoilState } from 'recoil';
+import { userInfoState } from '../../recoil/userInfoState';
 
 const useMyPage = () => {
-  const [photo, setPhoto] = useState('');
-  const [nickName, setNickName] = useState('');
-  const [email, setEmail] = useState('');
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
-  const getUserInfo = () => {
-    if (localStorage.getItem('accesstoken')) {
-      axios
-        .get(`${apiUrl}/members/find`, {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
-          },
-        })
-        .then((res) => {
-          setNickName(res.data.nickname);
-          setEmail(res.data.email);
-          setPhoto(res.data.photoURL);
-        })
-        .catch((err) => {
-          console.log('err : ', err);
-        });
-    } else if (sessionStorage.getItem('accesstoken')) {
-      axios
-        .get(`${apiUrl}/members/find`, {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem('accesstoken')}`,
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-          },
-        })
-        .then((res) => {
-          setNickName(res.data.nickname);
-          setEmail(res.data.email);
-          setPhoto(res.data.photoURL);
-        })
-        .catch((err) => {
-          console.log('err : ', err);
-        });
-    }
+  const getUserInfo = async () => {
+    console.log('useMyPage -> token : ', localStorage.getItem('accesstoken'));
+    const { data } = await apiNeedToken.get(`/members/find`, getConfig());
+    // .then((res) => {
+    //   console.log('getUserInfo -> res.data : ', res.data);
+    // })
+    // .catch((err) => {
+    //   console.log('err : ', err);
+    // });
+    setUserInfo(data);
   };
 
-  return { getUserInfo, nickName, email, photo };
+  return { getUserInfo };
 };
 
 export default useMyPage;
