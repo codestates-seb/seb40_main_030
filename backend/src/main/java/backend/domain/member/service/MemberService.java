@@ -90,11 +90,14 @@ public class MemberService {
 
     }
 
-//    private void registerJws(String jws) {                           현재 시큐리티 미적용으로 주석처리 했습니다.
-//        Map<String, Object> verifyJws = jwtTokenizer.verifyJws(jws);
-//        ValueOperations valueOperations = redisTemplate.opsForValue();
-//        String username = (String)verifyJws.get("username");
-//        valueOperations.set("logout_"+jws,username, Duration.ofMinutes(jwtTokenizer.getAccessTokenExpirationMinutes()));
-//    }
+    @Transactional
+    public void createOauthMember(Member member) {
+        String rawPassword = member.getPassword();
+        String encPassword = passwordEncoder.encode(rawPassword);
+        member.setPassword(encPassword);
+        List<String> roles = customAuthorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
+        memberRepository.save(member);
+    }
 
 }
