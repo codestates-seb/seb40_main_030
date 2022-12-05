@@ -1,8 +1,7 @@
 import { useCurrentAddress, useSnackBar } from '@/hooks';
 import useGetBatteryBySetTime from '@/hooks/reservation/useGetBatteryBySetTIme';
-import NotFound from '@/pages/NotFound';
 
-import { SnackBar } from '../@commons';
+import { BatteryEmpty, SnackBar } from '../@commons';
 import BatteryInfo from './Features/BatteryInfo';
 import * as S from './Features/Features.style';
 
@@ -17,12 +16,7 @@ const RentalStatus = ({ id }) => {
     <>
       <div className='scrollable-component'>
         {batteries.length === 0 ? (
-          <NotFound
-            message='배터리가 없어요'
-            button={false}
-            bgColor='#fff'
-            color='black'
-          />
+          <BatteryEmpty />
         ) : (
           <>
             <S.AddressDetail>
