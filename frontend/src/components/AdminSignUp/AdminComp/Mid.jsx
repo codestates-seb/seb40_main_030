@@ -1,11 +1,13 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
-import { apiNotToken } from '../../../apis/api';
 import { isOverLapEmail } from '../../../recoil/userInfoState';
-import * as S from './InfoInput.style';
+import * as S from './Mid.style';
+import { apiNotToken } from '../../../apis/api';
+// const apiUrl = import.meta.env.VITE_SERVER_URL;
 
 const Mid = () => {
   const navigate = useNavigate();
@@ -14,8 +16,9 @@ const Mid = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     mode: 'onChange',
   });
@@ -52,7 +55,7 @@ const Mid = () => {
     ) {
       delete data.checkpassword;
       apiNotToken
-        .post(`/admins`, data)
+        .post(`${apiUrl}/admins`, data)
         .then(() => {
           setIsEmail(false);
           navigate(-1);

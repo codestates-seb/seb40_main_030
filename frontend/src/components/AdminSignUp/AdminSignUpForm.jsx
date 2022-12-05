@@ -1,5 +1,5 @@
 import * as S from './AdminSignUpForm.style';
-import Mid from './AdminComp/InfoInput';
+import Mid from './AdminComp/Mid';
 
 const AdminSignUpForm = () => {
   return (

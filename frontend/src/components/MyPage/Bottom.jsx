@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import * as S from './StatusList.style';
+import * as S from './Bottom.style';
 import ReservingList from './List/ReservingList';
 import UseNowList from './List/UseNowList';
 import useMyPageBottom from '../../hooks/MyPage/useMyPageBottom';
@@ -18,7 +18,7 @@ const Bottom = () => {
     return list.status === 'USE_NOW';
   });
   return (
-    <S.MyPageStatusContainer>
+    <S.MyPageBottomContainer>
       <S.ReservingListDiv>
         <S.ReservingText>예약 현황</S.ReservingText>
         {filterReserving &&
@@ -31,7 +31,7 @@ const Bottom = () => {
         {filterUseNow &&
           filterUseNow.map((data) => <UseNowList data={data} key={data.id} />)}
       </S.UseNowListDiv>
-    </S.MyPageStatusContainer>
+    </S.MyPageBottomContainer>
   );
 };
 

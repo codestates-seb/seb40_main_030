@@ -1,4 +1,4 @@
-import Mid from './SignUpComp/InputInfo';
+import Mid from './SignUpComp/Mid';
 
 const SignUpForm = () => {
   return <Mid />;

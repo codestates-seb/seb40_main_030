@@ -15,12 +15,7 @@ import {
   recoilNickname,
   recoilPhone,
 } from '../../recoil/userInfoState';
-<<<<<<< HEAD:frontend/src/components/MyProfile/Mid.jsx
 import * as S from './Mid.style';
-=======
-import * as S from './UserInfo.style';
-import { apiIsToken, apiNotToken } from '../../apis/api';
->>>>>>> FE:frontend/src/components/MyProfile/UserInfo.jsx
 
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');
