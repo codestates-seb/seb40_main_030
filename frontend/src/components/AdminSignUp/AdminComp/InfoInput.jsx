@@ -9,7 +9,6 @@ import { apiNotToken } from '../../../apis/api';
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
-  NICK_REGEX,
   PHONE_REGEX,
 } from '../../../constants/regex';
 

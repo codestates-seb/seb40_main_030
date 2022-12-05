@@ -14,6 +14,7 @@ import {
   recoilPhone,
 } from '../../recoil/userInfoState';
 import * as S from './UserInfo.style';
+import { NICK_REGEX, PHONE_REGEX } from '../../constants/regex';
 import { apiNeedToken, apiNotToken, getConfig } from '../../apis/api';
 
 const Mid = () => {
@@ -250,7 +251,7 @@ const Mid = () => {
                   defaultValue={userInfo.nickname}
                   {...register('nickname', {
                     pattern: {
-                      value: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/,
+                      value: NICK_REGEX,
                       message: '⚠ 영어 / 숫자 / 한글 2~16자리 입력하세요.',
                     },
                   })}
@@ -298,7 +299,7 @@ const Mid = () => {
                 {...register('phone', {
                   required: '⚠ 휴대폰번호 입력',
                   pattern: {
-                    value: /^\d{3}\d{3,4}\d{4}$/,
+                    value: PHONE_REGEX,
                     message: '⚠ 숫자만 입력하세요.',
                   },
                 })}

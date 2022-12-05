@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const ItemLayout = styled.div`
-display: flex;
 height: 200px;
 margin-top: 60px;
 margin-bottom: 30px;
