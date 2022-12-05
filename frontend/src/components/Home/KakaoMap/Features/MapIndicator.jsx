@@ -24,7 +24,11 @@ const MapIndicator = ({ toggle, setToggle, matches }) => {
     <S.Wrapper matches={matches}>
       <S.LocationHover onClick={() => navigate(ROUTES.SEARCH.PATH)}>
         <SearchIcon />
-        <span>{currentAddress}</span>
+        <span>
+          {currentAddress.includes('undefined')
+            ? '미확인 지역'
+            : currentAddress}
+        </span>
       </S.LocationHover>
       <S.ReservationHover>
         <span>

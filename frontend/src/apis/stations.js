@@ -1,23 +1,4 @@
-import axios from 'axios';
-
-//import.meta.env.VITE_ACCESS_TOKEN
-const localToken = localStorage.getItem('accesstoken');
-const sessionToken = sessionStorage.getItem('accesstoken');
-
-const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL,
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    Authorization: `Bearer ${
-      localToken !== null
-        ? localToken
-        : sessionToken !== null
-        ? sessionToken
-        : null
-    }`,
-  },
-  withCredentials: true,
-});
+import { apiClient } from './api';
 
 const getAllStations = async () => {
   const { data } = await apiClient.get('/stations');
@@ -49,9 +30,22 @@ const getBatteryBySetTime = async (id, setTime) => {
   return data;
 };
 
-const getFilteredStationsBySetTime = async (setTime) => {
-  const { data } = await apiClient.get('/stations/searchAll', {
+const getSearchDataBySetTime = async (setTime) => {
+  const { data } = await apiClient.get(`/stations/searchAll`, {
     params: setTime,
+  });
+
+  return data;
+};
+
+const getBatteryByLocationAndSetTime = async (location, setTime) => {
+  const { data } = await apiClient.get('/stations/search', {
+    params: {
+      latitude: location.latitude,
+      longitude: location.longitude,
+      startTime: setTime.startTime,
+      endTime: setTime.endTime,
+    },
   });
 
   return data?.content;
@@ -64,5 +58,6 @@ export {
   deleteStationById,
   getStationByKeyword,
   getBatteryBySetTime,
-  getFilteredStationsBySetTime,
+  getBatteryByLocationAndSetTime,
+  getSearchDataBySetTime,
 };

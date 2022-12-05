@@ -23,15 +23,17 @@ const DesktopMessage = styled.h1`
   color: red;
 
   font-size: 30px;
+
+  z-index: ${({ theme }) => theme.SPLASH_SCREEN};
 `;
 
 const SplashImageContainer = styled(motion.div)`
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
 
-  right: ${({ matches }) => matches && '1%'};
+  /* right: ${({ matches }) => (matches ? '1%' : '1%')}; */
 
   width: 100%;
   height: 100%;
@@ -39,7 +41,7 @@ const SplashImageContainer = styled(motion.div)`
 `;
 
 const SplashImage = styled(motion.img)`
-  position: fixed;
+  position: relative;
   background: ${({ theme }) => theme.WHITE};
 `;
 

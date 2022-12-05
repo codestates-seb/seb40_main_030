@@ -1,6 +1,5 @@
 const useLogin = () => {
   const setAdminLogin = (accesstoken, checked, refreshtoken) => {
-    console.log('setAdminLogin함수내부 token,checked : ', accesstoken, checked);
     if (checked) {
       localStorage.setItem('accesstoken', accesstoken);
       localStorage.setItem('refreshtoken', refreshtoken);
@@ -12,7 +11,6 @@ const useLogin = () => {
   };
 
   const setUserLogin = (accesstoken, checked, refreshtoken) => {
-    console.log('setUserLogin함수내부 token,checked : ', accesstoken, checked);
     if (checked) {
       localStorage.setItem('accesstoken', accesstoken);
       localStorage.setItem('refreshtoken', refreshtoken);

@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { recoilPostAddress } from '../../../recoil/userInfoState';
-import { loginCheckState } from '../../../recoil/login';
 
 import { axiosAdminInstance } from '@/apis/admin';
-// import { setUserLogin, setAdminLogin } from '../../../apis/apiLogin';
-import useLogin from '../../../hooks/Login/useLogin';
-import { apiNotToken } from '../../../apis/api';
 
+// import { setUserLogin, setAdminLogin } from '../../../apis/apiLogin';
+import { apiNotToken } from '../../../apis/api';
+import useLogin from '../../../hooks/Login/useLogin';
+import { loginCheckState } from '../../../recoil/login';
+import { recoilPostAddress } from '../../../recoil/userInfoState';
 import * as S from './GenLogin.style';
 
 const GenLogin = () => {
@@ -50,10 +50,8 @@ const GenLogin = () => {
 
         if (res.data === 'Success ADMIN') {
           setAdminLogin(accesstoken, checkedLogin, refreshtoken);
-          console.log('setAdminLogin 함수 실행!');
         } else {
           setUserLogin(accesstoken, checkedLogin, refreshtoken);
-          console.log('setUserLogin 함수 실행!');
         }
         navigate('/');
       })
