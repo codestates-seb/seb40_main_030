@@ -23,7 +23,7 @@ const TimeTable = () => {
               <Counter
                 type='hours'
                 min={1}
-                max={24}
+                max={23}
                 range={1}
                 time={new Date().getHours()}
               />

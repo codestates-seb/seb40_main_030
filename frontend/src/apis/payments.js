@@ -16,7 +16,7 @@ const getPaymentsTable = async () => {
     },
   });
 
-  return data?.content;
+  return data.content;
 };
 
 const getAvailableExtendPeriod = async (id) => {

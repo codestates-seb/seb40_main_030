@@ -23,7 +23,7 @@ const RentalStatus = ({ id }) => {
               <span>{addressDetail}</span>
             </S.AddressDetail>
             {batteries
-              .sort((a, b) => b.status - a.status)
+              ?.sort((a, b) => b.status - a.status)
               .map((content) => {
                 return (
                   <BatteryInfo
