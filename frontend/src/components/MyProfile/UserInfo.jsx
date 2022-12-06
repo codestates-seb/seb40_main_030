@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { apiNeedToken, apiNotToken, getConfig } from '../../apis/api';
+import { apiNeedToken, authClient, getConfig } from '../../apis/api';
 import { ProfileImg } from '../../assets';
 import { NICK_REGEX, PHONE_REGEX } from '../../constants/regex';
 import { nowState } from '../../recoil/nowState';
@@ -21,7 +21,8 @@ import * as S from './UserInfo.style';
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');
   const [isEdit, setIsEdit] = useRecoilState(recoilIsEdit);
-  const [now, setNow] = useRecoilState(nowState);
+  const setNow = useSetRecoilState(nowState);
+  const [isPhotoDefault, setIsPhotoDefault] = useState(false);
 
   const navigate = useNavigate();
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
@@ -37,6 +38,7 @@ const Mid = () => {
     setNow('MyProfile');
     apiNeedToken.get(`/members/find`, getConfig()).then((res) => {
       setUserInfo(res.data);
+      console.log('');
     });
   }, []);
 
@@ -48,17 +50,17 @@ const Mid = () => {
     formState: { errors },
   } = useForm({
     mode: 'onChange',
-    defaultValues: {
-      photoURL: userInfo.photoURL,
-      nickname: userInfo.nickname,
-      phone: userInfo.phone,
-      address: userInfo.address,
-      detailAddress: userInfo.detailAddress,
-    },
+    // defaultValues: {
+    //   photoURL: userInfo.photoURL,
+    //   nickname: userInfo.nickname,
+    //   phone: userInfo.phone,
+    //   address: userInfo.address,
+    //   detailAddress: userInfo.detailAddress,
+    // },
   });
 
   const checkedNick = () => {
-    apiNotToken
+    authClient
       .get(`/members`)
       .then((res) => {
         let nowUserNick = false;
@@ -120,6 +122,9 @@ const Mid = () => {
           if (!data.photoURL.length) {
             delete data.photoURL;
           }
+          if (isPhotoDefault) {
+            data.photoURL = 'aaa';
+          }
           if (!watch('nickname')) {
             delete data.nickname;
           }
@@ -160,6 +165,8 @@ const Mid = () => {
         setNow('');
         setUserInfo('');
         setInSignAddress('');
+        setInputState('');
+        setIsEdit(false);
         setIsPostCode(false);
         localStorage.removeItem('accesstoken');
         localStorage.removeItem('refreshtoken');
@@ -198,6 +205,14 @@ const Mid = () => {
                       />
                     </S.SignUpPhoto>
                     <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
+                    <S.FileLabel
+                      onClick={() => {
+                        setIsPhotoDefault(true);
+                        setAvatarPreview('aaa');
+                      }}
+                    >
+                      취 소
+                    </S.FileLabel>
                     <input
                       id='file'
                       type='file'
@@ -218,6 +233,14 @@ const Mid = () => {
                       />
                     </S.SignUpPhoto>
                     <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
+                    <S.FileLabel
+                      onClick={() => {
+                        setIsPhotoDefault(true);
+                        setAvatarPreview('aaa');
+                      }}
+                    >
+                      삭 제
+                    </S.FileLabel>
                     <input
                       id='file'
                       type='file'

@@ -4,6 +4,9 @@ export const SignUpContainer = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 export const SignUpMidContainer = styled.div`
   padding: 40px 10px 0 10px;
@@ -40,12 +43,15 @@ export const FileLabel = styled.label`
   font-size: 14px;
   line-height: normal;
   vertical-align: middle;
-  background-color: #7b8c9f;
+  /* background-color: #7b8c9f; */
+  background-color: #c8c8c8;
+  /* background-color: #83878d; */
   cursor: pointer;
   border: 1px solid #d6d9dc;
   border-bottom-color: #e2e2e2;
   border-radius: 5px;
   margin-left: 111px;
+  margin-bottom: 2px;
 `;
 export const PreviewImg = styled.img`
   margin: 0 0 0 110px;
@@ -240,4 +246,13 @@ export const SignUpSubmitBtn = styled.button`
   color: white;
   margin-bottom: 100px;
   background-color: #5584ac;
+`;
+export const SignUpNoSubmitBtn = styled.button`
+  width: 100%;
+  height: 40px;
+  border-radius: 3px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 100px;
+  background-color: #d6d9dc;
 `;

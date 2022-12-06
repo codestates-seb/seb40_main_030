@@ -1,6 +1,7 @@
 // 일반 로그아웃 컴포넌트
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 import { kakaoLogout } from '@/apis/auth';
 import { accessToken } from '@/recoil/login';
@@ -12,9 +13,9 @@ import { LogoutBtn } from './GenLogout.style';
 
 const GenLogout = () => {
   const navigate = useNavigate();
-  const [checkedLogin, setCheckedLogin] = useRecoilState(loginCheckState);
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const [now, setNow] = useRecoilState(nowState);
+  const setCheckedLogin = useSetRecoilState(loginCheckState);
+  const setUserInfo = useSetRecoilState(userInfoState);
+  const setNow = useSetRecoilState(nowState);
 
   const onClickLogout = () => {
     const loginType = localStorage.getItem('loginType');
@@ -26,6 +27,7 @@ const GenLogout = () => {
         localStorage.removeItem('accesstoken');
         localStorage.removeItem('refreshtoken');
         localStorage.removeItem('userType');
+        localStorage.removeItem('loginType');
         sessionStorage.removeItem('userType');
         setCheckedLogin(false);
         setNow('');

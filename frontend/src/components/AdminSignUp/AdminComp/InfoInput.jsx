@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 
 import { isOverLapEmail } from '../../../recoil/userInfoState';
 import * as S from './InfoInput.style';
-import { apiNotToken } from '../../../apis/api';
+import { authClient } from '../../../apis/api';
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
@@ -29,7 +29,7 @@ const Mid = () => {
     if (!watch('email')) {
       alert('E-mail을 입력해주세요.');
     } else {
-      apiNotToken
+      authClient
         .get(`/admins`)
         .then((res) => {
           let existEmail = res.data.content.find(
@@ -56,7 +56,7 @@ const Mid = () => {
       watch('password') === watch('checkpassword')
     ) {
       delete data.checkpassword;
-      apiNotToken
+      authClient
         .post(`/admins`, data)
         .then(() => {
           setIsEmail(false);
@@ -174,7 +174,19 @@ const Mid = () => {
             )}
           </S.SignUpMidContainer>
           <S.SignUpBottomContainer>
-            <S.SignUpSubmitBtn type='submit'>관리자 등록</S.SignUpSubmitBtn>
+            {!errors.email?.message &&
+            !errors.password?.message &&
+            !errors.phone?.message &&
+            watch('email') &&
+            watch('password') &&
+            watch('checkpassword') &&
+            watch('phone') ? (
+              <S.SignUpSubmitBtn type='submit'>관리자 등록</S.SignUpSubmitBtn>
+            ) : (
+              <S.SignUpNoSubmitBtn type='button' disabled>
+                관리자 등록
+              </S.SignUpNoSubmitBtn>
+            )}
           </S.SignUpBottomContainer>
         </form>
       </S.AdminMidContainer>
