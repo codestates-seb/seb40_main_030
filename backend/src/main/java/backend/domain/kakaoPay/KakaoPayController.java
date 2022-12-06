@@ -53,7 +53,7 @@ public class KakaoPayController {
         kakaopay.kakaoPayInfo(paymentId, pg_token);
         redirectAttributes.addAttribute("paymentId", paymentId);
 
-        return "redirect:http://localhost:8080/kakaoPaySuccess";
+        return "redirect:http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com/kakaoPaySuccess";
     }
 
     // 결제 취소시 실행 url
@@ -61,7 +61,7 @@ public class KakaoPayController {
     public String kakaoPayCancel(@PathVariable("paymentId") Long paymentId) {
 
         kakaopay.kakaoPayCancelOrFail(paymentId);
-        return "redict:http://localhost:8080/kakaoPayCancel";
+        return "redict:http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com/kakaoPayCancel";
     }
 
     // 결제 실패시 실행 url
@@ -69,6 +69,6 @@ public class KakaoPayController {
     public String kakaoPaySuccessFail(@PathVariable("paymentId") Long paymentId) {
 
         kakaopay.kakaoPayCancelOrFail(paymentId);
-        return "redict:http://localhost:8080/kakaoPaySuccessFail";
+        return "redict:http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com/kakaoPaySuccessFail";
     }
 }
