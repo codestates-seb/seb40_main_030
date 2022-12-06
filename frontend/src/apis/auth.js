@@ -22,7 +22,6 @@ const sendAuthCode = async (code) => {
 
 const setHeaderAccessToken = (token) => {
   if (token) {
-    console.log('헤더 세팅');
     const UserType =
       localStorage.getItem('userType') || sessionStorage.getItem('userType');
     if (UserType === 'admin') {
@@ -33,7 +32,11 @@ const setHeaderAccessToken = (token) => {
       apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       apiNeedToken.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
-  } else delete axios.defaults.headers.common['Authorization'];
+  } else {
+    delete axiosAdminInstance.defaults.headers.common['Authorization'];
+    delete apiClient.defaults.headers.common['Authorization'];
+    delete apiNeedToken.defaults.headers.common['Authorization'];
+  }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
