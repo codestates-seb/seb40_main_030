@@ -31,6 +31,7 @@ import UserMapMarker from './userMapMarker.png';
 import PinningImage from './pinning_img.png';
 import SaleImg from './sale.png';
 import GuideImg from './guide.png';
+import KakaoLoginMedium from './kakao_login_medium_wide.png';
 
 // Icons
 export {
@@ -68,4 +69,5 @@ export {
   TeongImg,
   UserMapMarker,
   PinningImage,
+  KakaoLoginMedium,
 };
