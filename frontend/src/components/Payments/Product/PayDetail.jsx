@@ -1,21 +1,26 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 import { postKakao } from '@/apis/pay';
 import { PRICE_REGEX } from '@/constants';
+import cartInfo from '@/recoil/cart';
 
 import * as S from './PayDetail.style';
 
 
 const PayDetail = () => {
     const {state} = useLocation();
-
+    const [stateCart, setStateCart] = useRecoilState(cartInfo)
     const totalAmount = state?.price + state?.defaultPrice;
-    
-    const handleClick = async () => {
-        postKakao()
-    }
+    useEffect(() => {
+        setStateCart(state)
+    }, [])
 
+    const handleClick = async () => {
+        postKakao(state, totalAmount)
+    }
     return (
             <S.PayLayout>
                 <S.PayInformationLayout>
