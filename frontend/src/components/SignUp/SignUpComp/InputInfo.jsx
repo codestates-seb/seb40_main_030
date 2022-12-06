@@ -166,16 +166,14 @@ const SignUpMid = () => {
               </S.SignUpPhoto>
 
               <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
-              {/* 동진님 요청 -이건희- */}
               <S.FileLabel
                 onClick={() => {
                   setValue('photoURL', '');
                   setAvatarPreview('');
                 }}
               >
-                삭제
+                취 소
               </S.FileLabel>
-
               <input
                 id='file'
                 type='file'

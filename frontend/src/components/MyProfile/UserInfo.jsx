@@ -235,7 +235,7 @@ const Mid = () => {
                         setAvatarPreview('aaa');
                       }}
                     >
-                      취 소
+                      삭 제
                     </S.FileLabel>
                     <input
                       id='file'
