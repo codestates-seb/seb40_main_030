@@ -26,7 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 
@@ -105,7 +109,7 @@ public class KakaoController {
         // 비즈니스 계층에서 생성 및 저장 하는 게 좋을 듯합니다.
         Member kakaoMember = Member.builder()
                 .id(kakaoProfile.getId())   // <- 카카오에서 제공하는 Id값 입력할 수 있도록 해보기
-                .nickname(kakaoProfile.getKakao_account().getEmail() + kakaoProfile.getId())
+                .nickname(kakaoProfile.getKakao_account().getEmail())
                 .password(coskey)
                 .email(kakaoProfile.getKakao_account().getEmail())
                 .phone("null")
@@ -119,6 +123,9 @@ public class KakaoController {
             savedMember = memberService.createOauthMember(kakaoMember);
         }
 
+        if (savedMember.getId() == null) {
+            savedMember = memberRepository.findByMemberEmail(kakaoMember.getEmail()).get();
+        }
 
         // Authenticationf를 Security 영속성 컨텍스트에 저장
         Authentication authentication = new UsernamePasswordAuthenticationToken(kakaoMember.getEmail(), coskey);
@@ -144,4 +151,29 @@ public class KakaoController {
         // 의미 있는 리턴문인지 검증이 필요
         return "Success USER";
     }
+
+    @RequestMapping(value="/logout2")
+    public String logout(HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+
+        kakaoLogout((String)session.getAttribute("accessToken"));
+        session.removeAttribute("accessToken");
+        return "logout";
+    }
+
+    public void kakaoLogout(String accessToken) {
+        String reqURL = "http://kapi.kakao.com/v1/user/logout";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

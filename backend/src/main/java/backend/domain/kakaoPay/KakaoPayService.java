@@ -52,11 +52,11 @@ public class KakaoPayService {
         params.add("quantity", "1");
         params.add("total_amount", String.valueOf(totalAmount));//상품 총 금액
         params.add("tax_free_amount", "100");
-        params.add("approval_url", "http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com/kakaoPaySuccess/" + paymentId);// 결제 승인시 url
-        params.add("cancel_url", "http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com/kakaoPayCancel/" + paymentId); // 결제 취소시 url
-        params.add("fail_url", "http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com/kakaoPaySuccessFail/" + paymentId); // 결제 실패시 url
+        params.add("approval_url", "http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/kakaoPaySuccess/" + paymentId);// 결제 승인시 url
+        params.add("cancel_url", "http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/kakaoPayCancel/" + paymentId); // 결제 취소시 url
+        params.add("fail_url", "http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/kakaoPaySuccessFail/" + paymentId); // 결제 실패시 url
 
-        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(params, headers);
 
         String url = "https://kapi.kakao.com/v1/payment/ready";
         KakaoPayReadyVO kakaoPayReadyVO = restTemplate.postForObject(url, body, KakaoPayReadyVO.class);
@@ -118,7 +118,42 @@ public class KakaoPayService {
 
     }
 
-    public void kakaoPayCancelOrFail(Long paymentId){
+//    public void kakaoPayCancelOrFail(Long paymentId){
+//        RestTemplate restTemplate = new RestTemplate();
+//        KakaoPayCancelVO kakaoPayCancelVO;
+//        Payment savedPayment = paymentRepository.findById(paymentId)
+//                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
+//        String tid = savedPayment.getTid();
+//
+//        // 서버로 요청할 Header
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Authorization", "KakaoAK " + "82d314b8fd7c2c1f79dadd248f79a7b0");
+//        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+//        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+//
+//        // 서버로 요청할 Body
+//        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+//        params.add("cid", "TC0ONETIME");
+//        params.add("tid", tid);// 결제고유 번호
+//        params.add("cancel_amount", String.valueOf(savedPayment.getTotalPrice()));//취소 상품 총 금액
+//        params.add("cancel_tax_free_amount", "100");
+//
+//        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+//
+////        kakaoPayCancelVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/cancel"), body, KakaoPayCancelVO.class);
+//
+////        log.info("" + kakaoPayCancelVO);
+//
+//        savedPayment.setStatus(PayStatus.CANCELED);
+//
+//        paymentRepository.save(savedPayment);
+//
+//        reservationRepository.deleteById(savedPayment.getReservations().get(0).getReservationId());
+//
+////        return kakaoPayCancelVO;
+//    }
+
+    public KakaoPayCancelVO kakaoPayCancel(Long paymentId){
         RestTemplate restTemplate = new RestTemplate();
         KakaoPayCancelVO kakaoPayCancelVO;
         Payment savedPayment = paymentRepository.findById(paymentId)
@@ -139,17 +174,25 @@ public class KakaoPayService {
         params.add("cancel_tax_free_amount", "100");
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        try {
+            kakaoPayCancelVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/cancel"), body, KakaoPayCancelVO.class);
 
-//        kakaoPayCancelVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/cancel"), body, KakaoPayCancelVO.class);
+            log.info("" + kakaoPayCancelVO);
 
-//        log.info("" + kakaoPayCancelVO);
+            savedPayment.setStatus(PayStatus.CANCELED);
+            paymentRepository.save(savedPayment);
+            reservationRepository.deleteById(savedPayment.getReservations().get(0).getReservationId());
 
-        savedPayment.setStatus(PayStatus.CANCELED);
+            return kakaoPayCancelVO;
 
-        paymentRepository.save(savedPayment);
+        } catch (RestClientException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-        reservationRepository.deleteById(savedPayment.getReservations().get(0).getReservationId());
-
-//        return kakaoPayCancelVO;
+        return null;
     }
 }

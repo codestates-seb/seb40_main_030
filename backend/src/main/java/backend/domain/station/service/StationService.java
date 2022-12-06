@@ -180,10 +180,10 @@ public class StationService {
         if (endT.isBefore(startT) || startT.isBefore(LocalDateTime.now())) throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
 
         // 객체 필드값을 중점으로 해서 반경검색 구현하기
-        Double minLat = defaultStation.getLatitude() - 0.01798573;  // 위/아래 역 하나정도의 거리차이 = 0.00912237 == 0.01
-        Double maxLat = defaultStation.getLatitude() + 0.01798573;
-        Double minLog = defaultStation.getLongitude() - 0.01798573;  // 좌/우 역 하나정도의 거리차이 = 0.01171529 == 0.01
-        Double maxLog = defaultStation.getLongitude() + 0.01798573;
+        Double minLat = defaultStation.getLatitude() - 0.02298573;
+        Double maxLat = defaultStation.getLatitude() + 0.02298573;
+        Double minLog = defaultStation.getLongitude() - 0.02298573;
+        Double maxLog = defaultStation.getLongitude() + 0.02298573;
 
         List<Station> originList = stationRepository.findAll();
         List<Station> filteredList = originList.stream()

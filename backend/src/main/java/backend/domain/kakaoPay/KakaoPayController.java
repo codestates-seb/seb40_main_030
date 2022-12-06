@@ -17,8 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 @Log
-@Controller
+@RestController
 @RequiredArgsConstructor
+@RequestMapping
 public class KakaoPayController {
 
     @Setter(onMethod_ = @Autowired)
@@ -27,7 +28,7 @@ public class KakaoPayController {
     private final JwtExtractUtils jwtExtractUtils;
 
     @GetMapping("/kakaoPay")
-    public @ResponseBody ResponseEntity kakaoPay(@RequestParam(required = false, name = "itemName") String itemName,
+    public ResponseEntity kakaoPay(@RequestParam(required = false, name = "itemName") String itemName,
                                                  @RequestParam(required = false, name = "totalAmount") int totalAmount,
                                                  @RequestParam(required = false, name = "batteryId") Long batteryId,
                                                  @RequestParam(required = false, name = "startTime") String startTime,
@@ -45,7 +46,7 @@ public class KakaoPayController {
 
 
     @GetMapping("/kakaoPaySuccess/{paymentId}")
-    public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token,
+    public String kakaoPaySuccess(@RequestParam(required = false) String pg_token,
                                   @PathVariable("paymentId") Long paymentId, RedirectAttributes redirectAttributes) {
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
@@ -53,22 +54,31 @@ public class KakaoPayController {
         kakaopay.kakaoPayInfo(paymentId, pg_token);
         redirectAttributes.addAttribute("paymentId", paymentId);
 
-        return "redirect:http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com/kakaoPaySuccess";
+        return "redirect:http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/payments/payment_completed";
     }
 
     // 결제 취소시 실행 url
-    @GetMapping("/kakaoPayCancel/{paymentId}")
-    public String kakaoPayCancel(@PathVariable("paymentId") Long paymentId) {
-
-        kakaopay.kakaoPayCancelOrFail(paymentId);
-        return "redict:http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com/kakaoPayCancel";
+    @PostMapping("/kakaoPayCancel")
+    public void kakaoPayCancel(@RequestParam(name = "paymentId") Long paymentId,
+                               Model model) {
+        model.addAttribute("info", kakaopay.kakaoPayCancel(paymentId));
     }
+
+    // 결제 취소시 실행 url
+//    @GetMapping("/kakaoPayCancel/{paymentId}")
+//    public String kakaoPayCancel(@PathVariable("paymentId") Long paymentId) {
+//
+//        kakaopay.kakaoPayCancelOrFail(paymentId);
+//        log.info("결제가 취소되었습니다.");
+//        return "redirect:http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/kakaoPayCancel";
+//    }
 
     // 결제 실패시 실행 url
-    @PostMapping("/kakaoPaySuccessFail/{paymentId}")
-    public String kakaoPaySuccessFail(@PathVariable("paymentId") Long paymentId) {
-
-        kakaopay.kakaoPayCancelOrFail(paymentId);
-        return "redict:http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com/kakaoPaySuccessFail";
-    }
+//    @GetMapping("/kakaoPaySuccessFail/{paymentId}")
+//    public String kakaoPaySuccessFail(@PathVariable("paymentId") Long paymentId) {
+//
+//        kakaopay.kakaoPayCancelOrFail(paymentId);
+//        log.info("결제가 실패되었습니다.");
+//        return "redirect:http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/kakaoPaySuccessFail";
+//    }
 }

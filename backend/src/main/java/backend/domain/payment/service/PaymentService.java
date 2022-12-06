@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -141,19 +140,14 @@ public class PaymentService {
         List<Payment> list = page.stream().filter(pay -> (pay.getMember().getId() == memberId)).collect(Collectors.toList());
 
         // payment가 없을 경우의 엣지 케이스
-        if(list.size()==0) return list;
+        if (list.size() == 0) return list;
 
         for (int i = 0; i < list.size(); i++) {
             Payment savedPayment = paymentRepository.findById(list.get(i).getId()).get(); // 위에서 애당초 payment가 없는 경우를 제외시킴 (불필요한 연산 및 엣지케이스 제거)
-            if(savedPayment.getReturnTime() != null
-                    && LocalDateTime.parse(savedPayment.getReturnTime()).isBefore(LocalDateTime.now())){ // 반납한 경우 제외
-                continue;
-            }
-            else if (LocalDateTime.parse(savedPayment.getStartTime()).isBefore(LocalDateTime.now())
+            if (LocalDateTime.parse(savedPayment.getStartTime()).isBefore(LocalDateTime.now())
                     && LocalDateTime.parse(savedPayment.getReturnTime()).isAfter(LocalDateTime.now())) {
                 savedPayment.setStatus(PayStatus.USE_NOW);
                 paymentRepository.save(savedPayment);
-
             } else if (LocalDateTime.parse(savedPayment.getReturnTime()).isBefore(LocalDateTime.now())
                     && (savedPayment.getStatus() != PayStatus.HISTORY)) {  // 이미 History로 바뀐 부분은 reservation이 없기때문에 OutOfIndex 발생했었음!
                 savedPayment.setStatus(PayStatus.HISTORY);
@@ -246,7 +240,7 @@ public class PaymentService {
         String changedStatus = payment.getStatus().toString();
         paymentRepository.save(payment);
 
-        if(status.equals("IN_PROGRESS") || status.equals("WAITING_FOR_RESERVATION") || status.equals("USE_NOW")) {
+        if (status.equals("IN_PROGRESS") || status.equals("WAITING_FOR_RESERVATION") || status.equals("USE_NOW")) {
             Reservation reservation = new Reservation();
             Member member = memberRepository.findById(1L).get();
             payment.setMember(member);
@@ -257,7 +251,7 @@ public class PaymentService {
             reservation.setModifiedAt(LocalDateTime.now());
             reservationRepository.save(reservation);
         }
-        return  changedStatus;
+        return changedStatus;
     }
 
 
