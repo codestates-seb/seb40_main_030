@@ -57,6 +57,7 @@ const HistoryList = () => {
               content='반납 완료된 배터리'
               style={{ fontSize: 13, marginTop: 20 }}
               disabled={true}
+              color='gray'
             />
           </S.ProductInfoContainer>
         </S.ProductWrapper>
