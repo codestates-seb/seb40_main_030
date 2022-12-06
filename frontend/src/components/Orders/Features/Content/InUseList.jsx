@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 import { ShadowCard, ShadowButton, BatteryEmpty } from '@/components/@commons';
 import InputModal from '@/components/Business/InputModal/InputModal';
@@ -14,16 +13,15 @@ import * as S2 from './Content.style';
 import DateBox from './DateBox';
 
 const InUseList = () => {
+  const [currentModal, setCurrentModal] = useState('');
   const { data: inUseList } = useGetInUseList();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const type = searchParams.get('type');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (inUseList.length === 0) {
     return <BatteryEmpty />;
   }
 
-  return inUseList?.map(({ battery, paymentId, endTime }) => (
+  return inUseList?.map(({ battery, paymentId, returnTime }) => (
     // 예약 취소 / 반납 / 연장 버튼 scale 애니메이션
     <S.BatteryContainer key={paymentId} id={paymentId}>
       <ShadowCard
@@ -47,7 +45,7 @@ const InUseList = () => {
             </S.BatteryName>
           </S2.ImageContainer>
           <S.ProductInfoContainer>
-            <DateBox endTime={endTime} />
+            <DateBox returnTime={returnTime} />
             <ShadowButton
               shadow={false}
               width='80px'
@@ -56,7 +54,7 @@ const InUseList = () => {
               style={{ fontSize: 15, marginTop: 20 }}
               // 반납 확인 모달창 띄운 뒤 성공하면 snackbar
               onClick={() => {
-                setSearchParams({ type: 'return' });
+                setCurrentModal('return');
                 setIsModalOpen(!isModalOpen);
               }}
             />
@@ -67,7 +65,7 @@ const InUseList = () => {
               content='연장할래요'
               style={{ fontSize: 15, marginTop: 20 }}
               onClick={() => {
-                setSearchParams({ type: 'extends' });
+                setCurrentModal('extends');
                 setIsModalOpen(!isModalOpen);
               }}
             />
@@ -75,12 +73,16 @@ const InUseList = () => {
         </S.ProductWrapper>
       </ShadowCard>
       <InputModal isModalOpen={isModalOpen} closeModalHandler={setIsModalOpen}>
-        <ContentModal height={type === 'return' ? '30%' : '60%'}>
-          {type === 'return' ? (
-            <Return endTime={endTime} setIsModalOpen={setIsModalOpen} />
-          ) : type === 'extends' ? (
+        <ContentModal height={currentModal === 'return' ? '30%' : '60%'}>
+          {currentModal === 'return' ? (
+            <Return
+              returnTime={returnTime}
+              setIsModalOpen={setIsModalOpen}
+              paymentId={paymentId}
+            />
+          ) : currentModal === 'extends' ? (
             <Extends
-              endTime={endTime}
+              returnTime={returnTime}
               paymentsId={paymentId}
               setIsModalOpen={setIsModalOpen}
             />

@@ -14,7 +14,7 @@ const useGetBatteryBySetTime = (id) => {
     () =>
       getBatteryBySetTime(id, {
         startTime: startPoint?.replace(' ', 'T'),
-        endTime: endPoint?.replace(' ', 'T'),
+        returnTime: endPoint?.replace(' ', 'T'),
       }),
     {
       onError: (err) => console.log(err),

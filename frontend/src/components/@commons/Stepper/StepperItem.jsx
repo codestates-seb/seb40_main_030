@@ -4,7 +4,7 @@ const StepperItem = ({ reservations }) => {
   let timeArray = [];
 
   reservations?.map((reservation) => timeArray.push(reservation.startTime));
-  reservations?.map((reservation) => timeArray.push(reservation.endTime));
+  reservations?.map((reservation) => timeArray.push(reservation.returnTime));
 
   timeArray = timeArray.sort(
     (a, b) => new Date(a).getTime() - new Date(b).getTime(),

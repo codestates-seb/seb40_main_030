@@ -13,7 +13,7 @@ const HistoryList = () => {
     return <BatteryEmpty />;
   }
 
-  return historyList?.map(({ battery, paymentId, startTime, endTime }) => (
+  return historyList?.map(({ battery, paymentId, startTime, returnTime }) => (
     <S.BatteryContainer key={paymentId}>
       <ShadowCard
         initial={{ opacity: 0 }}
@@ -36,7 +36,7 @@ const HistoryList = () => {
               <S.Price>
                 {(
                   ((battery.price + battery.defaultPrice) *
-                    (new Date(endTime).getTime() -
+                    (new Date(returnTime).getTime() -
                       new Date(startTime).getTime())) /
                   (1000 * 60)
                 )
@@ -45,7 +45,11 @@ const HistoryList = () => {
               </S.Price>
               <span>원</span>
             </S.PriceContainer>
-            <DateBox startTime={startTime} endTime={endTime} border={true} />
+            <DateBox
+              startTime={startTime}
+              returnTime={returnTime}
+              border={true}
+            />
             <ShadowButton
               shadow={false}
               width='80px'

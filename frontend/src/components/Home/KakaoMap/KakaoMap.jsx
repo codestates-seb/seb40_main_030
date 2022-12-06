@@ -70,7 +70,7 @@ const KakaoMap = ({ matches }) => {
               lng: location?.longitude,
             }}
             image={{
-              src: UserMapMarker, // 마커이미지의 주소입니다
+              src: UserMapMarker,
               size: {
                 width: 50,
                 height: 50,
@@ -84,10 +84,10 @@ const KakaoMap = ({ matches }) => {
                 lng: currentLocation?.longitude,
               }}
               image={{
-                src: PinningImage, // 마커이미지의 주소입니다
+                src: PinningImage,
                 size: {
-                  width: 20,
-                  height: 20,
+                  width: 30,
+                  height: 30,
                 },
               }}
             ></MapMarker>

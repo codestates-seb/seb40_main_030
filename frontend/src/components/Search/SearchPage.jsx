@@ -19,6 +19,7 @@ const SearchPage = ({ stations }) => {
     <>
       <div>
         <SearchBar stations={stations} setLocationInfo={setLocationInfo} />
+
         {locationInfo && (
           <ShadowButton
             content={`${locationInfo.name}으로 이동`}
@@ -33,7 +34,6 @@ const SearchPage = ({ stations }) => {
           />
         )}
       </div>
-
       <SnackBar isActive={isActive} message={message} />
     </>
   );

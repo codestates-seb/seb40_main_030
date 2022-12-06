@@ -1,13 +1,22 @@
 import { ShadowButton } from '@/components/@commons';
-import { useSnackBar } from '@/hooks';
+import useCancelPayment from '@/hooks/Orders/useCancelBattery';
 
 import DateBox from '../Content/DateBox';
 import ModalHeader from '../Modal/ModalHeader';
 import * as S from './Options';
 
-const Cancel = ({ startTime, endTime, setIsModalOpen }) => {
-  const { openSnackBar } = useSnackBar();
-  const target = document.getElementById('3');
+const Cancel = ({
+  startTime,
+  returnTime,
+  setIsModalOpen,
+  paymentId,
+  battery,
+}) => {
+  const { handleCancelPayment } = useCancelPayment();
+  const totalPrice =
+    ((battery.price + battery.defaultPrice) *
+      (new Date(returnTime).getTime() - new Date(startTime).getTime())) /
+    (1000 * 60);
 
   return (
     <S.ContentWrapper>
@@ -16,7 +25,7 @@ const Cancel = ({ startTime, endTime, setIsModalOpen }) => {
         <S.Border />
         <DateBox startTime={startTime} fontSize='20px' />
         <S.Border />
-        <DateBox endTime={endTime} fontSize='20px' />
+        <DateBox returnTime={returnTime} fontSize='20px' />
       </S.ReturnDateContainer>
       <ShadowButton
         padding={'10px 5px'}
@@ -24,10 +33,8 @@ const Cancel = ({ startTime, endTime, setIsModalOpen }) => {
         style={{ width: '70%', marginTop: '10%' }}
         shadow={false}
         onClick={() => {
+          handleCancelPayment(paymentId, totalPrice);
           setIsModalOpen(false);
-          openSnackBar('예약이 성공적으로 취소되었습니다.');
-
-          target.style.display = 'none';
         }}
       />
     </S.ContentWrapper>

@@ -26,13 +26,31 @@ const getAvailableExtendPeriod = async (id) => {
 };
 
 const patchExtendBookingPeriod = async (id, extendTime) => {
-  const response = await apiClient
-    .patch(`/payments/${id}/extend?extendTime=${extendTime}`)
-    .catch((err) => {
-      console.log(err);
-    });
+  const response = await apiClient.patch(
+    `/payments/${id}/extend?extendTime=${extendTime}`,
+  );
 
   return response;
 };
 
-export { getPaymentsTable, getAvailableExtendPeriod, patchExtendBookingPeriod };
+const patchReturnBattery = async (paymentId) => {
+  const response = await apiClient.patch(`/payments/return/${paymentId}`);
+
+  return response;
+};
+
+const patchCancelPayment = async (paymentId, totalPrice) => {
+  const response = await apiClient.patch(
+    `/kakaoPayCancel?paymentId=${paymentId}&cancel_amount=${totalPrice}`,
+  );
+
+  return response;
+};
+
+export {
+  getPaymentsTable,
+  getAvailableExtendPeriod,
+  patchExtendBookingPeriod,
+  patchReturnBattery,
+  patchCancelPayment,
+};

@@ -30,7 +30,8 @@ const useGetInUseList = () => {
           .filter((list) => list.payStatus === 'USE_NOW')
           .sort(
             (a, b) =>
-              new Date(a.endTime).getTime() - new Date(b.endTime).getTime(),
+              new Date(a.returnTime).getTime() -
+              new Date(b.returnTime).getTime(),
           ),
     },
   );

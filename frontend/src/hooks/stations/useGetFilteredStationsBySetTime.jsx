@@ -16,7 +16,7 @@ const useGetFilteredStationsBySetTime = () => {
     () =>
       getBatteryByLocationAndSetTime(currentLocation, {
         startTime: startPoint?.replace(' ', 'T'),
-        endTime: endPoint?.replace(' ', 'T'),
+        returnTime: endPoint?.replace(' ', 'T'),
       }).catch((err) => {
         if (err.response.status === 400) {
           return null;

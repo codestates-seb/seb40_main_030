@@ -19,7 +19,7 @@ const BookingList = () => {
     return <BatteryEmpty />;
   }
 
-  return bookingList?.map(({ battery, paymentId, startTime, endTime }) => (
+  return bookingList?.map(({ battery, paymentId, startTime, returnTime }) => (
     <S.BatteryContainer key={paymentId} id={paymentId}>
       <ShadowCard
         initial={{ opacity: 0 }}
@@ -46,7 +46,7 @@ const BookingList = () => {
               <S.Price>
                 {(
                   ((battery.price + battery.defaultPrice) *
-                    (new Date(endTime).getTime() -
+                    (new Date(returnTime).getTime() -
                       new Date(startTime).getTime())) /
                   (1000 * 60)
                 )
@@ -55,7 +55,11 @@ const BookingList = () => {
               </S.Price>
               <span>원</span>
             </S.PriceContainer>
-            <DateBox startTime={startTime} endTime={endTime} border={true} />
+            <DateBox
+              startTime={startTime}
+              returnTime={returnTime}
+              border={true}
+            />
             <ShadowButton
               shadow={false}
               width='80px'
@@ -75,8 +79,10 @@ const BookingList = () => {
         <ContentModal height={'30%'}>
           <Cancel
             startTime={startTime}
-            endTime={endTime}
+            returnTime={returnTime}
             setIsModalOpen={setIsModalOpen}
+            paymentId={paymentId}
+            battery={battery}
           />
         </ContentModal>
       </InputModal>
