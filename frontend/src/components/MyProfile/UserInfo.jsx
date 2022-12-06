@@ -164,6 +164,8 @@ const Mid = () => {
         setNow('');
         setUserInfo('');
         setInSignAddress('');
+        setInputState('');
+        setIsEdit(false);
         setIsPostCode(false);
         localStorage.removeItem('accesstoken');
         localStorage.removeItem('refreshtoken');
@@ -204,7 +206,6 @@ const Mid = () => {
                     <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
                     <S.FileLabel
                       onClick={() => {
-                        setValue('aaa');
                         setIsPhotoDefault(true);
                         setAvatarPreview('aaa');
                       }}

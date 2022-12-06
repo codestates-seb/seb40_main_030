@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-/* main-01 : #5584AC
-  font-01 : #7b8c9f */
 export const NoticeListDiv = styled.div`
   display: flex;
   width: 100%;

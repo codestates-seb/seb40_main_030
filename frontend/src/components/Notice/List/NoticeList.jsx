@@ -5,7 +5,6 @@ const NoticeList = ({ list }) => {
   return (
     <S.NoticeListDiv>
       <S.StatusDiv>
-        {/* <S.StatusText>{list.status}</S.StatusText> */}
         {list.type === 'notice' ? (
           <>
             <S.StatusText>{list.status}</S.StatusText>
@@ -20,7 +19,6 @@ const NoticeList = ({ list }) => {
             <S.StatusImgDiv src={SaleImg} />
           </>
         )}
-        {/* <S.StatusImgDiv src={SaleImg} /> */}
       </S.StatusDiv>
       <S.ContentDiv>
         <S.TitleDiv>{list.title}</S.TitleDiv>
@@ -30,7 +28,6 @@ const NoticeList = ({ list }) => {
         ) : (
           <S.DateDiv></S.DateDiv>
         )}
-        {/* <S.DateDiv>기간:{list.period}</S.DateDiv> */}
       </S.ContentDiv>
     </S.NoticeListDiv>
   );
