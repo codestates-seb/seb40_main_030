@@ -13,14 +13,15 @@ import MyProfile from './MyPage/MyProfile';
 import Notice from './MyPage/Notice';
 import NotFound from './NotFound';
 import Orders from './Orders';
-import PaymentCompleted from './PaymentCompleted';
 import Payments from './Payments';
+import PaymentCanceled from './PaymentState/PaymentCanceled';
+import PaymentCompleted from './PaymentState/PaymentCompleted';
+import PaymentFailed from './PaymentState/PaymentFailed';
 import Rental from './Rental';
 import Search from './Search';
 import SearchAddress from './SearchAddress';
 import SignUp from './SignUp';
 import AdminSignUp from './SignUp/AdminSignUp';
-
 // W/O Page Animation
 // const PaymentCompleted = lazy(() => import('./PaymentCompleted'));
 // const NotFound = lazy(() => import('./NotFound'));
@@ -138,6 +139,16 @@ const PAGES = [
     element: <Search />,
     path: ROUTES.SEARCH.PATH,
     name: ROUTES.SEARCH.NAME,
+  },
+  {
+    element: <PaymentCanceled />,
+    path: ROUTES.PAYMENTCANCELED.PATH,
+    name: ROUTES.PAYMENTCANCELED.NAME,
+  },
+  {
+    element: <PaymentFailed />,
+    path: ROUTES.PAYMENTFAILED.PATH,
+    name: ROUTES.PAYMENTFAILED.NAME,
   },
 ];
 
