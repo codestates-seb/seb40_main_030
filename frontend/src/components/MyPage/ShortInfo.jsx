@@ -20,11 +20,6 @@ const Top = () => {
   };
 
   useEffect(() => {
-    console.log(
-      'Mypage/shortInfo -> token : ',
-      localStorage.getItem('accesstoken'),
-    );
-    console.log('mypage/shortInfo -> recoil userInfoState : ', userInfo);
     getUserInfo();
     setIsEdit(false);
   }, []);

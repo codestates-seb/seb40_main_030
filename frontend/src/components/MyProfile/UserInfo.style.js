@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const MyProfileContainer = styled.div`
   width: 100%;
   height: 100%;
-  /* border: 1px solid black; */
 `;
 
 export const SignUpMidContainer = styled.div`
@@ -40,12 +39,13 @@ export const FileLabel = styled.label`
   font-size: 14px;
   line-height: normal;
   vertical-align: middle;
-  background-color: #7b8c9f;
+  background-color: #c8c8c8;
   cursor: pointer;
   border: 1px solid #d6d9dc;
   border-bottom-color: #e2e2e2;
   border-radius: 5px;
   margin-left: 111px;
+  margin-bottom: 2px;
 `;
 export const PreviewImg = styled.img`
   margin: 0 0 0 110px;
