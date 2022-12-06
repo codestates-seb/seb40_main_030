@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { axiosAdminInstance } from '@/apis/admin';
+import { loginCheckState } from '@/recoil/login';
+import { recoilPostAddress } from '@/recoil/userInfoState';
 
-// import { setUserLogin, setAdminLogin } from '../../../apis/apiLogin';
-import { apiNotToken } from '../../../apis/api';
+import { authClient } from '../../../apis/api';
+import { EMAIL_REGEX } from '../../../constants/regex';
 import useLogin from '../../../hooks/Login/useLogin';
-import { loginCheckState } from '../../../recoil/login';
-import { recoilPostAddress } from '../../../recoil/userInfoState';
 import * as S from './GenLogin.style';
 
 const GenLogin = () => {
@@ -22,6 +22,7 @@ const GenLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setCheckedLogin(false);
     setPostAddress('');
   }, []);
 
@@ -34,7 +35,7 @@ const GenLogin = () => {
 
   const onValid = async () => {
     const loginData = watch();
-    await apiNotToken
+    await authClient
       .post(`/auth/login`, loginData)
       .then((res) => {
         const accesstoken = res.headers.accesstoken.split(' ')[1];
@@ -53,6 +54,7 @@ const GenLogin = () => {
         } else {
           setUserLogin(accesstoken, checkedLogin, refreshtoken);
         }
+        console.log('로그인 성공.');
         navigate('/');
       })
       .catch((err) => {
@@ -104,8 +106,7 @@ const GenLogin = () => {
               {...register('email', {
                 required: 'E-mail을 입력해주세요.',
                 pattern: {
-                  value:
-                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+                  value: EMAIL_REGEX,
                   message: '⚠ E-mail형식에 맞지 않습니다.',
                 },
               })}
@@ -120,8 +121,7 @@ const GenLogin = () => {
               {...register('email', {
                 required: 'E-mail을 입력해주세요.',
                 pattern: {
-                  value:
-                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+                  value: EMAIL_REGEX,
                   message: '⚠ E-mail형식에 맞지 않습니다.',
                 },
               })}
@@ -166,7 +166,14 @@ const GenLogin = () => {
           <S.CheckBoxText>로그인 유지</S.CheckBoxText>
         </S.CheckBoxDiv>
         <div>
-          <S.LoginBtn type='submit'>로그인</S.LoginBtn>
+          {watch('email') &&
+          !errors.email?.message &&
+          watch('password').length > 7 &&
+          !errors.password?.message ? (
+            <S.LoginBtn type='submit'>로그인</S.LoginBtn>
+          ) : (
+            <S.NoLoginBtn type='button'>로그인</S.NoLoginBtn>
+          )}
         </div>
       </form>
       <S.SearchAndSignUpDiv>

@@ -44,10 +44,13 @@ const apiClient = axios.create({
 });
 
 // authClient
-const apiNotToken = axios.create({
+const apiNotToken = axios.create({});
+
+// authClient
+const authClient = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'Access-Control-Allow-Origin': '*',
   },
 });
-export { apiNotToken, apiNeedToken, apiClient, getConfig };
+export { apiNotToken, apiNeedToken, apiClient, authClient, getConfig };

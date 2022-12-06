@@ -6,14 +6,6 @@ const useMyPageBottom = () => {
 
   const getUserPayment = async () => {
     const { data } = await apiNeedToken.get(`/members/find`, getConfig());
-    // .then((res) => {
-    //   const payData = res.data.payment;
-    //   setListData([...payData]);
-    // })
-    // .catch((err) => {
-    //   console.log(' err : ', err);
-    // });
-
     setListData([...data.payment]);
   };
   return { getUserPayment, listData };

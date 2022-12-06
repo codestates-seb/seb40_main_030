@@ -9,6 +9,9 @@ export const ReservingListDiv = styled.div`
   height: 205px;
   padding: 15px;
   overflow: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 export const ReservingText = styled.div`
   font-size: 15px;
