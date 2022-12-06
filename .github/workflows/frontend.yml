@@ -29,11 +29,10 @@ jobs:
 
       - name: Deploy
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            build s3://S3-Bucket-Name
-            // 이부분 버킷이름으로 변경 필요
+            build s3://battery-bucket-deploy
