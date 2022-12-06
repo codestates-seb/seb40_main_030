@@ -15,7 +15,7 @@ spring:
 #  datasource:
 #    url: jdbc:h2:mem:test
   profiles:
-    active: local   # 로컬 프로파일 사용을 위한 설정
+    active: server   # 로컬 프로파일 사용을 위한 설정
   jpa:
     hibernate:
       ddl-auto: create
@@ -34,7 +34,7 @@ jwt:
   key:
     secret: nyong123412341234123412341234123412341234   # 테스트용 임시 시크릿 (추후 AWS 파라미터로 옮길 예정)
 
-  access-token-expiration-minutes: 30
+  access-token-expiration-minutes: 1440
   refresh-token-expiration-minutes: 1440
 
 mail:
