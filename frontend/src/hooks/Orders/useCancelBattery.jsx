@@ -37,7 +37,7 @@ const useCancelPayment = () => {
 
   const { mutate } = useMutation(
     ['payments', 'order-inUse'],
-    ({ id, totalPrice }) => postCancelPayment(id, totalPrice),
+    (id) => postCancelPayment(id),
     {
       useErrorBoundary: (error) => error.response?.status >= 500,
       onSuccess: () => {
@@ -51,8 +51,8 @@ const useCancelPayment = () => {
     },
   );
 
-  const handleCancelPayment = (id, totalPrice) => {
-    mutate({ id, totalPrice });
+  const handleCancelPayment = (id) => {
+    mutate(id);
   };
 
   return { handleCancelPayment };
