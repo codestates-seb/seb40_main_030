@@ -29,6 +29,8 @@ import BatteryEmptyImg from './battery-empty.png';
 import TeongImg from './battery-empty2.png';
 import UserMapMarker from './userMapMarker.png';
 import PinningImage from './pinning_img.png';
+import SaleImg from './sale.png';
+import GuideImg from './guide.png';
 
 // Icons
 export {
@@ -50,6 +52,8 @@ export {
   CurrentLocationIcon,
   GlobeIcon,
   CompletedIcon,
+  SaleImg,
+  GuideImg,
 };
 
 export {
