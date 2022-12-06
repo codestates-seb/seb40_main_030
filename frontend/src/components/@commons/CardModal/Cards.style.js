@@ -20,6 +20,8 @@ const CardWrapper = styled(motion.div)`
   cursor: pointer;
   text-decoration: none;
   transition: all 0.3s ease-out;
+
+  z-index: ${({ theme }) => theme.SPlASH_SCREEN};
 `;
 
 const Card = styled(motion.div)`

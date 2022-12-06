@@ -25,6 +25,7 @@ const RentalStatus = ({ id }) => {
             {batteries
               ?.sort((a, b) => b.status - a.status)
               .map((content) => {
+                console.log(content);
                 return (
                   <BatteryInfo
                     key={content.batteryId}

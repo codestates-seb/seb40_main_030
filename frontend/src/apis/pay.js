@@ -3,8 +3,6 @@ import axios from 'axios';
 const apiPay = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Content-Type': 'application/json',
     Authorization: `Bearer ${
       localStorage.getItem('accesstoken') !== null
         ? localStorage.getItem('accesstoken')
@@ -16,6 +14,12 @@ const apiPay = axios.create({
   },
 });
 const postKakao = async (state, totalAmount) => {
+  const localToken = localStorage.getItem('accesstoken');
+  const sessionToken = sessionStorage.getItem('accesstoken');
+
+  console.log(localToken);
+  console.log(sessionToken);
+
   const response = await apiPay
     .get(
       `/kakaoPay?itemName=${
@@ -26,10 +30,23 @@ const postKakao = async (state, totalAmount) => {
         ' ',
         'T',
       )}&endTime=${state.endPoint.replace(' ', 'T')}`,
-      // 'kakaoPay?itemName=SAMSUNG&totalAmount=10000&batteryId=1&startTime=2022-12-10T09:00&endTime=2022-12-11T23:00',
+      {
+        headers: {
+          Authorization: `Bearer ${
+            localToken !== null
+              ? localToken
+              : sessionToken !== null
+              ? sessionToken
+              : null
+          }`,
+        },
+      },
     )
     .then((res) => window.location.assign(res.data.next_redirect_pc_url))
     .catch((res) => console.log('catch', res));
+
+  console.log(response);
+
   return response;
 };
 

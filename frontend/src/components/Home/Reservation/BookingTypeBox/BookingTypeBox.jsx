@@ -4,9 +4,6 @@ import { useReservation, useSnackBar } from '@/hooks';
 
 import * as S from './BookingTypeBox.style';
 
-// 단일예약 복수일 예약하기 따로
-// 최소 설정시간 1시간
-
 const BookingTypeBox = () => {
   const { openSnackBar } = useSnackBar();
   const currentHour = new Date().getHours();

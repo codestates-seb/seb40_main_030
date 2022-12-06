@@ -18,6 +18,8 @@ const useReservation = () => {
   ).getTime();
 
   const handleReservation = (hours, minutes) => {
+    console.log(hours, minutes);
+
     const currentHour = new Date().getHours();
 
     if (bookingType === BOOKING_TYPE.SINGLE) {
