@@ -60,9 +60,9 @@ public class MemberService {
         memberRepository.delete(deletingMember);
     }
 
-    public Member findMember(Long memberId) {
+    public Member findMember(String email) {
 
-        return verifyExistsMember(memberId);
+        return verifyExistsMemberByEmail(email);
     }
 
     public Page<Member> findMembers(Pageable pageable) {
@@ -88,6 +88,12 @@ public class MemberService {
         return memberRepository.findById(memberId).orElseThrow(()->
         {throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);});
 
+    }
+
+    private Member verifyExistsMemberByEmail(String email) {
+
+        return memberRepository.findByMemberEmail(email)
+                .orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
     @Transactional
