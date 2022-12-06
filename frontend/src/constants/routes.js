@@ -66,8 +66,16 @@ const ROUTES = Object.freeze({
     NAME: 'Orders',
   },
   PAYMENTCOMPLETED: {
-    PATH: '/payments/payment_completed',
+    PATH: `/kakaoPaySuccess`,
     NAME: 'Payments',
+  },
+  PAYMENTCANCELED: {
+    PATH: `/kakaoPayCancel`,
+    NAME: 'kakaoPayCancel',
+  },
+  PAYMENTFAILED: {
+    PATH: `/kakaoPayFailed`,
+    NAME: 'kakaoPayFailed',
   },
   LOGINREDIRECT: {
     PATH: '/loginredirect',
