@@ -16,6 +16,7 @@ const getConfig = () => {
   const headers = {
     headers: {
       'Access-Control-Allow-Origin': '*',
+      'ngrok-skip-browser-warning': '111',
       Authorization: auth,
     },
   };
@@ -28,6 +29,10 @@ const apiNeedToken = axios.create({
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'ngrok-skip-browser-warning': '111',
+  },
 });
 
 // authClient
@@ -35,6 +40,7 @@ const authClient = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'Access-Control-Allow-Origin': '*',
+    'ngrok-skip-browser-warning': '111',
   },
 });
 export { authClient, apiNeedToken, apiClient, getConfig };
