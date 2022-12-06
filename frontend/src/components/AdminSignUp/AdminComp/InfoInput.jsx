@@ -174,7 +174,19 @@ const Mid = () => {
             )}
           </S.SignUpMidContainer>
           <S.SignUpBottomContainer>
-            <S.SignUpSubmitBtn type='submit'>관리자 등록</S.SignUpSubmitBtn>
+            {!errors.email?.message &&
+            !errors.password?.message &&
+            !errors.phone?.message &&
+            watch('email') &&
+            watch('password') &&
+            watch('checkpassword') &&
+            watch('phone') ? (
+              <S.SignUpSubmitBtn type='submit'>관리자 등록</S.SignUpSubmitBtn>
+            ) : (
+              <S.SignUpNoSubmitBtn type='button' disabled>
+                관리자 등록
+              </S.SignUpNoSubmitBtn>
+            )}
           </S.SignUpBottomContainer>
         </form>
       </S.AdminMidContainer>
