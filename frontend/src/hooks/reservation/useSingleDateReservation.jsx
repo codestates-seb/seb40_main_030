@@ -20,7 +20,6 @@ const useSingleDateReservation = (currentDate) => {
     },
   );
 
-  // single date reservation 일시에 default date 현재 시점으로 업데이트
   const handleSingleDateReservation = useCallback(() => {
     mutate({
       ...reservationStatus,
@@ -41,6 +40,8 @@ const useSingleDateReservation = (currentDate) => {
       },
       dateFixed: { ...reservationStatus.dateFixed, date: true },
     });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { handleSingleDateReservation, reservationStatus };

@@ -12,7 +12,6 @@ const TimeTable = () => {
   const { hours, minutes } = useRecoilValue(reservationState);
   const { handleReservation, reservation, reserveInfo } = useReservation();
 
-  convertMinTo10Min(new Date().getMinutes());
   if (!reserveInfo?.time) {
     return (
       <>
@@ -23,7 +22,7 @@ const TimeTable = () => {
               <Counter
                 type='hours'
                 min={1}
-                max={23}
+                max={24}
                 range={1}
                 time={new Date().getHours()}
               />

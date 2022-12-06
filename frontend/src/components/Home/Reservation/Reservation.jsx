@@ -16,6 +16,8 @@ const Reservation = () => {
   const { dateFixed, bookingType } = reservationStatus;
   const isCompleted = dateFixed?.date && dateFixed?.time;
 
+  console.log('currentTime', currentTime);
+
   return (
     <S.Container>
       <S.Header>

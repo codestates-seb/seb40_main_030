@@ -17,7 +17,6 @@ const Calendar = () => {
         <S.ReservationContainer>
           <DateStatus content='대여' date={startDate} time={startTime} />
           <DateStatus content='반납' date={endDate} time={returnTime} />
-          {/* <DateStatus content='반납' date={endDate} time={returnTime} /> */}
         </S.ReservationContainer>
       )}
     </S.Wrapper>

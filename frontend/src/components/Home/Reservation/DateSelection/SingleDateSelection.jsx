@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 
 import { useSingleDateReservation } from '@/hooks';
@@ -11,7 +10,6 @@ const SingleDateSelection = ({ currentDate, currentTime }) => {
   const { handleSingleDateReservation, reservationStatus } =
     useSingleDateReservation(currentDate, currentTime);
   const { startTime, returnTime } = reservationStatus;
-  // const { startTime, returnTime } = reservationStatus;
 
   const handleTime = () => {
     if (startTime.hours && startTime.minutes) {
@@ -21,17 +19,16 @@ const SingleDateSelection = ({ currentDate, currentTime }) => {
     if (returnTime.hours && returnTime.minutes) {
       setTime({ ...time, returnTime });
     }
-    // if (returnTime.hours && returnTime.minutes) {
-    //   setTime({ ...time, returnTime });
-    // }
   };
 
   useEffect(() => {
     handleSingleDateReservation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     handleTime();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -44,10 +41,6 @@ const SingleDateSelection = ({ currentDate, currentTime }) => {
           hours: returnTime.hours,
           minutes: returnTime.minutes,
         }}
-        // time={{
-        //   hours: returnTime.hours,
-        //   minutes: returnTime.minutes,
-        // }}
       />
     </S.ReservationContainer>
   );

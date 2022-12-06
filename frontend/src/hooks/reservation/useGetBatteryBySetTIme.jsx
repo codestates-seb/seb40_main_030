@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { getBatteryBySetTime } from '@/apis/stations';
+import { ROUTES } from '@/constants';
 
 import { useCheckValidReserveTable } from '..';
 
@@ -25,7 +26,7 @@ const useGetBatteryBySetTime = (id) => {
   );
 
   if (status === 'error') {
-    navigate('/');
+    navigate(ROUTES.HOME.PATH);
   }
 
   return { data, status };

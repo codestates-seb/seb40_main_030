@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
-import GenLogout from '../Login/GenLogout/GenLogout';
-import styled from 'styled-components';
-import * as S from './ShortInfo.style';
-import { MyPageIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
-import useMyPage from '../../hooks/MyPage/useMyPageTop';
 import { useRecoilState } from 'recoil';
-import { userInfoState, recoilIsEdit } from '../../recoil/userInfoState';
+import styled from 'styled-components';
+
+import { MyPageIcon } from '../../assets';
 import { ProfileImg } from '../../assets';
+import useMyPage from '../../hooks/MyPage/useMyPageTop';
+import { userInfoState, recoilIsEdit } from '../../recoil/userInfoState';
+import GenLogout from '../Login/GenLogout/GenLogout';
+import * as S from './ShortInfo.style';
 
 const Top = () => {
   const navigate = useNavigate();
