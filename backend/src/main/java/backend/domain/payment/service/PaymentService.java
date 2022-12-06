@@ -38,13 +38,13 @@ public class PaymentService {
 
     @Transactional
     public Payment postPayment(Payment payment, Long batteryId, Long memberId) {
-//        Member member = memberRepository.findById(memberId)
-//                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND)); // 로그인 한 계정이 존재하는지 확인
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND)); // 로그인 한 계정이 존재하는지 확인
         Battery battery = batteryRepository.findById(batteryId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.BATTERY_NOT_FOUND)); // 예약하는 배터리가 존재하는지 확인
         Station station = stationRepository.findById(battery.getStation().getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATION_NOT_FOUND)); // 해당 스테이션이 실존하는지 확인
-//        payment.setMember(member);
+        payment.setMember(member);
         payment.setBattery(battery);
         payment.setStation(station);
 
@@ -71,6 +71,7 @@ public class PaymentService {
                 throw new BusinessLogicException(ExceptionCode.CAN_NOT_RESERVE);
             }
         }
+        payment.setReturnTime(payment.getEndTime());
 
         return paymentRepository.save(payment);
 
@@ -119,10 +120,10 @@ public class PaymentService {
         Payment savedPayment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAY_NOT_FOUND));
         if (LocalDateTime.parse(savedPayment.getStartTime()).isBefore(LocalDateTime.now())
-                && LocalDateTime.parse(savedPayment.getEndTime()).isAfter(LocalDateTime.now())) {
+                && LocalDateTime.parse(savedPayment.getReturnTime()).isAfter(LocalDateTime.now())) {
             savedPayment.setStatus(PayStatus.USE_NOW);
 
-        } else if (LocalDateTime.parse(savedPayment.getEndTime()).isBefore(LocalDateTime.now())) {
+        } else if (LocalDateTime.parse(savedPayment.getReturnTime()).isBefore(LocalDateTime.now())) {
             savedPayment.setStatus(PayStatus.HISTORY);
             reservationRepository.deleteById(savedPayment.getReservations().get(0).getReservationId());
         }
@@ -144,13 +145,16 @@ public class PaymentService {
 
         for (int i = 0; i < list.size(); i++) {
             Payment savedPayment = paymentRepository.findById(list.get(i).getId()).get(); // 위에서 애당초 payment가 없는 경우를 제외시킴 (불필요한 연산 및 엣지케이스 제거)
-
-            if (LocalDateTime.parse(savedPayment.getStartTime()).isBefore(LocalDateTime.now())
-                    && LocalDateTime.parse(savedPayment.getEndTime()).isAfter(LocalDateTime.now())) {
+            if(savedPayment.getReturnTime() != null
+                    && LocalDateTime.parse(savedPayment.getReturnTime()).isBefore(LocalDateTime.now())){ // 반납한 경우 제외
+                continue;
+            }
+            else if (LocalDateTime.parse(savedPayment.getStartTime()).isBefore(LocalDateTime.now())
+                    && LocalDateTime.parse(savedPayment.getReturnTime()).isAfter(LocalDateTime.now())) {
                 savedPayment.setStatus(PayStatus.USE_NOW);
                 paymentRepository.save(savedPayment);
 
-            } else if (LocalDateTime.parse(savedPayment.getEndTime()).isBefore(LocalDateTime.now())
+            } else if (LocalDateTime.parse(savedPayment.getReturnTime()).isBefore(LocalDateTime.now())
                     && (savedPayment.getStatus() != PayStatus.HISTORY)) {  // 이미 History로 바뀐 부분은 reservation이 없기때문에 OutOfIndex 발생했었음!
                 savedPayment.setStatus(PayStatus.HISTORY);
                 Reservation reservation = savedPayment.getReservations().get(0);
@@ -166,7 +170,7 @@ public class PaymentService {
     // 최대 연장가능 시각 찾기
     @Transactional
     public String getNearReservation(Long paymentId, Long memberId) {
-        String endTime = paymentRepository.findById(paymentId).get().getEndTime();
+        String endTime = paymentRepository.findById(paymentId).get().getReturnTime();
         Long batteryId = paymentRepository.findById(paymentId).get().getBattery().getBatteryId();
         List<Reservation> list = reservationRepository.findWithAllByBatteryId(batteryId);
 
@@ -182,7 +186,7 @@ public class PaymentService {
         String possibleExtendTime; // 한계 시간 ,니 여기까지밖에 예약할 수 있어
         if (LocalDateTime.parse(endTime).plusHours(24).isBefore(nearStartTime)) {
             possibleExtendTime = LocalDateTime.parse(endTime).plusHours(24).toString();
-        } else if (LocalDateTime.parse(endTime).plusMinutes(30).isBefore(nearStartTime)) {
+        } else if (LocalDateTime.parse(endTime).plusMinutes(30).isAfter(nearStartTime)) {
             throw new BusinessLogicException(ExceptionCode.NOT_EXTEND_TIME);
         } else {
             possibleExtendTime = (nearStartTime.minusMinutes(30)).toString(); // 제일 가까운 reservation의 startTiem에서 30분 뺌
@@ -221,8 +225,12 @@ public class PaymentService {
         // 상태변경
         savedPayment.setStatus(PayStatus.HISTORY);
 
+        // 예약 테이블 삭제
+        Reservation deleteReservation = savedPayment.getReservations().get(0);
+        reservationRepository.deleteById(deleteReservation.getReservationId());
+
         // Reservation 테이블 삭제
-        reservationRepository.delete(reservation);
+//        reservationRepository.delete(reservation);
 
         paymentRepository.save(savedPayment);
     }

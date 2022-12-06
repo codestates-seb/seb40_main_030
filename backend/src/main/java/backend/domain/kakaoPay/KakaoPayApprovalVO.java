@@ -3,8 +3,14 @@ package backend.domain.kakaoPay;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Data
+@ToString
+@Getter
+@Setter
 public class KakaoPayApprovalVO {
 
     //response
@@ -15,6 +21,5 @@ public class KakaoPayApprovalVO {
     private String item_name, item_code, payload;
     private Integer quantity, tax_free_amount, vat_amount;
     private Date created_at, approved_at;
-
 
 }

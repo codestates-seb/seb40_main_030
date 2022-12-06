@@ -60,9 +60,9 @@ public class MemberService {
         memberRepository.delete(deletingMember);
     }
 
-    public Member findMember(Long memberId) {
+    public Member findMember(String email) {
 
-        return verifyExistsMember(memberId);
+        return verifyExistsMemberByEmail(email);
     }
 
     public Page<Member> findMembers(Pageable pageable) {
@@ -90,11 +90,20 @@ public class MemberService {
 
     }
 
-//    private void registerJws(String jws) {                           현재 시큐리티 미적용으로 주석처리 했습니다.
-//        Map<String, Object> verifyJws = jwtTokenizer.verifyJws(jws);
-//        ValueOperations valueOperations = redisTemplate.opsForValue();
-//        String username = (String)verifyJws.get("username");
-//        valueOperations.set("logout_"+jws,username, Duration.ofMinutes(jwtTokenizer.getAccessTokenExpirationMinutes()));
-//    }
+    private Member verifyExistsMemberByEmail(String email) {
+
+        return memberRepository.findByMemberEmail(email)
+                .orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    }
+
+    @Transactional
+    public void createOauthMember(Member member) {
+        String rawPassword = member.getPassword();
+        String encPassword = passwordEncoder.encode(rawPassword);
+        member.setPassword(encPassword);
+        List<String> roles = customAuthorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
+        memberRepository.save(member);
+    }
 
 }
