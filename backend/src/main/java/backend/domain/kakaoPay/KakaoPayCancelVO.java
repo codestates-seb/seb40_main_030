@@ -1,9 +1,14 @@
 package backend.domain.kakaoPay;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 @Data
+@ToString
+@Getter @Setter
 public class KakaoPayCancelVO {
     //response
     private String aid, tid, cid, sid;
