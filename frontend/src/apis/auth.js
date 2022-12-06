@@ -14,9 +14,8 @@ import { apiNeedToken } from './api';
 import { apiClient } from './stations';
 
 const sendAuthCode = async (code) => {
-  console.log('인증코드 보내는 요청시작');
   const res = await axiosAdminInstance.post(`/auth/login2/${code}`);
-  console.log(res);
+
   return res;
 };
 
@@ -41,7 +40,6 @@ const setHeaderAccessToken = (token) => {
 
 const kakaoLogout = async () => {
   const res = await axiosAdminInstance.post('/logout2');
-  console.log('로그아웃 응답은', res);
   return res;
 };
 

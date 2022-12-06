@@ -3,6 +3,7 @@ import { apiClient } from './order';
 //  모든 유저 정보
 const getAllUsers = async () => {
   const response = await apiClient.get('/api/members');
+  return response;
 };
 
 // 단일 유저 정보
