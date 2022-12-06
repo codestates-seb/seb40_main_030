@@ -10,9 +10,11 @@ import {
   REDIRECT_URI,
 } from '../constants/auth';
 import { axiosAdminInstance } from './admin';
+import { apiNeedToken } from './api';
 import { apiClient } from './stations';
 
 const sendAuthCode = async (code) => {
+  console.log('인증코드 보내는 요청시작');
   const res = await axiosAdminInstance.post(`/auth/login2/${code}`);
   console.log(res);
   return res;
@@ -20,9 +22,17 @@ const sendAuthCode = async (code) => {
 
 const setHeaderAccessToken = (token) => {
   if (token) {
-    axiosAdminInstance.defaults.headers.common[
-      'Authorization'
-    ] = `Bearer ${token}`;
+    console.log('헤더 세팅');
+    const UserType =
+      localStorage.getItem('userType') || sessionStorage.getItem('userType');
+    if (UserType === 'admin') {
+      axiosAdminInstance.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${token}`;
+    } else {
+      apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      apiNeedToken.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
   } else delete axios.defaults.headers.common['Authorization'];
 };
 

@@ -44,10 +44,6 @@ const GenLogin = () => {
           'Authorization'
         ] = `Bearer ${accesstoken}`;
 
-        axiosAdminInstance.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${accesstoken}`;
-
         if (res.data === 'Success ADMIN') {
           setAdminLogin(accesstoken, checkedLogin, refreshtoken);
         } else {

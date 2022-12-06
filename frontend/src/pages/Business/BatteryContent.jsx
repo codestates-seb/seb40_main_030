@@ -37,6 +37,7 @@ const BatteryContent = ({
     sessionStorage.removeItem('accesstoken');
     localStorage.removeItem('refreshtoken');
     localStorage.removeItem('userType');
+    sessionStorage.removeItem('userType');
     navigate('/');
   };
   return (
