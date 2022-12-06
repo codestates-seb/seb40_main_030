@@ -29,6 +29,8 @@ const useCounter = (type, min, max, range, time) => {
     if (type === 'hours') setTimeline({ ...timeline, hours: currentTime });
 
     if (type === 'minutes') setTimeline({ ...timeline, minutes: currentTime });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTime]);
 
   return { inputRef, handleTime, currentTime };

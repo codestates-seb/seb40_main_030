@@ -4,16 +4,21 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { axiosAdminInstance } from '@/apis/admin';
+import { DESKTOP_MEDIA_QUERY } from '@/constants';
+import { KAKAO_AUTH_CODE_URL } from '@/constants/auth';
+import { useMediaQuery } from '@/hooks';
+import { loginCheckState } from '@/recoil/login';
+import { recoilPostAddress } from '@/recoil/userInfoState';
 
 import { authClient } from '../../../apis/api';
 import { EMAIL_REGEX } from '../../../constants/regex';
 import useLogin from '../../../hooks/Login/useLogin';
-import { loginCheckState } from '../../../recoil/login';
-import { recoilPostAddress } from '../../../recoil/userInfoState';
+import KakaoLogin from '../KaKaoLogin/KaKaoLogin';
+import { moveToUrl } from '../utils';
 import * as S from './GenLogin.style';
 
 const GenLogin = () => {
+  const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
   const setPostAddress = useSetRecoilState(recoilPostAddress);
   const { setAdminLogin, setUserLogin } = useLogin();
   const [typeState, setTypeState] = useState(true);
@@ -161,16 +166,32 @@ const GenLogin = () => {
           />
           <S.CheckBoxText>로그인 유지</S.CheckBoxText>
         </S.CheckBoxDiv>
-        <div>
+        <S.LoginButtonContainer>
           {watch('email') &&
           !errors.email?.message &&
           watch('password').length > 7 &&
           !errors.password?.message ? (
-            <S.LoginBtn type='submit'>로그인</S.LoginBtn>
+            <>
+              <S.LoginBtn matches={matches} type='submit'>
+                로그인
+              </S.LoginBtn>
+              {matches && (
+                <KakaoLogin
+                  loginClickHandler={() => moveToUrl(KAKAO_AUTH_CODE_URL)}
+                />
+              )}
+            </>
           ) : (
-            <S.NoLoginBtn type='button'>로그인</S.NoLoginBtn>
+            <>
+              <S.NoLoginBtn type='button'>로그인</S.NoLoginBtn>
+              {matches && (
+                <KakaoLogin
+                  loginClickHandler={() => moveToUrl(KAKAO_AUTH_CODE_URL)}
+                />
+              )}
+            </>
           )}
-        </div>
+        </S.LoginButtonContainer>
       </form>
       <S.SearchAndSignUpDiv>
         <S.SearchIdText>아이디 찾기</S.SearchIdText>

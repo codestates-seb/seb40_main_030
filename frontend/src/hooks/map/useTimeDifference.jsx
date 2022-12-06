@@ -6,10 +6,10 @@ import { reservationState } from '@/recoil/pagesState';
 const useTimeDifference = () => {
   const [timeDifference, setTimeDifference] = useState(0);
   const reservationStatus = useRecoilValue(reservationState);
-  const { startDate, startTime, endDate, endTime } = reservationStatus;
+  const { startDate, startTime, endDate, returnTime } = reservationStatus;
 
   const startPointToString = `${startDate.year}-${startDate.month}-${startDate.date} ${startTime.hours}:${startTime.minutes}`;
-  const endPointToString = `${endDate.year}-${endDate.month}-${endDate.date} ${endTime.hours}:${endTime.minutes}`;
+  const endPointToString = `${endDate.year}-${endDate.month}-${endDate.date} ${returnTime.hours}:${returnTime.minutes}`;
 
   const timeDiffer = Math.floor(
     (new Date(endPointToString).getTime() -

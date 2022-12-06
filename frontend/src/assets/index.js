@@ -33,6 +33,7 @@ import Kakao_fail_Icon from './Kakao_failed.png'
 import Kakao_canceled_Icon from './Kakao_canceled.png'
 import SaleImg from './sale.png';
 import GuideImg from './guide.png';
+import KakaoLoginMedium from './kakao_login_medium_wide.png';
 
 // Icons
 export {
@@ -69,4 +70,5 @@ export {
   TeongImg,
   UserMapMarker,
   PinningImage,
+  KakaoLoginMedium,
 };

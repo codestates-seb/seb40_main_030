@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const LoginMidContainer = styled.div`
   padding: 70px 10px 0 10px;
@@ -107,8 +107,8 @@ export const CheckBoxText = styled.div`
 `;
 
 export const LoginBtn = styled.button`
-  width: 100%;
-  height: 40px;
+  width: ${({ matches }) => (matches ? '90%' : '100%')};
+  height: 45px;
   border-radius: 3px;
   font-weight: bold;
   color: white;
@@ -116,8 +116,8 @@ export const LoginBtn = styled.button`
   background-color: #5584ac;
 `;
 export const NoLoginBtn = styled.button`
-  width: 100%;
-  height: 40px;
+  width: ${({ matches }) => (matches ? '90%' : '100%')};
+  height: 45px;
   border-radius: 3px;
   font-weight: bold;
   color: white;
@@ -150,4 +150,10 @@ export const FailMsgDiv = styled.div`
   text-align: center;
   font-size: 15px;
   color: red;
+`;
+
+export const LoginButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

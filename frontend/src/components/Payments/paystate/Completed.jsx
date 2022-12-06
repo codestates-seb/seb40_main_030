@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { CompletedIcon } from '@/assets';
 import { DESKTOP_MEDIA_QUERY } from '@/constants';
@@ -8,9 +8,8 @@ import cartInfo from '@/recoil/cart';
 
 import * as S from './Completed.styled';
 
-
 const Completed = () => {
-  const [stateCart, setStateCart] = useRecoilState(cartInfo)
+  const stateCart = useRecoilValue(cartInfo);
   const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
 
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ const Completed = () => {
   };
 
   return (
-    <S.CompletedLayout matches={matches} >
+    <S.CompletedLayout matches={matches}>
       <S.CompletedTitle>보배빌림</S.CompletedTitle>
       <S.CompletedLayOut>
         <S.CompletedLayOutDetail>
@@ -34,9 +33,9 @@ const Completed = () => {
         </S.CompletedLayOutDetail>
         <S.Time>
           사용시간 : <br />
-          {stateCart?.startPoint.replace('T', ' ').replace(':', '시 ') + '분'}
+          {stateCart?.startPoint?.replace('T', ' ').replace(':', '시 ') + '분'}
           <br />
-          {stateCart?.endPoint.replace('T', ' ').replace(':', '시 ') + '분'}
+          {stateCart?.endPoint?.replace('T', ' ').replace(':', '시 ') + '분'}
         </S.Time>
         <S.CompletedIcon src={CompletedIcon} />
       </S.CompletedLayOut>
@@ -48,7 +47,9 @@ const Completed = () => {
         </S.Reservation>
         <S.ReservationItem>
           <S.ReservationDetail>{stateCart?.batteryName}</S.ReservationDetail>
-          <S.ReservationDetail>{stateCart?.price + 50000}원</S.ReservationDetail>
+          <S.ReservationDetail>
+            {stateCart?.price + 50000}원
+          </S.ReservationDetail>
         </S.ReservationItem>
       </S.ReservationLayout>
       <S.BtnLayout>

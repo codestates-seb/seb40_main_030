@@ -24,7 +24,7 @@ const getStationByKeyword = async (keyword) => {
 
 const getBatteryBySetTime = async (id, setTime) => {
   const { data } = await apiClient.get(`/stations/batteries/${id}`, {
-    params: setTime,
+    params: { startTime: setTime.startTime, endTime: setTime.returnTime },
   });
 
   return data;
@@ -32,7 +32,7 @@ const getBatteryBySetTime = async (id, setTime) => {
 
 const getSearchDataBySetTime = async (setTime) => {
   const { data } = await apiClient.get(`/stations/searchAll`, {
-    params: setTime,
+    params: { startTime: setTime.startTime, endTime: setTime.returnTime },
   });
 
   return data;
@@ -44,7 +44,7 @@ const getBatteryByLocationAndSetTime = async (location, setTime) => {
       latitude: location.latitude,
       longitude: location.longitude,
       startTime: setTime.startTime,
-      endTime: setTime.endTime,
+      endTime: setTime.returnTime,
     },
   });
 
