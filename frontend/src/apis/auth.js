@@ -39,6 +39,12 @@ const setHeaderAccessToken = (token) => {
   }
 };
 
+const kakaoLogout = async () => {
+  const res = await axiosAdminInstance.post('/logout2');
+  console.log('로그아웃 응답은', res);
+  return res;
+};
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -257,4 +263,5 @@ export {
   postLogin,
   postCheckedLogin,
   login,
+  kakaoLogout,
 };

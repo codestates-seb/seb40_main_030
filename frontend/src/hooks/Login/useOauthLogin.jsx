@@ -18,7 +18,7 @@ const useOauthLogin = () => {
 
     localStorage.setItem('accesstoken', accessTokenFromHeader);
     localStorage.setItem('refreshtoken', refreshTokenFromHeader);
-
+    localStorage.setItem('loginType', 'kakao');
     if (accessTokenFromHeader && refreshTokenFromHeader) {
       navigate('/', { replace: true });
     } else {
