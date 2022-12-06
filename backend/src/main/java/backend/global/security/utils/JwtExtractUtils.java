@@ -20,6 +20,9 @@ public class JwtExtractUtils {
             String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
             Map<String, Object> claims = jwtTokenizer.getJwsClaims(jws, base64EncodedSecretKey).getBody();
             Object value = claims.get("memberId");
+            if( value == null ) {
+                return extractById(claims);
+            }
             Long memberId = Long.valueOf(String.valueOf(value));
 
             return memberId;
@@ -35,6 +38,9 @@ public class JwtExtractUtils {
             String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
             Map<String, Object> claims = jwtTokenizer.getJwsClaims(jws, base64EncodedSecretKey).getBody();
             Object value = claims.get("email");
+            if ( value == null ) {
+                return extractByUsername(claims);
+            }
             String email = String.valueOf(String.valueOf(value));
 
             return email;
@@ -44,4 +50,27 @@ public class JwtExtractUtils {
         }
     }
 
+
+    private Long extractById (Map<String, Object> claims) {
+        try {
+            Object value = claims.get("id");
+            Long memberId = Long.valueOf(String.valueOf(value));
+            return memberId;
+        }
+        catch (Exception e) {
+            throw new BusinessLogicException(ExceptionCode.LOGIN_REQUIRED);
+        }
+    }
+
+
+    private String extractByUsername (Map<String, Object> claims) {
+        try {
+            Object value = claims.get("username");
+            String email = String.valueOf(String.valueOf(value));
+            return email;
+        }
+        catch (Exception e) {
+            throw new BusinessLogicException(ExceptionCode.LOGIN_REQUIRED);
+        }
+    }
 }

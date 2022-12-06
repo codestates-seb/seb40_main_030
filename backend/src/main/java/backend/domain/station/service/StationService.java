@@ -180,10 +180,10 @@ public class StationService {
         if (endT.isBefore(startT) || startT.isBefore(LocalDateTime.now())) throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
 
         // 객체 필드값을 중점으로 해서 반경검색 구현하기
-        Double minLat = defaultStation.getLatitude() - 0.01171531;  // 위/아래 역 하나정도의 거리차이 = 0.00912237 == 0.01
-        Double maxLat = defaultStation.getLatitude() + 0.01171531;
-        Double minLog = defaultStation.getLongitude() - 0.01171531;  // 좌/우 역 하나정도의 거리차이 = 0.01171529 == 0.01
-        Double maxLog = defaultStation.getLongitude() + 0.01171531;
+        Double minLat = defaultStation.getLatitude() - 0.01798573;  // 위/아래 역 하나정도의 거리차이 = 0.00912237 == 0.01
+        Double maxLat = defaultStation.getLatitude() + 0.01798573;
+        Double minLog = defaultStation.getLongitude() - 0.01798573;  // 좌/우 역 하나정도의 거리차이 = 0.01171529 == 0.01
+        Double maxLog = defaultStation.getLongitude() + 0.01798573;
 
         List<Station> originList = stationRepository.findAll();
         List<Station> filteredList = originList.stream()
@@ -206,7 +206,7 @@ public class StationService {
         defaultStation.setConfirmId(1615822138);  // 건물 Id
         // default 시간 설정 (30분 간격)
         String defaultStartTime = LocalDateTime.now().plusMinutes(10).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-        String defaultEndTime = LocalDateTime.now().plusMinutes(40).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        String defaultEndTime = LocalDateTime.now().plusMinutes(70).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
         defaultStation.setStartTime(defaultStartTime);
         defaultStation.setEndTime(defaultEndTime);
 

@@ -29,7 +29,7 @@ public class PayResDto extends BaseTime {
         this.startTime = payment.getStartTime();
         this.endTime = payment.getEndTime();
         this.returnTime = payment.getReturnTime();
-        this.returnTime = payment.getTid();
+        this.tid = payment.getTid();
         this.payMethod = payment.getPayMethod();
         this.battery = payment.getBattery();
         setCreatedAt(payment.getCreatedAt());
