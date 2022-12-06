@@ -31,6 +31,8 @@ import UserMapMarker from './userMapMarker.png';
 import PinningImage from './pinning_img.png';
 import Kakao_fail_Icon from './Kakao_failed.png'
 import Kakao_canceled_Icon from './Kakao_canceled.png'
+import SaleImg from './sale.png';
+import GuideImg from './guide.png';
 
 // Icons
 export {
@@ -53,10 +55,9 @@ export {
   GlobeIcon,
   CompletedIcon,
   Kakao_fail_Icon,
-  Kakao_canceled_Icon
-};
-
-export {
+  Kakao_canceled_Icon,
+  SaleImg,
+  GuideImg,
   ServiceLogo,
   ProfileImg,
   PlusIcon,

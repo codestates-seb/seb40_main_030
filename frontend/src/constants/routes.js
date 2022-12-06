@@ -77,6 +77,10 @@ const ROUTES = Object.freeze({
     PATH: `/kakaoPayFailed`,
     NAME: 'kakaoPayFailed',
   },
+  LOGINREDIRECT: {
+    PATH: '/loginredirect',
+    NAME: 'Loginredirect',
+  },
 });
 
 export default ROUTES;

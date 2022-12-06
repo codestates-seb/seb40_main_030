@@ -10,30 +10,38 @@ import {
   REDIRECT_URI,
 } from '../constants/auth';
 import { axiosAdminInstance } from './admin';
+import { apiNeedToken } from './api';
 import { apiClient } from './stations';
 
-const axiosOauthInstance = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL,
-  headers: {
-    'ngrok-skip-browser-warning': '111',
-    // authorization: `Bearer ${ACCESS_TOKEN}`,
-  },
-});
+const sendAuthCode = async (code) => {
+  const res = await axiosAdminInstance.post(`/auth/login2/${code}`);
+
+  return res;
+};
 
 const setHeaderAccessToken = (token) => {
   if (token) {
-    axiosAdminInstance.defaults.headers.common[
-      'Authorization'
-    ] = `Bearer ${token}`;
-  } else delete axios.defaults.headers.common['Authorization'];
+    const UserType =
+      localStorage.getItem('userType') || sessionStorage.getItem('userType');
+    if (UserType === 'admin') {
+      axiosAdminInstance.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${token}`;
+    } else {
+      apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      apiNeedToken.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+  } else {
+    delete axiosAdminInstance.defaults.headers.common['Authorization'];
+    delete apiClient.defaults.headers.common['Authorization'];
+    delete apiNeedToken.defaults.headers.common['Authorization'];
+  }
 };
 
-const sendAuthCode = async (authCode) => {
-  const { res } = await axiosOauthInstance.post('/login', authCode);
+const kakaoLogout = async () => {
+  const res = await axiosAdminInstance.post('/logout2');
   return res;
 };
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //백엔드로 인증코드 보냄 or mock 서버로 보냄
 const getTokenIndirectly = async (authorizationCode) => {
@@ -250,4 +258,5 @@ export {
   postLogin,
   postCheckedLogin,
   login,
+  kakaoLogout,
 };
