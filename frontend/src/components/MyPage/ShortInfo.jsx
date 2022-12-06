@@ -5,15 +5,15 @@ import * as S from './ShortInfo.style';
 import { MyPageIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import useMyPage from '../../hooks/MyPage/useMyPageTop';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { userInfoState, recoilIsEdit } from '../../recoil/userInfoState';
 import { ProfileImg } from '../../assets';
 
 const Top = () => {
   const navigate = useNavigate();
   const { getUserInfo } = useMyPage();
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const [isEdit, setIsEdit] = useRecoilState(recoilIsEdit);
+  const userInfo = useRecoilValue(userInfoState);
+  const setIsEdit = useSetRecoilState(recoilIsEdit);
 
   const handleErrorImg = (e) => {
     e.target.src = ProfileImg;

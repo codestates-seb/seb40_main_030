@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { ProfileImg } from '../../assets';
 import { nowState } from '../../recoil/nowState';
 import {
@@ -20,7 +20,7 @@ import { apiNeedToken, authClient, getConfig } from '../../apis/api';
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');
   const [isEdit, setIsEdit] = useRecoilState(recoilIsEdit);
-  const [now, setNow] = useRecoilState(nowState);
+  const setNow = useSetRecoilState(nowState);
   const [isPhotoDefault, setIsPhotoDefault] = useState(false);
 
   const navigate = useNavigate();

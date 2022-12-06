@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { recoilPostAddress } from '../../../recoil/userInfoState';
 import { loginCheckState } from '../../../recoil/login';
 
@@ -14,7 +14,7 @@ import { EMAIL_REGEX } from '../../../constants/regex';
 import * as S from './GenLogin.style';
 
 const GenLogin = () => {
-  const [postAddress, setPostAddress] = useRecoilState(recoilPostAddress);
+  const setPostAddress = useSetRecoilState(recoilPostAddress);
   const { setAdminLogin, setUserLogin } = useLogin();
   const [typeState, setTypeState] = useState(true);
   const [checkedLogin, setCheckedLogin] = useRecoilState(loginCheckState);

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { authClient } from '../../../apis/api';
 import { ProfileImg } from '../../../assets';
@@ -24,7 +24,7 @@ const SignUpMid = () => {
   const navigate = useNavigate();
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
   const [inputState, setInputState] = useRecoilState(userInfoState);
-  const [now, setNow] = useRecoilState(nowState);
+  const setNow = useSetRecoilState(nowState);
   const [avatarPreview, setAvatarPreview] = useState('');
   const [isEmail, setIsEmail] = useRecoilState(isOverLapEmail);
   const [isNick, setIsNick] = useRecoilState(isOverLapNick);

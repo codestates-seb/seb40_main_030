@@ -187,7 +187,6 @@ const Mid = () => {
                 관리자 등록
               </S.SignUpNoSubmitBtn>
             )}
-            {/* <S.SignUpSubmitBtn type='submit'>관리자 등록</S.SignUpSubmitBtn> */}
           </S.SignUpBottomContainer>
         </form>
       </S.AdminMidContainer>
