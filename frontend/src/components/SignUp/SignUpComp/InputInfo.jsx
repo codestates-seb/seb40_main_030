@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { authClient } from '../../../apis/api';
 import { ProfileImg } from '../../../assets';
@@ -24,7 +24,7 @@ const SignUpMid = () => {
   const navigate = useNavigate();
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
   const [inputState, setInputState] = useRecoilState(userInfoState);
-  const [now, setNow] = useRecoilState(nowState);
+  const setNow = useSetRecoilState(nowState);
   const [avatarPreview, setAvatarPreview] = useState('');
   const [isEmail, setIsEmail] = useRecoilState(isOverLapEmail);
   const [isNick, setIsNick] = useRecoilState(isOverLapNick);
@@ -342,7 +342,21 @@ const SignUpMid = () => {
           </S.SignUpAddressContainer>
         </S.SignUpMidContainer>
         <S.SignUpBottomContainer>
-          <S.SignUpSubmitBtn type='submit'>회원가입 완료</S.SignUpSubmitBtn>
+          {!errors.email?.message &&
+          !errors.password?.message &&
+          !errors.nickname?.message &&
+          !errors.phone?.message &&
+          watch('email') &&
+          watch('password') &&
+          watch('checkpassword') &&
+          watch('nickname') &&
+          watch('phone') ? (
+            <S.SignUpSubmitBtn type='submit'>회원가입 완료</S.SignUpSubmitBtn>
+          ) : (
+            <S.SignUpNoSubmitBtn type='button' disabled>
+              회원가입 완료
+            </S.SignUpNoSubmitBtn>
+          )}
         </S.SignUpBottomContainer>
       </form>
     </S.SignUpContainer>

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { MyPageIcon } from '../../assets';
@@ -13,8 +13,8 @@ import * as S from './ShortInfo.style';
 const Top = () => {
   const navigate = useNavigate();
   const { getUserInfo } = useMyPage();
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const [isEdit, setIsEdit] = useRecoilState(recoilIsEdit);
+  const userInfo = useRecoilValue(userInfoState);
+  const setIsEdit = useSetRecoilState(recoilIsEdit);
 
   const handleErrorImg = (e) => {
     e.target.src = ProfileImg;
@@ -24,6 +24,7 @@ const Top = () => {
     getUserInfo();
     setIsEdit(false);
   }, []);
+
   const PhotoImgDiv = styled.img`
     display: block;
     margin: auto;

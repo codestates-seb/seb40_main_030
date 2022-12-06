@@ -2,9 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { axiosAdminInstance } from '@/apis/admin';
 import { DESKTOP_MEDIA_QUERY } from '@/constants';
 import { KAKAO_AUTH_CODE_URL } from '@/constants/auth';
 import { useMediaQuery } from '@/hooks';
@@ -20,8 +19,7 @@ import * as S from './GenLogin.style';
 
 const GenLogin = () => {
   const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
-
-  const [postAddress, setPostAddress] = useRecoilState(recoilPostAddress);
+  const setPostAddress = useSetRecoilState(recoilPostAddress);
   const { setAdminLogin, setUserLogin } = useLogin();
   const [typeState, setTypeState] = useState(true);
   const [checkedLogin, setCheckedLogin] = useRecoilState(loginCheckState);
@@ -49,10 +47,6 @@ const GenLogin = () => {
         const refreshtoken = res.headers.refreshtoken;
 
         axios.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${accesstoken}`;
-
-        axiosAdminInstance.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${accesstoken}`;
 

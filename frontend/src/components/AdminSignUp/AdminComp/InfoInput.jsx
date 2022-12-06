@@ -3,14 +3,14 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
-import { isOverLapEmail } from '../../../recoil/userInfoState';
-import * as S from './InfoInput.style';
 import { authClient } from '../../../apis/api';
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
   PHONE_REGEX,
 } from '../../../constants/regex';
+import { isOverLapEmail } from '../../../recoil/userInfoState';
+import * as S from './InfoInput.style';
 
 const Mid = () => {
   const navigate = useNavigate();
@@ -174,7 +174,19 @@ const Mid = () => {
             )}
           </S.SignUpMidContainer>
           <S.SignUpBottomContainer>
-            <S.SignUpSubmitBtn type='submit'>관리자 등록</S.SignUpSubmitBtn>
+            {!errors.email?.message &&
+            !errors.password?.message &&
+            !errors.phone?.message &&
+            watch('email') &&
+            watch('password') &&
+            watch('checkpassword') &&
+            watch('phone') ? (
+              <S.SignUpSubmitBtn type='submit'>관리자 등록</S.SignUpSubmitBtn>
+            ) : (
+              <S.SignUpNoSubmitBtn type='button' disabled>
+                관리자 등록
+              </S.SignUpNoSubmitBtn>
+            )}
           </S.SignUpBottomContainer>
         </form>
       </S.AdminMidContainer>
