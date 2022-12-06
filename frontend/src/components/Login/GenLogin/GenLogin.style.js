@@ -115,6 +115,16 @@ export const LoginBtn = styled.button`
   margin-bottom: 35px;
   background-color: #5584ac;
 `;
+export const NoLoginBtn = styled.button`
+  width: 100%;
+  height: 40px;
+  border-radius: 3px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 35px;
+  background-color: #d6d9dc;
+`;
+
 export const SearchAndSignUpDiv = styled.div`
   display: flex;
   width: 100%;

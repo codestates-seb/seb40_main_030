@@ -166,7 +166,14 @@ const GenLogin = () => {
           <S.CheckBoxText>로그인 유지</S.CheckBoxText>
         </S.CheckBoxDiv>
         <div>
-          <S.LoginBtn type='submit'>로그인</S.LoginBtn>
+          {watch('email') &&
+          !errors.email?.message &&
+          watch('password').length > 7 &&
+          !errors.password?.message ? (
+            <S.LoginBtn type='submit'>로그인</S.LoginBtn>
+          ) : (
+            <S.NoLoginBtn type='button'>로그인</S.NoLoginBtn>
+          )}
         </div>
       </form>
       <S.SearchAndSignUpDiv>

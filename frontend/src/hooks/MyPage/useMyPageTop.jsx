@@ -6,7 +6,6 @@ const useMyPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
   const getUserInfo = async () => {
-    console.log('useMyPage -> token : ', localStorage.getItem('accesstoken'));
     const { data } = await apiNeedToken.get(`/members/find`, getConfig());
     setUserInfo(data);
   };
