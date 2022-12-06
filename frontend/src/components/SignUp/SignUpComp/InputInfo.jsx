@@ -2,7 +2,15 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+
+import { authClient } from '../../../apis/api';
 import { ProfileImg } from '../../../assets';
+import {
+  EMAIL_REGEX,
+  PASSWORD_REGEX,
+  NICK_REGEX,
+  PHONE_REGEX,
+} from '../../../constants/regex';
 import { nowState } from '../../../recoil/nowState';
 import {
   recoilPostAddress,
@@ -11,13 +19,6 @@ import {
   isOverLapNick,
 } from '../../../recoil/userInfoState';
 import * as S from './InfoInput.style';
-import { apiNotToken } from '../../../apis/api';
-import {
-  EMAIL_REGEX,
-  PASSWORD_REGEX,
-  NICK_REGEX,
-  PHONE_REGEX,
-} from '../../../constants/regex';
 
 const SignUpMid = () => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const SignUpMid = () => {
     if (!watch('email')) {
       alert('E-mail을 입력해주세요.');
     } else {
-      apiNotToken
+      authClient
         .get(`/members`)
         .then((res) => {
           let existEmail = res.data.content.find(
@@ -84,7 +85,7 @@ const SignUpMid = () => {
   };
 
   const checkedNick = () => {
-    apiNotToken
+    authClient
       .get(`/members`)
       .then((res) => {
         let existNick = res.data.content.find(
@@ -114,11 +115,13 @@ const SignUpMid = () => {
         setTimeout(() => {
           if (avatar && avatar.length) {
             const file = avatar[0];
+
             data.photoURL = URL.createObjectURL(file).slice(5);
           } else {
             data.photoURL = 'http://asdsadsadsas';
           }
-          apiNotToken
+          console.log('data : ', data);
+          authClient
             .post(`/members`, data)
             .then(() => {
               setNow('');
@@ -161,7 +164,18 @@ const SignUpMid = () => {
                   }}
                 />
               </S.SignUpPhoto>
+
               <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
+              {/* 동진님 요청 -이건희- */}
+              <S.FileLabel
+                onClick={() => {
+                  setValue('photoURL', '');
+                  setAvatarPreview('');
+                }}
+              >
+                삭제
+              </S.FileLabel>
+
               <input
                 id='file'
                 type='file'

@@ -1,6 +1,7 @@
 import ShadowButton from './Buttons/ShadowButton';
 import Cards from './CardModal/Cards';
 import ShadowCard from './CardModal/ShadowCard';
+import BatteryEmpty from './Empty/BatteryEmpty';
 import BatteryCharging from './Loading/BatteryCharging';
 import DesktopWrapper from './PageWrapper/DesktopWrapper';
 import PageWrapper from './PageWrapper/PageWrapper';
@@ -16,6 +17,7 @@ export {
   SnackBar,
   Stepper,
   DesktopWrapper,
+  BatteryEmpty,
 };
 
 // Shadow

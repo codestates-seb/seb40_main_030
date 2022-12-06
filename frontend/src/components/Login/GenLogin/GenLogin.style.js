@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const LoginMidContainer = styled.div`
   padding: 70px 10px 0 10px;
@@ -38,9 +38,17 @@ export const EmailInputDiv = styled.div`
   margin-bottom: 7px;
   input {
     width: 100%;
+    /* font-size: 13.55px; */
+    font-size: 14px;
     border: 0 solid white;
+    :focus {
+      border-radius: 2px;
+    }
   }
 `;
+// input:focus {outline: 2px solid #d50000;} /* outline 테두리 속성 수정 */
+// input:focus {outline: none;} /* outline 테두리 없애기 */
+
 export const AdminEmailInputDiv = styled.div`
   width: 100%;
   height: 35px;
@@ -50,7 +58,11 @@ export const AdminEmailInputDiv = styled.div`
   margin-bottom: 7px;
   input {
     width: 100%;
+    font-size: 14px;
     border: 0 solid white;
+    :focus {
+      border-radius: 2px;
+    }
   }
 `;
 export const PasswordInputDiv = styled.div`
@@ -62,7 +74,11 @@ export const PasswordInputDiv = styled.div`
   margin-bottom: 3px;
   input {
     width: 100%;
+    font-size: 14px;
     border: 0 solid white;
+    :focus {
+      border-radius: 2px;
+    }
   }
 `;
 export const AdminPasswordInputDiv = styled.div`
@@ -74,7 +90,11 @@ export const AdminPasswordInputDiv = styled.div`
   margin-bottom: 3px;
   input {
     width: 100%;
+    font-size: 14px;
     border: 0 solid white;
+    :focus {
+      border-radius: 2px;
+    }
   }
 `;
 export const CheckBoxDiv = styled.div`

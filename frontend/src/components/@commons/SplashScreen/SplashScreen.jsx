@@ -7,7 +7,7 @@ const SplashScreen = ({ matches }) => {
     <S.Wrapper
       matches={matches}
       initial={{ opacity: 1 }}
-      animate={{ opacity: 0, transition: { duration: 4 } }}
+      animate={{ opacity: 0, transition: { duration: 5 } }}
     >
       {/* 추후 적합한 Splash 화면으로 변경필요 */}
       {matches && (

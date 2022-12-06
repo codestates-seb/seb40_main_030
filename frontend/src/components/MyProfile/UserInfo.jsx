@@ -15,12 +15,13 @@ import {
 } from '../../recoil/userInfoState';
 import * as S from './UserInfo.style';
 import { NICK_REGEX, PHONE_REGEX } from '../../constants/regex';
-import { apiNeedToken, apiNotToken, getConfig } from '../../apis/api';
+import { apiNeedToken, authClient, getConfig } from '../../apis/api';
 
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');
   const [isEdit, setIsEdit] = useRecoilState(recoilIsEdit);
   const [now, setNow] = useRecoilState(nowState);
+  const [isPhotoDefault, setIsPhotoDefault] = useState(false);
 
   const navigate = useNavigate();
   const [inSignAddress, setInSignAddress] = useRecoilState(recoilPostAddress);
@@ -47,17 +48,17 @@ const Mid = () => {
     formState: { errors },
   } = useForm({
     mode: 'onChange',
-    defaultValues: {
-      photoURL: userInfo.photoURL,
-      nickname: userInfo.nickname,
-      phone: userInfo.phone,
-      address: userInfo.address,
-      detailAddress: userInfo.detailAddress,
-    },
+    // defaultValues: {
+    //   photoURL: userInfo.photoURL,
+    //   nickname: userInfo.nickname,
+    //   phone: userInfo.phone,
+    //   address: userInfo.address,
+    //   detailAddress: userInfo.detailAddress,
+    // },
   });
 
   const checkedNick = () => {
-    apiNotToken
+    authClient
       .get(`/members`)
       .then((res) => {
         let nowUserNick = false;
@@ -118,6 +119,9 @@ const Mid = () => {
           }
           if (!data.photoURL.length) {
             delete data.photoURL;
+          }
+          if (isPhotoDefault) {
+            data.photoURL = 'aaa';
           }
           if (!watch('nickname')) {
             delete data.nickname;
@@ -197,6 +201,14 @@ const Mid = () => {
                       />
                     </S.SignUpPhoto>
                     <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
+                    <S.FileLabel
+                      onClick={() => {
+                        setIsPhotoDefault(true);
+                        setAvatarPreview('aaa');
+                      }}
+                    >
+                      취 소
+                    </S.FileLabel>
                     <input
                       id='file'
                       type='file'
@@ -217,6 +229,14 @@ const Mid = () => {
                       />
                     </S.SignUpPhoto>
                     <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
+                    <S.FileLabel
+                      onClick={() => {
+                        setIsPhotoDefault(true);
+                        setAvatarPreview('aaa');
+                      }}
+                    >
+                      취 소
+                    </S.FileLabel>
                     <input
                       id='file'
                       type='file'

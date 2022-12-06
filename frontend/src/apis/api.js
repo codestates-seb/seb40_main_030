@@ -26,10 +26,15 @@ const apiNeedToken = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
-const apiNotToken = axios.create({
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_SERVER_URL,
+});
+
+// authClient
+const authClient = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'Access-Control-Allow-Origin': '*',
   },
 });
-export { apiNotToken, apiNeedToken, getConfig };
+export { authClient, apiNeedToken, apiClient, getConfig };

@@ -1,6 +1,7 @@
 import { useRecoilValue } from 'recoil';
 
 import { ShadowButton } from '@/components/@commons';
+import convertMinTo10Min from '@/components/@helper/utils/convertMiinTo10Min';
 import { useReservation } from '@/hooks';
 import { reservationState } from '@/recoil/pagesState';
 
@@ -11,6 +12,7 @@ const TimeTable = () => {
   const { hours, minutes } = useRecoilValue(reservationState);
   const { handleReservation, reservation, reserveInfo } = useReservation();
 
+  convertMinTo10Min(new Date().getMinutes());
   if (!reserveInfo?.time) {
     return (
       <>
@@ -18,9 +20,21 @@ const TimeTable = () => {
           <S.StatusContainer>
             <S.RentalStatus>{reservation ? '반납' : '대여'}</S.RentalStatus>
             <S.TimeLineContainer>
-              <Counter type='hours' min={1} max={24} range={1} />
+              <Counter
+                type='hours'
+                min={1}
+                max={23}
+                range={1}
+                time={new Date().getHours()}
+              />
               <span>시</span>
-              <Counter type='minutes' min={0} max={50} range={10} />
+              <Counter
+                type='minutes'
+                min={0}
+                max={50}
+                range={10}
+                time={convertMinTo10Min(new Date().getMinutes())}
+              />
               <span>분</span>
             </S.TimeLineContainer>
           </S.StatusContainer>

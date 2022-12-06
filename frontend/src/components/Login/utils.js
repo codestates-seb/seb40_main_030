@@ -1,5 +1,3 @@
-import { useRecoilState } from 'recoil';
-
 import { axiosAdminInstance } from '@/apis/admin';
 const moveToUrl = (pageUrl) => {
   window.location.assign(pageUrl);

@@ -1,9 +1,22 @@
 import { apiClient } from './stations';
 
 const getPaymentsTable = async () => {
-  const { data } = await apiClient.get('/payments');
+  const localToken = localStorage.getItem('accesstoken');
+  const sessionToken = sessionStorage.getItem('accesstoken');
 
-  return data?.content;
+  const { data } = await apiClient.get('/payments', {
+    headers: {
+      Authorization: `Bearer ${
+        localToken !== null
+          ? localToken
+          : sessionToken !== null
+          ? sessionToken
+          : null
+      }`,
+    },
+  });
+
+  return data.content;
 };
 
 const getAvailableExtendPeriod = async (id) => {

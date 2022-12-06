@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 
 import { isOverLapEmail } from '../../../recoil/userInfoState';
 import * as S from './InfoInput.style';
-import { apiNotToken } from '../../../apis/api';
+import { authClient } from '../../../apis/api';
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
@@ -29,7 +29,7 @@ const Mid = () => {
     if (!watch('email')) {
       alert('E-mail을 입력해주세요.');
     } else {
-      apiNotToken
+      authClient
         .get(`/admins`)
         .then((res) => {
           let existEmail = res.data.content.find(
@@ -56,7 +56,7 @@ const Mid = () => {
       watch('password') === watch('checkpassword')
     ) {
       delete data.checkpassword;
-      apiNotToken
+      authClient
         .post(`/admins`, data)
         .then(() => {
           setIsEmail(false);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ShadowButton, ShadowCard } from '@/components/@commons';
+import { BatteryEmpty, ShadowButton, ShadowCard } from '@/components/@commons';
 import InputModal from '@/components/Business/InputModal/InputModal';
 import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
@@ -13,6 +13,10 @@ import DateBox from './DateBox';
 const BookingList = () => {
   const { data: bookingList } = useGetBookingList();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  if (bookingList.length === 0) {
+    return <BatteryEmpty />;
+  }
 
   return bookingList?.map(({ battery, paymentId, startTime, endTime }) => (
     <S.BatteryContainer key={paymentId} id={paymentId}>

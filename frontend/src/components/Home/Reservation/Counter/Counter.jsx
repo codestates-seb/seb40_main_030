@@ -2,12 +2,13 @@ import { useCounter } from '@/hooks';
 
 import * as S from './Counter.style';
 
-const Counter = ({ type, min, max, range, externalRef }) => {
+const Counter = ({ type, min, max, range, externalRef, time }) => {
   const { inputRef, handleTime, currentTime } = useCounter(
     type,
     min,
     max,
     range,
+    time,
   );
 
   return (

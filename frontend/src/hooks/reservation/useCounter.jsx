@@ -3,9 +3,9 @@ import { useRecoilState } from 'recoil';
 
 import { reservationState } from '@/recoil/pagesState';
 
-const useCounter = (type, min, max, range) => {
+const useCounter = (type, min, max, range, time) => {
   const inputRef = useRef(null);
-  const [currentTime, setTime] = useState(min);
+  const [currentTime, setTime] = useState(time);
   const [timeline, setTimeline] = useRecoilState(reservationState);
 
   // 시간에 대한 검증이 new Date이 24시 이후를 인식못함

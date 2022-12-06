@@ -1,11 +1,12 @@
 import DaumPostcode from 'react-daum-postcode';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+
+import { nowState } from '../../../recoil/nowState';
 import {
   recoilPostAddress,
   recoilIsPostCode,
 } from '../../../recoil/userInfoState';
-import { nowState } from '../../../recoil/nowState';
-import { useRecoilState } from 'recoil';
 
 const PostCode = (data) => {
   const navigate = useNavigate();
