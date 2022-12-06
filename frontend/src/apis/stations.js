@@ -38,26 +38,13 @@ const getSearchDataBySetTime = async (setTime) => {
   return data;
 };
 
-// const getBatteryByLocationAndSetTime = async (location, setTime) => {
-//   const { data } = await apiClient.get('/stations/search', {
-//     params: {
-//       latitude: location.latitude,
-//       longitude: location.longitude,
-//       startTime: setTime.startTime,
-//       endTime: setTime.returnTime,
-//     },
-//   });
-
-//   return data;
-// };
-
 const getBatteryByLocationAndSetTime = async (location, setTime) => {
   const { data } = await apiClient.get('/stations/search', {
     params: {
       latitude: location.latitude,
       longitude: location.longitude,
       startTime: setTime.startTime,
-      endTime: setTime.endTime,
+      endTime: setTime.returnTime,
     },
   });
 

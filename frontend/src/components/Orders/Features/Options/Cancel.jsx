@@ -1,5 +1,8 @@
 import { ShadowButton } from '@/components/@commons';
-import useCancelPayment from '@/hooks/Orders/useCancelBattery';
+import {
+  useCancelPayment,
+  useCancelMockPayment,
+} from '@/hooks/Orders/useCancelBattery';
 
 import DateBox from '../Content/DateBox';
 import ModalHeader from '../Modal/ModalHeader';
@@ -9,14 +12,12 @@ const Cancel = ({
   startTime,
   returnTime,
   setIsModalOpen,
+  currentPayment,
+  setCurrentPayment,
   paymentId,
-  battery,
 }) => {
   const { handleCancelPayment } = useCancelPayment();
-  const totalPrice =
-    ((battery.price + battery.defaultPrice) *
-      (new Date(returnTime).getTime() - new Date(startTime).getTime())) /
-    (1000 * 60);
+  const { handleCancelMockPayment } = useCancelMockPayment();
 
   return (
     <S.ContentWrapper>
@@ -33,7 +34,11 @@ const Cancel = ({
         style={{ width: '70%', marginTop: '10%' }}
         shadow={false}
         onClick={() => {
-          handleCancelPayment(paymentId, totalPrice);
+          if (paymentId >= 1 && paymentId <= 7) {
+            handleCancelMockPayment(paymentId);
+          }
+          handleCancelPayment(currentPayment);
+          setCurrentPayment(null);
           setIsModalOpen(false);
         }}
       />

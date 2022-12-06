@@ -4,7 +4,7 @@ const getPaymentsTable = async () => {
   const localToken = localStorage.getItem('accesstoken');
   const sessionToken = sessionStorage.getItem('accesstoken');
 
-  const { data } = await apiClient.get('/payments', {
+  const { data } = await apiClient.get('/payments?size=200', {
     headers: {
       Authorization: `Bearer ${
         localToken !== null
@@ -39,9 +39,17 @@ const patchReturnBattery = async (paymentId) => {
   return response;
 };
 
-const patchCancelPayment = async (paymentId, totalPrice) => {
-  const response = await apiClient.patch(
+const postCancelPayment = async (paymentId, totalPrice) => {
+  const response = await apiClient.post(
     `/kakaoPayCancel?paymentId=${paymentId}&cancel_amount=${totalPrice}`,
+  );
+
+  return response;
+};
+
+const patchChangePaymentStatus = async (paymentId) => {
+  const response = await apiClient.patch(
+    `/payments/change/${paymentId}?status=IN_PROGRESS`,
   );
 
   return response;
@@ -52,5 +60,6 @@ export {
   getAvailableExtendPeriod,
   patchExtendBookingPeriod,
   patchReturnBattery,
-  patchCancelPayment,
+  postCancelPayment,
+  patchChangePaymentStatus,
 };

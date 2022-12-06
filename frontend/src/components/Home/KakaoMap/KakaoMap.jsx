@@ -39,7 +39,6 @@ const KakaoMap = ({ matches }) => {
             lat: latitude,
             lng: longitude,
           }}
-          isPanto={true}
           style={{ width: '100%', height: '100%', maxWidth: DESKTOP_MAX_WIDTH }}
           onDragEnd={(map) => {
             setCurrentLocation({

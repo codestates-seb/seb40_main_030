@@ -18,7 +18,7 @@ const useGetBatteryBySetTime = (id) => {
         returnTime: endPoint?.replace(' ', 'T'),
       }),
     {
-      onError: (err) => console.log(err),
+      onError: (err) => console.log(err.response.status),
       useErrorBoundary: true,
       suspense: true,
       retry: 1,

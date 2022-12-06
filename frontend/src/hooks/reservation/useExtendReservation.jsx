@@ -11,7 +11,7 @@ const useExtendReservation = (returnTime, possibleEndTime) => {
 
   const timeDifferenceInHour =
     possibleEndTime &&
-    (new Date(returnTime)?.getTime() - new Date(possibleEndTime)?.getTime()) /
+    (new Date(possibleEndTime)?.getTime() - new Date(returnTime)?.getTime()) /
       (1000 * 60 * 60);
 
   const isValidExtendPeriod = (hoursRef, minutesRef) => {

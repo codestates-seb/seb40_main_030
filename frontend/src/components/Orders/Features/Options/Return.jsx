@@ -27,12 +27,8 @@ const Return = ({ returnTime, setIsModalOpen, paymentId }) => {
         style={{ width: '70%', marginTop: '10%' }}
         shadow={false}
         onClick={() => {
-          console.log(paymentId);
           handleReturnBattery(paymentId);
           setIsModalOpen(false);
-          // openSnackBar('반납이 완료되었습니다.');
-
-          // target.style.display = 'none';
         }}
       />
     </S.ContentWrapper>

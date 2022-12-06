@@ -64,7 +64,6 @@ const Extends = ({ returnTime, paymentsId, setIsModalOpen }) => {
           </S.DateSelectContainer>
         </>
       )}
-      {/* 이부분은 반납 클릭했을때 바뀌도록 */}
       {extendedDate && (
         <div style={{ marginTop: '20px' }}>
           <DateBox returnTime={extendedDate} fontSize='20px' type='연장' />

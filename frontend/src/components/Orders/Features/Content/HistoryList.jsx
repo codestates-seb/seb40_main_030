@@ -38,7 +38,8 @@ const HistoryList = () => {
                   ((battery.price + battery.defaultPrice) *
                     (new Date(returnTime).getTime() -
                       new Date(startTime).getTime())) /
-                  (1000 * 60)
+                  (1000 * 60) /
+                  10
                 )
                   .toString()
                   .replace(PRICE_REGEX, ',')}

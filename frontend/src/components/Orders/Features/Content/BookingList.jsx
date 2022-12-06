@@ -12,6 +12,7 @@ import * as S2 from './Content.style';
 import DateBox from './DateBox';
 
 const BookingList = () => {
+  const [currentPayment, setCurrentPayment] = useState();
   const { data: bookingList } = useGetBookingList();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -19,75 +20,72 @@ const BookingList = () => {
     return <BatteryEmpty />;
   }
 
-  return bookingList?.map(({ battery, paymentId, startTime, returnTime }) => (
-    <S.BatteryContainer key={paymentId} id={paymentId}>
-      <ShadowCard
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0, transition: { duration: 0.3 } }}
-        transition={{ duration: 0.3 }}
-      >
-        <S.ProductWrapper>
-          <S2.ImageContainer>
-            <S2.BatteryImage
-              src={battery.photoURL}
-              alt='batteryImage'
-              // onError={(e) => imageOnErrorHandler(e)}
-            />
-            <S.Capacity>
-              {battery.capacity.toString().replace(PRICE_REGEX, ',')}
-            </S.Capacity>
-            <S.BatteryName style={{ marginTop: 10, fontSize: 18 }}>
-              {battery.batteryName}
-            </S.BatteryName>
-          </S2.ImageContainer>
-          <S.ProductInfoContainer>
-            <S.PriceContainer>
-              <S.Price>
-                {(
-                  ((battery.price + battery.defaultPrice) *
-                    (new Date(returnTime).getTime() -
-                      new Date(startTime).getTime())) /
-                  (1000 * 60)
-                )
-                  .toString()
-                  .replace(PRICE_REGEX, ',')}
-              </S.Price>
-              <span>원</span>
-            </S.PriceContainer>
-            <DateBox
-              startTime={startTime}
-              returnTime={returnTime}
-              border={true}
-            />
-            <ShadowButton
-              shadow={false}
-              width='80px'
-              padding='10px 5px'
-              content='예약 취소하기'
-              style={{ fontSize: 13, marginTop: 20 }}
-              // 정말로 예약 취소할건지 물어보는 모달
-              // 같은 값 입력시
-              onClick={() => {
-                setIsModalOpen(true);
-              }}
-            />
-          </S.ProductInfoContainer>
-        </S.ProductWrapper>
-      </ShadowCard>
-      <InputModal isModalOpen={isModalOpen} closeModalHandler={setIsModalOpen}>
-        <ContentModal height={'30%'}>
-          <Cancel
-            startTime={startTime}
-            returnTime={returnTime}
-            setIsModalOpen={setIsModalOpen}
-            paymentId={paymentId}
-            battery={battery}
-          />
-        </ContentModal>
-      </InputModal>
-    </S.BatteryContainer>
-  ));
+  return bookingList?.map(
+    ({ battery, totalPrice, paymentId, startTime, returnTime }) => (
+      <S.BatteryContainer key={paymentId} id={paymentId}>
+        <ShadowCard
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: 0.3 } }}
+          transition={{ duration: 0.3 }}
+        >
+          <S.ProductWrapper>
+            <S2.ImageContainer>
+              <S2.BatteryImage src={battery.photoURL} alt='batteryImage' />
+              <S.Capacity>
+                {battery.capacity.toString().replace(PRICE_REGEX, ',')}
+              </S.Capacity>
+              <S.BatteryName style={{ marginTop: 10, fontSize: 18 }}>
+                {battery.batteryName}
+              </S.BatteryName>
+            </S2.ImageContainer>
+            <S.ProductInfoContainer>
+              <S.PriceContainer>
+                <S.Price>
+                  {totalPrice.toString().replace(PRICE_REGEX, ',')}
+                </S.Price>
+                <span>원</span>
+              </S.PriceContainer>
+              <DateBox
+                startTime={startTime}
+                returnTime={returnTime}
+                border={true}
+              />
+              <ShadowButton
+                shadow={false}
+                width='80px'
+                padding='10px 5px'
+                content='예약 취소하기'
+                style={{ fontSize: 13, marginTop: 20 }}
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setCurrentPayment(paymentId);
+                }}
+              />
+            </S.ProductInfoContainer>
+          </S.ProductWrapper>
+        </ShadowCard>
+        {currentPayment === paymentId && (
+          <InputModal
+            isModalOpen={isModalOpen}
+            closeModalHandler={setIsModalOpen}
+          >
+            <ContentModal height={'30%'}>
+              <Cancel
+                startTime={startTime}
+                returnTime={returnTime}
+                setIsModalOpen={setIsModalOpen}
+                battery={battery}
+                currentPayment={currentPayment}
+                setCurrentPayment={setCurrentPayment}
+                paymentId={paymentId}
+              />
+            </ContentModal>
+          </InputModal>
+        )}
+      </S.BatteryContainer>
+    ),
+  );
 };
 
 export default BookingList;
