@@ -97,13 +97,13 @@ public class MemberService {
     }
 
     @Transactional
-    public void createOauthMember(Member member) {
+    public Member createOauthMember(Member member) {
         String rawPassword = member.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword);
         member.setPassword(encPassword);
         List<String> roles = customAuthorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
-        memberRepository.save(member);
+        return memberRepository.save(member);
     }
 
 }

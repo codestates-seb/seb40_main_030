@@ -104,7 +104,7 @@ public class KakaoController {
 
         // 비즈니스 계층에서 생성 및 저장 하는 게 좋을 듯합니다.
         Member kakaoMember = Member.builder()
-//                .id(kakaoProfile.getId())   // <- 카카오에서 제공하는 Id값 입력할 수 있도록 해보기
+                .id(kakaoProfile.getId())   // <- 카카오에서 제공하는 Id값 입력할 수 있도록 해보기
                 .nickname(kakaoProfile.getKakao_account().getEmail() + kakaoProfile.getId())
                 .password(coskey)
                 .email(kakaoProfile.getKakao_account().getEmail())
@@ -114,8 +114,9 @@ public class KakaoController {
                 .photoURL("http://null")
                 .build();
 
+        Member savedMember = new Member();
         if (memberRepository.findByMemberNickname(kakaoMember.getNickname()).isEmpty()) {
-            memberService.createOauthMember(kakaoMember);
+            savedMember = memberService.createOauthMember(kakaoMember);
         }
 
 
@@ -125,8 +126,8 @@ public class KakaoController {
 
 
         // 자체 JWT 생성 및 HttpServletResponse의 Header에 저장 (클라이언트 응답용)
-        String accessToken = jwtTokenizer.delegateAccessToken(kakaoMember);
-        String refreshToken = jwtTokenizer.delegateRefreshToken(kakaoMember);
+        String accessToken = jwtTokenizer.delegateAccessToken(savedMember);
+        String refreshToken = jwtTokenizer.delegateRefreshToken(savedMember);
         response.setHeader("AccessToken", "Bearer " + accessToken);
         response.setHeader("RefreshToken", refreshToken);
 
