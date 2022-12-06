@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+
+import { apiNeedToken, authClient, getConfig } from '../../apis/api';
 import { ProfileImg } from '../../assets';
+import { NICK_REGEX, PHONE_REGEX } from '../../constants/regex';
 import { nowState } from '../../recoil/nowState';
 import {
   recoilPostAddress,
@@ -14,8 +17,6 @@ import {
   recoilPhone,
 } from '../../recoil/userInfoState';
 import * as S from './UserInfo.style';
-import { NICK_REGEX, PHONE_REGEX } from '../../constants/regex';
-import { apiNeedToken, authClient, getConfig } from '../../apis/api';
 
 const Mid = () => {
   const [userInfo, setUserInfo] = useState('');

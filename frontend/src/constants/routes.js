@@ -69,6 +69,10 @@ const ROUTES = Object.freeze({
     PATH: '/payments/payment_completed',
     NAME: 'Payments',
   },
+  LOGINREDIRECT: {
+    PATH: '/loginredirect',
+    NAME: 'Loginredirect',
+  },
 });
 
 export default ROUTES;
