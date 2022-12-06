@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { recoilPostAddress } from '../../../recoil/userInfoState';
-import { loginCheckState } from '../../../recoil/login';
 
 import { axiosAdminInstance } from '@/apis/admin';
-import useLogin from '../../../hooks/Login/useLogin';
+
 import { authClient } from '../../../apis/api';
 import { EMAIL_REGEX } from '../../../constants/regex';
-
+import useLogin from '../../../hooks/Login/useLogin';
+import { loginCheckState } from '../../../recoil/login';
+import { recoilPostAddress } from '../../../recoil/userInfoState';
 import * as S from './GenLogin.style';
 
 const GenLogin = () => {

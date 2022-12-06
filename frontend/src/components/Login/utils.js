@@ -5,7 +5,6 @@ const moveToUrl = (pageUrl) => {
 
 const getAuthCode = () => {
   const url = new URL(window.location.href);
-  console.log('url', url);
   const authorizationCode = url.searchParams.get('code');
   return authorizationCode;
 };

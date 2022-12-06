@@ -67,29 +67,16 @@ const BottomNav = () => {
           }
         >
           <S.IconContainer
-            // onClick={() => {
-            //   if (localToken !== null && sessionToken !== null) {
-            //     navigate(ROUTES.LOGIN.PATH);
-            //   } else if (
-            //     localUserType === 'admin' ||
-            //     sessionUserType === 'admin'
-            //   ) {
-            //     navigate(ROUTES.BUSINESS.PATH);
-            //   } else {
-            //     navigate(ROUTES.MYPAGE.PATH);
-            //   }
-            // }}
             onClick={() => {
               if (localUserType === 'admin' || sessionUserType === 'admin') {
                 navigate(ROUTES.BUSINESS.PATH);
               } else {
-                console.log('로그인');
                 navigate(ROUTES.MYPAGE.PATH);
               }
 
-              // if (localToken === null && sessionToken === null) {
-              //   navigate(ROUTES.LOGIN.PATH);
-              // }
+              if (localToken === null && sessionToken === null) {
+                navigate(ROUTES.LOGIN.PATH);
+              }
             }}
           >
             <MyPageIcon className='icon' />

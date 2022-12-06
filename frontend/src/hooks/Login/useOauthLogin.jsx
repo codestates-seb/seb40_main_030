@@ -9,12 +9,10 @@ const useOauthLogin = () => {
   const navigate = useNavigate();
   const OauthLogin = async () => {
     const authCode = getAuthCode(); //인증코드 추출
-    console.log(authCode);
+
     const res = await sendAuthCode(authCode);
     const accessTokenFromHeader = res.headers.accesstoken.split(' ')[1];
     const refreshTokenFromHeader = res.headers.refreshtoken;
-    console.log(accessTokenFromHeader);
-    console.log(refreshTokenFromHeader);
 
     localStorage.setItem('accesstoken', accessTokenFromHeader);
     localStorage.setItem('refreshtoken', refreshTokenFromHeader);
@@ -22,7 +20,6 @@ const useOauthLogin = () => {
     if (accessTokenFromHeader && refreshTokenFromHeader) {
       navigate('/', { replace: true });
     } else {
-      console.log('로그인 실패 저장된 엑세스토큰/리프레쉬토큰이 없음');
       navigate('/login', { replace: true });
     }
   };
