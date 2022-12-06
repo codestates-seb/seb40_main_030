@@ -37,6 +37,7 @@ const Mid = () => {
     setNow('MyProfile');
     apiNeedToken.get(`/members/find`, getConfig()).then((res) => {
       setUserInfo(res.data);
+      console.log('');
     });
   }, []);
 
@@ -203,6 +204,7 @@ const Mid = () => {
                     <S.FileLabel htmlFor='file'>업로드</S.FileLabel>
                     <S.FileLabel
                       onClick={() => {
+                        setValue('aaa');
                         setIsPhotoDefault(true);
                         setAvatarPreview('aaa');
                       }}

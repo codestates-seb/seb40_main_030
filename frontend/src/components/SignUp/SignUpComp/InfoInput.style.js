@@ -247,3 +247,12 @@ export const SignUpSubmitBtn = styled.button`
   margin-bottom: 100px;
   background-color: #5584ac;
 `;
+export const SignUpNoSubmitBtn = styled.button`
+  width: 100%;
+  height: 40px;
+  border-radius: 3px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 100px;
+  background-color: #d6d9dc;
+`;

@@ -9,7 +9,10 @@ const NoticeList = ({ list }) => {
         {list.type === 'notice' ? (
           <>
             <S.StatusText>{list.status}</S.StatusText>
-            <S.StatusImgDiv src={GuideImg} />
+            <S.StatusImgDiv
+              src={GuideImg}
+              style={{ height: '60%', marginTop: '5px' }}
+            />
           </>
         ) : (
           <>

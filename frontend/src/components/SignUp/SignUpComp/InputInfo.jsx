@@ -342,7 +342,21 @@ const SignUpMid = () => {
           </S.SignUpAddressContainer>
         </S.SignUpMidContainer>
         <S.SignUpBottomContainer>
-          <S.SignUpSubmitBtn type='submit'>회원가입 완료</S.SignUpSubmitBtn>
+          {!errors.email?.message &&
+          !errors.password?.message &&
+          !errors.nickname?.message &&
+          !errors.phone?.message &&
+          watch('email') &&
+          watch('password') &&
+          watch('checkpassword') &&
+          watch('nickname') &&
+          watch('phone') ? (
+            <S.SignUpSubmitBtn type='submit'>회원가입 완료</S.SignUpSubmitBtn>
+          ) : (
+            <S.SignUpNoSubmitBtn type='button' disabled>
+              회원가입 완료
+            </S.SignUpNoSubmitBtn>
+          )}
         </S.SignUpBottomContainer>
       </form>
     </S.SignUpContainer>
