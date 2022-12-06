@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { CompletedIcon } from '@/assets';
@@ -12,8 +12,7 @@ import * as S from './Completed.styled';
 const Completed = () => {
   const [stateCart, setStateCart] = useRecoilState(cartInfo)
   const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
-  const {state} = useLocation();
-  console.log(stateCart)
+
   const navigate = useNavigate();
   const homeClick = () => {
     navigate('/');

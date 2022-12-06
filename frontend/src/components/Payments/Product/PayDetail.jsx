@@ -18,7 +18,6 @@ const PayDetail = () => {
         setStateCart(state)
     }, [])
 
-    console.log('stateCart', stateCart)
     const handleClick = async () => {
         postKakao(state, totalAmount)
     }
