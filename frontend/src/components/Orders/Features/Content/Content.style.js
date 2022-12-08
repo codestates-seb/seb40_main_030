@@ -50,7 +50,7 @@ const ContentModal = styled(motion.div)`
 
   padding: 20px 10px;
 
-  width: 90%;
+  width: ${({ width }) => (width ? width : '90%')};
   height: ${({ height }) => (height ? height : '70%')};
   border-radius: 20px;
   background-color: #ffffff;

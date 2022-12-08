@@ -1,14 +1,19 @@
 import { atom } from 'recoil';
 
+import convertMinTo10Min from '@/components/@helper/utils/convertMiinTo10Min';
+
 const initialReservationValue = {
-  startTime: { hours: null, minutes: null },
-  returnTime: { hours: null, minutes: null },
+  startTime: { hours: new Date().getHours(), minutes: new Date().getMinutes() },
+  returnTime: {
+    hours: new Date().getHours() + 1,
+    minutes: new Date().getMinutes(),
+  },
   startDate: { year: null, month: null, date: null },
   endDate: { year: null, month: null, date: null },
   dateFixed: { date: false, time: false },
   bookingType: null,
-  hours: 1,
-  minutes: 0,
+  hours: new Date().getHours(),
+  minutes: convertMinTo10Min(new Date().getMinutes()),
 };
 
 const sessionStorageEffect =

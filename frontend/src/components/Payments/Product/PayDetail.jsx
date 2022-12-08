@@ -18,8 +18,6 @@ const PayDetail = () => {
     setStateCart(state);
   }, []);
 
-  console.log('states', state);
-
   const handleClick = async () => {
     postKakao(state, totalAmount);
   };

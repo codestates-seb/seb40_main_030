@@ -1,5 +1,3 @@
-import * as S from './Stepper.style';
-
 const StepperItem = ({ reservations }) => {
   let timeArray = [];
 
@@ -9,16 +7,17 @@ const StepperItem = ({ reservations }) => {
   timeArray = timeArray.sort(
     (a, b) => new Date(a).getTime() - new Date(b).getTime(),
   );
+  return <div></div>;
 
-  return [...new Set(timeArray)]?.map((time, i) => {
-    return (
-      <S.Item key={i}>
-        <S.Description>{`${new Date(time).getMonth() + 1}/${new Date(
-          time,
-        ).getDate()}`}</S.Description>
-      </S.Item>
-    );
-  });
+  // return [...new Set(timeArray)]?.map((time, i) => {
+  //   return (
+  //     <S.Item key={i}>
+  //       <S.Description>{`${new Date(time).getMonth() + 1}/${new Date(
+  //         time,
+  //       ).getDate()}`}</S.Description>
+  //     </S.Item>
+  //   );
+  // });
 };
 
 export default StepperItem;

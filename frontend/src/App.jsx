@@ -1,5 +1,5 @@
 import { AnimatePresence } from 'framer-motion';
-import { cloneElement, useEffect } from 'react';
+import { cloneElement } from 'react';
 import { useLocation, useRoutes } from 'react-router-dom';
 
 import { DesktopWrapper } from './components/@commons';

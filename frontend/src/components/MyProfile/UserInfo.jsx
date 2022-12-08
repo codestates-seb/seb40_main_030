@@ -38,7 +38,6 @@ const Mid = () => {
     setNow('MyProfile');
     apiNeedToken.get(`/members/find`, getConfig()).then((res) => {
       setUserInfo(res.data);
-      console.log('');
     });
   }, []);
 
@@ -156,7 +155,6 @@ const Mid = () => {
 
   const onInValid = (data) => {
     const errorlist = Object.keys(data).join(' / ');
-    console.log('onInValid : ', data);
   };
 
   const removeUser = async () => {
@@ -171,10 +169,7 @@ const Mid = () => {
         localStorage.removeItem('accesstoken');
         localStorage.removeItem('refreshtoken');
         navigate('/');
-        console.log('탈퇴 완료!');
       });
-    } else {
-      console.log('취소누름');
     }
   };
 

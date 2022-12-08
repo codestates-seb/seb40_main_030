@@ -12,22 +12,19 @@ const SingleDateSelection = ({ currentDate, currentTime }) => {
   const { startTime, returnTime } = reservationStatus;
 
   const handleTime = () => {
-    if (startTime.hours && startTime.minutes) {
-      setTime({ startTime });
+    if (startTime.hours || startTime.minutes) {
+      setTime({ ...time, startTime });
     }
 
-    if (returnTime.hours && returnTime.minutes) {
+    if (returnTime.hours || returnTime.minutes) {
       setTime({ ...time, returnTime });
     }
   };
 
   useEffect(() => {
     handleSingleDateReservation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     handleTime();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

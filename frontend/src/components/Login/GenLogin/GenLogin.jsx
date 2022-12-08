@@ -55,7 +55,6 @@ const GenLogin = () => {
         } else {
           setUserLogin(accesstoken, checkedLogin, refreshtoken);
         }
-        console.log('로그인 성공.');
         navigate('/');
       })
       .catch((err) => {
