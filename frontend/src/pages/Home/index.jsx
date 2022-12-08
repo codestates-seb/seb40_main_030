@@ -1,9 +1,7 @@
 import { Suspense } from 'react';
-import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { BatteryCharging, SnackBar, SplashScreen } from '@/components/@commons';
-import PayNotice from '@/components/@commons/Notice/PayNotice';
 import BottomNav from '@/components/@layout/BottomNav/BottomNav';
 import BottomSheet from '@/components/@layout/BottomSheet/BottomSheet';
 import MapArea from '@/components/Home/Maps';
@@ -12,8 +10,6 @@ import { DESKTOP_MEDIA_QUERY, ROUTES } from '@/constants';
 import { useSplashScreen, useSnackBar, useMediaQuery } from '@/hooks';
 
 const Home = () => {
-  const isNoticeRead = JSON.parse(localStorage.getItem('notice'));
-  const [isModalOpen, setIsModalOpen] = useState(true);
   const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
   const { pathname } = useLocation();
   const { isLoading, isSplashed } = useSplashScreen();
@@ -34,12 +30,6 @@ const Home = () => {
               <BottomSheet matches={matches}>
                 <Reservation />
               </BottomSheet>
-            )}
-            {!isNoticeRead && (
-              <PayNotice
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-              />
             )}
           </div>
         ) : null}
