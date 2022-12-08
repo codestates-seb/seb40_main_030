@@ -11,6 +11,8 @@ const ModalWrapper = styled.div`
   top: 0;
   right: 0;
 
+  left: ${({ matches }) => matches && '30px'};
+
   display: flex;
   justify-content: center;
   align-items: center;

@@ -10,7 +10,6 @@ import * as S from './TimeTable.style';
 
 const TimeTable = () => {
   const { hours, minutes } = useRecoilValue(reservationState);
-  console.log('timetable', hours, minutes);
   const { handleReservation, reservation, reserveInfo } = useReservation();
 
   if (!reserveInfo?.time) {

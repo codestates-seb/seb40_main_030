@@ -120,7 +120,6 @@ const SignUpMid = () => {
           } else {
             data.photoURL = 'http://asdsadsadsas';
           }
-          console.log('data : ', data);
           authClient
             .post(`/members`, data)
             .then(() => {

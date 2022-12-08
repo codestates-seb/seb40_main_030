@@ -22,7 +22,6 @@ const GenLogout = () => {
     if (loginType === 'kakao') {
       const accessToken = localStorage.getItem('accesstoken');
       kakaoLogout(accessToken).then((res) => {
-        console.log('로그아웃하고 응답', res);
         sessionStorage.removeItem('accesstoken');
         localStorage.removeItem('accesstoken');
         localStorage.removeItem('refreshtoken');
