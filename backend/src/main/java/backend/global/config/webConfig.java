@@ -14,7 +14,8 @@ public class webConfig implements WebMvcConfigurer {
                 // 8080, front, ec2, ngrok, 8090
                 .allowedOrigins("http://localhost:8080", "http://localhost:5173", "http://3.39.226.89:8080", "http://localhost:4173",
                         "https://6786-222-233-138-154.jp.ngrok.io", "http://localhost:8090", "ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com:8080",
-                        "ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com")
+                        "ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com", "http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com",
+                        "http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com:8080")  // S3 cors 조심
                 .allowedMethods("*")  // All Method
                 .maxAge(3600)  // 3600sec == 1h
                 .allowCredentials(true)
