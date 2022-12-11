@@ -53,9 +53,9 @@ public class KakaoPayService {
         params.add("total_amount", String.valueOf(totalAmount));//상품 총 금액
         params.add("tax_free_amount", "100");
         params.add("approval_url", "http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com:8080/kakaoPaySuccess/" + paymentId);// 결제 승인시 url
-        params.add("cancel_url", "http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com:8080/kakaoPayCancel/" + paymentId); // 결제 취소시 url
-        params.add("fail_url", "http://ec2-54-180-116-86.ap-northeast-2.compute.amazonaws.com:8080/kakaoPaySuccessFail/" + paymentId); // 결제 실패시 url
-
+        params.add("cancel_url", "http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/kakaoPayCancel/" + paymentId); // 결제 취소시 url
+        params.add("fail_url", "http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/kakaoPaySuccessFail/" + paymentId); // 결제 실패시 url
+//        http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/kakaoPayCancel/
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(params, headers);
 
         String url = "https://kapi.kakao.com/v1/payment/ready";
