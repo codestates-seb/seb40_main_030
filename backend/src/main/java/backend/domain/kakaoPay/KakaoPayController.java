@@ -4,17 +4,20 @@ import backend.domain.payment.entity.Payment;
 import backend.domain.payment.service.PaymentService;
 import backend.global.security.utils.JwtExtractUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 
 @Log
 @RestController
@@ -22,18 +25,18 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping
 public class KakaoPayController {
 
-    @Setter(onMethod_ = @Autowired)
-    private KakaoPayService kakaopay;
     private final PaymentService paymentService;
     private final JwtExtractUtils jwtExtractUtils;
+    @Setter(onMethod_ = @Autowired)
+    private KakaoPayService kakaopay;
 
     @GetMapping("/kakaoPay")
     public ResponseEntity kakaoPay(@RequestParam(required = false, name = "itemName") String itemName,
-                                                 @RequestParam(required = false, name = "totalAmount") int totalAmount,
-                                                 @RequestParam(required = false, name = "batteryId") Long batteryId,
-                                                 @RequestParam(required = false, name = "startTime") String startTime,
-                                                 @RequestParam(required = false, name = "endTime") String endTime,
-                                                 HttpServletRequest request) {
+                                   @RequestParam(required = false, name = "totalAmount") int totalAmount,
+                                   @RequestParam(required = false, name = "batteryId") Long batteryId,
+                                   @RequestParam(required = false, name = "startTime") String startTime,
+                                   @RequestParam(required = false, name = "endTime") String endTime,
+                                   HttpServletRequest request) {
         log.info("kakaoPay post............................................");
         Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
         Payment payment = new Payment(startTime, endTime, totalAmount);
@@ -46,15 +49,19 @@ public class KakaoPayController {
 
 
     @GetMapping("/kakaoPaySuccess/{paymentId}")
-    public String kakaoPaySuccess(@RequestParam(required = false) String pg_token,
-                                  @PathVariable("paymentId") Long paymentId, RedirectAttributes redirectAttributes) {
+    public ResponseEntity kakaoPaySuccess(@RequestParam(required = false) String pg_token,
+                                          @PathVariable("paymentId") Long paymentId, RedirectAttributes redirectAttributes) throws URISyntaxException {
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
 
         kakaopay.kakaoPayInfo(paymentId, pg_token);
         redirectAttributes.addAttribute("paymentId", paymentId);
+        URI redirectUri = new URI("http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/payments/payment_completed");
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setLocation(redirectUri);
 
-        return "redirect:http://battery-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/payments/payment_completed";
+        return new ResponseEntity<>(httpHeaders, HttpStatus.MOVED_PERMANENTLY);
+//        return "redirect:";
     }
 
     // 결제 취소시 실행 url
