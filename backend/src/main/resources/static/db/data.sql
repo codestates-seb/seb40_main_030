@@ -1,7 +1,7 @@
 --더미 Member
-INSERT INTO Member(member_id,createdAt,modifiedAt,address,detailAddress,email,nickname,password,phone,photoURL) VALUES
-(1,'2022-11-27 19:46:44.346140','2022-11-27 19:46:44.346140','경기도 분당시 엄복동','자전차왕 푸르지오 1001동 401호','test@gmail.com','테스트','{bcrypt}$2a$10$XGotgfCnYqJ/kVeDoiD1KeS7fIidoyrr8kbjXNxRKGfGxPNQhmzXy','010-1111-2222','http://asd311114f6asd54f6aw'),
-(2,'2022-11-27 19:47:10.850315','2022-11-27 19:47:10.850315','서울시 강남구 역삼동','아디다스 앞동네','nike@gmail.com','나이키','{bcrypt}$2a$10$.vHhhPbb7F1hgmRD5Cxkb.d97nem9ApMGHDQbatnjxnelVpcBg.p6','010-1111-2222','http://asd311114f6asd54f6aw');
+INSERT INTO Member(member_id,createdAt,modifiedAt,address,detailAddress,email,nickname,password,phone,photoURL,kakaoAccessToken,kakaoRefreshToken) VALUES
+(1,'2022-11-27 19:46:44.346140','2022-11-27 19:46:44.346140','경기도 분당시 엄복동','자전차왕 푸르지오 1001동 401호','test@gmail.com','테스트','{bcrypt}$2a$10$XGotgfCnYqJ/kVeDoiD1KeS7fIidoyrr8kbjXNxRKGfGxPNQhmzXy','010-1111-2222','http://asd311114f6asd54f6aw',null,null),
+(2,'2022-11-27 19:47:10.850315','2022-11-27 19:47:10.850315','서울시 강남구 역삼동','아디다스 앞동네','nike@gmail.com','나이키','{bcrypt}$2a$10$.vHhhPbb7F1hgmRD5Cxkb.d97nem9ApMGHDQbatnjxnelVpcBg.p6','010-1111-2222','http://asd311114f6asd54f6aw',null,null);
 
 --더미 Admin
 INSERT INTO Admin(admin_id,createdAt,email,modifiedAt,password,phone) VALUES
