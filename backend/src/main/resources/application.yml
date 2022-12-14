@@ -15,7 +15,7 @@ spring:
 #  datasource:
 #    url: jdbc:h2:mem:test
   profiles:
-    active: local   # 로컬 프로파일 사용을 위한 설정
+    active: server   # 로컬 프로파일 사용을 위한 설정
   jpa:
     hibernate:
       ddl-auto: create

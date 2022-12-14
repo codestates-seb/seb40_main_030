@@ -26,6 +26,8 @@ jobs:
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: build
+      - name: Run chmod to make gradlew executable  # 추가해본 곳
+        run: chmod +x ./gradlew  # 추가해본 곳
 
       # build한 후 프로젝트를 압축합니다.
       - name: Make zip file
@@ -44,3 +46,11 @@ jobs:
       # 압축한 프로젝트를 S3로 전송합니다.
       - name: Upload to S3
         run: aws s3 cp --region ap-northeast-2 ./practice-deploy.zip s3://$S3_BUCKET_NAME/practice-deploy.zip
+              # CodeDeploy에게 배포 명령을 내립니다.
+      - name: Code Deploy
+        run: >
+          aws deploy create-deployment --application-name BatterySharing
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --deployment-group-name Battery-sharing
+          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=practice-deploy.zip
+

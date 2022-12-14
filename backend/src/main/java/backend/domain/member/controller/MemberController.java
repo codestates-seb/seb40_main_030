@@ -44,8 +44,8 @@ public class MemberController {
 
     @GetMapping("/find")
     public ResponseEntity<MemberResDto> getMember(HttpServletRequest request) {
-        Long memberId = jwtExtractUtils.extractMemberIdFromJwt(request);
-        Member findMember = service.findMember(memberId);
+        String email = jwtExtractUtils.extractEmailFromJwt(request);
+        Member findMember = service.findMember(email);
         MemberResDto response = new MemberResDto(findMember);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
