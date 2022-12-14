@@ -6,6 +6,8 @@ import { useSnackBar } from '@/hooks';
 
 const PrivateRouter = () => {
   const { openSnackBar } = useSnackBar();
+  // const isLocalAuth = localStorage.getItem('accesstoken');
+  // const isSessionAuth = sessionStorage.getItem('accesstoken');
   const isLocalAuth = localStorage.getItem('accesstoken');
   const isSessionAuth = sessionStorage.getItem('accesstoken');
 

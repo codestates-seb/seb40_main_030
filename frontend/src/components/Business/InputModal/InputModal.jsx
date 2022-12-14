@@ -1,8 +1,8 @@
 import * as S from './InputModal.style';
 
-const InputModal = ({ children, isModalOpen, closeModalHandler }) => {
+const InputModal = ({ children, isModalOpen, closeModalHandler, matches }) => {
   return (
-    <S.ModalWrapper isActiveMode={isModalOpen}>
+    <S.ModalWrapper matches={matches} isActiveMode={isModalOpen}>
       <S.ModalBackground onClick={() => closeModalHandler(false)} />
       {children}
     </S.ModalWrapper>

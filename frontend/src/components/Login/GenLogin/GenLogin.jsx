@@ -1,23 +1,35 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { axiosAdminInstance } from '@/apis/admin';
-// import { postCheckedLogin, postLogin } from '@/apis/auth';
+import { DESKTOP_MEDIA_QUERY } from '@/constants';
+import { KAKAO_AUTH_CODE_URL } from '@/constants/auth';
+import { useMediaQuery } from '@/hooks';
 import { loginCheckState } from '@/recoil/login';
+import { recoilPostAddress } from '@/recoil/userInfoState';
 
+import { authClient } from '../../../apis/api';
+import { EMAIL_REGEX } from '../../../constants/regex';
+import useLogin from '../../../hooks/Login/useLogin';
+import KakaoLogin from '../KaKaoLogin/KaKaoLogin';
+import { moveToUrl } from '../utils';
 import * as S from './GenLogin.style';
 
-axiosAdminInstance;
-
-// 일반 로그인 컴포넌트
 const GenLogin = () => {
+  const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
+  const setPostAddress = useSetRecoilState(recoilPostAddress);
+  const { setAdminLogin, setUserLogin } = useLogin();
+  const [typeState, setTypeState] = useState(true);
   const [checkedLogin, setCheckedLogin] = useRecoilState(loginCheckState);
-  const [typeState, setTypeState] = useState(true); // 로그인 타입 상태
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setCheckedLogin(false);
+    setPostAddress('');
+  }, []);
 
   const {
     register,
@@ -26,53 +38,22 @@ const GenLogin = () => {
     formState: { errors },
   } = useForm({ mode: 'onChange' });
 
-  // const onValid2 = () => {
-  //   const loginData = watch();
-
-  //   if (checkedLogin) {
-  //     postLogin(loginData);
-  //   } else {
-  //     postCheckedLogin(loginData);
-  //   }
-
-  //   navigate('/');
-  // };
-
   const onValid = async () => {
     const loginData = watch();
-
-    await axios
-      .post(`${import.meta.env.VITE_SERVER_URL}/auth/login`, loginData)
+    await authClient
+      .post(`/auth/login`, loginData)
       .then((res) => {
         const accesstoken = res.headers.accesstoken.split(' ')[1];
         const refreshtoken = res.headers.refreshtoken;
-
-        console.log('refresh', refreshtoken);
 
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${accesstoken}`;
 
-        axiosAdminInstance.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${accesstoken}`;
-
-        if (checkedLogin) {
-          if (res.data === 'Success ADMIN') {
-            localStorage.setItem('accesstoken', accesstoken);
-            localStorage.setItem('refreshtoken', refreshtoken);
-            localStorage.setItem('userType', 'admin');
-          } else {
-            localStorage.setItem('accesstoken', accesstoken);
-            localStorage.setItem('refreshtoken', refreshtoken);
-          }
-        } else if (!checkedLogin) {
-          if (res.data === 'Success ADMIN') {
-            sessionStorage.setItem('accesstoken', accesstoken);
-            sessionStorage.setItem('userType', 'admin');
-          } else {
-            sessionStorage.setItem('accesstoken', accesstoken);
-          }
+        if (res.data === 'Success ADMIN') {
+          setAdminLogin(accesstoken, checkedLogin, refreshtoken);
+        } else {
+          setUserLogin(accesstoken, checkedLogin, refreshtoken);
         }
         navigate('/');
       })
@@ -125,8 +106,7 @@ const GenLogin = () => {
               {...register('email', {
                 required: 'E-mail을 입력해주세요.',
                 pattern: {
-                  value:
-                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+                  value: EMAIL_REGEX,
                   message: '⚠ E-mail형식에 맞지 않습니다.',
                 },
               })}
@@ -141,8 +121,7 @@ const GenLogin = () => {
               {...register('email', {
                 required: 'E-mail을 입력해주세요.',
                 pattern: {
-                  value:
-                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+                  value: EMAIL_REGEX,
                   message: '⚠ E-mail형식에 맞지 않습니다.',
                 },
               })}
@@ -186,9 +165,32 @@ const GenLogin = () => {
           />
           <S.CheckBoxText>로그인 유지</S.CheckBoxText>
         </S.CheckBoxDiv>
-        <div>
-          <S.LoginBtn type='submit'>로그인</S.LoginBtn>
-        </div>
+        <S.LoginButtonContainer>
+          {watch('email') &&
+          !errors.email?.message &&
+          watch('password').length > 7 &&
+          !errors.password?.message ? (
+            <>
+              <S.LoginBtn matches={matches} type='submit'>
+                로그인
+              </S.LoginBtn>
+              {matches && (
+                <KakaoLogin
+                  loginClickHandler={() => moveToUrl(KAKAO_AUTH_CODE_URL)}
+                />
+              )}
+            </>
+          ) : (
+            <>
+              <S.NoLoginBtn type='button'>로그인</S.NoLoginBtn>
+              {matches && (
+                <KakaoLogin
+                  loginClickHandler={() => moveToUrl(KAKAO_AUTH_CODE_URL)}
+                />
+              )}
+            </>
+          )}
+        </S.LoginButtonContainer>
       </form>
       <S.SearchAndSignUpDiv>
         <S.SearchIdText>아이디 찾기</S.SearchIdText>

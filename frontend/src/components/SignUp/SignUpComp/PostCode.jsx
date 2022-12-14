@@ -1,23 +1,23 @@
 import DaumPostcode from 'react-daum-postcode';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+
+import { nowState } from '../../../recoil/nowState';
 import {
   recoilPostAddress,
   recoilIsPostCode,
 } from '../../../recoil/userInfoState';
-import { nowState } from '../../../recoil/nowState';
-import { useRecoilState } from 'recoil';
 
 const PostCode = (data) => {
   const navigate = useNavigate();
-  const [inPostAddress, setInPostAddress] = useRecoilState(recoilPostAddress);
-  const [isPostCode, setIsPostCode] = useRecoilState(recoilIsPostCode);
-  const [now, setNow] = useRecoilState(nowState);
+  const setInPostAddress = useSetRecoilState(recoilPostAddress);
+  const setIsPostCode = useSetRecoilState(recoilIsPostCode);
+  const now = useRecoilValue(nowState);
 
   const complete = (data) => {
     let fullAddress = data.address;
     let extraAddress = '';
 
-    // 도로명 눌렀을때
     if (data.userSelectedType === 'R') {
       if (data.bname !== '') {
         extraAddress += data.bname;
@@ -28,7 +28,6 @@ const PostCode = (data) => {
       }
       fullAddress += extraAddress !== '' ? `(${extraAddress})` : '';
     }
-    // 지번 눌렀을때
     if (data.userSelectedType === 'J') {
       if (data.bname !== '') {
         extraAddress += data.bname;
@@ -56,7 +55,7 @@ const PostCode = (data) => {
     ) {
       navigate('/signup');
     } else if (now !== 'MyProfile' && now !== 'SignUp') {
-      // navigate('*');
+      navigate('*');
     }
   };
   return <DaumPostcode onComplete={complete} />;
