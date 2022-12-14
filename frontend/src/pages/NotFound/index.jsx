@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { ROUTES } from '@/constants';
 
@@ -10,8 +10,6 @@ const NotFound = ({
   bgColor,
   color,
 }) => {
-  const navigate = useNavigate();
-
   return (
     <S.Wrapper
       exit={{ opacity: 0 }}
@@ -21,8 +19,8 @@ const NotFound = ({
     >
       <S.Message>{message}</S.Message>
       {button && (
-        <S.GoBackButton onClick={() => navigate(ROUTES.HOME.PATH)}>
-          뒤로가기
+        <S.GoBackButton>
+          <Link to={ROUTES.HOME.PATH}>뒤로가기</Link>
         </S.GoBackButton>
       )}
     </S.Wrapper>

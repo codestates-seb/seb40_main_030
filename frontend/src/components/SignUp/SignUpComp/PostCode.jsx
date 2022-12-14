@@ -1,17 +1,18 @@
 import DaumPostcode from 'react-daum-postcode';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+
+import { nowState } from '../../../recoil/nowState';
 import {
   recoilPostAddress,
   recoilIsPostCode,
 } from '../../../recoil/userInfoState';
-import { nowState } from '../../../recoil/nowState';
-import { useRecoilState } from 'recoil';
 
 const PostCode = (data) => {
   const navigate = useNavigate();
-  const [inPostAddress, setInPostAddress] = useRecoilState(recoilPostAddress);
-  const [isPostCode, setIsPostCode] = useRecoilState(recoilIsPostCode);
-  const [now, setNow] = useRecoilState(nowState);
+  const setInPostAddress = useSetRecoilState(recoilPostAddress);
+  const setIsPostCode = useSetRecoilState(recoilIsPostCode);
+  const now = useRecoilValue(nowState);
 
   const complete = (data) => {
     let fullAddress = data.address;

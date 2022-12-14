@@ -6,16 +6,19 @@ import { useSnackBar } from '..';
 
 const useGetAvailablePeriod = (id) => {
   const { openSnackBar } = useSnackBar();
-  const { data, refetch } = useQuery(
+  const { data, status, refetch } = useQuery(
     ['extend-time'],
     () =>
       getAvailableExtendPeriod(id).catch((err) => {
-        if (err.response.status === 404 || err.response.status === 401) {
+        const statusCode = err.response.status;
+
+        if (statusCode === 404) {
           openSnackBar('연장 가능한 시간이 없습니다.');
           return null;
-        } else {
-          throw err; // 반드시 모든 케이스에 대한 error 처리를 해줘야 queryCache가 오류를 인식한다
         }
+
+        openSnackBar(`데이터를 읽어올 수 없습니다. ${statusCode} `);
+        return null;
       }),
     {
       refetchOnWindowFocus: false,
@@ -23,7 +26,7 @@ const useGetAvailablePeriod = (id) => {
     },
   );
 
-  return { data, refetch };
+  return { data, status, refetch };
 };
 
 export default useGetAvailablePeriod;

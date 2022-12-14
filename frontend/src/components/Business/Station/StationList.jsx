@@ -20,7 +20,7 @@ const StationList = ({ openSnackBar, stationList }) => {
     <>
       {isEditState && (
         <InputModal
-          isActive={
+          isModalOpen={
             selectedStationInfo.batteryCount === 0 ? true : false && isEditState
           }
           closeModalHandler={setIsEditState}

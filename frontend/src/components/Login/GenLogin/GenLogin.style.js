@@ -38,9 +38,17 @@ export const EmailInputDiv = styled.div`
   margin-bottom: 7px;
   input {
     width: 100%;
+    /* font-size: 13.55px; */
+    font-size: 14px;
     border: 0 solid white;
+    :focus {
+      border-radius: 2px;
+    }
   }
 `;
+// input:focus {outline: 2px solid #d50000;} /* outline 테두리 속성 수정 */
+// input:focus {outline: none;} /* outline 테두리 없애기 */
+
 export const AdminEmailInputDiv = styled.div`
   width: 100%;
   height: 35px;
@@ -50,7 +58,11 @@ export const AdminEmailInputDiv = styled.div`
   margin-bottom: 7px;
   input {
     width: 100%;
+    font-size: 14px;
     border: 0 solid white;
+    :focus {
+      border-radius: 2px;
+    }
   }
 `;
 export const PasswordInputDiv = styled.div`
@@ -62,7 +74,11 @@ export const PasswordInputDiv = styled.div`
   margin-bottom: 3px;
   input {
     width: 100%;
+    font-size: 14px;
     border: 0 solid white;
+    :focus {
+      border-radius: 2px;
+    }
   }
 `;
 export const AdminPasswordInputDiv = styled.div`
@@ -74,7 +90,11 @@ export const AdminPasswordInputDiv = styled.div`
   margin-bottom: 3px;
   input {
     width: 100%;
+    font-size: 14px;
     border: 0 solid white;
+    :focus {
+      border-radius: 2px;
+    }
   }
 `;
 export const CheckBoxDiv = styled.div`
@@ -87,14 +107,24 @@ export const CheckBoxText = styled.div`
 `;
 
 export const LoginBtn = styled.button`
-  width: 100%;
-  height: 40px;
+  width: ${({ matches }) => (matches ? '90%' : '100%')};
+  height: 45px;
   border-radius: 3px;
   font-weight: bold;
   color: white;
   margin-bottom: 35px;
   background-color: #5584ac;
 `;
+export const NoLoginBtn = styled.button`
+  width: ${({ matches }) => (matches ? '90%' : '100%')};
+  height: 45px;
+  border-radius: 3px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 35px;
+  background-color: #d6d9dc;
+`;
+
 export const SearchAndSignUpDiv = styled.div`
   display: flex;
   width: 100%;
@@ -120,4 +150,10 @@ export const FailMsgDiv = styled.div`
   text-align: center;
   font-size: 15px;
   color: red;
+`;
+
+export const LoginButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

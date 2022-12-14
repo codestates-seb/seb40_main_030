@@ -76,10 +76,11 @@ const BatteryInfo = ({ content, station }) => {
               <span>원</span>
             </S.PriceContainer>
             <S.PricePerMin>
-              {price.toString().replace(PRICE_REGEX, ',')}원 / <span>10분</span>
+              {price?.toString().replace(PRICE_REGEX, ',')}원 /{' '}
+              <span>10분</span>
             </S.PricePerMin>
             <S.PricePerMin>
-              {defaultPrice.toString().replace(PRICE_REGEX, ',')}원 /{' '}
+              {defaultPrice?.toString().replace(PRICE_REGEX, ',')}원 /{' '}
               <span>기본요금</span>
             </S.PricePerMin>
             <ShadowButton

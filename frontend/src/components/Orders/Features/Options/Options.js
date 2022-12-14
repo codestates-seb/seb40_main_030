@@ -42,9 +42,23 @@ const ReturnDateContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  height: 20%;
+  height: 60%;
+`;
 
-  margin-bottom: 40px;
+const Border = styled.div`
+  margin: 5px 0;
+`;
+
+const ExtendNotPossibleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+
+  span {
+    font-size: 20px;
+    text-align: center;
+  }
 `;
 
 export {
@@ -52,4 +66,6 @@ export {
   DateSelectContainer,
   ExtendedDate,
   ReturnDateContainer,
+  Border,
+  ExtendNotPossibleContainer,
 };
