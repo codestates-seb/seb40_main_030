@@ -2,10 +2,10 @@ import { atom } from 'recoil';
 
 import { localStorageEffect } from './pagesState';
 
-const loginState = atom({
-  key: 'loginState',
-  default: false,
-  effects: [localStorageEffect('loginState')],
+const userType = atom({
+  key: 'userType',
+  default: '',
+  effects: [localStorageEffect('userType')],
 });
 
 const sessionState = atom({
@@ -30,4 +30,4 @@ const loginCheckState = atom({
   default: false,
 });
 
-export { sessionState, loginState, accessToken, refreshToken, loginCheckState };
+export { sessionState, userType, accessToken, refreshToken, loginCheckState };

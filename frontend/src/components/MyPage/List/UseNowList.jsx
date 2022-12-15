@@ -1,14 +1,11 @@
 import styled from 'styled-components';
-
 import * as S from './UseNowList.style';
 
 const UseNowList = ({ data }) => {
   const img = data.batteryPhotoURL;
-
-  // 시간 props로 받은거 배열로 만들어주기
   const start = data.startTime.split('');
   const end = data.endTime.split('');
-  // 시간 깔끔하게 해주는 함수
+
   const timeRefresh = () => {
     let newStart = [...start];
     let newEnd = [...end];
@@ -39,7 +36,6 @@ const UseNowList = ({ data }) => {
         <BatteryImg />
         <S.ListText>
           <S.SpanTextDiv>
-            {/* <S.SpanTitle>대여기간 : </S.SpanTitle> */}
             <S.SpanData>{timeRefresh()}</S.SpanData>
           </S.SpanTextDiv>
           <S.SpanTextDiv>

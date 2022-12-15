@@ -1,23 +1,29 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { patchExtendBookingPeriod } from '@/apis/payments';
-import convertDate2ServerString from '@/components/@helper/utils/convertDate2ServerString';
+
+import { useSnackBar } from '..';
 
 const useExtendBookingPeriod = () => {
+  const { openSnackBar } = useSnackBar();
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(
-    ['batteries'],
+    ['batteries', 'order-inUse'],
     ({ id, extendTime }) => patchExtendBookingPeriod(id, extendTime),
     {
-      useErrorBoundary: false,
-      onSuccess: () => queryClient.invalidateQueries(['batteries']),
+      onSuccess: () => {
+        openSnackBar(`연장이 성공적으로 완료되었습니다.`);
+        queryClient.invalidateQueries(['order-inUse']);
+      },
+      onError: (err) => {
+        openSnackBar(`연장에 실패하였습니다. ${err.response.status}`);
+      },
     },
   );
 
   const handleBookingPeriod = (id, extendTime) => {
-    const date = convertDate2ServerString(extendTime);
-    mutate({ id, date });
+    mutate({ id, extendTime });
   };
 
   return { handleBookingPeriod };
