@@ -19,6 +19,7 @@ const Home = () => {
     <>
       {/* <SplashScreen matches={matches} /> */}
       {isLoading && <SplashScreen matches={matches} />}
+
       <Suspense fallback={<BatteryCharging />}>
         <MapArea matches={matches} />
         {/* Bottom Sheet 에 대한 visibility transition 이 들어가야함 */}
@@ -32,6 +33,7 @@ const Home = () => {
             )}
           </div>
         ) : null}
+        {/* 임시 공지사항 카카오 페이 결제 */}
         <SnackBar
           isActive={isActive}
           message={message}

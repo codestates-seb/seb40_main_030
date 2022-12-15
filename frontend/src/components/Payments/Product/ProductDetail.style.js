@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const ItemLayout = styled.div`
-display: flex;
 height: 200px;
 margin-top: 60px;
 margin-bottom: 30px;
@@ -15,28 +14,19 @@ height: 110px;
 margin-left: 10px;
 margin-right: 40px;
 margin-top: 30px;
+position: absolute;
 `
 
-const ItemDetails = styled.div`
+const ItemDetailLayout = styled.div`
 display: flex;
-flex-direction: column;
-flex-wrap: wrap;
+justify-content: space-between;
+margin-left: 150px;
+margin-right: 30px;
 `
 
 const ItemDetail = styled.div`
 font-size: 15px;
 margin-top: 20px;
-`
-
-const ItemDate = styled.div`
-font-size: 15px;
-margin-top: 25px;
-`
-
-const PayDetails = styled.div`
-display: flex;
-flex-direction: column;
-flex-wrap: wrap;
 `
 
 const PayDetail = styled.div`
@@ -45,4 +35,9 @@ margin-top: 20px;
 text-align: right;
 `
 
-export { ItemLayout, ItemImg, ItemDetails, PayDetails, PayDetail, ItemDetail, ItemDate };
+const ItemDate = styled.div`
+font-size: 15px;
+margin-top: 25px;
+`
+
+export { ItemLayout, ItemImg, ItemDetailLayout, ItemDetail, PayDetail, ItemDate };

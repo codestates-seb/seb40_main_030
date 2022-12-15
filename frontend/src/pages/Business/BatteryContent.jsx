@@ -37,12 +37,13 @@ const BatteryContent = ({
     sessionStorage.removeItem('accesstoken');
     localStorage.removeItem('refreshtoken');
     localStorage.removeItem('userType');
+    sessionStorage.removeItem('userType');
     navigate('/');
   };
   return (
     <>
       {isAddMode && (
-        <InputModal isActive={isAddMode} closeModalHandler={setIsAddMode}>
+        <InputModal isModalOpen={isAddMode} closeModalHandler={setIsAddMode}>
           <BatteryInputForm
             openSnackBar={openSnackBar}
             batteryList={batteryInfo.batteryList}

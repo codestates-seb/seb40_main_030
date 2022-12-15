@@ -1,6 +1,6 @@
-import Top from './Top';
-import Mid from './Mid';
-import Bottom from './Bottom';
+import Top from './ShortInfo';
+import Mid from './IconButton';
+import Bottom from './StatusList';
 import * as S from './MyPageForm.style';
 
 const MyPageForm = () => {

@@ -2,7 +2,7 @@ import convertDate2ReadableString from '@/components/@helper/utils/convertDate2R
 
 import * as S from './Content.style';
 
-const DateBox = ({ startTime, endTime, border = false, fontSize, type }) => {
+const DateBox = ({ startTime, returnTime, border = false, fontSize, type }) => {
   return (
     <S.DateContainer>
       {startTime && (
@@ -12,12 +12,12 @@ const DateBox = ({ startTime, endTime, border = false, fontSize, type }) => {
         </div>
       )}
       {border && <span className='border'></span>}
-      {endTime && (
+      {returnTime && (
         <div className='flex-center'>
           <S.DateStatus fontSize={fontSize}>
             {type ? type : '반납'}
           </S.DateStatus>
-          <span>{convertDate2ReadableString(endTime)}</span>
+          <span>{convertDate2ReadableString(returnTime)}</span>
         </div>
       )}
     </S.DateContainer>

@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-/* main-01 : #5584AC
-  font-01 : #7b8c9f */
 export const UseNowListContainer = styled.div`
   border-bottom: 2px solid #d6d9dc;
   padding: 7px 10px 10px 10px;
@@ -24,7 +22,7 @@ export const SpanTextDiv = styled.div`
   color: black;
 `;
 export const SpanData = styled.span`
-  font-size: 10px;
+  font-size: 13px;
   font-weight: bold;
 `;
 export const SpanStatus = styled.div`

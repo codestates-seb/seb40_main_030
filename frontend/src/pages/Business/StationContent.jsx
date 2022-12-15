@@ -32,6 +32,7 @@ const StationContent = ({
     sessionStorage.removeItem('accesstoken');
     localStorage.removeItem('refreshtoken');
     localStorage.removeItem('userType');
+    sessionStorage.removeItem('userType');
     navigate('/');
   };
   return (
@@ -39,7 +40,7 @@ const StationContent = ({
       {isAddMode && (
         <InputModal
           name={'station'}
-          isActive={isAddMode}
+          isModalOpen={isAddMode}
           closeModalHandler={setIsAddMode}
         >
           <StationInputForm

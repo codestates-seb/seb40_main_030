@@ -5,28 +5,30 @@ import {
 } from '@/components/@helper';
 import { ROUTES } from '@/constants';
 
-import AdminSignUp from './AdminSignUp';
+import Login from './Auth/Login';
+import LoginRedirect from './Auth/LoginRedirect/index';
 import Business from './Business';
 import Home from './Home';
-import Login from './Login';
 import MyPage from './MyPage';
-import MyProfile from './MyProfile';
+import MyProfile from './MyPage/MyProfile';
+import Notice from './MyPage/Notice';
 import NotFound from './NotFound';
-import Notice from './Notice';
 import Orders from './Orders';
-import PaymentCompleted from './PaymentCompleted';
 import Payments from './Payments';
+import PaymentCanceled from './PaymentState/PaymentCanceled';
+import PaymentCompleted from './PaymentState/PaymentCompleted';
+import PaymentFailed from './PaymentState/PaymentFailed';
 import Rental from './Rental';
 import Search from './Search';
 import SearchAddress from './SearchAddress';
 import SignUp from './SignUp';
-
+import AdminSignUp from './SignUp/AdminSignUp';
 // W/O Page Animation
 // const PaymentCompleted = lazy(() => import('./PaymentCompleted'));
 // const NotFound = lazy(() => import('./NotFound'));
 // const SearchAddress = lazy(() => import('./SearchAddress'));
 // const Notice = lazy(() => import('./Notice'));
-// const Login = lazy(() => import('./Login'));
+// // const Login = lazy(() => import('./Login'));
 // const Home = lazy(() => import('./Home'));
 // const MyPage = lazy(() => import('./MyPage'));
 // const MyProfile = lazy(() => import('./MyProfile'));
@@ -138,6 +140,21 @@ const PAGES = [
     element: <Search />,
     path: ROUTES.SEARCH.PATH,
     name: ROUTES.SEARCH.NAME,
+  },
+  {
+    element: <PaymentCanceled />,
+    path: ROUTES.PAYMENTCANCELED.PATH,
+    name: ROUTES.PAYMENTCANCELED.NAME,
+  },
+  {
+    element: <PaymentFailed />,
+    path: ROUTES.PAYMENTFAILED.PATH,
+    name: ROUTES.PAYMENTFAILED.NAME,
+  },
+  {
+    element: <LoginRedirect />,
+    path: ROUTES.LOGINREDIRECT.PATH,
+    name: ROUTES.LOGINREDIRECT.NAME,
   },
 ];
 

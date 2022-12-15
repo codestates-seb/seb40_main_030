@@ -6,7 +6,10 @@ const useGetAllStations = () => {
   const { data, isLoading, isSuccess } = useQuery(
     ['stations'],
     getAllStations,
+
     {
+      // select: (stations) =>
+      //   stations?.filter(({ batteries }) => batteries.length !== 0),
       refetchOnWindowFocus: false,
       suspense: true,
     },
@@ -14,7 +17,7 @@ const useGetAllStations = () => {
 
   const stations = [];
 
-  data.map(({ id, name, location, confirmId }) => {
+  data?.map(({ id, name, location, confirmId }) => {
     const data = { id, name, location, confirmId };
 
     stations.push(data);
