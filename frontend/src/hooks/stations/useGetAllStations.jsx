@@ -8,8 +8,6 @@ const useGetAllStations = () => {
     getAllStations,
 
     {
-      // select: (stations) =>
-      //   stations?.filter(({ batteries }) => batteries.length !== 0),
       refetchOnWindowFocus: false,
       suspense: true,
     },
