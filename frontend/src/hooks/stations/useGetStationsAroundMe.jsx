@@ -17,7 +17,6 @@ const useGetStationsAroundMe = () => {
         {
           startTime: startPoint?.replace(' ', 'T'),
           returnTime: endPoint?.replace(' ', 'T'),
-          // returnTime: endPoint?.replace(' ', 'T'),
         },
       ).catch((err) => {
         if (err.response.status === 400) {
@@ -28,10 +27,6 @@ const useGetStationsAroundMe = () => {
       }),
     {
       // 배터리 0 이 아닌 주유소만 보여주는 경우의 수
-      // select: (stations) =>
-      //   stations?.filter(
-      //     ({ availableBatteryCount }) => availableBatteryCount !== 0,
-      //   ),
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       suspense: true,
