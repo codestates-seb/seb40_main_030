@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useEffect } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 import { MapMarker } from 'react-kakao-maps-sdk';
 import { useRecoilState } from 'recoil';
@@ -10,6 +11,7 @@ import KakaoRoadView from '@/components/Home/KakaoMap/Features/RoadView';
 import { DEFAULT_LOCATION, DESKTOP_MAX_WIDTH } from '@/constants';
 import {
   useCheckDateFixed,
+  useCurrentAddress,
   useCurrentLocation,
   useGetAllStations,
 } from '@/hooks';
@@ -22,13 +24,25 @@ const KakaoMap = ({ matches }) => {
   const [toggle, setToggle] = useState(false);
   const { location } = useCurrentLocation();
   const { data: stations } = useGetAllStations();
+  const { data: filteredStations, refetch: updateLocation } =
+    useGetFilteredStationsBySetTime();
   const [currentLocation, setCurrentLocation] =
     useRecoilState(currentLocationState);
   const { isDateFixed } = useCheckDateFixed();
-  const { data: filteredStations, refetch: updateLocation } =
-    useGetFilteredStationsBySetTime();
   const latitude = currentLocation?.latitude || DEFAULT_LOCATION.latitude;
   const longitude = currentLocation?.longitude || DEFAULT_LOCATION.longitude;
+
+  const { shortAddress } = useCurrentAddress({ latitude, longitude });
+
+  useEffect(() => {
+    updateLocation();
+
+    console.log(filteredStations);
+
+    console.log('shortAddress', shortAddress);
+
+    console.log('location Update');
+  }, [filteredStations, shortAddress, updateLocation]);
 
   return (
     <S.MapWrapper matches={matches}>
@@ -51,7 +65,6 @@ const KakaoMap = ({ matches }) => {
               latitude: mouseEvent.latLng.getLat(),
               longitude: mouseEvent.latLng.getLng(),
             });
-            updateLocation();
           }}
           level={4}
           draggable={true}

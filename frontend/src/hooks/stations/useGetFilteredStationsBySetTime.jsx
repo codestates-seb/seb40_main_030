@@ -1,15 +1,27 @@
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { getBatteryByLocationAndSetTime } from '@/apis/stations';
+import { DEFAULT_LOCATION } from '@/constants';
 import { currentLocationState } from '@/recoil/pagesState';
 
-import { useCheckValidReserveTable } from '..';
+import { useCheckValidReserveTable, useCurrentAddress } from '..';
 
 const useGetFilteredStationsBySetTime = () => {
   const { startPoint, endPoint } = useCheckValidReserveTable();
   const currentLocation = useRecoilValue(currentLocationState);
-  // 아래 로직은 에러 핸들링이 되는 로직 제데로 한번 찾아봐야함
+  const latitude = currentLocation?.latitude || DEFAULT_LOCATION?.latitude;
+  const longitude = currentLocation?.longitude || DEFAULT_LOCATION?.longitude;
+
+  const { addressDetail } = useCurrentAddress({ latitude, longitude });
+
+  useEffect(() => {
+    const si = addressDetail.split(' ')[0];
+    const gu = addressDetail.split(' ')[1];
+
+    console.log(si, gu);
+  }, [addressDetail]);
 
   const { data, refetch } = useQuery(
     ['filtered-stations-setTime', 'stations'],
@@ -34,19 +46,12 @@ const useGetFilteredStationsBySetTime = () => {
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       suspense: true,
+      staleTime: 3000,
     },
   );
 
-  const filteredStations = [];
-
-  data?.map(({ id, name, location, confirmId }) => {
-    const data = { id, name, location, confirmId };
-
-    filteredStations.push(data);
-  });
-
   if (data !== null || data !== undefined) {
-    return { data, refetch, filteredStations };
+    return { data, refetch };
   }
 };
 
