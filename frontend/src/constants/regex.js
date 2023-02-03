@@ -1,4 +1,3 @@
-// const PRICE_REGEX = /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g;
 const PRICE_REGEX = /\B(?=(\d{3})+(?!\d))/g;
 const EMAIL_REGEX =
   /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
