@@ -1,4 +1,5 @@
 //commons
+// @ts-ignore
 import useBottomSheet from './bottomSheet/useBottomSheet';
 import usePreviousValue from './bottomSheet/usePrevious';
 import useConvertDate from './commons/useConvertDate';
@@ -9,7 +10,6 @@ import useSplashScreen from './commons/useSplashScreen';
 // maps
 import useCardModal from './map/useCardModal';
 import useCurrentAddress from './map/useCurrentAddress';
-import useCurrentLocation from './map/useCurrentLocation';
 import useKakaoMap from './map/useKakaoMap';
 import useSearchMap from './map/useSearchMap';
 import useTimeDifference from './map/useTimeDifference';
@@ -47,7 +47,6 @@ export {
 
 export {
   useCurrentAddress,
-  useCurrentLocation,
   useKakaoMap,
   useTimeDifference,
   useWatchLocation,
