@@ -15,7 +15,15 @@ import DateBox from '../Content/DateBox';
 import ModalHeader from '../Modal/ModalHeader';
 import * as S from './Options.style';
 
-const Extends = ({ returnTime, paymentsId, setIsModalOpen }) => {
+const Extends = ({
+  returnTime,
+  paymentsId,
+  setIsModalOpen,
+}: {
+  returnTime: string;
+  paymentsId: number;
+  setIsModalOpen: (arg: boolean) => void;
+}) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { handleBookingPeriod } = useExtendBookingPeriod();
   const { openSnackBar } = useSnackBar();
@@ -47,20 +55,8 @@ const Extends = ({ returnTime, paymentsId, setIsModalOpen }) => {
       {!extendedDate && (
         <>
           <S.DateSelectContainer>
-            <Counter
-              min={0}
-              max={23}
-              range={1}
-              time={1}
-              externalRef={externalHourRef}
-            />
-            <Counter
-              min={0}
-              max={50}
-              range={10}
-              time={10}
-              externalRef={externalMinutesRef}
-            />
+            <Counter min={0} max={23} range={1} time={1} />
+            <Counter min={0} max={50} range={10} time={10} />
           </S.DateSelectContainer>
         </>
       )}
@@ -80,7 +76,7 @@ const Extends = ({ returnTime, paymentsId, setIsModalOpen }) => {
             if (extendedDate) {
               handleBookingPeriod(
                 paymentsId,
-                convertDate2ServerString(extendedDate),
+                convertDate2ServerString(extendedDate)
               );
               setIsModalOpen(false);
               openSnackBar('대여시간 연장이 완료되었습니다.');

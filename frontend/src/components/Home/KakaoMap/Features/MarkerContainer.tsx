@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { MapMarker, CustomOverlayMap } from 'react-kakao-maps-sdk';
 
 import { Cards } from '@/components/@commons';
+import { Content } from '../../../../@types/index';
 
-const MarkerContainer = ({ content }) => {
+const MarkerContainer = ({ content }: { content: Content }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { location, name } = content;
 
@@ -22,7 +23,13 @@ const MarkerContainer = ({ content }) => {
   );
 };
 
-const CustomOverlay = ({ content, setIsOpen }) => {
+const CustomOverlay = ({
+  content,
+  setIsOpen,
+}: {
+  content: Content;
+  setIsOpen: (arg: boolean) => void;
+}) => {
   const { location } = content;
 
   return (

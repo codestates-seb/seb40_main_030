@@ -1,6 +1,6 @@
 import * as S from './Modal.style';
 
-const ModalHeader = ({ title }) => {
+const ModalHeader = ({ title }: { title: string }) => {
   return (
     <S.Header>
       <S.HeaderTitle>{title}</S.HeaderTitle>

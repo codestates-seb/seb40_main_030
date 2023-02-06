@@ -1,8 +1,5 @@
 import { ShadowButton } from '@/components/@commons';
-import {
-  useCancelPayment,
-  useCancelMockPayment,
-} from '@/hooks/Orders/useCancelBattery';
+import { useCancelPayment, useCancelMockPayment } from '@/hooks';
 
 import DateBox from '../Content/DateBox';
 import ModalHeader from '../Modal/ModalHeader';
@@ -15,6 +12,13 @@ const Cancel = ({
   currentPayment,
   setCurrentPayment,
   paymentId,
+}: {
+  startTime: string;
+  returnTime: string;
+  setIsModalOpen: (arg: boolean) => void;
+  currentPayment: null | number;
+  setCurrentPayment: any;
+  paymentId: number;
 }) => {
   const { handleCancelPayment } = useCancelPayment();
   const { handleCancelMockPayment } = useCancelMockPayment();

@@ -1,15 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 
+import { DEFAULT_LOCATION } from '@/constants';
+
 const useWatchLocation = (options = {}) => {
   // 내 위치 정보 저장
-  const [location, setLocation] = useState({});
+  const [location, setLocation] = useState(DEFAULT_LOCATION);
   // 에러 메세지 저장
   const [error, setError] = useState('');
   // watch 인스턴스를 취소할 수 있도록 Geolocation의 `watchPosition`에서 반환된 ID를 저장합니다.
-  const locationWatchId = useRef(null);
+  const locationWatchId = useRef<any>(null);
 
   // Geolocation의 `watchPosition` 메소드에 대한 성공 callback 핸들러
-  const handleSuccess = (pos) => {
+  const handleSuccess = (pos: any) => {
     const { latitude, longitude } = pos.coords;
 
     setLocation({
@@ -19,7 +21,7 @@ const useWatchLocation = (options = {}) => {
   };
 
   // Geolocation의 `watchPosition` 메소드에 대한 실패 callback 핸들러
-  const handleError = (error) => {
+  const handleError = (error: any) => {
     setError(error.message);
   };
 
@@ -45,7 +47,7 @@ const useWatchLocation = (options = {}) => {
     locationWatchId.current = geolocation.watchPosition(
       handleSuccess,
       handleError,
-      options,
+      options
     );
 
     // React가 사용된 구성 요소를 마운트 해제할 때 위치 감시 인스턴스를 지웁니다.

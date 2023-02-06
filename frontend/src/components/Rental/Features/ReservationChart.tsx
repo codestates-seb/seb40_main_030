@@ -3,12 +3,12 @@ import { useCheckValidReserveTable } from '@/hooks';
 
 import * as S from './Features.style';
 
-const ReservationChart = ({ content }) => {
+const ReservationChart = () => {
   const { startPoint, endPoint } = useCheckValidReserveTable();
 
   return (
     <S.ChartWrapper>
-      <Stepper startPoint={startPoint} endPoint={endPoint} content={content} />
+      <Stepper startPoint={startPoint || ''} endPoint={endPoint || ''} />
     </S.ChartWrapper>
   );
 };

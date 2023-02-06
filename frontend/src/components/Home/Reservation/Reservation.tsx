@@ -1,16 +1,23 @@
 import { UndoIcon } from '@/assets';
 import { BOOKING_TYPE } from '@/constants';
 import { useCalendar, useReservation, useUndoReservation } from '@/hooks';
-import { initialReservationValue } from '@/recoil/pagesState';
+import { initialReservationValue, reservationState } from '@/recoil/pagesState';
 
 import BookingTypeBox from './BookingTypeBox/BookingTypeBox';
 import Calendar from './Calendar/Calendar';
 import SingleDateSelection from './DateSelection/SingleDateSelection';
 import * as S from './Reservation.style';
 import TimeTable from './TimeTable/TimeTable';
+import { useRecoilState } from 'recoil';
+
+const RESERVATION_MESSAGE = {
+  SET: '예약시간 설정하기',
+  CONFIRM: '예약시간 확인하기',
+};
 
 const Reservation = () => {
-  const { reservationStatus, setReservationStatus } = useReservation();
+  const [reservationStatus, setReservationStatus] =
+    useRecoilState(reservationState);
   const { undoReservation } = useUndoReservation();
   const { currentDate, currentTime } = useCalendar();
   const { dateFixed, bookingType } = reservationStatus;
@@ -20,7 +27,7 @@ const Reservation = () => {
     <S.Container>
       <S.Header>
         <S.Title>
-          {!isCompleted ? '예약시간 설정하기' : '예약시간 확인하기'}
+          {!isCompleted ? RESERVATION_MESSAGE.SET : RESERVATION_MESSAGE.CONFIRM}
         </S.Title>
         <input
           type='image'

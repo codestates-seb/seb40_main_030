@@ -7,7 +7,7 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-const DateContainer = styled.div`
+const DateContainer = styled.div<{ fontSize?: string }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -41,7 +41,7 @@ const DateStatus = styled.div`
   margin-right: 10px;
 `;
 
-const ContentModal = styled(motion.div)<{ height: string }>`
+const ContentModal = styled(motion.div)<{ height?: string; width?: string }>`
   position: fixed;
   display: flex;
   flex-direction: column;

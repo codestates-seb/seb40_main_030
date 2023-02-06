@@ -1,24 +1,42 @@
-// import { useState } from 'react';
-
 import * as S from './Category.style';
 
-const Category = ({ currentCategory, handleSwitchCategory }) => {
+type CategoryTypes = 'bookings' | 'inuse' | 'history';
+
+const CATEGORY_LIST = {
+  BOOKING: 'bookings',
+  IN_USE: 'inuse',
+  HISTORY: 'history',
+};
+
+const Category = ({
+  currentCategory,
+  handleSwitchCategory,
+}: {
+  currentCategory: CategoryTypes;
+  handleSwitchCategory: (category: CategoryTypes) => void;
+}) => {
   return (
     <S.Header>
       <S.CategoryButton
-        className={currentCategory === 'bookings' && 'active'}
+        className={
+          currentCategory === CATEGORY_LIST.BOOKING ? 'active' : undefined
+        }
         onClick={() => handleSwitchCategory('bookings')}
       >
         예약중
       </S.CategoryButton>
       <S.CategoryButton
-        className={currentCategory === 'inuse' && 'active'}
+        className={
+          currentCategory === CATEGORY_LIST.IN_USE ? 'active' : undefined
+        }
         onClick={() => handleSwitchCategory('inuse')}
       >
         사용중
       </S.CategoryButton>
       <S.CategoryButton
-        className={currentCategory === 'history' && 'active'}
+        className={
+          currentCategory === CATEGORY_LIST.HISTORY ? 'active' : undefined
+        }
         onClick={() => handleSwitchCategory('history')}
       >
         과거내역

@@ -3,10 +3,11 @@ import { useSearchParams } from 'react-router-dom';
 import { useSearchBar } from '@/hooks';
 
 import * as S from './SearchBar.style';
+import { StationType } from '@/@types';
 
 type Props = {
-  stations: any[];
-  setLocationInfo: (arg0: any) => void;
+  stations: StationType[];
+  setLocationInfo: (arg: StationType) => void;
 };
 
 const SearchBar = ({ stations, setLocationInfo }: Props) => {
@@ -35,7 +36,7 @@ const SearchBar = ({ stations, setLocationInfo }: Props) => {
           {filteredLocation?.length === 0 ? (
             <S.AutoCompleteList>{`검색하신 결과가 존재하지 않습니다.`}</S.AutoCompleteList>
           ) : (
-            filteredLocation.map((locationInfo: any) => (
+            filteredLocation.map((locationInfo) => (
               <S.AutoCompleteList
                 key={locationInfo.confirmId + locationInfo.id}
                 onClick={(e: any) => {

@@ -1,20 +1,27 @@
+import styled from 'styled-components';
 import { ShadowButton } from '@/components/@commons';
-import { BOOKING_TYPE } from '@/constants';
-import { useReservation, useSnackBar } from '@/hooks';
+import { BOOKING_TYPE, MESSAGE } from '@/constants';
+import { useSnackBar } from '@/hooks';
+import { useRecoilState } from 'recoil';
+import { reservationState } from '@/recoil/pagesState';
 
-import * as S from './BookingTypeBox.style';
+const BUTTON_CONTENT = {
+  SINGLE: '잠깐만 빌릴래요',
+  MULTIPLE: '하루 이상 빌릴래요',
+};
 
 const BookingTypeBox = () => {
   const { openSnackBar } = useSnackBar();
   const currentHour = new Date().getHours();
-  const { reservationStatus, setReservationStatus } = useReservation();
+  const [reservationStatus, setReservationStatus] =
+    useRecoilState(reservationState);
 
   return (
-    <S.BookingContainer>
+    <BookingContainer>
       <ShadowButton
         onClick={() => {
           if (currentHour === 23 || currentHour === 0) {
-            openSnackBar('하루 이상 빌릴래요 탭으로 이동 되었습니다.');
+            openSnackBar(MESSAGE.NAVIGATE_TO_DIFFERENT_BOOKING_TYPE);
             setReservationStatus({
               ...reservationStatus,
               bookingType: BOOKING_TYPE.MULTIPLE,
@@ -26,7 +33,7 @@ const BookingTypeBox = () => {
             });
           }
         }}
-        content={'잠깐만 빌릴래요'}
+        content={BUTTON_CONTENT.SINGLE}
       />
       <ShadowButton
         onClick={() =>
@@ -35,10 +42,19 @@ const BookingTypeBox = () => {
             bookingType: BOOKING_TYPE.MULTIPLE,
           })
         }
-        content={'하루 이상 빌릴래요'}
+        content={BUTTON_CONTENT.MULTIPLE}
       />
-    </S.BookingContainer>
+    </BookingContainer>
   );
 };
+
+const BookingContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 30vh;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+`;
 
 export default BookingTypeBox;

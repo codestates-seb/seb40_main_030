@@ -6,7 +6,7 @@ import { ROUTES } from '@/constants';
 
 import { useCheckValidReserveTable } from '..';
 
-const useGetBatteryBySetTime = (id: string) => {
+const useGetBatteryBySetTime = (id: number) => {
   const navigate = useNavigate();
   const { startPoint, endPoint } = useCheckValidReserveTable();
 
@@ -21,7 +21,7 @@ const useGetBatteryBySetTime = (id: string) => {
       useErrorBoundary: true,
       suspense: true,
       retry: 1,
-    },
+    }
   );
 
   if (status === 'error') {

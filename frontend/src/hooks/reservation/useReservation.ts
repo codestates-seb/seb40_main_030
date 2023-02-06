@@ -14,10 +14,14 @@ const useReservation = () => {
   const { startTime, startDate, endDate, bookingType } = reservationStatus;
 
   const startPoint = new Date(
-    `${startDate.year}-${startDate.month}-${startDate.date} ${startTime.hours}:${startTime.minutes}`,
+    `${startDate.year}-${startDate.month}-${startDate.date} ${startTime.hours}:${startTime.minutes}`
   ).getTime();
 
   const handleReservation = (hours: number, minutes: number) => {
+    // 함수의 분리로 커플링을 낮출 수 있을듯.
+    // useCallback 의 사용 ( 의존성 주입 ?? )
+    // 어떠한 기준으로 나눠야 하나.
+
     const currentHour = new Date().getHours();
 
     if (bookingType === BOOKING_TYPE.SINGLE) {
@@ -36,7 +40,7 @@ const useReservation = () => {
 
     if (reservation) {
       const endPoint = new Date(
-        `${endDate.year}-${endDate.month}-${endDate.date} ${hours}:${minutes}`,
+        `${endDate.year}-${endDate.month}-${endDate.date} ${hours}:${minutes}`
       ).getTime();
 
       if (startPoint >= endPoint) {
@@ -50,6 +54,7 @@ const useReservation = () => {
       }
 
       if (bookingType === BOOKING_TYPE.MULTIPLE) {
+        // 분리가진행되면 이부분 depth 도 낮출수 있을듯
         const currentTime = new Date().getTime();
 
         if (currentTime > startPoint) {
@@ -76,8 +81,6 @@ const useReservation = () => {
   return {
     handleReservation,
     reservation,
-    reservationStatus,
-    setReservationStatus,
   };
 };
 

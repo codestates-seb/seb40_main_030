@@ -10,7 +10,7 @@ const useExtendBookingPeriod = () => {
 
   const { mutate } = useMutation(
     ['batteries', 'order-inUse'],
-    ({ id, extendTime }: { id: string | number; extendTime: string }) =>
+    ({ id, extendTime }: { id: number; extendTime: string }) =>
       patchExtendBookingPeriod(id, extendTime),
     {
       onSuccess: () => {
@@ -20,10 +20,10 @@ const useExtendBookingPeriod = () => {
       onError: (err: any) => {
         openSnackBar(`연장에 실패하였습니다. ${err.response.status}`);
       },
-    },
+    }
   );
 
-  const handleBookingPeriod = (id: string, extendTime: string) => {
+  const handleBookingPeriod = (id: number, extendTime: string) => {
     mutate({ id, extendTime });
   };
 

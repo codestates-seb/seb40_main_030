@@ -47,8 +47,9 @@ const Container = styled.div`
   }
 `;
 
-const Image = styled(motion.img)`
+const Image = styled.img`
   width: 100%;
+
   display: block;
   border-radius: 20px 20px 0 0;
   z-index: ${({ theme }) => theme.DEFAULT};

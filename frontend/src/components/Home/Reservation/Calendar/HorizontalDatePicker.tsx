@@ -7,10 +7,12 @@ import { useCalendar } from '@/hooks';
 const HorizontalDatePicker = () => {
   const { date, handleChange, addMonths } = useCalendar();
 
-  const buttons: any = document.querySelectorAll('.Kq');
+  const buttons = document.querySelectorAll('.Kq');
 
   useEffect(() => {
     if (buttons) {
+      // @ts-ignore
+      // downlevelIteration 문제
       [...buttons].map((button) => button.remove());
     }
   }, [buttons]);

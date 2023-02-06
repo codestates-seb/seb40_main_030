@@ -1,39 +1,32 @@
-import { useState, useCallback } from 'react';
-import { useEffect } from 'react';
-import { Map } from 'react-kakao-maps-sdk';
-import { MapMarker } from 'react-kakao-maps-sdk';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { useState, useCallback, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-
+import { currentLocationState } from '@/recoil/pagesState';
 import { PinningImage, UserMapMarker } from '@/assets';
-import MapIndicator from '@/components/Home/KakaoMap/Features/MapIndicator';
-import MarkerContainer from '@/components/Home/KakaoMap/Features/MarkerContainer';
-import KakaoRoadView from '@/components/Home/KakaoMap/Features/RoadView';
-import { DEFAULT_LOCATION, DESKTOP_MAX_WIDTH } from '@/constants';
+import { DESKTOP_MAX_WIDTH } from '@/constants';
+import { MapIndicator, MarkerContainer, KakaoRoadView } from './index';
 import {
   useCheckDateFixed,
   useCurrentAddress,
   useGetAllStations,
   useWatchLocation,
+  useGetFilteredStationsBySetTime,
 } from '@/hooks';
-import useGetFilteredStationsBySetTime from '@/hooks/stations/useGetFilteredStationsBySetTime';
-import { currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './KakaoMap.style';
+import { Matches } from '@/@types';
+import { Content } from '@/@types/index';
 
-const KakaoMap = ({ matches }: { matches: boolean }) => {
+const KakaoMap = ({ matches }: { matches: Matches }) => {
   const [toggle, setToggle] = useState(false);
   const { data: stations } = useGetAllStations();
-  const { location }: any = useWatchLocation();
-  // @ts-ignore
+  const { location: myLocation } = useWatchLocation();
   const { data: filteredStations, refetch: updateLocation } =
     useGetFilteredStationsBySetTime();
   const [currentLocation, setCurrentLocation] =
     useRecoilState(currentLocationState);
   const { isDateFixed } = useCheckDateFixed();
-  const latitude = currentLocation?.latitude || DEFAULT_LOCATION.latitude;
-  const longitude = currentLocation?.longitude || DEFAULT_LOCATION.longitude;
-
-  const { shortAddress } = useCurrentAddress({ latitude, longitude });
+  const { shortAddress } = useCurrentAddress(currentLocation);
 
   const handleOnDragEvent = useCallback(
     (map: any) => {
@@ -42,7 +35,7 @@ const KakaoMap = ({ matches }: { matches: boolean }) => {
         longitude: map.getCenter().getLng(),
       });
     },
-    [currentLocation],
+    [currentLocation]
   );
 
   const handleCurrentLocation = useCallback(
@@ -52,7 +45,7 @@ const KakaoMap = ({ matches }: { matches: boolean }) => {
         longitude: mouseEvent.latLng.getLng(),
       });
     },
-    [currentLocation],
+    [currentLocation]
   );
 
   useEffect(() => {
@@ -65,38 +58,30 @@ const KakaoMap = ({ matches }: { matches: boolean }) => {
       {!toggle ? (
         <Map
           center={{
-            lat: latitude,
-            lng: longitude,
+            lat: currentLocation.latitude,
+            lng: currentLocation.longitude,
           }}
           style={{ width: '100%', height: '100%', maxWidth: DESKTOP_MAX_WIDTH }}
           onDragEnd={(map) => {
-            // setCurrentLocation({
-            //   latitude: map.getCenter().getLat(),
-            //   longitude: map.getCenter().getLng(),
-            // });
             handleOnDragEvent(map);
           }}
           onClick={(_t, mouseEvent) => {
-            // setCurrentLocation({
-            //   latitude: mouseEvent.latLng.getLat(),
-            //   longitude: mouseEvent.latLng.getLng(),
-            // });
             handleCurrentLocation(mouseEvent);
           }}
           level={4}
           draggable={true}
         >
           {isDateFixed
-            ? filteredStations?.map((content: any) => (
+            ? filteredStations?.map((content: Content) => (
                 <MarkerContainer key={content.id} content={content} />
               ))
-            : stations.map((content: any) => (
+            : stations.map((content: Content) => (
                 <MarkerContainer key={content.id} content={content} />
               ))}
           <MapMarker
             position={{
-              lat: location?.latitude,
-              lng: location?.longitude,
+              lat: myLocation.latitude,
+              lng: myLocation.longitude,
             }}
             image={{
               src: UserMapMarker,
@@ -109,8 +94,8 @@ const KakaoMap = ({ matches }: { matches: boolean }) => {
           {currentLocation && (
             <MapMarker
               position={{
-                lat: currentLocation?.latitude,
-                lng: currentLocation?.longitude,
+                lat: currentLocation.latitude,
+                lng: currentLocation.longitude,
               }}
               image={{
                 src: PinningImage,
@@ -123,7 +108,7 @@ const KakaoMap = ({ matches }: { matches: boolean }) => {
           )}
         </Map>
       ) : (
-        <KakaoRoadView location={{ latitude, longitude }} />
+        <KakaoRoadView location={currentLocation} />
       )}
     </S.MapWrapper>
   );

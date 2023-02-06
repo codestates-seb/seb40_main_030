@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 import { Roadview } from 'react-kakao-maps-sdk';
+import { Coordinate } from '@/@types/maps';
 
-const KakaoRoadView = ({ location }) => {
+const KakaoRoadView = ({ location }: { location: Coordinate }) => {
   return (
     <>
       <Roadview

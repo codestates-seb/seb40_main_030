@@ -1,12 +1,20 @@
 import { useCallback, useRef, useState } from 'react';
 
 import ch2Pattern from '@/components/@helper/utils/ch2Pattern';
+import { Coordinate } from '../../@types/maps';
 
-const useSearchBar = (stations: string[]) => {
+type StationType = {
+  confirmId: number;
+  id: number;
+  location: Coordinate;
+  name: string;
+};
+
+const useSearchBar = (stations: StationType[]) => {
   const inputRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
   const [keyword, setKeyword] = useState('');
-  const [filteredLocation, setFilteredLocation] = useState<string[]>([]);
+  const [filteredLocation, setFilteredLocation] = useState<StationType[]>([]);
 
   const createFuzzyMatcher = (inputValue: any) => {
     setKeyword(inputValue);
@@ -27,7 +35,7 @@ const useSearchBar = (stations: string[]) => {
       const regex = createFuzzyMatcher(keyword);
       const resultData = stations.filter(
         (station: any) => regex.test(station.name),
-        false,
+        false
       );
 
       setFilteredLocation(resultData);
@@ -35,7 +43,7 @@ const useSearchBar = (stations: string[]) => {
     },
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [keyword],
+    [keyword]
   );
 
   const handleAutoComplete = () => {

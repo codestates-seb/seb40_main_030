@@ -13,23 +13,16 @@ import {
 
 import * as S from './Features.style';
 import ReservationChart from './ReservationChart';
+import { BatteryType } from '../../../@types/index';
 
-type Props = {
-  content: {
-    capacity: string;
-    price: any;
-    photoURL: string;
-    batteryId: string | number;
-    batteryName: string;
-    createdAt: string | number;
-    defaultPrice: any;
-  };
+type BatteryInfoProps = {
+  content: BatteryType;
   station: {
     name: string;
   };
 };
 
-const BatteryInfo = ({ content, station }: Props) => {
+const BatteryInfo = ({ content, station }: BatteryInfoProps) => {
   const navigate = useNavigate();
   const { startPoint, endPoint } = useCheckValidReserveTable();
   const {
@@ -60,12 +53,10 @@ const BatteryInfo = ({ content, station }: Props) => {
     });
   };
 
-  const imageOnErrorHandler = (
-    e: SyntheticEvent<HTMLImageElement, Event> | any,
-  ) => {
-    e.target.onError = null;
+  const imageOnErrorHandler = (e: SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.onerror = null;
 
-    e.target.src = BatterImg;
+    e.currentTarget.src = BatterImg;
   };
 
   return (
@@ -112,7 +103,7 @@ const BatteryInfo = ({ content, station }: Props) => {
             />
           </S.ProductInfoContainer>
         </S.ProductWrapper>
-        <ReservationChart content={content} />
+        <ReservationChart />
       </ShadowCard>
     </S.BatteryContainer>
   );

@@ -1,27 +1,28 @@
+import { Content } from '@/@types/index';
 import { Link } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-
-import { FuelTankImg } from '@/assets';
 import { currentLocationState } from '@/recoil/pagesState';
+import { FuelTankImg } from '@/assets';
 
 import * as S from './Cards.style';
+import { SyntheticEvent } from 'react';
 
-type Props = {
-  content: {
-    name?: string;
-    details: string;
-    photoURL: string;
-    batteries: string;
-    id: number | string;
-    location: number | string;
-  };
+const Cards = ({
+  content,
+  setIsOpen,
+}: {
+  content: Content;
   setIsOpen: (arg: boolean) => void;
-};
-
-const Cards = ({ content, setIsOpen }: Props) => {
-  const setCurrentLocation: (location: any) => void =
-    useSetRecoilState(currentLocationState);
+}) => {
+  const setCurrentLocation = useSetRecoilState(currentLocationState);
   const { name, details, photoURL, batteries, id, location } = content;
+
+  const imageOnErrorHandler = (
+    event: SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    event.currentTarget.src = FuelTankImg;
+    event.currentTarget.className = 'error';
+  };
 
   return (
     <S.CardWrapper>
@@ -34,9 +35,11 @@ const Cards = ({ content, setIsOpen }: Props) => {
         <Link to={`/rental/${id}`}>
           <S.Container>
             <S.Image
+              width={'100%'}
               src={photoURL}
               alt={name}
-              onError={(e: any) => (e.target.src = FuelTankImg)}
+              onError={imageOnErrorHandler}
+              style={{ borderRadius: '20px 20px 0 0' }}
             />
           </S.Container>
         </Link>

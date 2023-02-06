@@ -1,7 +1,8 @@
 import * as S from './Content.style';
+import { ReactNode } from 'react';
 
-const Modal = ({ children }) => {
-  <S.ContentModal>{children}</S.ContentModal>;
+const Modal = ({ children }: { children: ReactNode }) => {
+  return <S.ContentModal>{children}</S.ContentModal>;
 };
 
 export default Modal;

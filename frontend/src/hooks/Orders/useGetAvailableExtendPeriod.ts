@@ -4,7 +4,7 @@ import { getAvailableExtendPeriod } from '@/apis/payments';
 
 import { useSnackBar } from '..';
 
-const useGetAvailablePeriod = (id: string) => {
+const useGetAvailablePeriod = (id: number) => {
   const { openSnackBar } = useSnackBar();
   const { data, status, refetch } = useQuery(
     ['extend-time'],
@@ -23,7 +23,7 @@ const useGetAvailablePeriod = (id: string) => {
     {
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
-    },
+    }
   );
 
   return { data, status, refetch };

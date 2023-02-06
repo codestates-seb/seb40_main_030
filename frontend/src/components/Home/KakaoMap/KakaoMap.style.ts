@@ -2,8 +2,9 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 import { DESKTOP_MAX_WIDTH } from '@/constants';
+import { Matches } from '@/@types';
 
-const MapWrapper = styled(motion.div)<{ matches: boolean }>`
+const MapWrapper = styled(motion.div)<{ matches: Matches }>`
   width: 100%;
   height: 100%;
 

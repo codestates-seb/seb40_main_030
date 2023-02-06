@@ -1,9 +1,10 @@
+import { Matches } from '@/@types';
 import { useIsPresent } from 'framer-motion';
 
 import KakaoMap from './KakaoMap/KakaoMap';
 import * as S from './Maps.style';
 
-const MapArea = ({ matches }) => {
+const MapArea = ({ matches }: { matches: Matches }) => {
   const isPresent = useIsPresent();
 
   return (

@@ -2,12 +2,12 @@ import convertDate2ReadableString from '@/components/@helper/utils/convertDate2R
 
 import * as S from './Content.style';
 
-type Props = {
+type DateBoxProps = {
+  type?: string;
   startTime?: string;
-  returnTime?: string | number;
+  returnTime?: string;
   border?: boolean;
   fontSize?: string | number;
-  type?: string;
 };
 
 const DateBox = ({
@@ -16,19 +16,19 @@ const DateBox = ({
   border = false,
   fontSize,
   type,
-}: Props) => {
+}: DateBoxProps) => {
   return (
     <S.DateContainer>
       {startTime && (
         <div className='flex-center'>
-          <S.DateStatus fontSize={fontSize}>대여</S.DateStatus>
+          <S.DateStatus style={{ fontSize }}>대여</S.DateStatus>
           <span>{convertDate2ReadableString(startTime)}</span>
         </div>
       )}
       {border && <span className='border'></span>}
       {returnTime && (
         <div className='flex-center'>
-          <S.DateStatus fontSize={fontSize}>
+          <S.DateStatus style={{ fontSize }}>
             {type ? type : '반납'}
           </S.DateStatus>
           <span>{convertDate2ReadableString(returnTime)}</span>

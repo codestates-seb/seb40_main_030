@@ -1,9 +1,12 @@
 import { useState } from 'react';
 
-const useSwitchCategory = () => {
-  const [currentCategory, setCurrentCategory] = useState('bookings');
+type CategoryTypes = 'bookings' | 'inuse' | 'history';
 
-  const handleSwitchCategory = (category: string) => {
+const useSwitchCategory = () => {
+  const [currentCategory, setCurrentCategory] =
+    useState<CategoryTypes>('bookings');
+
+  const handleSwitchCategory = (category: CategoryTypes) => {
     setCurrentCategory(category);
   };
 

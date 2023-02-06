@@ -3,8 +3,15 @@ import { useBottomSheet, useSnackBar } from '@/hooks';
 
 import * as S from './BottomSheet.style';
 import Header from './Header';
+import { ReactNode } from 'react';
 
-const BottomSheet = ({ matches, children }) => {
+const BottomSheet = ({
+  matches,
+  children,
+}: {
+  matches: boolean;
+  children: ReactNode;
+}) => {
   const { onDragEnd, controls } = useBottomSheet();
   const { isActive, message } = useSnackBar();
 

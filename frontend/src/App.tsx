@@ -1,13 +1,12 @@
 import { AnimatePresence } from 'framer-motion';
-import { cloneElement, ReactElement, useEffect } from 'react';
+import { cloneElement, ReactElement } from 'react';
 import { useLocation, useRoutes } from 'react-router-dom';
 
 import { DesktopWrapper } from './components/@commons';
 import { DESKTOP_MEDIA_QUERY } from './constants';
-import { useMediaQuery } from './hooks';
-import useOauthLoginCheck from './hooks/Login/useOauthLoginCheck';
+import { useMediaQuery, useOauthLoginCheck } from './hooks';
+
 import PAGES from './pages';
-import { DEFAULT_LOCATION } from '@/constants';
 
 declare global {
   interface Window {
@@ -18,14 +17,17 @@ declare global {
 const App = () => {
   const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
   const location = useLocation();
-  const pages: ReactElement | null | any = useRoutes(PAGES);
+  const pages = useRoutes(PAGES);
   const { checkOauthLoginState } = useOauthLoginCheck();
   checkOauthLoginState();
 
   return (
     <AnimatePresence>
       {matches && <DesktopWrapper />}
-      {cloneElement(pages, { key: location.pathname, location })}
+      {cloneElement(pages as ReactElement, {
+        key: location.pathname,
+        location,
+      })}
     </AnimatePresence>
   );
 };

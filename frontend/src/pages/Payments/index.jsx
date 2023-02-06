@@ -1,8 +1,7 @@
 import SelectionHistory from '@/components/Payments/SelectionHistory';
 
 const Payments = () => {
+  return <SelectionHistory />;
+};
 
-    return <SelectionHistory />
-}
-
-export default Payments
+export default Payments;

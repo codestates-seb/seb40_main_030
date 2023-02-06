@@ -12,7 +12,7 @@ const Header = styled.div`
   }
 `;
 
-const CategoryButton = styled.button`
+const CategoryButton = styled.button<{ className?: string }>`
   width: 30%;
   height: 50%;
 

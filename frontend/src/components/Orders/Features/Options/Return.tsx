@@ -5,7 +5,15 @@ import DateBox from '../Content/DateBox';
 import ModalHeader from '../Modal/ModalHeader';
 import * as S from './Options.style';
 
-const Return = ({ returnTime, setIsModalOpen, paymentId }) => {
+const Return = ({
+  returnTime,
+  setIsModalOpen,
+  paymentId,
+}: {
+  returnTime: string;
+  setIsModalOpen: (arg: boolean) => void;
+  paymentId: number;
+}) => {
   const { handleReturnBattery } = useReturnBattery();
 
   return (
@@ -16,7 +24,7 @@ const Return = ({ returnTime, setIsModalOpen, paymentId }) => {
         <DateBox returnTime={returnTime} fontSize='20px' />
         <S.Border />
         <DateBox
-          returnTime={new Date().getTime()}
+          returnTime={new Date().getTime().toString()}
           fontSize='20px'
           type='현재'
         />

@@ -5,7 +5,7 @@ import { BatteryEmpty, SnackBar } from '../@commons';
 import BatteryInfo from './Features/BatteryInfo';
 import * as S from './Features/Features.style';
 
-const RentalStatus = ({ id }: { id: string | number }) => {
+const RentalStatus = ({ id }: { id: number }) => {
   const { data: batteryData } = useGetBatteryBySetTime(id);
 
   const { isActive, message } = useSnackBar();

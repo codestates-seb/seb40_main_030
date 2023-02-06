@@ -4,9 +4,19 @@ import { useSingleDateReservation } from '@/hooks';
 
 import DateStatus from '../Calendar/DateStatus';
 import * as S from '../Reservation.style';
+import { ReservationDate, ReservationTime } from '../../../../@types/index';
 
-const SingleDateSelection = ({ currentDate, currentTime }) => {
-  const [time, setTime] = useState<any>({ startTime: currentTime });
+const SingleDateSelection = ({
+  currentDate,
+  currentTime,
+}: {
+  currentDate: ReservationDate;
+  currentTime: ReservationTime;
+}) => {
+  const [time, setTime] = useState({
+    startTime: currentTime,
+    returnTime: { hours: 0, minutes: 0 },
+  });
   const { handleSingleDateReservation, reservationStatus } =
     useSingleDateReservation(currentDate);
   const { startTime, returnTime } = reservationStatus;
@@ -30,9 +40,9 @@ const SingleDateSelection = ({ currentDate, currentTime }) => {
 
   return (
     <S.ReservationContainer>
-      <DateStatus content='대여' date={currentDate} time={startTime} />
+      <DateStatus type='대여' date={currentDate} time={startTime} />
       <DateStatus
-        content='반납'
+        type='반납'
         date={currentDate}
         time={{
           hours: returnTime.hours,

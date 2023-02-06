@@ -6,6 +6,8 @@ const MESSAGE = {
   BEFORE_CURRENT_TIME: '현재시간보다 이전 시점입니다.',
   MIN_BOOKING_PERIOD: '최소 대여시간은 한시간입니다.',
   CURRENT_LOCATION_NOT_EXIST: '현재 위치를 찾을 수 없습니다.',
+  NAVIGATE_TO_DIFFERENT_BOOKING_TYPE:
+    '하루 이상 빌릴래요 탭으로 이동 되었습니다.',
 };
 
 export default MESSAGE;

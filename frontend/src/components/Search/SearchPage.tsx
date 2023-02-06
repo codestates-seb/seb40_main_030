@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
@@ -8,10 +8,11 @@ import { useSnackBar } from '@/hooks';
 import { currentLocationState } from '@/recoil/pagesState';
 
 import SearchBar from './SearchBar/SearchBar';
+import { StationType } from '../../@types/index';
 
-const SearchPage = ({ stations }: { stations: any }) => {
+const SearchPage = ({ stations }: { stations: StationType[] }) => {
   const { isActive, message, openSnackBar } = useSnackBar();
-  const [locationInfo, setLocationInfo] = useState<any>();
+  const [locationInfo, setLocationInfo] = useState<any>({});
   const navigate = useNavigate();
   const setLocation = useSetRecoilState(currentLocationState);
 
@@ -19,15 +20,14 @@ const SearchPage = ({ stations }: { stations: any }) => {
     <>
       <div>
         <SearchBar stations={stations} setLocationInfo={setLocationInfo} />
-
-        {locationInfo && (
+        {Object.keys(locationInfo).length !== 0 && (
           <ShadowButton
-            content={`${locationInfo.name}으로 이동`}
+            content={`${locationInfo?.name}으로 이동`}
             width='100%'
             style={{ marginTop: 100, width: '100%' }}
             onClick={() =>
-              locationInfo
-                ? (setLocation(locationInfo.location),
+              Object.keys(locationInfo).length !== 0
+                ? (setLocation(locationInfo?.location),
                   navigate(ROUTES.HOME.PATH))
                 : openSnackBar(MESSAGE.KEYWORD_NOT_PROVIDED)
             }

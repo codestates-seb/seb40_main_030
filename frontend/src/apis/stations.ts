@@ -1,4 +1,5 @@
 import { apiClient } from './api';
+import { Coordinate } from '@/@types/maps';
 
 const getAllStations = async () => {
   const { data } = await apiClient.get('/stations');
@@ -45,10 +46,7 @@ const getSearchDataBySetTime = async (setTime: {
 };
 
 const getBatteryByLocationAndSetTime = async (
-  location: {
-    latitude: string | number;
-    longitude: string | number;
-  },
+  location: Coordinate,
   setTime: { startTime?: string; returnTime?: string },
 ) => {
   const { data } = await apiClient.get('/stations/search', {

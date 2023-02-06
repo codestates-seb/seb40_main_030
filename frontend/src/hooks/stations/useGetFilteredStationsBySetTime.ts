@@ -1,10 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { getBatteryByLocationAndSetTime } from '@/apis/stations';
-import { DEFAULT_LOCATION } from '@/constants';
 import { currentLocationState } from '@/recoil/pagesState';
+import { DEFAULT_LOCATION } from '@/constants';
 
 import { useCheckValidReserveTable, useCurrentAddress } from '..';
 
@@ -35,18 +34,16 @@ const useGetFilteredStationsBySetTime = () => {
       select: (stations) =>
         stations?.filter(
           ({ availableBatteryCount }: { availableBatteryCount: number }) =>
-            availableBatteryCount !== 0,
+            availableBatteryCount !== 0
         ),
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       suspense: true,
       staleTime: 3000,
-    },
+    }
   );
 
-  if (data !== null || data !== undefined) {
-    return { data, refetch };
-  }
+  return { data, refetch };
 };
 
 export default useGetFilteredStationsBySetTime;

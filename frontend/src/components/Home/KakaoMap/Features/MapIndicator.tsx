@@ -12,33 +12,31 @@ import {
 import { currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './MapIndicator.style';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
+import { Coordinate } from '@/@types/maps';
+import { Matches } from '@/@types';
 
-type Props = {
+type MapIndicatorProps = {
   toggle: boolean;
   setToggle: (toggle: boolean) => void;
-  matches: boolean;
+  matches: Matches;
 };
 
-const MapIndicator = ({ toggle, setToggle, matches }: Props) => {
+const MapIndicator = ({ toggle, setToggle, matches }: MapIndicatorProps) => {
   const navigate = useNavigate();
   const { location } = useWatchLocation();
   const [defaultLocation, setCurrentLocation] =
-    useRecoilState<any>(currentLocationState);
+    useRecoilState(currentLocationState);
   const { currentAddress } = useCurrentAddress(defaultLocation);
   const { days, hours, minutes } = useTimeDifference();
   const { openSnackBar } = useSnackBar();
 
   const handleCurrentLocation = useCallback(
-    (location: { latitude: number; longitude: number } | object) => {
+    (location: Coordinate) => {
       setCurrentLocation(location);
     },
-    [defaultLocation],
+    [defaultLocation]
   );
-
-  useEffect(() => {
-    console.log('currentAddress :', currentAddress);
-  }, [currentAddress]);
 
   return (
     <S.Wrapper matches={matches}>

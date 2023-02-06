@@ -4,14 +4,9 @@
 import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Coordinate } from '@/@types/maps';
 
-const useCurrentAddress = ({
-  latitude,
-  longitude,
-}: {
-  latitude: number;
-  longitude: number;
-}) => {
+const useCurrentAddress = ({ latitude, longitude }: Coordinate) => {
   const [currentAddress, setCurrentAddress] = useState('');
   const [addressDetail, setAddressDetail] = useState('');
   const [shortAddress, setShortAddress] = useState('');
@@ -39,8 +34,8 @@ const useCurrentAddress = ({
   geocoder.coord2Address(coord?.getLng(), coord?.getLat(), callback);
 
   useEffect(() => {
-    setShortAddress(addressDetail.split(' ')[1]);
-  }, [addressDetail.split(' ')[1]]);
+    setShortAddress(addressDetail?.split(' ')[1]);
+  }, [addressDetail?.split(' ')[1]]);
 
   return {
     currentAddress,

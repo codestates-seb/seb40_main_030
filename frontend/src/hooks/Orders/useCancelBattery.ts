@@ -21,7 +21,7 @@ const useCancelMockPayment = () => {
         openSnackBar(`예약 취소가 실패하였습니다. ${err.response.status}`);
         return;
       },
-    },
+    }
   );
 
   const handleCancelMockPayment = (id: any) => {
@@ -48,7 +48,7 @@ const useCancelPayment = () => {
         openSnackBar(`예약 취소가 실패하였습니다. ${err.response.status}`);
         return;
       },
-    },
+    }
   );
 
   const handleCancelPayment = (id: any) => {

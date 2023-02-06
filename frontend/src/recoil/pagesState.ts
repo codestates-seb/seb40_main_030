@@ -1,6 +1,7 @@
 import { atom } from 'recoil';
 
 import convertMinTo10Min from '@/components/@helper/utils/convertMiinTo10Min';
+import { DEFAULT_LOCATION } from '@/constants';
 
 const initialReservationValue = {
   startTime: { hours: new Date().getHours(), minutes: new Date().getMinutes() },
@@ -11,20 +12,20 @@ const initialReservationValue = {
   startDate: { year: null, month: null, date: null },
   endDate: { year: null, month: null, date: null },
   dateFixed: { date: false, time: false },
-  bookingType: null,
+  bookingType: '',
   hours: new Date().getHours(),
   minutes: convertMinTo10Min(new Date().getMinutes()),
 };
 
 const sessionStorageEffect =
-  (key) =>
-  ({ setSelf, onSet }) => {
+  (key: string) =>
+  ({ setSelf, onSet }: any) => {
     const savedValue = sessionStorage.getItem(key);
     if (savedValue != null) {
       setSelf(JSON.parse(savedValue));
     }
 
-    onSet((newValue, _, isReset) => {
+    onSet((newValue: any, _: any, isReset: any) => {
       isReset
         ? sessionStorage.removeItem(key)
         : sessionStorage.setItem(key, JSON.stringify(newValue));
@@ -32,14 +33,14 @@ const sessionStorageEffect =
   };
 
 const localStorageEffect =
-  (key) =>
-  ({ setSelf, onSet }) => {
+  (key: string) =>
+  ({ setSelf, onSet }: any) => {
     const savedValue = localStorage.getItem(key);
     if (savedValue != null) {
       setSelf(JSON.parse(savedValue));
     }
 
-    onSet((newValue, _, isReset) => {
+    onSet((newValue: any, _: any, isReset: any) => {
       isReset
         ? localStorage.removeItem(key)
         : localStorage.setItem(key, JSON.stringify(newValue));
@@ -59,7 +60,10 @@ const navState = atom({
 
 const currentLocationState = atom({
   key: 'currentLocationState',
-  default: { latitude: 37.4965, longitude: 127.0248 },
+  default: {
+    latitude: DEFAULT_LOCATION.latitude,
+    longitude: DEFAULT_LOCATION.longitude,
+  },
 });
 
 const snackBarState = atom({
