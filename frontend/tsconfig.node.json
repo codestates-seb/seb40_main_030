@@ -3,7 +3,7 @@
     "composite": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "types": ["node", "vite/client"]
+    "types": ["node", "vite/client", "kakao.maps.d.ts"]
   },
   "include": ["vite.config.ts"]
 }

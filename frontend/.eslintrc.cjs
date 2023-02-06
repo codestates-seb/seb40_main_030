@@ -4,7 +4,13 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'prettier',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/typescript',
+    'plugin:import/recommended',
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -35,6 +41,5 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
-    'react/prop-types': 0,
   },
 };
