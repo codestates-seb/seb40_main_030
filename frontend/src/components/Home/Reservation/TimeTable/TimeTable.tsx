@@ -54,16 +54,15 @@ const TimeTable = () => {
           </S.TimeLineContainer>
         </S.StatusContainer>
       </S.Wrapper>
-      {/* 예약 설정완료 후에 status.bookable 이 true인 값만 찾기 */}
       <ShadowButton
         style={{ marginLeft: 20, marginTop: 30 }}
         content={
           reservation
-            ? RESERVATION_CONFIRM_MESSAGE.RENT
-            : RESERVATION_CONFIRM_MESSAGE.RETURN
+            ? RESERVATION_CONFIRM_MESSAGE.RETURN
+            : RESERVATION_CONFIRM_MESSAGE.RENT
         }
-        onClick={() => handleReservation(hours, minutes)}
-      ></ShadowButton>
+        onClick={() => handleReservation({ hours, minutes })}
+      />
     </>
   );
 };

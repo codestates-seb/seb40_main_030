@@ -1,4 +1,4 @@
-const convertDate2ReadableString = (fullDate) => {
+const convertDate2ReadableString = (fullDate: string) => {
   const newDate = new Date(fullDate);
 
   const date = String(newDate.getDate()).padStart(2, '0');

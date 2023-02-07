@@ -1,34 +1,62 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { BOOKING_TYPE, MESSAGE, TIME } from '@/constants';
 import { initialReservationValue, reservationState } from '@/recoil/pagesState';
 
 import { useSnackBar } from '..';
+import { isSelectedTimeValid } from '@/components/@helper/utils/validations';
+
+type ReservationTime = {
+  hours: number;
+  minutes: number;
+};
 
 const useReservation = () => {
   const [reservation, setReservation] = useState(false);
-  const { openSnackBar } = useSnackBar();
   const [reservationStatus, setReservationStatus] =
     useRecoilState(reservationState);
-  const { startTime, startDate, endDate, bookingType } = reservationStatus;
+  const { openSnackBar } = useSnackBar();
+  const { startTime, startDate, endDate } = reservationStatus;
 
-  const startPoint = new Date(
-    `${startDate.year}-${startDate.month}-${startDate.date} ${startTime.hours}:${startTime.minutes}`
-  ).getTime();
+  const isReservationValid = ({ hours, minutes }: ReservationTime) => {
+    const currentTime = new Date().getTime();
+    const startPoint = new Date(
+      `${startDate.year}-${startDate.month}-${startDate.date} ${startTime.hours}:${startTime.minutes}`,
+    ).getTime();
+    const endPoint = new Date(
+      `${endDate.year}-${endDate.month}-${endDate.date} ${hours}:${minutes}`,
+    ).getTime();
 
-  const handleReservation = (hours: number, minutes: number) => {
-    // 함수의 분리로 커플링을 낮출 수 있을듯.
-    // useCallback 의 사용 ( 의존성 주입 ?? )
-    // 어떠한 기준으로 나눠야 하나.
+    let isValid = true;
 
-    const currentHour = new Date().getHours();
+    if (startPoint >= endPoint) {
+      openSnackBar(MESSAGE.RESERVATION_NOT_SUCCEED);
+      isValid = false;
+    }
 
-    if (bookingType === BOOKING_TYPE.SINGLE) {
-      if (currentHour >= hours + minutes / TIME.PERCENTAGE) {
-        openSnackBar(MESSAGE.BEFORE_CURRENT_TIME);
-        return;
-      }
+    if (endPoint - startPoint < TIME.HOUR) {
+      openSnackBar(MESSAGE.MIN_BOOKING_PERIOD);
+      isValid = false;
+    }
+
+    if (currentTime > startPoint) {
+      setReservationStatus({
+        ...initialReservationValue,
+        bookingType: BOOKING_TYPE.MULTIPLE,
+      });
+      openSnackBar(MESSAGE.BEFORE_CURRENT_TIME);
+
+      isValid = false;
+    }
+
+    return isValid;
+  };
+
+  const handleReservation = ({ hours, minutes }: ReservationTime) => {
+    if (isSelectedTimeValid({ hours, minutes })) {
+      openSnackBar(MESSAGE.BEFORE_CURRENT_TIME);
+      return;
     }
 
     if (!reservation) {
@@ -36,46 +64,18 @@ const useReservation = () => {
         ...reservationStatus,
         startTime: { hours, minutes },
       });
+      setReservation(!reservation);
     }
 
     if (reservation) {
-      const endPoint = new Date(
-        `${endDate.year}-${endDate.month}-${endDate.date} ${hours}:${minutes}`
-      ).getTime();
-
-      if (startPoint >= endPoint) {
-        openSnackBar(MESSAGE.RESERVATION_NOT_SUCCEED);
-        return;
+      if (isReservationValid({ hours, minutes })) {
+        setReservationStatus({
+          ...reservationStatus,
+          returnTime: { hours, minutes },
+          dateFixed: { ...reservationStatus.dateFixed, time: true },
+        });
       }
-
-      if (endPoint - startPoint < TIME.HOUR) {
-        openSnackBar(MESSAGE.MIN_BOOKING_PERIOD);
-        return;
-      }
-
-      if (bookingType === BOOKING_TYPE.MULTIPLE) {
-        // 분리가진행되면 이부분 depth 도 낮출수 있을듯
-        const currentTime = new Date().getTime();
-
-        if (currentTime > startPoint) {
-          setReservationStatus({
-            ...initialReservationValue,
-            bookingType: BOOKING_TYPE.MULTIPLE,
-          });
-          setReservation(!reservation);
-          openSnackBar(MESSAGE.BEFORE_CURRENT_TIME);
-          return;
-        }
-      }
-
-      setReservationStatus({
-        ...reservationStatus,
-        returnTime: { hours, minutes },
-        dateFixed: { ...reservationStatus.dateFixed, time: true },
-      });
     }
-
-    setReservation(!reservation);
   };
 
   return {

@@ -1,6 +1,6 @@
 import { UndoIcon } from '@/assets';
 import { BOOKING_TYPE } from '@/constants';
-import { useCalendar, useReservation, useUndoReservation } from '@/hooks';
+import { useCalendar, useUndoReservation } from '@/hooks';
 import { initialReservationValue, reservationState } from '@/recoil/pagesState';
 
 import BookingTypeBox from './BookingTypeBox/BookingTypeBox';
@@ -19,7 +19,7 @@ const Reservation = () => {
   const [reservationStatus, setReservationStatus] =
     useRecoilState(reservationState);
   const { undoReservation } = useUndoReservation();
-  const { currentDate, currentTime } = useCalendar();
+  const { currentDate } = useCalendar();
   const { dateFixed, bookingType } = reservationStatus;
   const isCompleted = dateFixed?.date && dateFixed?.time;
 
@@ -44,10 +44,7 @@ const Reservation = () => {
           {bookingType === BOOKING_TYPE.MULTIPLE ? (
             <Calendar />
           ) : (
-            <SingleDateSelection
-              currentDate={currentDate}
-              currentTime={currentTime}
-            />
+            <SingleDateSelection currentDate={currentDate} />
           )}
 
           {!isCompleted ? (

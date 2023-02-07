@@ -36,10 +36,9 @@ import {
 } from './Orders/useCancelBattery';
 // stations
 import useGetAllStations from './stations/useGetAllStations';
-import useGetStationById from './stations/useGetStationById';
 import useGetFilteredStationsBySetTime from '@/hooks/stations/useGetFilteredStationsBySetTime';
 
-export { useGetAllStations, useGetStationById };
+export { useGetAllStations };
 
 export {
   useBottomSheet,
