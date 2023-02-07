@@ -35,7 +35,7 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
         longitude: map.getCenter().getLng(),
       });
     },
-    [currentLocation]
+    [currentLocation],
   );
 
   const handleCurrentLocation = useCallback(
@@ -45,7 +45,7 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
         longitude: mouseEvent.latLng.getLng(),
       });
     },
-    [currentLocation]
+    [currentLocation],
   );
 
   useEffect(() => {

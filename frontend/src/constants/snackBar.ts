@@ -8,6 +8,7 @@ const MESSAGE = {
   CURRENT_LOCATION_NOT_EXIST: '현재 위치를 찾을 수 없습니다.',
   NAVIGATE_TO_DIFFERENT_BOOKING_TYPE:
     '하루 이상 빌릴래요 탭으로 이동 되었습니다.',
+  STATION_DATA_LOADING: '주유소 정보를 불러오는 중입니다.',
 };
 
 export default MESSAGE;

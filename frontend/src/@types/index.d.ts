@@ -1,7 +1,7 @@
 import { Coordinate } from './maps';
 
 export type Content = {
-  batteries: object[];
+  batteries: BatteryType[];
   confirmId: number;
   details: string;
   id: number;

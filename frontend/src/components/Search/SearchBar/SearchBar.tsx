@@ -3,11 +3,11 @@ import { useSearchParams } from 'react-router-dom';
 import { useSearchBar } from '@/hooks';
 
 import * as S from './SearchBar.style';
-import { StationType } from '@/@types';
+import { Content } from '@/@types';
 
 type Props = {
-  stations: StationType[];
-  setLocationInfo: (arg: StationType) => void;
+  stations: Content[];
+  setLocationInfo: (arg: Content) => void;
 };
 
 const SearchBar = ({ stations, setLocationInfo }: Props) => {

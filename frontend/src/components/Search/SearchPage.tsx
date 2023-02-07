@@ -8,9 +8,9 @@ import { useSnackBar } from '@/hooks';
 import { currentLocationState } from '@/recoil/pagesState';
 
 import SearchBar from './SearchBar/SearchBar';
-import { StationType } from '../../@types/index';
+import { Content } from '@/@types';
 
-const SearchPage = ({ stations }: { stations: StationType[] }) => {
+const SearchPage = ({ stations }: { stations: Content[] }) => {
   const { isActive, message, openSnackBar } = useSnackBar();
   const [locationInfo, setLocationInfo] = useState<any>({});
   const navigate = useNavigate();

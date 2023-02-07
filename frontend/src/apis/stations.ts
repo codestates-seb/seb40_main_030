@@ -1,35 +1,25 @@
 import { apiClient } from './api';
 import { Coordinate } from '@/@types/maps';
+import { AxiosResponse } from 'axios';
+import { ApiStationsData, ApiBatteryData } from '../@types/apis';
 
 const getAllStations = async () => {
-  const { data } = await apiClient.get('/stations');
+  const { data }: AxiosResponse<{ content: ApiStationsData[] }> =
+    await apiClient.get('/stations');
 
   return data.content;
 };
 
-const getStationById = async (id: number | string) => {
-  const { data } = await apiClient.get(`/stations/${id}`);
-
-  return data;
-};
-
-const deleteStationById = async (id: number | string) => {
-  return await apiClient.delete(`/stations/${id}`);
-};
-
-const getStationByKeyword = async (keyword: string) => {
-  const response = await apiClient.get(`/stations/keyword?keyword=${keyword}`);
-
-  return response;
-};
-
 const getBatteryBySetTime = async (
-  id: number | string,
-  setTime: { startTime?: string; returnTime?: string },
+  id: number,
+  setTime: { startTime: string; returnTime: string },
 ) => {
-  const { data } = await apiClient.get(`/stations/batteries/${id}`, {
-    params: { startTime: setTime.startTime, endTime: setTime.returnTime },
-  });
+  const { data }: AxiosResponse<ApiBatteryData> = await apiClient.get(
+    `/stations/batteries/${id}`,
+    {
+      params: { startTime: setTime.startTime, endTime: setTime.returnTime },
+    },
+  );
 
   return data;
 };
@@ -41,6 +31,8 @@ const getSearchDataBySetTime = async (setTime: {
   const { data } = await apiClient.get(`/stations/searchAll`, {
     params: { startTime: setTime.startTime, endTime: setTime.returnTime },
   });
+
+  console.log(data);
 
   return data;
 };
@@ -64,9 +56,6 @@ const getBatteryByLocationAndSetTime = async (
 export {
   apiClient,
   getAllStations,
-  getStationById,
-  deleteStationById,
-  getStationByKeyword,
   getBatteryBySetTime,
   getBatteryByLocationAndSetTime,
   getSearchDataBySetTime,

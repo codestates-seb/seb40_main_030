@@ -10,13 +10,12 @@ const useCurrentAddress = ({ latitude, longitude }: Coordinate) => {
   const [currentAddress, setCurrentAddress] = useState('');
   const [addressDetail, setAddressDetail] = useState('');
   const [shortAddress, setShortAddress] = useState('');
-  // 주소-좌표 변환 객체를 생성합니다
-  let geocoder = new kakao.maps.services.Geocoder();
 
+  let geocoder = new kakao.maps.services.Geocoder();
   let coord = new kakao.maps.LatLng(latitude, longitude);
 
   let callback = useCallback(
-    (result: any) => {
+    (result: { address: any; road_address: any }[]) => {
       const fullAddress = { ...result }[0]?.address;
 
       const dong = fullAddress?.region_3depth_name;
@@ -31,6 +30,7 @@ const useCurrentAddress = ({ latitude, longitude }: Coordinate) => {
     },
     [currentAddress],
   );
+
   geocoder.coord2Address(coord?.getLng(), coord?.getLat(), callback);
 
   useEffect(() => {

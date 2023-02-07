@@ -3,17 +3,12 @@ import { useRecoilValue } from 'recoil';
 
 import { getBatteryByLocationAndSetTime } from '@/apis/stations';
 import { currentLocationState } from '@/recoil/pagesState';
-import { DEFAULT_LOCATION } from '@/constants';
 
-import { useCheckValidReserveTable, useCurrentAddress } from '..';
+import { useCheckValidReserveTable } from '..';
 
 const useGetFilteredStationsBySetTime = () => {
   const { startPoint, endPoint } = useCheckValidReserveTable();
   const currentLocation = useRecoilValue(currentLocationState);
-  const latitude = currentLocation?.latitude || DEFAULT_LOCATION?.latitude;
-  const longitude = currentLocation?.longitude || DEFAULT_LOCATION?.longitude;
-
-  // const { addressDetail } = useCurrentAddress({ latitude, longitude });
 
   const { data, refetch } = useQuery(
     ['filtered-stations-setTime', 'stations'],
@@ -34,13 +29,13 @@ const useGetFilteredStationsBySetTime = () => {
       select: (stations) =>
         stations?.filter(
           ({ availableBatteryCount }: { availableBatteryCount: number }) =>
-            availableBatteryCount !== 0
+            availableBatteryCount !== 0,
         ),
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       suspense: true,
       staleTime: 3000,
-    }
+    },
   );
 
   return { data, refetch };

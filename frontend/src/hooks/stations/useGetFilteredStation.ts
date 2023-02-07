@@ -32,32 +32,32 @@ const useGetFilteredStation = () => {
     },
   );
 
-  const filteredStations: {
-    id: number | string;
-    name: string;
-    location: string;
-    confirmId: string | number;
-  }[] = [];
+  // const filteredStations: {
+  //   id: number | string;
+  //   name: string;
+  //   location: string;
+  //   confirmId: string | number;
+  // }[] = [];
 
-  data?.map(
-    ({
-      id,
-      name,
-      location,
-      confirmId,
-    }: {
-      id: number | string;
-      name: string;
-      location: string;
-      confirmId: string | number;
-    }) => {
-      const data = { id, name, location, confirmId };
+  // data?.map(
+  //   ({
+  //     id,
+  //     name,
+  //     location,
+  //     confirmId,
+  //   }: {
+  //     id: number | string;
+  //     name: string;
+  //     location: string;
+  //     confirmId: string | number;
+  //   }) => {
+  //     const data = { id, name, location, confirmId };
 
-      filteredStations.push(data);
-    },
-  );
+  //     filteredStations.push(data);
+  //   },
+  // );
 
-  return { filteredStations };
+  return { data };
 };
 
 export default useGetFilteredStation;
