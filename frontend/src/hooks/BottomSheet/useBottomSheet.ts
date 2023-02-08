@@ -15,7 +15,7 @@ const useBottomSheet = () => {
   const { isReservationCompleted } = useCheckDateFixed();
 
   const onDragEnd = (info: any) => {
-    const shouldClose = info?.y > 20 || (info?.y >= 0 && info.point.y > 45);
+    const shouldClose = info.y > 20 || (info.y >= 0 && info.point?.y > 45);
 
     if (shouldClose) {
       controls.start('hidden');

@@ -45,6 +45,8 @@ const Container = styled.div`
     border-radius: 20px 20px 0 0;
     opacity: 0.7;
   }
+
+  z-index: ${({ theme }) => theme.DEFAULT};
 `;
 
 const Image = styled.img`
@@ -53,6 +55,8 @@ const Image = styled.img`
   display: block;
   border-radius: 20px 20px 0 0;
   z-index: ${({ theme }) => theme.DEFAULT};
+
+  border: 2px solid red;
 `;
 
 const Details = styled.div`

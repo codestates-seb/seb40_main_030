@@ -6,7 +6,6 @@ import { reservationState } from '@/recoil/pagesState';
 import { ReservationDate } from '@/@types';
 
 const useSingleDateReservation = (currentDate: ReservationDate) => {
-  console.log(currentDate);
   const currentYear = new Date().getFullYear();
   const queryClient = useQueryClient();
   const [reservationStatus, setReservationStatus] =

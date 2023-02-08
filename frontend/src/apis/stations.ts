@@ -12,7 +12,7 @@ const getAllStations = async () => {
 
 const getBatteryBySetTime = async (
   id: number,
-  setTime: { startTime: string; returnTime: string },
+  setTime: { startTime?: string; returnTime?: string },
 ) => {
   const { data }: AxiosResponse<ApiBatteryData> = await apiClient.get(
     `/stations/batteries/${id}`,
@@ -31,8 +31,6 @@ const getSearchDataBySetTime = async (setTime: {
   const { data } = await apiClient.get(`/stations/searchAll`, {
     params: { startTime: setTime.startTime, endTime: setTime.returnTime },
   });
-
-  console.log(data);
 
   return data;
 };

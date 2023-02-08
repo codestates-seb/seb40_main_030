@@ -18,7 +18,7 @@ const Cards = ({
   const { name, details, photoURL, batteries, id, location } = content;
 
   const imageOnErrorHandler = (
-    event: SyntheticEvent<HTMLImageElement, Event>
+    event: SyntheticEvent<HTMLImageElement, Event>,
   ) => {
     event.currentTarget.src = FuelTankImg;
     event.currentTarget.className = 'error';
@@ -39,7 +39,9 @@ const Cards = ({
               src={photoURL}
               alt={name}
               onError={imageOnErrorHandler}
-              style={{ borderRadius: '20px 20px 0 0' }}
+              style={{
+                borderRadius: '20px 20px 0 0',
+              }}
             />
           </S.Container>
         </Link>

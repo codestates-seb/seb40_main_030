@@ -27,6 +27,7 @@ export type BatteryType = {
   photoURL: string;
   defaultPrice: number;
   createdAt: string;
+  location: Coordinate;
 };
 
 export type Matches = boolean;

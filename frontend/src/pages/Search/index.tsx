@@ -1,21 +1,24 @@
 import { ROUTES } from '@/constants';
-import { useCheckDateFixed, useGetAllStations } from '@/hooks';
-import useGetFilteredStation from '@/hooks/stations/useGetFilteredStation';
+import {
+  useCheckDateFixed,
+  useGetAllStations,
+  useGetFilteredStation,
+} from '@/hooks';
 
-import { PageWrapper } from '../../components/@commons';
-import SearchPage from '../../components/Search/SearchPage';
-import useSnackBar from '../../hooks/commons/useSnackBar';
-import MESSAGE from '../../constants/snackBar';
+import { PageWrapper } from '@/components/@commons';
+import SearchPage from '@/components/Search/SearchPage';
 
 const Search = () => {
   const { isDateFixed } = useCheckDateFixed();
-  const { data: stations, isLoading } = useGetAllStations();
+  const { data: stations } = useGetAllStations();
   const { data: filteredStations } = useGetFilteredStation();
-  const { openSnackBar } = useSnackBar();
 
-  if (!stations || isLoading) {
-    openSnackBar(MESSAGE.STATION_DATA_LOADING);
-    return;
+  if (!stations) {
+    return (
+      <PageWrapper title='대여장소 검색하기' path={ROUTES.HOME.PATH}>
+        <div></div>
+      </PageWrapper>
+    );
   }
 
   return (

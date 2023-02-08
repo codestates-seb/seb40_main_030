@@ -30,6 +30,7 @@ import useExtendReservation from './reservation/useExtendReservation';
 import useReservation from './reservation/useReservation';
 import useSingleDateReservation from './reservation/useSingleDateReservation';
 import useUndoReservation from './reservation/useUndoReservation';
+import useGetFilteredStation from '@/hooks/stations/useGetFilteredStation';
 import {
   useCancelMockPayment,
   useCancelPayment,
@@ -74,6 +75,7 @@ export {
   useGetFilteredStationsBySetTime,
   useCancelPayment,
   useCancelMockPayment,
+  useGetFilteredStation,
 };
 
 export {

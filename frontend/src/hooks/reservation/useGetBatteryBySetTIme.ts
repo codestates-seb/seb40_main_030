@@ -21,7 +21,7 @@ const useGetBatteryBySetTime = (id: number) => {
       useErrorBoundary: true,
       suspense: true,
       retry: 1,
-    }
+    },
   );
 
   if (status === 'error') {

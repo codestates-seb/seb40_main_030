@@ -14,8 +14,7 @@ import {
 } from '@/hooks';
 
 import * as S from './KakaoMap.style';
-import { Matches } from '@/@types';
-import { Content } from '@/@types/index';
+import { Matches, Content } from '@/@types';
 
 const KakaoMap = ({ matches }: { matches: Matches }) => {
   const [toggle, setToggle] = useState(false);
@@ -29,7 +28,7 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
   const { shortAddress } = useCurrentAddress(currentLocation);
 
   const handleOnDragEvent = useCallback(
-    (map: any) => {
+    (map: kakao.maps.Map | any) => {
       setCurrentLocation({
         latitude: map.getCenter().getLat(),
         longitude: map.getCenter().getLng(),
@@ -39,7 +38,7 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
   );
 
   const handleCurrentLocation = useCallback(
-    (mouseEvent: any) => {
+    (mouseEvent: kakao.maps.event.MouseEvent | any) => {
       setCurrentLocation({
         latitude: mouseEvent.latLng.getLat(),
         longitude: mouseEvent.latLng.getLng(),
@@ -53,7 +52,7 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
   }, [filteredStations, shortAddress, updateLocation]);
 
   return (
-    <S.MapWrapper matches={matches}>
+    <S.MapWrapper id='kakao-map' matches={matches}>
       <MapIndicator toggle={toggle} setToggle={setToggle} matches={matches} />
       {!toggle ? (
         <Map
@@ -65,9 +64,7 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
           onDragEnd={(map) => {
             handleOnDragEvent(map);
           }}
-          onClick={(_t, mouseEvent) => {
-            handleCurrentLocation(mouseEvent);
-          }}
+          onClick={(_, mouseEvent) => handleCurrentLocation(mouseEvent)}
           level={4}
           draggable={true}
         >
@@ -75,7 +72,7 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
             ? filteredStations?.map((content: Content) => (
                 <MarkerContainer key={content.id} content={content} />
               ))
-            : stations.map((content: Content) => (
+            : stations?.map((content: Content) => (
                 <MarkerContainer key={content.id} content={content} />
               ))}
           <MapMarker
