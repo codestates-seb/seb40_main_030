@@ -1,4 +1,4 @@
-import PageWrapper from '@/components/@common';
+import { PageWrapper } from '@/components/@common';
 import SignUpForm from '@/components/SignUp/SignUpForm';
 
 const SignUp = () => {
