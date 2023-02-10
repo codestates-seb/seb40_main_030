@@ -17,13 +17,11 @@ const Home = () => {
 
   return (
     <>
-      {/* <SplashScreen matches={matches} /> */}
       {isLoading && <SplashScreen matches={matches} />}
 
       <Suspense fallback={<BatteryCharging />}>
         <MapArea matches={matches} />
         {/* Bottom Sheet 에 대한 visibility transition 이 들어가야함 */}
-        {/* session storage 값으로 검증을 하는 방식이 맞는지 확인이 필요함 */}
         {isSplashed !== null ? (
           <div>
             {pathname === ROUTES.HOME.PATH && (

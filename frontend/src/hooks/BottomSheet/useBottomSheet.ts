@@ -1,12 +1,9 @@
 import { useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-
 import { navState } from '@/recoil/pagesState';
-
-import { useCheckDateFixed } from '..';
-// @ts-ignore
 import usePreviousValue from './usePrevious';
+import { useCheckDateFixed } from '..';
 
 const useBottomSheet = () => {
   const [isOpen, setIsOpen] = useRecoilState(navState);

@@ -1,6 +1,5 @@
 import { BOOKING_TYPE } from '@/constants';
-import { useReservation } from '@/hooks';
-import useConvertDate from '@/hooks/commons/useConvertDate';
+import { convertFullDateToSingleProp } from '@/utils';
 
 import * as S from './Stepper.style';
 import { useRecoilValue } from 'recoil';
@@ -19,13 +18,13 @@ const Stepper = ({ startPoint, endPoint }: Props) => {
     date: startDate,
     hour: startHour,
     minute: startMinute,
-  } = useConvertDate(startPoint);
+  } = convertFullDateToSingleProp(startPoint);
   const {
     month: endMonth,
     date: endDate,
     hour: endHour,
     minute: endMinute,
-  } = useConvertDate(endPoint);
+  } = convertFullDateToSingleProp(endPoint);
 
   return (
     <S.Wrapper>

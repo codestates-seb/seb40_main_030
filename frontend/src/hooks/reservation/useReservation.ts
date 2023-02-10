@@ -5,7 +5,7 @@ import { BOOKING_TYPE, MESSAGE, TIME } from '@/constants';
 import { initialReservationValue, reservationState } from '@/recoil/pagesState';
 
 import { useSnackBar } from '..';
-import { isSelectedTimeValid } from '@/components/@helper/utils/validations';
+import { isSelectedTimeValid } from '@/utils';
 
 type ReservationTime = {
   hours: number;

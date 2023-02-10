@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 
 import { ShadowButton } from '@/components/@commons';
-import convertMinTo10Min from '@/components/@helper/utils/convertMiinTo10Min';
+import { convertMinTo10Min } from '@/utils';
 import { useReservation } from '@/hooks';
 import { reservationState } from '@/recoil/pagesState';
 

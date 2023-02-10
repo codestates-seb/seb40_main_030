@@ -1,4 +1,4 @@
-import convertDate2ReadableString from '@/components/@helper/utils/convertDate2ReadableString';
+import { convertDate2ReadableString } from '@/utils';
 
 import * as S from './Content.style';
 

@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-import convertMinTo10Min from '@/components/@helper/utils/convertMiinTo10Min';
+import { convertMinTo10Min } from '@/utils';
 import { DEFAULT_LOCATION } from '@/constants';
 
 const initialReservationValue = {

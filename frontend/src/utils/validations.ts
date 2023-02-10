@@ -1,6 +1,6 @@
 import { TIME } from '@/constants';
 
-export const isSelectedTimeValid = (selectedTime: {
+const isSelectedTimeValid = (selectedTime: {
   hours: number;
   minutes: number;
 }) => {
@@ -13,3 +13,5 @@ export const isSelectedTimeValid = (selectedTime: {
 
   return currentTimeInSimpleNumber >= selectedTimeLineInSimpleNumber;
 };
+
+export default isSelectedTimeValid;

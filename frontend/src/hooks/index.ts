@@ -2,7 +2,6 @@
 // @ts-ignore
 import useBottomSheet from './bottomSheet/useBottomSheet';
 import usePreviousValue from './bottomSheet/usePrevious';
-import useConvertDate from './commons/useConvertDate';
 import useMediaQuery from './commons/useMediaQuery';
 import useSearchBar from './commons/useSearchBar';
 import useSnackBar from './commons/useSnackBar';
@@ -48,7 +47,6 @@ export {
   useMediaQuery,
   useSplashScreen,
   useSearchBar,
-  useConvertDate,
 };
 
 export {

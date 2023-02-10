@@ -3,17 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { SyntheticEvent } from 'react';
 
 import { BatterImg } from '@/assets';
-import { ShadowButton, ShadowCard } from '@/components/@commons';
+import { BatteryType } from '@/@types';
+import { convertFullDateToSingleProp } from '@/utils';
 import { PRICE_REGEX } from '@/constants';
-import {
-  useCheckValidReserveTable,
-  useConvertDate,
-  useTimeDifference,
-} from '@/hooks';
+import { ShadowButton, ShadowCard } from '@/components/@commons';
+import { useCheckValidReserveTable, useTimeDifference } from '@/hooks';
 
 import * as S from './Features.style';
 import ReservationChart from './ReservationChart';
-import { BatteryType } from '../../../@types/index';
 
 type BatteryInfoProps = {
   content: BatteryType;
@@ -34,7 +31,7 @@ const BatteryInfo = ({ content, station }: BatteryInfoProps) => {
     createdAt,
     defaultPrice,
   } = content;
-  const { year, month, date } = useConvertDate(createdAt);
+  const { year, month, date } = convertFullDateToSingleProp(createdAt);
   const { periodInMin } = useTimeDifference();
 
   const handleClick = () => {

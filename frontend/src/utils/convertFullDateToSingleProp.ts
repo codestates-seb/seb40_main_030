@@ -1,4 +1,4 @@
-const useConvertDate = (fullDate: string) => {
+const convertFullDateToSingleProp = (fullDate: string) => {
   const newDate = new Date(fullDate);
 
   const date = newDate.getDate();
@@ -11,4 +11,4 @@ const useConvertDate = (fullDate: string) => {
   return { year, month, date, day, hour, minute };
 };
 
-export default useConvertDate;
+export default convertFullDateToSingleProp;

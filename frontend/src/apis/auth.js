@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import setAuthToken from '@/components/@helper/utils/setAuthToken';
+import { setAuthToken } from '@/utils';
 import { BASE_URL } from '@/constants/admin';
 
 import {

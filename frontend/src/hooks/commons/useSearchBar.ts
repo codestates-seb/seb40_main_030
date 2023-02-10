@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 
-import ch2Pattern from '@/components/@helper/utils/ch2Pattern';
-import { Content } from '../../@types/index';
+import { ch2Pattern } from '@/utils';
+import { Content } from '@/@types';
 
 const useSearchBar = (stations: Content[]) => {
   const inputRef = useRef(null);

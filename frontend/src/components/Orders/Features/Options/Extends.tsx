@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { TeongImg } from '@/assets';
 import { ShadowButton } from '@/components/@commons';
-import convertDate2ServerString from '@/components/@helper/utils/convertDate2ServerString';
+import { convertDate2ServerString } from '@/utils';
 import Counter from '@/components/Home/Reservation/Counter/Counter';
 import {
   useExtendBookingPeriod,
@@ -76,7 +76,7 @@ const Extends = ({
             if (extendedDate) {
               handleBookingPeriod(
                 paymentsId,
-                convertDate2ServerString(extendedDate)
+                convertDate2ServerString(extendedDate),
               );
               setIsModalOpen(false);
               openSnackBar('대여시간 연장이 완료되었습니다.');

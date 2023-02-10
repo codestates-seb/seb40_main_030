@@ -1,4 +1,8 @@
-import { useQueryClient, useMutation } from '@tanstack/react-query';
+import {
+  useQueryClient,
+  useMutation,
+  MutationFunction,
+} from '@tanstack/react-query';
 import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -13,7 +17,8 @@ const useSingleDateReservation = (currentDate: ReservationDate) => {
 
   const { mutate } = useMutation(
     ['reservation-status'],
-    (status) => {
+    // @ts-ignore
+    (status: MutationFunction<unknown, void> | any) => {
       setReservationStatus(status);
     },
     {
