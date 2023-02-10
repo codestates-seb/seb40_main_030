@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { login } from '@/apis/auth';
 import NavigationBar from '@/components/Business/Nav/NavigationBar';
 
-import PageWrapper from '../../components/@commons/PageWrapper/PageWrapper';
-import SnackBar from '../../components/@commons/SnackBar/SnackBar';
+import PageWrapper from '../../components/@common/PageWrapper/PageWrapper';
+import SnackBar from '../../components/@common/SnackBar/SnackBar';
 import useToggle from '../../hooks/Business/useToggle';
-import useSnackBar from '../../hooks/commons/useSnackBar';
+import useSnackBar from '../../hooks/@common/useSnackBar';
 import BatteryContent from './BatteryContent';
 import StationContent from './StationContent';
 

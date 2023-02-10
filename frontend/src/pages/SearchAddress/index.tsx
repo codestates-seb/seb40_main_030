@@ -1,4 +1,4 @@
-import PageWrapper from '../../components/@commons/PageWrapper/PageWrapper';
+import PageWrapper from '../../components/@common/PageWrapper/PageWrapper';
 import PostCode from '../../components/SignUp/SignUpComp/PostCode';
 
 const SearchAddress = () => {

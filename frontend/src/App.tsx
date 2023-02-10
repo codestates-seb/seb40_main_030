@@ -2,7 +2,7 @@ import { AnimatePresence } from 'framer-motion';
 import { cloneElement, ReactElement } from 'react';
 import { useLocation, useRoutes } from 'react-router-dom';
 
-import { DesktopWrapper } from './components/@commons';
+import { DesktopWrapper } from './components/@common';
 import { DESKTOP_MEDIA_QUERY } from './constants';
 import { useMediaQuery, useOauthLoginCheck } from './hooks';
 

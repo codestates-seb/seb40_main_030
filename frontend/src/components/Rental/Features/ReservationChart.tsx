@@ -1,4 +1,4 @@
-import { Stepper } from '@/components/@commons';
+import { Stepper } from '@/components/@common';
 import { useCheckValidReserveTable } from '@/hooks';
 
 import * as S from './Features.style';

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ShadowCard, ShadowButton, BatteryEmpty } from '@/components/@commons';
+import { ShadowCard, ShadowButton, BatteryEmpty } from '@/components/@common';
 import InputModal from '@/components/Business/InputModal/InputModal';
 import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
@@ -11,7 +11,7 @@ import Return from '../Options/Return';
 import { ContentModal } from './Content.style';
 import * as S2 from './Content.style';
 import DateBox from './DateBox';
-import { BatteryType } from '../../../../@types/index';
+import { BatteryType } from '@/@types';
 
 const InUseList = () => {
   const [currentPayment, setCurrentPayment] = useState<number>();
@@ -106,7 +106,7 @@ const InUseList = () => {
           </InputModal>
         )}
       </S.BatteryContainer>
-    )
+    ),
   );
 };
 

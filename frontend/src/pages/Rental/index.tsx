@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { PageWrapper } from '@/components/@commons';
-// import RentalStatus from '@/components/Rental/RentalStatus';
+import { PageWrapper } from '@/components/@common';
 import { lazy } from 'react';
 
 const RentalStatus = lazy(() => import('@/components/Rental/RentalStatus'));

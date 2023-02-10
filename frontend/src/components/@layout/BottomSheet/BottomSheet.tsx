@@ -1,4 +1,4 @@
-import { SnackBar } from '@/components/@commons';
+import { SnackBar } from '@/components/@common';
 import { useBottomSheet, useSnackBar } from '@/hooks';
 
 import * as S from './BottomSheet.style';

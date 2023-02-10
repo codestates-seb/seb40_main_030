@@ -5,7 +5,7 @@ import {
   useGetFilteredStation,
 } from '@/hooks';
 
-import { PageWrapper } from '@/components/@commons';
+import { PageWrapper } from '@/components/@common';
 import SearchPage from '@/components/Search/SearchPage';
 
 const Search = () => {

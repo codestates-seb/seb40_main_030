@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { BatteryCharging, SnackBar, SplashScreen } from '@/components/@commons';
+import { BatteryCharging, SnackBar, SplashScreen } from '@/components/@common';
 import BottomNav from '@/components/@layout/BottomNav/BottomNav';
 import BottomSheet from '@/components/@layout/BottomSheet/BottomSheet';
 import MapArea from '@/components/Home/Maps';

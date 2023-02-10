@@ -1,4 +1,4 @@
-import { PageWrapper, SnackBar } from '@/components/@commons';
+import { PageWrapper, SnackBar } from '@/components/@common';
 import { BookingList, Category } from '@/components/Orders';
 import HistoryList from '@/components/Orders/Features/Content/HistoryList';
 import InUseList from '@/components/Orders/Features/Content/InUseList';

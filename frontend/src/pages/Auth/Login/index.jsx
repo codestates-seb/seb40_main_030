@@ -1,6 +1,6 @@
 import LoginForm from '@/components/Login/LoginForm';
 
-import { PageWrapper } from '../../../components/@commons';
+import { PageWrapper } from '@/components/@common';
 
 const Login = () => {
   return (

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ShadowButton } from '@/components/@commons';
+import { ShadowButton } from '@/components/@common';
 import { BOOKING_TYPE, MESSAGE } from '@/constants';
 import { useSnackBar } from '@/hooks';
 import { useRecoilState } from 'recoil';

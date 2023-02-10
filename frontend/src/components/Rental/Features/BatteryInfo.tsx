@@ -6,7 +6,7 @@ import { BatterImg } from '@/assets';
 import { BatteryType } from '@/@types';
 import { convertFullDateToSingleProp } from '@/utils';
 import { PRICE_REGEX } from '@/constants';
-import { ShadowButton, ShadowCard } from '@/components/@commons';
+import { ShadowButton, ShadowCard } from '@/components/@common';
 import { useCheckValidReserveTable, useTimeDifference } from '@/hooks';
 
 import * as S from './Features.style';

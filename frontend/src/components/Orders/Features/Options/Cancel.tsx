@@ -1,4 +1,4 @@
-import { ShadowButton } from '@/components/@commons';
+import { ShadowButton } from '@/components/@common';
 import { useCancelPayment, useCancelMockPayment } from '@/hooks';
 
 import DateBox from '../Content/DateBox';

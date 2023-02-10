@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { BatteryEmpty, ShadowButton, ShadowCard } from '@/components/@commons';
+import { BatteryEmpty, ShadowButton, ShadowCard } from '@/components/@common';
 import InputModal from '@/components/Business/InputModal/InputModal';
 import { PRICE_REGEX } from '@/constants';
 import { useGetBookingList } from '@/hooks';
@@ -99,7 +99,7 @@ const BookingList = () => {
           )}
         </S.BatteryContainer>
       );
-    }
+    },
   );
 };
 

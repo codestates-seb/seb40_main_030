@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
-import { ShadowButton, SnackBar } from '@/components/@commons';
+import { ShadowButton, SnackBar } from '@/components/@common';
 import { MESSAGE, ROUTES } from '@/constants';
 import { useSnackBar } from '@/hooks';
 import { currentLocationState } from '@/recoil/pagesState';

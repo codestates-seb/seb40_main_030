@@ -1,5 +1,5 @@
-import PageWrapper from '../../components/@commons/PageWrapper/PageWrapper';
-import SignUpForm from '../../components/SignUp/SignUpForm';
+import PageWrapper from '@/components/@common';
+import SignUpForm from '@/components/SignUp/SignUpForm';
 
 const SignUp = () => {
   return (

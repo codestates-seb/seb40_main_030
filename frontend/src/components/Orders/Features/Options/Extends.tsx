@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { TeongImg } from '@/assets';
-import { ShadowButton } from '@/components/@commons';
+import { ShadowButton } from '@/components/@common';
 import { convertDate2ServerString } from '@/utils';
 import Counter from '@/components/Home/Reservation/Counter/Counter';
 import {

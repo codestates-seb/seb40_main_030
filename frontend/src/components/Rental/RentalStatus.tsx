@@ -1,12 +1,13 @@
-import { useCurrentAddress, useSnackBar } from '@/hooks';
-import useGetBatteryBySetTime from '@/hooks/reservation/useGetBatteryBySetTIme';
-
-import { BatteryEmpty, SnackBar } from '../@commons';
+import { Suspense } from 'react';
+import {
+  useCurrentAddress,
+  useSnackBar,
+  useGetBatteryBySetTime,
+} from '@/hooks';
+import { BatteryType } from '@/@types';
+import { BatteryCharging, BatteryEmpty, SnackBar } from '@/components/@common';
 import BatteryInfo from './Features/BatteryInfo';
 import * as S from './Features/Features.style';
-import { BatteryType } from '@/@types';
-import { Suspense } from 'react';
-import { BatteryCharging } from '@/components/@commons';
 
 const RentalStatus = ({ id }: { id?: string }) => {
   const { data: batteryData } = useGetBatteryBySetTime(Number(id));

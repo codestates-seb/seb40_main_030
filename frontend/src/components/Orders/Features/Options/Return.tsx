@@ -1,4 +1,4 @@
-import { ShadowButton } from '@/components/@commons';
+import { ShadowButton } from '@/components/@common';
 import useReturnBattery from '@/hooks/Orders/useReturnBattery';
 
 import DateBox from '../Content/DateBox';

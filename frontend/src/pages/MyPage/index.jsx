@@ -1,4 +1,4 @@
-import { PageWrapper } from '../../components/@commons';
+import { PageWrapper } from '../../components/@common';
 import BottomNav from '../../components/@layout/BottomNav/BottomNav';
 import MyPageForm from '../../components/MyPage/MyPageForm';
 

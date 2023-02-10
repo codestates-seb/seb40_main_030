@@ -1,4 +1,4 @@
-import { BatteryEmpty, ShadowButton, ShadowCard } from '@/components/@commons';
+import { BatteryEmpty, ShadowButton, ShadowCard } from '@/components/@common';
 import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
 import { useGetHistoryList } from '@/hooks';
@@ -76,7 +76,7 @@ const HistoryList = () => {
           </S.ProductWrapper>
         </ShadowCard>
       </S.BatteryContainer>
-    )
+    ),
   );
 };
 
