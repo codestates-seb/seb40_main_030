@@ -152,60 +152,45 @@ public class StationService {
         return station;
     }
 
-    public List<StationSearch> getStationsSearch(StationSearch search) {
-        /**
-         * 0. 파라미터 : StationSearch의 필드들을 직접 받기(station(id, Longitude/Latitude, photoUrl, startTime, endTime)
-         * 1. 쿼리 메서드 : 시/군구 들어왔을 경우 => 해당 시/군구로 되어있는 데이터 (WHERE)
-         * 2. 쿼리 메서드 : 1번에 AND 조건으로 BETWEEN 들어온 시간에 RESERVATION이 없는 데이터
-         * 3. default location : 위도/경도/시/군구/confirmId 지정해놓기 => 코드스테이츠
-         *
-         * return : List<StationSearch> 반환 => Location 중 위도/경도/confirm ID 값을 반환
-         */
+    /**
+     * method for default search
+     *
+     * 1. 쿼리메소드로 요청한 시/군/구에 해당하는 Station을 List로 받음
+     * 2. List 중 시간 필터링 메소드에 해당하는 Station만 남겨 List로 반환
+     * 3. 반환되는 값을 좌표 표시를 위해 Latitude, Longitude 그대로 반환
+     * @return
+     */
+    public List<StationSearch> getStationsSearch(StationSearch station) {
 
-
-        // 기본 주소는 코드스테이츠
+        // Default Station 설정 (입력값이 존재하지 않는 경우. 최초화면용)
+        // default 위치 설정. 코드스테이츠
+        // default 시간 설정. 기준값으로 현재시간으로부터 10분 후 ~ 한시간 지정
         StationSearch defaultStation = new StationSearch();
-        // default 위치 설정
-        defaultStation.setLatitude(37.49655445);
-        defaultStation.setLongitude(127.02475418);
-        defaultStation.setConfirmId(1615822138);  // 건물 Id
-        // default 시간 설정 (30분 간격)
-        String defaultStartTime = LocalDateTime.now().plusMinutes(10).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-        String defaultEndTime = LocalDateTime.now().plusMinutes(40).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-        defaultStation.setStartTime(defaultStartTime);
-        defaultStation.setEndTime(defaultEndTime);
+        defaultStation.makeDefaultStationSearch();
 
-        // 만약 위경도 값 or confirmId or 시간변경값 들어오면 그 값으로 객체 필드값 변경
-        Optional.ofNullable(search.getLatitude()).ifPresent(defaultStation::setLatitude);
-        Optional.ofNullable(search.getLongitude()).ifPresent(defaultStation::setLongitude);
-        Optional.ofNullable(search.getConfirmId()).ifPresent(defaultStation::setConfirmId);
-        Optional.ofNullable(search.getStartTime()).ifPresent(defaultStation::setStartTime);
-        Optional.ofNullable(search.getEndTime()).ifPresent(defaultStation::setEndTime);
+        // 입력값이 존재할 경우, 검색 조건으로 추가
+        Optional.ofNullable(station.getStartTime()).ifPresent(defaultStation::setStartTime);
+        Optional.ofNullable(station.getEndTime()).ifPresent(defaultStation::setEndTime);
+        Optional.ofNullable(station.getLatitude()).ifPresent(defaultStation::setLatitude);
+        Optional.ofNullable(station.getLongitude()).ifPresent(defaultStation::setLongitude);
+        Optional.ofNullable(station.getConfirmId()).ifPresent(defaultStation::setConfirmId);
+        Optional.ofNullable(station.getStartTime()).ifPresent(defaultStation::setStartTime);
+        Optional.ofNullable(station.getEndTime()).ifPresent(defaultStation::setEndTime);
 
-        // 요청으로 받은 시간 또는 디플트 시간을 설정
-        LocalDateTime startT = LocalDateTime.parse(defaultStation.getStartTime());
-        LocalDateTime endT = LocalDateTime.parse(defaultStation.getEndTime());
+        // String 형태로 입력된 요청 파라미터를 LocalDateTime으로 변경
+        LocalDateTime startT = LocalDateTime.parse(station.getStartTime());
+        LocalDateTime endT = LocalDateTime.parse(station.getEndTime());
 
-        // 입력 시간이 유효한 예약시간인지 검증. 종료시간이 시작시간 빠르거나, 시작 시간이 현재시간보다 빠를 때 엣지케이스
+        // 유효하지 않을 시간이 입려되었을 경우 예외 처리
         if (endT.isBefore(startT) || startT.isBefore(LocalDateTime.now())) throw new BusinessLogicException(ExceptionCode.NOT_VALID_TIME);
 
-        // 객체 필드값을 중점으로 해서 반경검색 구현하기
-        Double minLat = defaultStation.getLatitude() - 0.02298573;
-        Double maxLat = defaultStation.getLatitude() + 0.02298573;
-        Double minLog = defaultStation.getLongitude() - 0.02298573;
-        Double maxLog = defaultStation.getLongitude() + 0.02298573;
+        // DB로부터 해당 지역 리스트 검색
+        List<Station> list = stationRepository.findWithAllWhereCityAndRegion(station.getCity(), station.getRegion());
 
-        List<Station> originList = stationRepository.findAll();
-        List<Station> filteredList = originList.stream()
-                .filter(a -> a.getLatitude() >= minLat && a.getLatitude() <= maxLat)
-                .filter(b -> b.getLongitude() >= minLog && b.getLongitude() <= maxLog)
-                .collect(Collectors.toList());
+        List<StationSearch> stationList = StationTimeFilter(defaultStation, startT, endT, list);
 
-        List<StationSearch> searchList = StationTimeFilter(defaultStation, startT, endT, filteredList);
-
-        return searchList;
+        return stationList;
     }
-
 
     public List<StationSearch> getStationsSearchAll(StationSearch search) {
         // 기본 주소는 코드스테이츠
@@ -243,12 +228,7 @@ public class StationService {
         List<StationSearch> searchList = new ArrayList<>();
         for (int i = 0; i < filteredList.size(); i++) {
             Station tempStation = filteredList.get(i);
-            StationSearch stationSearch
-                    = new StationSearch(tempStation.getId(), tempStation.getName(), tempStation.getDetails(),
-                    tempStation.getPhotoURL(), tempStation.getPhone(), tempStation.getLatitude(),
-                    tempStation.getLongitude(), tempStation.getConfirmId(),
-                    defaultStation.getStartTime(), defaultStation.getEndTime(), 0,
-                    tempStation.getBattery());
+            StationSearch stationSearch = new StationSearch(tempStation);
             stationSearch.setCreatedAt(tempStation.getCreatedAt());
             stationSearch.setModifiedAt(tempStation.getModifiedAt());
 
@@ -324,23 +304,4 @@ public class StationService {
         }
     }
 
-
-    /**
-     * TEST method for default search
-     * @return
-     */
-    public List<Station> getStationsSearch(Integer confirmId, Double latitude, Double longitude,
-                                           String city, String region, String startTime, String endTime) {
-        /**
-         * 0. 파라미터 : StationSearch의 필드들을 직접 받기(station(id, Longitude/Latitude, photoUrl, startTime, endTime)
-         * 1. 쿼리 메서드 : 시/군구 들어왔을 경우 => 해당 시/군구로 되어있는 데이터 (WHERE)
-         * 2. 쿼리 메서드 : 1번에 AND 조건으로 BETWEEN 들어온 시간에 RESERVATION이 없는 데이터
-         * 3. default location : 위도/경도/시/군구/confirmId 지정해놓기 => 코드스테이츠
-         *
-         * return : List<StationSearch> 반환 => Location 중 위도/경도/confirm ID 값을 반환
-         */
-
-        List<Station> list = stationRepository.findByStationSearch(city, region);//, startTime, endTime);
-        return list;
-    };
 }
