@@ -24,4 +24,8 @@ public interface StationRepository extends JpaRepository<Station, Long> {
     @Query("select s from Station s where s.name like %:keyword% order by s.createdAt desc")
     List<Station> findWithAllByStationContainsByCreatedAtDesc(String keyword);
 
+    @Query(value = "SELECT * FROM Station s WHERE s.city = :city AND s.region =:region GROUP BY s.name", nativeQuery = true)
+//    + "join station on s.payments.reservation BETWEEN s.payments.reservation.startTime and s.payments.reservation.endTime")
+    List<Station> findByStationSearch(String city, String region); //, String startTime, String endTime);
+
 }

@@ -30,11 +30,12 @@ public class PageInfoDto<T> {
 
     private int numberOfElements;
 
+
     public PageInfoDto(Page<T> page) {
-        content = page.getContent();
-        totalPages = page.getTotalPages();
-        totalElements = page.getTotalElements();
-        first = page.isFirst();
+        content = page.getContent();  // 조회할 데이터
+        totalPages = page.getTotalPages(); // 총 페이지수
+        totalElements = page.getTotalElements(); // DB에 있는 총 데이터수
+        first = page.isFirst(); //
         last = page.isLast();
         sorted = page.getSort().isSorted();
         size = page.getSize();

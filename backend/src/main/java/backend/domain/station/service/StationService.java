@@ -153,6 +153,16 @@ public class StationService {
     }
 
     public List<StationSearch> getStationsSearch(StationSearch search) {
+        /**
+         * 0. 파라미터 : StationSearch의 필드들을 직접 받기(station(id, Longitude/Latitude, photoUrl, startTime, endTime)
+         * 1. 쿼리 메서드 : 시/군구 들어왔을 경우 => 해당 시/군구로 되어있는 데이터 (WHERE)
+         * 2. 쿼리 메서드 : 1번에 AND 조건으로 BETWEEN 들어온 시간에 RESERVATION이 없는 데이터
+         * 3. default location : 위도/경도/시/군구/confirmId 지정해놓기 => 코드스테이츠
+         *
+         * return : List<StationSearch> 반환 => Location 중 위도/경도/confirm ID 값을 반환
+         */
+
+
         // 기본 주소는 코드스테이츠
         StationSearch defaultStation = new StationSearch();
         // default 위치 설정
@@ -314,4 +324,23 @@ public class StationService {
         }
     }
 
+
+    /**
+     * TEST method for default search
+     * @return
+     */
+    public List<Station> getStationsSearch(Integer confirmId, Double latitude, Double longitude,
+                                           String city, String region, String startTime, String endTime) {
+        /**
+         * 0. 파라미터 : StationSearch의 필드들을 직접 받기(station(id, Longitude/Latitude, photoUrl, startTime, endTime)
+         * 1. 쿼리 메서드 : 시/군구 들어왔을 경우 => 해당 시/군구로 되어있는 데이터 (WHERE)
+         * 2. 쿼리 메서드 : 1번에 AND 조건으로 BETWEEN 들어온 시간에 RESERVATION이 없는 데이터
+         * 3. default location : 위도/경도/시/군구/confirmId 지정해놓기 => 코드스테이츠
+         *
+         * return : List<StationSearch> 반환 => Location 중 위도/경도/confirm ID 값을 반환
+         */
+
+        List<Station> list = stationRepository.findByStationSearch(city, region);//, startTime, endTime);
+        return list;
+    };
 }
