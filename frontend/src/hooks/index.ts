@@ -33,6 +33,7 @@ import {
   useCancelMockPayment,
   useCancelPayment,
 } from './Orders/useCancelBattery';
+import useGetStationsByRegion from '@/hooks/stations/useGetStationsByRegion';
 // stations
 import useGetAllStations from './stations/useGetAllStations';
 import useGetFilteredStationsBySetTime from './stations/useGetFilteredStationsBySetTime';
@@ -75,6 +76,7 @@ export {
   useCancelMockPayment,
   useGetFilteredStation,
   useGetBatteryBySetTime,
+  useGetStationsByRegion,
 };
 
 export {

@@ -30,7 +30,7 @@ const useCheckValidReserveTable = () => {
   );
 
   if (startPoint.includes(TIME.NULL) || endPoint.includes(TIME.NULL)) {
-    return { timeDifference };
+    return { startPoint: null, endPoint: null, timeDifference };
   } else return { startPoint, endPoint, timeDifference };
 };
 

@@ -10,7 +10,7 @@ import {
   useCurrentAddress,
   useGetAllStations,
   useWatchLocation,
-  useGetFilteredStationsBySetTime,
+  useGetStationsByRegion,
 } from '@/hooks';
 
 import * as S from './KakaoMap.style';
@@ -21,7 +21,7 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
   const { data: stations } = useGetAllStations();
   const { location: myLocation } = useWatchLocation();
   const { data: filteredStations, refetch: updateLocation } =
-    useGetFilteredStationsBySetTime();
+    useGetStationsByRegion();
   const [currentLocation, setCurrentLocation] =
     useRecoilState(currentLocationState);
   const { isDateFixed } = useCheckDateFixed();
@@ -49,7 +49,7 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
 
   useEffect(() => {
     updateLocation();
-  }, [filteredStations, shortAddress, updateLocation]);
+  }, [filteredStations, shortAddress]);
 
   return (
     <S.MapWrapper id='kakao-map' matches={matches}>

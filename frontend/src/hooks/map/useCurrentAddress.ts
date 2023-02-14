@@ -28,10 +28,12 @@ const useCurrentAddress = ({ latitude, longitude }: Coordinate) => {
       setAddressDetail(fullAddress?.address_name);
       setCurrentAddress(currentLocation);
     },
-    [currentAddress],
+    [latitude, longitude],
   );
 
-  geocoder.coord2Address(coord?.getLng(), coord?.getLat(), callback);
+  useEffect(() => {
+    geocoder.coord2Address(coord?.getLng(), coord?.getLat(), callback);
+  }, [latitude, longitude]);
 
   useEffect(() => {
     setShortAddress(addressDetail?.split(' ')[1]);

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { BOOKING_TYPE, MESSAGE, TIME } from '@/constants';
@@ -17,7 +17,7 @@ const useReservation = () => {
   const [reservationStatus, setReservationStatus] =
     useRecoilState(reservationState);
   const { openSnackBar } = useSnackBar();
-  const { startTime, startDate, endDate } = reservationStatus;
+  const { startTime, startDate, endDate, bookingType } = reservationStatus;
 
   const isReservationValid = ({ hours, minutes }: ReservationTime) => {
     const currentTime = new Date().getTime();
@@ -45,6 +45,7 @@ const useReservation = () => {
         ...initialReservationValue,
         bookingType: BOOKING_TYPE.MULTIPLE,
       });
+
       openSnackBar(MESSAGE.BEFORE_CURRENT_TIME);
 
       isValid = false;
@@ -54,7 +55,10 @@ const useReservation = () => {
   };
 
   const handleReservation = ({ hours, minutes }: ReservationTime) => {
-    if (isSelectedTimeValid({ hours, minutes })) {
+    if (
+      isSelectedTimeValid({ hours, minutes }) &&
+      bookingType === BOOKING_TYPE.SINGLE
+    ) {
       openSnackBar(MESSAGE.BEFORE_CURRENT_TIME);
       return;
     }

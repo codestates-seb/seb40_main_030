@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getSearchDataBySetTime } from '@/apis/stations';
 
 import { useCheckValidReserveTable } from '..';
+import { BatteryType } from '@/@types';
 
 const useGetFilteredStation = () => {
   const { startPoint, endPoint } = useCheckValidReserveTable();
@@ -23,39 +24,14 @@ const useGetFilteredStation = () => {
     {
       select: (stations) =>
         stations?.filter(
-          ({ availableBatteryCount }: { availableBatteryCount: number }) =>
-            availableBatteryCount !== 0,
+          ({ batteries }: { batteries: BatteryType[] }) =>
+            batteries.length !== 0,
         ),
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       suspense: true,
     },
   );
-
-  // const filteredStations: {
-  //   id: number | string;
-  //   name: string;
-  //   location: string;
-  //   confirmId: string | number;
-  // }[] = [];
-
-  // data?.map(
-  //   ({
-  //     id,
-  //     name,
-  //     location,
-  //     confirmId,
-  //   }: {
-  //     id: number | string;
-  //     name: string;
-  //     location: string;
-  //     confirmId: string | number;
-  //   }) => {
-  //     const data = { id, name, location, confirmId };
-
-  //     filteredStations.push(data);
-  //   },
-  // );
 
   return { data };
 };

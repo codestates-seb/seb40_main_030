@@ -4,10 +4,13 @@ import { AxiosResponse } from 'axios';
 import { ApiStationsData, ApiBatteryData } from '../@types/apis';
 
 const getAllStations = async () => {
-  const { data }: AxiosResponse<{ content: ApiStationsData[] }> =
-    await apiClient.get('/stations');
+  const {
+    data: { content },
+  }: AxiosResponse<{ content: ApiStationsData[] }> = await apiClient.get(
+    '/stations',
+  );
 
-  return data.content;
+  return content;
 };
 
 const getBatteryBySetTime = async (
@@ -22,6 +25,26 @@ const getBatteryBySetTime = async (
   );
 
   return data;
+};
+
+const getStationsByRegion = async ({
+  startTime,
+  returnTime,
+  city,
+  region,
+}: {
+  startTime?: string;
+  returnTime?: string;
+  city?: string;
+  region?: string;
+}) => {
+  const {
+    data: { content },
+  } = await apiClient.get(
+    `/stations/search?startTime=${startTime}&endTime=${returnTime}&city=${city}&region=${region}`,
+  );
+
+  return content;
 };
 
 const getSearchDataBySetTime = async (setTime: {
@@ -57,4 +80,5 @@ export {
   getBatteryBySetTime,
   getBatteryByLocationAndSetTime,
   getSearchDataBySetTime,
+  getStationsByRegion,
 };

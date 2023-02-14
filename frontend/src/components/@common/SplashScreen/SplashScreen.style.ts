@@ -20,8 +20,6 @@ const DesktopMessage = styled.h1`
   width: 80%;
   height: 40px;
 
-  color: red;
-
   font-size: 30px;
 
   z-index: ${({ theme }) => theme.SPLASH_SCREEN};
