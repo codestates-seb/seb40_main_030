@@ -91,14 +91,17 @@ public class StationController {
 
 
     @GetMapping("/search")
-    public ResponseEntity<PageInfoDto> getStationsSearch(Pageable pageable,
+    public ResponseEntity<?> getStationsSearch(Pageable pageable,
                                                          @RequestParam(required = false) Integer confirmId,
                                                          @RequestParam(required = false) Double latitude,
                                                          @RequestParam(required = false) Double longitude,
+                                                         @RequestParam(required = false) String city,
+                                                         @RequestParam(required = false) String region,
                                                          @RequestParam(required = false) String startTime,
                                                          @RequestParam(required = false) String endTime) {
-        StationSearch stationSearch = new StationSearch(confirmId, latitude, longitude, startTime, endTime);
-        List<StationSearch> list = stationService.getStationsSearch(stationSearch);
+
+        StationSearch station = new StationSearch(confirmId, latitude, longitude, city, region, startTime, endTime);
+        List<StationSearch> list = stationService.getStationsSearch(station);
         Page<StationSearch> page = new PageImpl<>(list, pageable, list.size());
         Page<StationSearchResDto> dtoPage = page.map(StationSearchResDto::new);
 

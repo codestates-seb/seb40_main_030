@@ -33,6 +33,10 @@ public class Station extends BaseTime {
 
     private Integer confirmId;
 
+    private String city;  // 추가된 부분
+
+    private String region;  // 추가된 부분
+
     @OneToMany(mappedBy = "station", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonManagedReference
     private List<Battery> battery;

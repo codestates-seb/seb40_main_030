@@ -145,8 +145,6 @@ public class KakaoController {
         ResHeaders.add("RefreshToken", refreshToken);
 
 
-        // Member에 Kakao AccessToken, RefreshToken 저장하는 로직 필요
-
 
         // 의미 있는 리턴문인지 검증이 필요
         return "Success USER";
