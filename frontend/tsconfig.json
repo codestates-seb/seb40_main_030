@@ -19,7 +19,7 @@
     "paths": {
       "@/*": ["*"]
     },
-    "types": ["kakao.maps.d.ts"]
+    "types": ["kakao.maps.d.ts", "node"]
   },
   "include": ["**/*.ts", "**/*.tsx", "./src/@types", "vite.config.ts"]
 }
