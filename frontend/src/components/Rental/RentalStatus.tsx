@@ -1,18 +1,19 @@
 import { Suspense } from 'react';
+
+import { BatteryType } from '@/@types';
+import { BatteryCharging, BatteryEmpty, SnackBar } from '@/components/@common';
 import {
   useCurrentAddress,
   useSnackBar,
   useGetBatteryBySetTime,
 } from '@/hooks';
-import { BatteryType } from '@/@types';
-import { BatteryCharging, BatteryEmpty, SnackBar } from '@/components/@common';
+
 import BatteryInfo from './Features/BatteryInfo';
 import * as S from './Features/Features.style';
 
-const RentalStatus = ({ id }: { id?: string }) => {
+function RentalStatus({ id }: { id?: string }) {
   const { data: batteryData } = useGetBatteryBySetTime(Number(id));
   const { isActive, message } = useSnackBar();
-  //@ts-ignore
   const { location, batteries } = batteryData;
   const { addressDetail } = useCurrentAddress(location);
 
@@ -27,12 +28,14 @@ const RentalStatus = ({ id }: { id?: string }) => {
               <span>{addressDetail}</span>
             </S.AddressDetail>
             {batteries
-              ?.sort((a: any, b: any) => b.status - a.status)
+              ?.sort((a, b) => {
+                console.log('a', a, 'b', b);
+                return b.status - a.status;
+              })
               .map((content: BatteryType) => {
                 return (
                   <BatteryInfo
                     key={content.batteryId}
-                    // @ts-ignore
                     station={batteryData}
                     content={content}
                   />
@@ -44,6 +47,6 @@ const RentalStatus = ({ id }: { id?: string }) => {
       </div>
     </Suspense>
   );
-};
+}
 
 export default RentalStatus;

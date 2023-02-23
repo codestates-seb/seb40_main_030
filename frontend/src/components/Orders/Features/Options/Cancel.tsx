@@ -1,11 +1,11 @@
 import { ShadowButton } from '@/components/@common';
 import { useCancelPayment, useCancelMockPayment } from '@/hooks';
 
+import * as S from './Options.style';
 import DateBox from '../Content/DateBox';
 import ModalHeader from '../Modal/ModalHeader';
-import * as S from './Options.style';
 
-const Cancel = ({
+function Cancel({
   startTime,
   returnTime,
   setIsModalOpen,
@@ -17,9 +17,9 @@ const Cancel = ({
   returnTime: string;
   setIsModalOpen: (arg: boolean) => void;
   currentPayment: null | number;
-  setCurrentPayment: any;
+  setCurrentPayment: (arg: number | null) => void;
   paymentId: number;
-}) => {
+}) {
   const { handleCancelPayment } = useCancelPayment();
   const { handleCancelMockPayment } = useCancelMockPayment();
 
@@ -33,7 +33,7 @@ const Cancel = ({
         <DateBox returnTime={returnTime} fontSize='20px' />
       </S.ReturnDateContainer>
       <ShadowButton
-        padding={'10px 5px'}
+        padding='10px 5px'
         content='예약 취소하기'
         style={{ width: '70%', marginTop: '10%' }}
         shadow={false}
@@ -48,6 +48,6 @@ const Cancel = ({
       />
     </S.ContentWrapper>
   );
-};
+}
 
 export default Cancel;

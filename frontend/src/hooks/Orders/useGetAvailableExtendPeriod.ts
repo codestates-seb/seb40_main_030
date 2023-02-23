@@ -23,7 +23,7 @@ const useGetAvailablePeriod = (id: number) => {
     {
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
-    }
+    },
   );
 
   return { data, status, refetch };

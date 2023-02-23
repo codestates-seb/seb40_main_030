@@ -22,16 +22,15 @@ const useCheckValidReserveTable = () => {
   ).padStart(2, '0')}:${String(returnTime.minutes).padStart(2, '0')}`;
 
   const timeDifference = parseInt(
-    // @ts-ignore
     (new Date(endPoint).getTime() - new Date(startPoint).getTime()) /
-      1000 /
-      60 /
-      1440,
+      (1000 / 60 / 1440),
+    10,
   );
 
   if (startPoint.includes(TIME.NULL) || endPoint.includes(TIME.NULL)) {
     return { startPoint: null, endPoint: null, timeDifference };
-  } else return { startPoint, endPoint, timeDifference };
+  }
+  return { startPoint, endPoint, timeDifference };
 };
 
 export default useCheckValidReserveTable;

@@ -8,19 +8,19 @@ type Props = {
   chargingSpeed?: string | number;
 };
 
-const BatteryCharging = ({
+function BatteryCharging({
   message = 'Charging....',
   chargingSpeed = '3s',
-}: Props) => {
+}: Props) {
   const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
 
   return (
     <S.Wrapper matches={matches}>
       <S.Title>배터리 충전중</S.Title>
-      <S.Battery chargingSpeed={chargingSpeed}></S.Battery>
+      <S.Battery chargingSpeed={chargingSpeed} />
       <S.Message className='glow'>{message}</S.Message>
     </S.Wrapper>
   );
-};
+}
 
 export default BatteryCharging;

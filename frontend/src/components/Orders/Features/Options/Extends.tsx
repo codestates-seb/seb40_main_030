@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import { TeongImg } from '@/assets';
 import { ShadowButton } from '@/components/@common';
-import { convertDate2ServerString } from '@/utils';
 import Counter from '@/components/Home/Reservation/Counter/Counter';
 import {
   useExtendBookingPeriod,
@@ -10,12 +9,13 @@ import {
   useGetAvailableExtendPeriod,
   useSnackBar,
 } from '@/hooks';
+import { convertDate2ServerString } from '@/utils';
 
+import * as S from './Options.style';
 import DateBox from '../Content/DateBox';
 import ModalHeader from '../Modal/ModalHeader';
-import * as S from './Options.style';
 
-const Extends = ({
+function Extends({
   returnTime,
   paymentsId,
   setIsModalOpen,
@@ -23,7 +23,7 @@ const Extends = ({
   returnTime: string;
   paymentsId: number;
   setIsModalOpen: (arg: boolean) => void;
-}) => {
+}) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { handleBookingPeriod } = useExtendBookingPeriod();
   const { openSnackBar } = useSnackBar();
@@ -53,12 +53,10 @@ const Extends = ({
       />
       <DateBox returnTime={returnTime} fontSize='20px' />
       {!extendedDate && (
-        <>
-          <S.DateSelectContainer>
-            <Counter min={0} max={23} range={1} time={1} />
-            <Counter min={0} max={50} range={10} time={10} />
-          </S.DateSelectContainer>
-        </>
+        <S.DateSelectContainer>
+          <Counter min={0} max={23} range={1} time={1} />
+          <Counter min={0} max={50} range={10} time={10} />
+        </S.DateSelectContainer>
       )}
       {extendedDate && (
         <div style={{ marginTop: '20px' }}>
@@ -68,7 +66,7 @@ const Extends = ({
 
       {!isSubmitted && (
         <ShadowButton
-          padding={'10px 5px'}
+          padding='10px 5px'
           content={extendedDate ? '대여시간 연장하기' : '연장시간 설정하기'}
           style={{ width: '70%', marginTop: '10%' }}
           shadow={false}
@@ -90,7 +88,7 @@ const Extends = ({
 
       {extendedDate && (
         <ShadowButton
-          padding={'10px 5px'}
+          padding='10px 5px'
           content='시간 재설정 하기'
           style={{ width: '70%', marginTop: '10%' }}
           onClick={() => {
@@ -108,5 +106,5 @@ const Extends = ({
       </S.ExtendNotPossibleContainer>
     </S.ContentWrapper>
   );
-};
+}
 export default Extends;

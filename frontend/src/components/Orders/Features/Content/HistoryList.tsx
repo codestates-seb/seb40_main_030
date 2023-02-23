@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import { BatteryEmpty, ShadowButton, ShadowCard } from '@/components/@common';
 import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
@@ -7,7 +8,14 @@ import * as S2 from './Content.style';
 import DateBox from './DateBox';
 import { BatteryType } from '../../../../@types/index';
 
-const HistoryList = () => {
+type HistoryListType = {
+  battery: BatteryType;
+  paymentId: number;
+  startTime: string;
+  returnTime: string;
+};
+
+function HistoryList() {
   const { data: historyList } = useGetHistoryList();
 
   if (historyList?.length === 0) {
@@ -15,24 +23,9 @@ const HistoryList = () => {
   }
 
   return historyList?.map(
-    ({
-      battery,
-      paymentId,
-      startTime,
-      returnTime,
-    }: {
-      battery: BatteryType;
-      paymentId: number;
-      startTime: string;
-      returnTime: string;
-    }) => (
+    ({ battery, paymentId, startTime, returnTime }: HistoryListType) => (
       <S.BatteryContainer key={paymentId}>
-        <ShadowCard
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.3 } }}
-          transition={{ duration: 0.3 }}
-        >
+        <ShadowCard>
           <S.ProductWrapper>
             <S2.ImageContainer>
               <S2.BatteryImage src={battery.photoURL} alt='batteryImage' />
@@ -58,18 +51,17 @@ const HistoryList = () => {
                 </S.Price>
                 <span>원</span>
               </S.PriceContainer>
-              <DateBox
-                startTime={startTime}
-                returnTime={returnTime}
-                border={true}
-              />
+              <DateBox startTime={startTime} returnTime={returnTime} border />
               <ShadowButton
                 shadow={false}
-                width='80px'
-                padding='10px 5px'
                 content='반납 완료된 배터리'
-                style={{ fontSize: 13, marginTop: 20 }}
-                disabled={true}
+                style={{
+                  fontSize: 13,
+                  marginTop: 20,
+                  width: '80px',
+                  padding: '10px 5px',
+                }}
+                disabled
                 color='gray'
               />
             </S.ProductInfoContainer>
@@ -78,6 +70,6 @@ const HistoryList = () => {
       </S.BatteryContainer>
     ),
   );
-};
+}
 
 export default HistoryList;

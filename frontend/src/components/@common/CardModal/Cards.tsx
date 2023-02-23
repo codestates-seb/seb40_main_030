@@ -1,25 +1,25 @@
-import { Content } from '@/@types/index';
+import { SyntheticEvent, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { currentLocationState } from '@/recoil/pagesState';
+
+import { Content } from '@/@types/index';
 import { FuelTankImg } from '@/assets';
+import { currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './Cards.style';
-import { SyntheticEvent } from 'react';
 
-const Cards = ({
-  content,
-  setIsOpen,
-}: {
+interface Props {
   content: Content;
   setIsOpen: (arg: boolean) => void;
-}) => {
+}
+
+type ImageErrorEvent = SyntheticEvent<HTMLImageElement, Event>;
+
+function Cards({ content, setIsOpen }: Props): ReactElement {
   const setCurrentLocation = useSetRecoilState(currentLocationState);
   const { name, details, photoURL, batteries, id, location } = content;
 
-  const imageOnErrorHandler = (
-    event: SyntheticEvent<HTMLImageElement, Event>,
-  ) => {
+  const imageOnErrorHandler = (event: ImageErrorEvent) => {
     event.currentTarget.src = FuelTankImg;
     event.currentTarget.className = 'error';
   };
@@ -35,7 +35,7 @@ const Cards = ({
         <Link to={`/rental/${id}`}>
           <S.Container>
             <S.Image
-              width={'100%'}
+              width='100%'
               src={photoURL}
               alt={name}
               onError={imageOnErrorHandler}
@@ -51,13 +51,17 @@ const Cards = ({
           <p>
             배터리 보유 현황 <span>{batteries?.length}</span>
           </p>
-          <div className='close' onClick={() => setIsOpen(false)}>
+          <button
+            type='button'
+            className='close'
+            onClick={() => setIsOpen(false)}
+          >
             &times;
-          </div>
+          </button>
         </S.Details>
       </S.Card>
     </S.CardWrapper>
   );
-};
+}
 
 export default Cards;

@@ -2,42 +2,46 @@ import { ReactNode, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ArrowIcon } from '@/assets';
+import { BatteryCharging } from '@/components/@common';
 import { DESKTOP_MEDIA_QUERY } from '@/constants';
 import { useMediaQuery } from '@/hooks';
 
-import { BatteryCharging } from '..';
 import * as S from './PageWrapper.style';
 
 type Props = {
   title: string;
-  path?: string | number | any;
+  path: string;
   loadingMessage?: string;
   loadingDelay?: number | string;
   children: ReactNode;
 };
 
-const PageWrapper = ({
+function PageWrapper({
   title,
   path,
   loadingMessage,
   loadingDelay,
   children,
-}: Props) => {
+}: Props) {
   const navigate = useNavigate();
   const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
 
   return (
     <S.MotionWrapper
-      initial={{ opacity: 0.5, x: '100%', transition: { duration: 1 } }}
+      transition={{ duration: 1 }}
+      initial={{ opacity: 0.5, x: '100%' }}
       animate={{ opacity: 1, x: '0%', transition: { duration: 0.5 } }}
       exit={{ opacity: 0, x: '100%', transition: { duration: 0.5 } }}
       matches={matches}
     >
       <S.Header>
-        {/* path 는 뒤로가기를 눌렀을때 이동할 페이지를 의미 합니다. */}
-        <div className='button' onClick={() => navigate(path)}>
+        <button
+          type='button'
+          className='button'
+          onClick={() => navigate(path.toString())}
+        >
           <ArrowIcon />
-        </div>
+        </button>
         <S.Title>{title}</S.Title>
       </S.Header>
       <Suspense
@@ -52,6 +56,6 @@ const PageWrapper = ({
       </Suspense>
     </S.MotionWrapper>
   );
-};
+}
 
 export default PageWrapper;

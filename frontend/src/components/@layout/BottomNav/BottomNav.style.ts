@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import styled, { CSSProperties } from 'styled-components';
+import styled from 'styled-components';
 
 import { DESKTOP_MAX_WIDTH, DESKTOP_MARGIN_LEFT } from '@/constants';
 
@@ -29,7 +29,7 @@ const ListWrap = styled.ul`
   width: 100%;
 `;
 
-const List = styled.div<{ className: any }>`
+const List = styled.div`
   width: calc(100vw / 5.7);
   /* width: 70px; */
   height: 100%;

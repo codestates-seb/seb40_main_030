@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { MESSAGE, ROUTES } from '@/constants';
 import { useSnackBar } from '@/hooks';
 
-const PrivateRouter = () => {
+function PrivateRouter() {
   const { openSnackBar } = useSnackBar();
   const isLocalAuth = localStorage.getItem('accesstoken');
   const isSessionAuth = sessionStorage.getItem('accesstoken');
@@ -20,6 +20,6 @@ const PrivateRouter = () => {
   ) : (
     <Navigate to={ROUTES.LOGIN.PATH} replace />
   );
-};
+}
 
 export default PrivateRouter;

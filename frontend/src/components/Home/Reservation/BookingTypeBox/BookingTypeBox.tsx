@@ -1,8 +1,9 @@
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+
 import { ShadowButton } from '@/components/@common';
 import { BOOKING_TYPE, MESSAGE } from '@/constants';
 import { useSnackBar } from '@/hooks';
-import { useRecoilState } from 'recoil';
 import { reservationState } from '@/recoil/pagesState';
 
 const BUTTON_CONTENT = {
@@ -10,7 +11,16 @@ const BUTTON_CONTENT = {
   MULTIPLE: '하루 이상 빌릴래요',
 };
 
-const BookingTypeBox = () => {
+const BookingContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 30vh;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+`;
+
+function BookingTypeBox() {
   const { openSnackBar } = useSnackBar();
   const currentHour = new Date().getHours();
   const [reservationStatus, setReservationStatus] =
@@ -46,15 +56,6 @@ const BookingTypeBox = () => {
       />
     </BookingContainer>
   );
-};
-
-const BookingContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 30vh;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: column;
-`;
+}
 
 export default BookingTypeBox;

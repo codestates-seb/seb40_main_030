@@ -1,16 +1,17 @@
+import { useRecoilValue } from 'recoil';
+
 import { BOOKING_TYPE } from '@/constants';
+import { reservationState } from '@/recoil/pagesState';
 import { convertFullDateToSingleProp } from '@/utils';
 
 import * as S from './Stepper.style';
-import { useRecoilValue } from 'recoil';
-import { reservationState } from '@/recoil/pagesState';
 
 type Props = {
   startPoint: string;
   endPoint: string;
 };
 
-const Stepper = ({ startPoint, endPoint }: Props) => {
+function Stepper({ startPoint, endPoint }: Props) {
   const reservationStatus = useRecoilValue(reservationState);
 
   const {
@@ -50,6 +51,6 @@ const Stepper = ({ startPoint, endPoint }: Props) => {
       </S.Stepper>
     </S.Wrapper>
   );
-};
+}
 
 export default Stepper;

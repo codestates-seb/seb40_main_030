@@ -1,7 +1,7 @@
 import * as S from './PageWrapper.style';
 
-const DesktopWrapper = () => {
+function DesktopWrapper() {
   return <S.DesktopWrapper />;
-};
+}
 
 export default DesktopWrapper;

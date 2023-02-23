@@ -1,3 +1,5 @@
+import { useRecoilState } from 'recoil';
+
 import { UndoIcon } from '@/assets';
 import { BOOKING_TYPE } from '@/constants';
 import { useCalendar, useUndoReservation } from '@/hooks';
@@ -8,14 +10,13 @@ import Calendar from './Calendar/Calendar';
 import SingleDateSelection from './DateSelection/SingleDateSelection';
 import * as S from './Reservation.style';
 import TimeTable from './TimeTable/TimeTable';
-import { useRecoilState } from 'recoil';
 
 const RESERVATION_MESSAGE = {
   SET: '예약시간 설정하기',
   CONFIRM: '예약시간 확인하기',
 };
 
-const Reservation = () => {
+function Reservation() {
   const [reservationStatus, setReservationStatus] =
     useRecoilState(reservationState);
   const { undoReservation } = useUndoReservation();
@@ -34,7 +35,8 @@ const Reservation = () => {
           src={UndoIcon}
           width={25}
           height={25}
-          onClick={() => undoReservation()}
+          onClick={undoReservation}
+          alt='undoImage'
         />
       </S.Header>
       {!bookingType ? (
@@ -60,6 +62,6 @@ const Reservation = () => {
       )}
     </S.Container>
   );
-};
+}
 
 export default Reservation;

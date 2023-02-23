@@ -1,13 +1,13 @@
 import { TeongImg } from '@/assets';
 
-import * as S from './Empty.style';
+import EmptyWrapper from './Empty.style';
 
-const BatteryEmpty = () => {
+function BatteryEmpty() {
   return (
-    <S.EmptyWrapper>
+    <EmptyWrapper>
       <img src={TeongImg} alt='텅' width='100%' />
-    </S.EmptyWrapper>
+    </EmptyWrapper>
   );
-};
+}
 
 export default BatteryEmpty;

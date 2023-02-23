@@ -1,20 +1,29 @@
+/* eslint-disable react/no-unused-prop-types */
 import { useState } from 'react';
 
+import { BatteryType } from '@/@types';
 import { BatteryEmpty, ShadowButton, ShadowCard } from '@/components/@common';
 import InputModal from '@/components/Business/InputModal/InputModal';
+import * as S from '@/components/Rental/Features/Features.style';
 import { PRICE_REGEX } from '@/constants';
 import { useGetBookingList } from '@/hooks';
 
-import Cancel from '../Options/Cancel';
 import { ContentModal } from './Content.style';
-import * as S from '@/components/Rental/Features/Features.style';
 import * as S2 from './Content.style';
 import DateBox from './DateBox';
-import { BatteryType } from '@/@types';
+import Cancel from '../Options/Cancel';
+
+type Props = {
+  battery: BatteryType;
+  totalPrice: string;
+  paymentId: number;
+  startTime: string;
+  returnTime: string;
+};
 
 // 이 부분의 분리가 필요할듯
-const BookingList = () => {
-  const [currentPayment, setCurrentPayment] = useState<number>(0);
+function BookingList() {
+  const [currentPayment, setCurrentPayment] = useState<number | null>(0);
   const { data: bookingList } = useGetBookingList();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -23,27 +32,10 @@ const BookingList = () => {
   }
 
   return bookingList?.map(
-    ({
-      battery,
-      totalPrice,
-      paymentId,
-      startTime,
-      returnTime,
-    }: {
-      battery: BatteryType;
-      totalPrice: string;
-      paymentId: number;
-      startTime: string;
-      returnTime: string;
-    }) => {
+    ({ battery, totalPrice, paymentId, startTime, returnTime }: Props) => {
       return (
         <S.BatteryContainer key={paymentId}>
-          <ShadowCard
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.3 } }}
-            transition={{ duration: 0.3 }}
-          >
+          <ShadowCard>
             <S.ProductWrapper>
               <S2.ImageContainer>
                 <S2.BatteryImage src={battery.photoURL} alt='batteryImage' />
@@ -61,17 +53,16 @@ const BookingList = () => {
                   </S.Price>
                   <span>원</span>
                 </S.PriceContainer>
-                <DateBox
-                  startTime={startTime}
-                  returnTime={returnTime}
-                  border={true}
-                />
+                <DateBox startTime={startTime} returnTime={returnTime} border />
                 <ShadowButton
                   shadow={false}
-                  width='80px'
-                  padding='10px 5px'
                   content='예약 취소하기'
-                  style={{ fontSize: 13, marginTop: 20 }}
+                  style={{
+                    fontSize: 13,
+                    marginTop: 20,
+                    width: '80px',
+                    padding: '10px 5px',
+                  }}
                   onClick={() => {
                     setIsModalOpen(true);
                     setCurrentPayment(paymentId);
@@ -85,7 +76,7 @@ const BookingList = () => {
               isModalOpen={isModalOpen}
               closeModalHandler={setIsModalOpen}
             >
-              <ContentModal height={'30%'}>
+              <ContentModal height='30%'>
                 <Cancel
                   startTime={startTime}
                   returnTime={returnTime}
@@ -101,6 +92,6 @@ const BookingList = () => {
       );
     },
   );
-};
+}
 
 export default BookingList;

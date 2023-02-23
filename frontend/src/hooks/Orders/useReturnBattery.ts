@@ -18,7 +18,6 @@ const useReturnBattery = () => {
       },
       onError: (err: any) => {
         openSnackBar(`반납이 실패하였습니다. ${err.response.status}`);
-        return;
       },
     },
   );

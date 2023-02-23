@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { MESSAGE, ROUTES } from '@/constants';
 import { useSnackBar } from '@/hooks';
 
-const PublicRouter = () => {
+function PublicRouter() {
   const { openSnackBar } = useSnackBar();
   const isLocalAuth = localStorage.getItem('accesstoken');
   const isSessionAuth = sessionStorage.getItem('accesstoken');
@@ -13,8 +13,6 @@ const PublicRouter = () => {
     if (isLocalAuth || isSessionAuth) {
       openSnackBar(MESSAGE.AUTHENTICATED);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSessionAuth, isLocalAuth]);
 
   return isLocalAuth || isSessionAuth ? (
@@ -22,6 +20,6 @@ const PublicRouter = () => {
   ) : (
     <Outlet />
   );
-};
+}
 
 export default PublicRouter;

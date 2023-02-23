@@ -6,7 +6,7 @@ const ContentWrapper = styled.div<{ height?: string }>`
   align-items: center;
 
   width: 100%;
-  height: ${({ height }) => (height ? height : '80%')};
+  height: ${({ height }) => height || '80%'};
 
   .max-extend-time {
     position: relative;

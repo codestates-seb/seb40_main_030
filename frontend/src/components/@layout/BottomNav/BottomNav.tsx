@@ -4,26 +4,26 @@ import { useRecoilState } from 'recoil';
 
 import { BatteryIcon, ClockIcon, GlobeIcon, MyPageIcon } from '@/assets';
 import { DESKTOP_MEDIA_QUERY, ROUTES } from '@/constants';
+import { ACCESS_TOKEN } from '@/constants/auth';
 import { useMediaQuery } from '@/hooks';
 import { navState } from '@/recoil/pagesState';
 
 import * as S from './BottomNav.style';
 
-const BottomNav = () => {
+function BottomNav() {
   const navigate = useNavigate();
   const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
   const { pathname } = useLocation();
   const [isActive, setIsActive] = useRecoilState(navState);
   const localUserType = localStorage.getItem('userType');
   const sessionUserType = sessionStorage.getItem('userType');
-  const localToken = localStorage.getItem('accesstoken');
-  const sessionToken = sessionStorage.getItem('accesstoken');
+  const localToken = localStorage.getItem(ACCESS_TOKEN);
+  const sessionToken = sessionStorage.getItem(ACCESS_TOKEN);
 
   useEffect(() => {
     if (pathname !== ROUTES.HOME.PATH) {
       setIsActive(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return (
@@ -34,7 +34,9 @@ const BottomNav = () => {
     >
       <S.ListWrap>
         <S.List
-          className={pathname === ROUTES.HOME.PATH && !isActive && 'active'}
+          className={
+            pathname === ROUTES.HOME.PATH && !isActive ? 'active' : undefined
+          }
         >
           <Link to='/'>
             <S.IconContainer onClick={() => setIsActive(false)}>
@@ -43,7 +45,7 @@ const BottomNav = () => {
             </S.IconContainer>
           </Link>
         </S.List>
-        <S.List className={isActive && 'active'}>
+        <S.List className={isActive ? 'active' : undefined}>
           <S.IconContainer
             onClick={() =>
               pathname === ROUTES.HOME.PATH && setIsActive(!isActive)
@@ -53,7 +55,7 @@ const BottomNav = () => {
             <S.Text className='text'>Reservation</S.Text>
           </S.IconContainer>
         </S.List>
-        <S.List className={pathname.includes('/order') && 'active'}>
+        <S.List className={pathname.includes('/order') ? 'active' : undefined}>
           <Link to={ROUTES.ORDERS.PATH}>
             <S.IconContainer>
               <BatteryIcon className='icon' />
@@ -63,7 +65,9 @@ const BottomNav = () => {
         </S.List>
         <S.List
           className={
-            (pathname.includes('my') || pathname.includes('notice')) && 'active'
+            pathname.includes('my') || pathname.includes('notice')
+              ? 'active'
+              : undefined
           }
         >
           <S.IconContainer
@@ -86,6 +90,6 @@ const BottomNav = () => {
       </S.ListWrap>
     </S.Navigation>
   );
-};
+}
 
 export default BottomNav;

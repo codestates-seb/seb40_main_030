@@ -1,11 +1,11 @@
 import { ShadowButton } from '@/components/@common';
 import useReturnBattery from '@/hooks/Orders/useReturnBattery';
 
+import * as S from './Options.style';
 import DateBox from '../Content/DateBox';
 import ModalHeader from '../Modal/ModalHeader';
-import * as S from './Options.style';
 
-const Return = ({
+function Return({
   returnTime,
   setIsModalOpen,
   paymentId,
@@ -13,7 +13,7 @@ const Return = ({
   returnTime: string;
   setIsModalOpen: (arg: boolean) => void;
   paymentId: number;
-}) => {
+}) {
   const { handleReturnBattery } = useReturnBattery();
 
   return (
@@ -30,7 +30,7 @@ const Return = ({
         />
       </S.ReturnDateContainer>
       <ShadowButton
-        padding={'10px 5px'}
+        padding='10px 5px'
         content='반납하기'
         style={{ width: '70%', marginTop: '10%' }}
         shadow={false}
@@ -41,6 +41,6 @@ const Return = ({
       />
     </S.ContentWrapper>
   );
-};
+}
 
 export default Return;

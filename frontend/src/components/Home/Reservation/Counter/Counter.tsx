@@ -10,7 +10,7 @@ type CounterProps = {
   time: number;
 };
 
-const Counter = ({ type = '', min, max, range, time }: CounterProps) => {
+function Counter({ type = '', min, max, range, time }: CounterProps) {
   const { handleTime, currentTime } = useCounter(type, min, max, range, time);
 
   return (
@@ -22,6 +22,6 @@ const Counter = ({ type = '', min, max, range, time }: CounterProps) => {
       <S.UpDownButton onClick={() => handleTime('down')}>-</S.UpDownButton>
     </S.Container>
   );
-};
+}
 
 export default Counter;

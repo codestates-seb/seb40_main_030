@@ -10,13 +10,13 @@ type DateBoxProps = {
   fontSize?: string | number;
 };
 
-const DateBox = ({
+function DateBox({
   startTime,
   returnTime,
   border = false,
   fontSize,
   type,
-}: DateBoxProps) => {
+}: DateBoxProps) {
   return (
     <S.DateContainer>
       {startTime && (
@@ -25,17 +25,15 @@ const DateBox = ({
           <span>{convertDate2ReadableString(startTime)}</span>
         </div>
       )}
-      {border && <span className='border'></span>}
+      {border && <span className='border' />}
       {returnTime && (
         <div className='flex-center'>
-          <S.DateStatus style={{ fontSize }}>
-            {type ? type : '반납'}
-          </S.DateStatus>
+          <S.DateStatus style={{ fontSize }}>{type || '반납'}</S.DateStatus>
           <span>{convertDate2ReadableString(returnTime)}</span>
         </div>
       )}
     </S.DateContainer>
   );
-};
+}
 
 export default DateBox;

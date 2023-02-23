@@ -2,7 +2,7 @@ import { LogoImage } from '@/assets';
 
 import * as S from './SplashScreen.style';
 
-const SplashScreen = ({ matches }: { matches: boolean }) => {
+function SplashScreen({ matches }: { matches: boolean }) {
   return (
     <S.Wrapper
       matches={matches}
@@ -14,6 +14,6 @@ const SplashScreen = ({ matches }: { matches: boolean }) => {
       </S.SplashImageContainer>
     </S.Wrapper>
   );
-};
+}
 
 export default SplashScreen;

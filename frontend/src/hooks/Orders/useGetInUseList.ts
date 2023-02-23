@@ -1,10 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getPaymentsTable } from '@/apis/payments';
+import { useSnackBar } from '@/hooks';
 
-import { useSnackBar } from '..';
-
-const useGetInUseList = () => {
+const useGetInUseList: any = () => {
   const { openSnackBar } = useSnackBar();
   const { data, status } = useQuery(
     ['order-inUse'],
@@ -17,9 +16,8 @@ const useGetInUseList = () => {
           );
 
           return [];
-        } else {
-          throw err; // 반드시 모든 케이스에 대한 error 처리를 해줘야 queryCache가 오류를 인식한다
         }
+        throw err; // 반드시 모든 케이스에 대한 error 처리를 해줘야 queryCache가 오류를 인식한다
       }),
     {
       useErrorBoundary: true,

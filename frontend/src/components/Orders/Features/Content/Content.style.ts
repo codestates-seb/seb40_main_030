@@ -14,7 +14,7 @@ const DateContainer = styled.div<{ fontSize?: string }>`
 
   span {
     margin-top: 5px;
-    font-size: ${({ fontSize }) => (fontSize ? fontSize : '18px')};
+    font-size: ${({ fontSize }) => fontSize || '18px'};
   }
 
   .border {
@@ -50,8 +50,8 @@ const ContentModal = styled(motion.div)<{ height?: string; width?: string }>`
 
   padding: 20px 10px;
 
-  width: ${({ width }) => (width ? width : '90%')};
-  height: ${({ height }) => (height ? height : '70%')};
+  width: ${({ width }) => width || '90%'};
+  height: ${({ height }) => height || '70%'};
   border-radius: 20px;
   background-color: #ffffff;
 

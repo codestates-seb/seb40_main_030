@@ -1,17 +1,17 @@
+import { ReactNode } from 'react';
+
 import { SnackBar } from '@/components/@common';
 import { useBottomSheet, useSnackBar } from '@/hooks';
 
 import * as S from './BottomSheet.style';
 import Header from './Header';
-import { ReactNode } from 'react';
 
-const BottomSheet = ({
-  matches,
-  children,
-}: {
+type Props = {
   matches: boolean;
   children: ReactNode;
-}) => {
+};
+
+function BottomSheet({ matches, children }: Props) {
   const { onDragEnd, controls } = useBottomSheet();
   const { isActive, message } = useSnackBar();
 
@@ -39,6 +39,6 @@ const BottomSheet = ({
       <SnackBar isActive={isActive} message={message} />
     </S.Wrapper>
   );
-};
+}
 
 export default BottomSheet;

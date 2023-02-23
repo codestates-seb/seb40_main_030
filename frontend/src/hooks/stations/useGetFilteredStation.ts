@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { BatteryType } from '@/@types';
 import { getSearchDataBySetTime } from '@/apis/stations';
 
 import { useCheckValidReserveTable } from '..';
-import { BatteryType } from '@/@types';
 
 const useGetFilteredStation = () => {
   const { startPoint, endPoint } = useCheckValidReserveTable();
@@ -17,9 +17,8 @@ const useGetFilteredStation = () => {
       }).catch((err) => {
         if (err.response.status === 400) {
           return null;
-        } else {
-          throw err;
         }
+        throw err;
       }),
     {
       select: (stations) =>

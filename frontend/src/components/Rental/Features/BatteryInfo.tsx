@@ -1,25 +1,22 @@
+import { SyntheticEvent, ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { SyntheticEvent } from 'react';
-
+import { BatteryType, StationType } from '@/@types';
 import { BatterImg } from '@/assets';
-import { BatteryType } from '@/@types';
-import { convertFullDateToSingleProp } from '@/utils';
-import { PRICE_REGEX } from '@/constants';
 import { ShadowButton, ShadowCard } from '@/components/@common';
+import { PRICE_REGEX } from '@/constants';
 import { useCheckValidReserveTable, useTimeDifference } from '@/hooks';
+import { convertFullDateToSingleProp } from '@/utils';
 
 import * as S from './Features.style';
 import ReservationChart from './ReservationChart';
 
-type BatteryInfoProps = {
+type Props = {
   content: BatteryType;
-  station: {
-    name: string;
-  };
+  station: StationType;
 };
 
-const BatteryInfo = ({ content, station }: BatteryInfoProps) => {
+function BatteryInfo({ content, station }: Props): ReactElement {
   const navigate = useNavigate();
   const { startPoint, endPoint } = useCheckValidReserveTable();
   const {
@@ -34,7 +31,7 @@ const BatteryInfo = ({ content, station }: BatteryInfoProps) => {
   const { year, month, date } = convertFullDateToSingleProp(createdAt);
   const { periodInMin } = useTimeDifference();
 
-  const handleClick = () => {
+  const handleClick: () => void = () => {
     navigate(`/payments/${batteryId}`, {
       state: {
         name: station.name,
@@ -50,7 +47,9 @@ const BatteryInfo = ({ content, station }: BatteryInfoProps) => {
     });
   };
 
-  const imageOnErrorHandler = (e: SyntheticEvent<HTMLImageElement, Event>) => {
+  const imageOnErrorHandler: (
+    e: SyntheticEvent<HTMLImageElement, Event>,
+  ) => void = (e) => {
     e.currentTarget.onerror = null;
 
     e.currentTarget.src = BatterImg;
@@ -64,7 +63,7 @@ const BatteryInfo = ({ content, station }: BatteryInfoProps) => {
             <S.BatteryImage
               src={photoURL}
               alt='dd'
-              onError={(e) => imageOnErrorHandler(e)}
+              onError={imageOnErrorHandler}
             />
             <S.Capacity>
               {capacity.toString().replace(PRICE_REGEX, ',')}
@@ -92,11 +91,9 @@ const BatteryInfo = ({ content, station }: BatteryInfoProps) => {
             <ShadowButton
               shadow={false}
               color='#22577e'
-              width='150px'
-              padding='10px 5px'
               content='예약하기'
-              style={{ fontSize: 15 }}
-              onClick={() => handleClick()}
+              style={{ fontSize: 15, width: '150px', padding: '10px 5px' }}
+              onClick={handleClick}
             />
           </S.ProductInfoContainer>
         </S.ProductWrapper>
@@ -104,6 +101,6 @@ const BatteryInfo = ({ content, station }: BatteryInfoProps) => {
       </ShadowCard>
     </S.BatteryContainer>
   );
-};
+}
 
 export default BatteryInfo;

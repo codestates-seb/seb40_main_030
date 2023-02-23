@@ -10,4 +10,4 @@ const EmptyWrapper = styled.div`
   height: 100%;
 `;
 
-export { EmptyWrapper };
+export default EmptyWrapper;

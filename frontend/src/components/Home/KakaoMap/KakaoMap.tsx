@@ -1,24 +1,27 @@
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useState, useCallback, useEffect } from 'react';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useRecoilState } from 'recoil';
-import { currentLocationState } from '@/recoil/pagesState';
+
+import { Matches, Content } from '@/@types';
 import { PinningImage, UserMapMarker } from '@/assets';
+import {
+  MapIndicator,
+  MarkerContainer,
+  KakaoRoadView,
+} from '@/components/Home/KakaoMap';
 import { DESKTOP_MAX_WIDTH } from '@/constants';
-import { MapIndicator, MarkerContainer, KakaoRoadView } from './index';
 import {
   useCheckDateFixed,
   useCurrentAddress,
-  useGetAllStations,
   useWatchLocation,
   useGetStationsByRegion,
 } from '@/hooks';
+import { currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './KakaoMap.style';
-import { Matches, Content } from '@/@types';
 
-const KakaoMap = ({ matches }: { matches: Matches }) => {
+function KakaoMap({ matches }: { matches: Matches }) {
   const [toggle, setToggle] = useState(false);
-  const { data: stations } = useGetAllStations();
   const { location: myLocation } = useWatchLocation();
   const { data: filteredStations, refetch: updateLocation } =
     useGetStationsByRegion();
@@ -66,13 +69,13 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
           }}
           onClick={(_, mouseEvent) => handleCurrentLocation(mouseEvent)}
           level={4}
-          draggable={true}
+          draggable
         >
           {isDateFixed
             ? filteredStations?.map((content: Content) => (
                 <MarkerContainer key={content.id} content={content} />
               ))
-            : stations?.map((content: Content) => (
+            : filteredStations?.map((content: Content) => (
                 <MarkerContainer key={content.id} content={content} />
               ))}
           <MapMarker
@@ -87,7 +90,7 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
                 height: 50,
               },
             }}
-          ></MapMarker>
+          />
           {currentLocation && (
             <MapMarker
               position={{
@@ -101,7 +104,7 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
                   height: 30,
                 },
               }}
-            ></MapMarker>
+            />
           )}
         </Map>
       ) : (
@@ -109,6 +112,6 @@ const KakaoMap = ({ matches }: { matches: Matches }) => {
       )}
     </S.MapWrapper>
   );
-};
+}
 
 export default KakaoMap;

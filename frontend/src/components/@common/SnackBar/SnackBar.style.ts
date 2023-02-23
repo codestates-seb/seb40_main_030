@@ -1,5 +1,11 @@
 import styled, { css, keyframes } from 'styled-components';
 
+interface Snackbar {
+  isActive: boolean;
+  matches: boolean;
+  confirm: boolean;
+}
+
 const FadeIn = keyframes`
   0% {
     opacity: 0;
@@ -9,11 +15,7 @@ const FadeIn = keyframes`
   }
 `;
 
-const SnackBar = styled.div<{
-  isActive: boolean;
-  matches: boolean;
-  confirm: boolean;
-}>`
+const SnackBar = styled.div<Snackbar>`
   display: flex;
   flex-direction: row;
   justify-content: center;

@@ -18,9 +18,8 @@ const useGetHistoryList = () => {
           );
 
           return [];
-        } else {
-          throw err; // 반드시 모든 케이스에 대한 error 처리를 해줘야 queryCache가 오류를 인식한다
         }
+        throw err; // 반드시 모든 케이스에 대한 error 처리를 해줘야 queryCache가 오류를 인식한다
       }),
     {
       useErrorBoundary: false,

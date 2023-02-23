@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import styled, { CSSProperties } from 'styled-components';
+import styled from 'styled-components';
 
 import { DESKTOP_MAX_WIDTH, DESKTOP_MARGIN_LEFT } from '@/constants';
 
@@ -13,7 +13,6 @@ const DesktopWrapper = styled.div`
 
 const MotionWrapper = styled(motion.div)<{
   matches: boolean;
-  initial: CSSProperties | any;
 }>`
   display: flex;
   flex-direction: column;

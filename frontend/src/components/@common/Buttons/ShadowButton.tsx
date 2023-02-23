@@ -1,29 +1,38 @@
-import { CSSProperties } from 'styled-components';
-import * as S from './Buttons.style';
+import { ReactElement, CSSProperties } from 'react';
+
+import StyledShadowButton from './Buttons.style';
 
 type Props = {
   color?: string;
   padding?: string;
   content: string;
   shadow?: boolean;
-  width?: string;
-  disabled?: boolean;
   onClick?: () => void;
+  disabled?: boolean;
   style?: CSSProperties;
 };
 
-const ShadowButton = ({
+function ShadowButton({
   color,
   padding,
   content,
   shadow = true,
-  ...rest
-}: Props) => {
+  onClick,
+  style,
+  disabled,
+}: Props): ReactElement {
   return (
-    <S.ShadowButton color={color} padding={padding} shadow={shadow} {...rest}>
+    <StyledShadowButton
+      color={color}
+      padding={padding}
+      shadow={shadow}
+      onClick={onClick}
+      style={style}
+      disabled={disabled}
+    >
       {content}
-    </S.ShadowButton>
+    </StyledShadowButton>
   );
-};
+}
 
 export default ShadowButton;

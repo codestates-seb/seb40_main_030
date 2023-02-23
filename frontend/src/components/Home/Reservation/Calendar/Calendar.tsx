@@ -1,12 +1,12 @@
-import { useReservation } from '@/hooks';
+import { useRecoilValue } from 'recoil';
+
+import { reservationState } from '@/recoil/pagesState';
 
 import * as S from './Calendar.style';
 import DateStatus from './DateStatus';
 import HorizontalDatePicker from './HorizontalDatePicker';
-import { useRecoilValue } from 'recoil';
-import { reservationState } from '@/recoil/pagesState';
 
-const Calendar = () => {
+function Calendar() {
   const reservationStatus = useRecoilValue(reservationState);
   const { startDate, endDate, startTime, returnTime, dateFixed } =
     reservationStatus;
@@ -23,6 +23,6 @@ const Calendar = () => {
       )}
     </S.Wrapper>
   );
-};
+}
 
 export default Calendar;

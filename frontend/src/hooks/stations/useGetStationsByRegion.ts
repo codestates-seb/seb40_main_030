@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { getStationsByRegion } from '@/apis/stations';
-import { useCheckValidReserveTable, useCurrentAddress, useSnackBar } from '..';
 import { useRecoilValue } from 'recoil';
-import { currentLocationState } from '@/recoil/pagesState';
+
+import { getStationsByRegion } from '@/apis/stations';
 import { MESSAGE } from '@/constants';
+import { currentLocationState } from '@/recoil/pagesState';
+
+import { useCheckValidReserveTable, useCurrentAddress, useSnackBar } from '..';
 
 const useGetStationsByRegion = () => {
   const { startPoint, endPoint } = useCheckValidReserveTable();
@@ -28,9 +30,8 @@ const useGetStationsByRegion = () => {
             openSnackBar(MESSAGE.STATION_NOT_FOUND);
           }
           return [];
-        } else {
-          throw err;
         }
+        throw err;
       }),
     {
       refetchOnWindowFocus: false,

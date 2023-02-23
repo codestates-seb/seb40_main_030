@@ -33,14 +33,14 @@ export type BatteryType = {
 export type Matches = boolean;
 
 export type ReservationTime = {
-  hours: string | number;
-  minutes: string | number;
+  hours: string | number | null;
+  minutes: string | number | null;
 };
 
 export type ReservationDate = {
-  year?: string | number;
-  month: string | number;
-  date: string | number;
+  year?: string | number | null;
+  month: string | number | null;
+  date: string | number | null;
 };
 
 export type Reservation = {

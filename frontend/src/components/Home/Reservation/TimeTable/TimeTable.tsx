@@ -1,12 +1,12 @@
 import { useRecoilValue } from 'recoil';
 
 import { ShadowButton } from '@/components/@common';
-import { convertMinTo10Min } from '@/utils';
 import { useReservation } from '@/hooks';
 import { reservationState } from '@/recoil/pagesState';
+import { convertMinTo10Min } from '@/utils';
 
-import Counter from '../Counter/Counter';
 import * as S from './TimeTable.style';
+import Counter from '../Counter/Counter';
 
 const RESERVATION_MAGIC_NUMBERS = {
   HOURS: {
@@ -25,7 +25,7 @@ const RESERVATION_CONFIRM_MESSAGE = {
   RENT: '반납시간 설정 완료',
   RETURN: '대여시간 설정 완료',
 };
-const TimeTable = () => {
+function TimeTable() {
   const { hours, minutes } = useRecoilValue(reservationState);
   const { handleReservation, reservation } = useReservation();
 
@@ -65,6 +65,6 @@ const TimeTable = () => {
       />
     </>
   );
-};
+}
 
 export default TimeTable;

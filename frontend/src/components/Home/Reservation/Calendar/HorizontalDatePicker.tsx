@@ -4,16 +4,14 @@ import { useEffect } from 'react';
 
 import { useCalendar } from '@/hooks';
 
-const HorizontalDatePicker = () => {
+function HorizontalDatePicker() {
   const { date, handleChange, addMonths } = useCalendar();
 
   const buttons = document.querySelectorAll('.Kq');
 
   useEffect(() => {
     if (buttons) {
-      // @ts-ignore
-      // downlevelIteration 문제
-      [...buttons].map((button) => button.remove());
+      [...buttons].forEach((button) => button.remove());
     }
   }, [buttons]);
   return (
@@ -26,6 +24,6 @@ const HorizontalDatePicker = () => {
       endDate={addMonths(1)}
     />
   );
-};
+}
 
 export default HorizontalDatePicker;

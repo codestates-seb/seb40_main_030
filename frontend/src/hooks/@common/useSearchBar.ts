@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 
-import { ch2Pattern } from '@/utils';
 import { Content } from '@/@types';
+import { ch2Pattern } from '@/utils';
 
 const useSearchBar = (stations: Content[]) => {
   const inputRef = useRef(null);
@@ -18,7 +18,7 @@ const useSearchBar = (stations: Content[]) => {
   };
 
   const handleKeyword = useCallback(
-    (keyword: string) => {
+    () => {
       if (!keyword.length) {
         setIsActive(!isActive);
 

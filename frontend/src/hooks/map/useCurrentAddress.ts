@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
-/*global kakao*/
+/* global kakao */
 
-import { useCallback } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
 import { Coordinate } from '@/@types/maps';
 
 const useCurrentAddress = ({ latitude, longitude }: Coordinate) => {
@@ -11,10 +10,10 @@ const useCurrentAddress = ({ latitude, longitude }: Coordinate) => {
   const [addressDetail, setAddressDetail] = useState('');
   const [shortAddress, setShortAddress] = useState('');
 
-  let geocoder = new kakao.maps.services.Geocoder();
-  let coord = new kakao.maps.LatLng(latitude, longitude);
+  const geocoder = new kakao.maps.services.Geocoder();
+  const coord = new kakao.maps.LatLng(latitude, longitude);
 
-  let callback = useCallback(
+  const callback = useCallback(
     (result: { address: any; road_address: any }[]) => {
       const fullAddress = { ...result }[0]?.address;
 

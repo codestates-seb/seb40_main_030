@@ -8,13 +8,13 @@ const CATEGORY_LIST = {
   HISTORY: 'history',
 };
 
-const Category = ({
+function Category({
   currentCategory,
   handleSwitchCategory,
 }: {
   currentCategory: CategoryTypes;
   handleSwitchCategory: (category: CategoryTypes) => void;
-}) => {
+}) {
   return (
     <S.Header>
       <S.CategoryButton
@@ -43,6 +43,6 @@ const Category = ({
       </S.CategoryButton>
     </S.Header>
   );
-};
+}
 
 export default Category;

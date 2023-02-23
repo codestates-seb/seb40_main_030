@@ -1,6 +1,9 @@
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
+import { Matches } from '@/@types';
+import { Coordinate } from '@/@types/maps';
 import { CurrentLocationIcon, SearchIcon } from '@/assets';
 import { MESSAGE, ROUTES } from '@/constants';
 import {
@@ -12,9 +15,6 @@ import {
 import { currentLocationState } from '@/recoil/pagesState';
 
 import * as S from './MapIndicator.style';
-import { useCallback } from 'react';
-import { Coordinate } from '@/@types/maps';
-import { Matches } from '@/@types';
 
 type MapIndicatorProps = {
   toggle: boolean;
@@ -22,7 +22,7 @@ type MapIndicatorProps = {
   matches: Matches;
 };
 
-const MapIndicator = ({ toggle, setToggle, matches }: MapIndicatorProps) => {
+function MapIndicator({ toggle, setToggle, matches }: MapIndicatorProps) {
   const navigate = useNavigate();
   const { location } = useWatchLocation();
   const [defaultLocation, setCurrentLocation] =
@@ -32,10 +32,10 @@ const MapIndicator = ({ toggle, setToggle, matches }: MapIndicatorProps) => {
   const { openSnackBar } = useSnackBar();
 
   const handleCurrentLocation = useCallback(
-    (location: Coordinate) => {
-      setCurrentLocation(location);
+    (currentCoords: Coordinate) => {
+      setCurrentLocation(currentCoords);
     },
-    [defaultLocation]
+    [defaultLocation],
   );
 
   return (
@@ -73,13 +73,15 @@ const MapIndicator = ({ toggle, setToggle, matches }: MapIndicatorProps) => {
             return;
           }
 
-          location && handleCurrentLocation(location);
+          if (location) {
+            handleCurrentLocation(location);
+          }
         }}
       >
         <CurrentLocationIcon />
       </S.Button>
     </S.Wrapper>
   );
-};
+}
 
 export default MapIndicator;

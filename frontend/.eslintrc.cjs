@@ -31,8 +31,17 @@ module.exports = {
     },
   },
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 'error',
-    '@typescript-eslint/explicit-module-boundary-types': 'error',
+    'react/require-default-props': 'off',
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/explicit-function-return-type': [
+      'off',
+      {
+        allowExpressions: true,
+      },
+    ],
+    'no-param-reassign': ['error', { props: false }],
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     'import/extensions': 'off',
     'import/order': [

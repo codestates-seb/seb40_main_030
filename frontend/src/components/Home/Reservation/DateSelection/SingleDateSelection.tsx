@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
+import { ReservationDate } from '@/@types';
 import { useSingleDateReservation } from '@/hooks';
 
 import DateStatus from '../Calendar/DateStatus';
 import * as S from '../Reservation.style';
-import { ReservationDate, ReservationTime } from '../../../../@types/index';
 
-const SingleDateSelection = ({
+function SingleDateSelection({
   currentDate,
 }: {
   currentDate: ReservationDate;
-}) => {
+}) {
   const { handleSingleDateReservation, reservationStatus } =
     useSingleDateReservation(currentDate);
   const { startTime, returnTime } = reservationStatus;
@@ -32,6 +32,6 @@ const SingleDateSelection = ({
       />
     </S.ReservationContainer>
   );
-};
+}
 
 export default SingleDateSelection;

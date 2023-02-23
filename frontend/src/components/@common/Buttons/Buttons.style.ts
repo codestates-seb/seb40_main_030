@@ -4,14 +4,15 @@ const ShadowButton = styled.a<{
   width?: string;
   padding?: string;
   shadow?: boolean;
+  disabled?: boolean;
 }>`
   width: ${({ width }) => width};
   font-size: 18px;
   cursor: pointer;
-  padding: ${({ padding }) => (padding ? padding : '20px 40px')};
+  padding: ${({ padding }) => padding || '20px 40px'};
   border: 1px solid none;
   border-radius: 8px;
-  background-color: ${({ color, theme }) => (color ? color : theme.COLOR_BLUE)};
+  background-color: ${({ color, theme }) => color || theme.COLOR_BLUE};
   box-shadow: ${({ shadow }) =>
     shadow ? '20px 30px 30px 0 rgb(0 31 68 / 30%)' : ''};
   color: white;
@@ -25,4 +26,4 @@ const ShadowButton = styled.a<{
   letter-spacing: 1px;
 `;
 
-export { ShadowButton };
+export default ShadowButton;
