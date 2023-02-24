@@ -1,5 +1,3 @@
-// 라우팅에 필요한 정보
-
 const ROUTES = Object.freeze({
   HOME: {
     PATH: '/',
@@ -17,11 +15,11 @@ const ROUTES = Object.freeze({
     PATH: '/adminsignup',
     NAME: 'Adminsignup',
   },
-  MYPAGE: {
+  MY_PAGE: {
     PATH: '/mypage',
     NAME: 'Mypage',
   },
-  MYPROFILE: {
+  MY_PROFILE: {
     PATH: '/myprofile',
     NAME: 'Myprofile',
   },
@@ -65,21 +63,17 @@ const ROUTES = Object.freeze({
     PATH: '/orders/list',
     NAME: 'Orders',
   },
-  PAYMENTCOMPLETED: {
+  PAYMENT_COMPLETED: {
     PATH: `/payments/payment_completed`,
     NAME: 'Payments',
   },
-  PAYMENTCANCELED: {
+  PAYMENT_CANCELED: {
     PATH: `/kakaoPayCancel/:paymentId`,
     NAME: 'payment_canceled',
   },
-  PAYMENTFAILED: {
+  PAYMENT_FAILED: {
     PATH: `/kakaoPaySuccessFail/:paymentId`,
     NAME: 'kakaoPayFailed',
-  },
-  LOGINREDIRECT: {
-    PATH: '/loginredirect',
-    NAME: 'Loginredirect',
   },
 });
 

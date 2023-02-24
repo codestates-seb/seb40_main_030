@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { BOOKING_TYPE, MESSAGE, TIME } from '@/constants';
+import useSnackBar from '@/hooks/@common/useSnackBar';
 import { initialReservationValue, reservationState } from '@/recoil/pagesState';
-
-import { useSnackBar } from '..';
 import { isSelectedTimeValid } from '@/utils';
 
 type ReservationTime = {

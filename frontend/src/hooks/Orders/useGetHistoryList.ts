@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getPaymentsTable } from '@/apis/payments';
-
-import { useSnackBar } from '..';
+import useSnackBar from '@/hooks/@common/useSnackBar';
 
 const useGetHistoryList = () => {
   const { openSnackBar } = useSnackBar();
@@ -19,13 +18,15 @@ const useGetHistoryList = () => {
 
           return [];
         }
-        throw err; // 반드시 모든 케이스에 대한 error 처리를 해줘야 queryCache가 오류를 인식한다
+        throw err;
       }),
     {
       useErrorBoundary: false,
       suspense: true,
       select: (lists) =>
-        lists.filter((list: any) => list.payStatus === 'HISTORY'),
+        lists.filter(
+          (list: { payStatus: string }) => list.payStatus === 'HISTORY',
+        ),
     },
   );
 

@@ -10,22 +10,19 @@ const useCancelMockPayment = () => {
 
   const { mutate } = useMutation(
     ['payments', 'order-inUse'],
-    (id) => patchChangePaymentStatus(id),
+    (id: number) => patchChangePaymentStatus(id),
     {
-      useErrorBoundary: (error: any) => error.response?.status >= 500,
       onSuccess: () => {
         openSnackBar('예약 취소가 정상적으로 완료되었습니다.');
         return queryClient.invalidateQueries(['order-bookings']);
       },
-      onError: (err) => {
+      onError: (err: any) => {
         openSnackBar(`예약 취소가 실패하였습니다. ${err.response.status}`);
       },
     },
   );
 
-  const handleCancelMockPayment = (id: any) => {
-    mutate(id);
-  };
+  const handleCancelMockPayment: (id: number) => void = (id) => mutate(id);
 
   return { handleCancelMockPayment };
 };
@@ -36,9 +33,8 @@ const useCancelPayment = () => {
 
   const { mutate } = useMutation(
     ['payments', 'order-inUse'],
-    (id) => postCancelPayment(id),
+    (id: number) => postCancelPayment(id),
     {
-      useErrorBoundary: (error: any) => error.response?.status >= 500,
       onSuccess: () => {
         openSnackBar('예약 취소가 정상적으로 완료되었습니다.');
         return queryClient.invalidateQueries(['order-bookings']);
@@ -49,9 +45,7 @@ const useCancelPayment = () => {
     },
   );
 
-  const handleCancelPayment = (id: any) => {
-    mutate(id);
-  };
+  const handleCancelPayment = (id: number) => mutate(id);
 
   return { handleCancelPayment };
 };

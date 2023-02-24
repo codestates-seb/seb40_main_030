@@ -10,7 +10,7 @@ const useReturnBattery = () => {
 
   const { mutate } = useMutation(
     ['payments', 'order-inUse'],
-    (id) => patchReturnBattery(id),
+    (id: number) => patchReturnBattery(id),
     {
       onSuccess: () => {
         openSnackBar('반납이 정상적으로 완료되었습니다.');
@@ -22,9 +22,7 @@ const useReturnBattery = () => {
     },
   );
 
-  const handleReturnBattery = (id: any) => {
-    mutate(id);
-  };
+  const handleReturnBattery = (id: number) => mutate(id);
 
   return { handleReturnBattery };
 };

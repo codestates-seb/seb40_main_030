@@ -16,7 +16,7 @@ const useExtendBookingPeriod = () => {
         openSnackBar(`연장이 성공적으로 완료되었습니다.`);
         queryClient.invalidateQueries(['order-inUse']);
       },
-      onError: (err) => {
+      onError: (err: any) => {
         openSnackBar(`연장에 실패하였습니다. ${err.response.status}`);
       },
     },

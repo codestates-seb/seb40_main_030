@@ -1,4 +1,4 @@
-const convertDate2ServerString = (fullDate: string) => {
+const convertDate2ServerString = (fullDate: number) => {
   const newDate = new Date(fullDate);
   const year = String(newDate.getFullYear());
   const date = String(newDate.getDate()).padStart(2, '0');

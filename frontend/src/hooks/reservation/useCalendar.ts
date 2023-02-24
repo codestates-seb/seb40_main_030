@@ -3,10 +3,17 @@ import { useRecoilState } from 'recoil';
 
 import { reservationState } from '@/recoil/pagesState';
 
+import { InitialReservationStateType } from '../../@types/index';
+
 const useCalendar = () => {
-  const [reservationStatus, setReservationStatus] =
-    useRecoilState<any>(reservationState);
-  const [date, setDate] = useState<any>({
+  const [reservationStatus, setReservationStatus] = useRecoilState<
+    InitialReservationStateType | any
+  >(reservationState);
+  const [calendarDate, setCalendarDate] = useState<{
+    startValue: any;
+    endValue: any;
+    rangeDates?: string[];
+  }>({
     startValue: null,
     endValue: null,
     rangeDates: [],
@@ -29,19 +36,24 @@ const useCalendar = () => {
   };
 
   const year = new Date().getFullYear();
-  const startMonth = new Date(date.startValue).getMonth() + 1;
-  const endMonth = new Date(date.endValue).getMonth() + 1;
+  const startMonth = new Date(calendarDate.startValue).getMonth() + 1;
+  const endMonth = new Date(calendarDate.endValue).getMonth() + 1;
 
-  const startDate = new Date(date.startValue).getDate();
-  const endDate = new Date(date.endValue).getDate();
+  const startDate = new Date(calendarDate.startValue).getDate();
+  const endDate = new Date(calendarDate.endValue).getDate();
 
   const handleChange = (date: any) => {
     const [startValue, endValue, rangeDates] = date;
-    setDate((prev: any) => ({ ...prev, endValue, startValue, rangeDates }));
+    setCalendarDate((prev: any) => ({
+      ...prev,
+      endValue,
+      startValue,
+      rangeDates,
+    }));
   };
 
   useEffect(() => {
-    if (date.startValue !== null && date.endValue !== null) {
+    if (calendarDate.startValue !== null && calendarDate.endValue !== null) {
       setReservationStatus({
         ...reservationStatus,
         startDate: { year, month: startMonth, date: startDate },
@@ -49,10 +61,10 @@ const useCalendar = () => {
         dateFixed: { ...reservationStatus.dateFixed, date: true },
       });
     }
-  }, [date]);
+  }, [calendarDate]);
 
   return {
-    date,
+    date: calendarDate,
     currentDate,
     currentTime,
     handleChange,

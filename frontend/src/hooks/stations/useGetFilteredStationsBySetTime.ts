@@ -17,6 +17,7 @@ const useGetFilteredStationsBySetTime = () => {
         returnTime: endPoint?.replace(' ', 'T'),
       }).catch((err) => {
         const statusCode = err.response.status;
+
         if (statusCode === 400 || statusCode === 404) {
           return null;
         }

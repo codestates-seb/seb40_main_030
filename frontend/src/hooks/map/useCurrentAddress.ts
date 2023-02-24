@@ -14,15 +14,15 @@ const useCurrentAddress = ({ latitude, longitude }: Coordinate) => {
   const coord = new kakao.maps.LatLng(latitude, longitude);
 
   const callback = useCallback(
-    (result: { address: any; road_address: any }[]) => {
+    (result: any) => {
       const fullAddress = { ...result }[0]?.address;
 
       const dong = fullAddress?.region_3depth_name;
       const gu = fullAddress?.region_2depth_name;
-      const main_address_no = fullAddress?.main_address_no;
-      const sub_address_no = fullAddress?.sub_address_no;
+      const mainAddressNumber = fullAddress?.main_address_no;
+      const subAddressNumber = fullAddress?.sub_address_no;
 
-      const currentLocation = `${gu} ${dong} ${main_address_no}-${sub_address_no}`;
+      const currentLocation = `${gu} ${dong} ${mainAddressNumber}-${subAddressNumber}`;
 
       setAddressDetail(fullAddress?.address_name);
       setCurrentAddress(currentLocation);

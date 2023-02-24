@@ -7,17 +7,14 @@ const useSnackBar = () => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isCanceled, setIsCanceled] = useState(false);
   const [snackBar, setSnackBar] = useRecoilState(snackBarState);
-  const { isActive, message } = snackBar;
 
   useEffect(() => {
-    if (isActive) {
+    if (snackBar.isActive) {
       setTimeout(() => {
         setSnackBar({ ...snackBar, isActive: false });
       }, 4000);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive]);
+  }, [snackBar.isActive]);
 
   const openSnackBar = (message: string) => {
     setSnackBar({ message, isActive: true });
@@ -28,8 +25,8 @@ const useSnackBar = () => {
     setIsConfirmed,
     isConfirmed,
     isCanceled,
-    isActive,
-    message,
+    isActive: snackBar.isActive,
+    message: snackBar.message,
     openSnackBar,
   };
 };

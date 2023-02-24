@@ -92,7 +92,7 @@ function Extends({
           content='시간 재설정 하기'
           style={{ width: '70%', marginTop: '10%' }}
           onClick={() => {
-            setExtendedDate('');
+            setExtendedDate(null);
             setIsSubmitted(false);
           }}
         />

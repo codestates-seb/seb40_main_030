@@ -10,24 +10,22 @@ import { currentLocationState } from '@/recoil/pagesState';
 
 import SearchBar from './SearchBar/SearchBar';
 
-function SearchPage({ stations }: { stations: Content[] }) {
+function SearchPage({ stations }: { stations: Content[] | undefined }) {
   const { isActive, message, openSnackBar } = useSnackBar();
-  const [locationInfo, setLocationInfo] = useState<any>({});
+  const [locationInfo, setLocationInfo] = useState<any | undefined>({});
   const navigate = useNavigate();
   const setLocation = useSetRecoilState(currentLocationState);
-
-  console.log(locationInfo);
 
   return (
     <>
       <div>
         <SearchBar stations={stations} setLocationInfo={setLocationInfo} />
-        {Object.keys(locationInfo).length !== 0 && (
+        {Object.keys(locationInfo)?.length !== 0 && (
           <ShadowButton
             content={`${locationInfo?.name}으로 이동`}
             style={{ marginTop: 100, width: '100%' }}
             onClick={() =>
-              Object.keys(locationInfo).length !== 0
+              Object.keys(locationInfo)?.length !== 0
                 ? (setLocation(locationInfo?.location),
                   navigate(ROUTES.HOME.PATH))
                 : openSnackBar(MESSAGE.KEYWORD_NOT_PROVIDED)

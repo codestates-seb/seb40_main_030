@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion';
 import { ReactNode, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ import * as S from './PageWrapper.style';
 
 type Props = {
   title: string;
-  path: string;
+  path: string | number;
   loadingMessage?: string;
   loadingDelay?: number | string;
   children: ReactNode;

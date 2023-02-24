@@ -34,9 +34,7 @@ function BottomNav() {
     >
       <S.ListWrap>
         <S.List
-          className={
-            pathname === ROUTES.HOME.PATH && !isActive ? 'active' : undefined
-          }
+          className={pathname === ROUTES.HOME.PATH && !isActive && 'active'}
         >
           <Link to='/'>
             <S.IconContainer onClick={() => setIsActive(false)}>
@@ -45,17 +43,19 @@ function BottomNav() {
             </S.IconContainer>
           </Link>
         </S.List>
-        <S.List className={isActive ? 'active' : undefined}>
+        <S.List className={isActive && 'active'}>
           <S.IconContainer
-            onClick={() =>
-              pathname === ROUTES.HOME.PATH && setIsActive(!isActive)
-            }
+            onClick={() => {
+              if (pathname === ROUTES.HOME.PATH) {
+                setIsActive(!isActive);
+              }
+            }}
           >
             <ClockIcon className='icon' />
             <S.Text className='text'>Reservation</S.Text>
           </S.IconContainer>
         </S.List>
-        <S.List className={pathname.includes('/order') ? 'active' : undefined}>
+        <S.List className={pathname.includes('/order') && 'active'}>
           <Link to={ROUTES.ORDERS.PATH}>
             <S.IconContainer>
               <BatteryIcon className='icon' />
@@ -65,9 +65,7 @@ function BottomNav() {
         </S.List>
         <S.List
           className={
-            pathname.includes('my') || pathname.includes('notice')
-              ? 'active'
-              : undefined
+            pathname.includes('my') || (pathname.includes('notice') && 'active')
           }
         >
           <S.IconContainer
@@ -75,7 +73,7 @@ function BottomNav() {
               if (localUserType === 'admin' || sessionUserType === 'admin') {
                 navigate(ROUTES.BUSINESS.PATH);
               } else {
-                navigate(ROUTES.MYPAGE.PATH);
+                navigate(ROUTES.MY_PAGE.PATH);
               }
 
               if (localToken === null && sessionToken === null) {

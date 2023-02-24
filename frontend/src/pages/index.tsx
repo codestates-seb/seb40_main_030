@@ -9,17 +9,17 @@ import Login from './Auth/Login';
 import LoginRedirect from './Auth/LoginRedirect/index';
 import Business from './Business';
 import Home from './Home';
-import Search from './Search';
-import Orders from './Orders';
 import MyPage from './MyPage';
 import MyProfile from './MyPage/MyProfile';
 import Notice from './MyPage/Notice';
 import NotFound from './NotFound';
+import Orders from './Orders';
 import Payments from './Payments';
 import PaymentCanceled from './PaymentState/PaymentCanceled';
 import PaymentCompleted from './PaymentState/PaymentCompleted';
 import PaymentFailed from './PaymentState/PaymentFailed';
 import Rental from './Rental';
+import Search from './Search';
 import SearchAddress from './SearchAddress';
 import SignUp from './SignUp';
 import AdminSignUp from './SignUp/AdminSignUp';
@@ -57,13 +57,13 @@ const PAGES: Route[] = [
       },
       {
         element: <MyPage />,
-        path: ROUTES.MYPAGE.PATH,
-        name: ROUTES.MYPAGE.NAME,
+        path: ROUTES.MY_PAGE.PATH,
+        name: ROUTES.MY_PAGE.NAME,
       },
       {
         element: <PaymentCompleted />,
-        path: ROUTES.PAYMENTCOMPLETED.PATH,
-        name: ROUTES.PAYMENTCOMPLETED.NAME,
+        path: ROUTES.PAYMENT_COMPLETED.PATH,
+        name: ROUTES.PAYMENT_COMPLETED.NAME,
       },
       {
         element: <Payments />,
@@ -77,8 +77,8 @@ const PAGES: Route[] = [
       },
       {
         element: <MyProfile />,
-        path: ROUTES.MYPROFILE.PATH,
-        name: ROUTES.MYPROFILE.NAME,
+        path: ROUTES.MY_PROFILE.PATH,
+        name: ROUTES.MY_PROFILE.NAME,
       },
     ],
   },
@@ -124,18 +124,18 @@ const PAGES: Route[] = [
   },
   {
     element: <PaymentCanceled />,
-    path: ROUTES.PAYMENTCANCELED.PATH,
-    name: ROUTES.PAYMENTCANCELED.NAME,
+    path: ROUTES.PAYMENT_CANCELED.PATH,
+    name: ROUTES.PAYMENT_CANCELED.NAME,
   },
   {
     element: <PaymentFailed />,
-    path: ROUTES.PAYMENTFAILED.PATH,
-    name: ROUTES.PAYMENTFAILED.NAME,
+    path: ROUTES.PAYMENT_FAILED.PATH,
+    name: ROUTES.PAYMENT_FAILED.NAME,
   },
   {
     element: <LoginRedirect />,
-    path: ROUTES.LOGINREDIRECT.PATH,
-    name: ROUTES.LOGINREDIRECT.NAME,
+    path: ROUTES.LOGIN_REDIRECT.PATH,
+    name: ROUTES.LOGIN_REDIRECT.NAME,
   },
 ];
 

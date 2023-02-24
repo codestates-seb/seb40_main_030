@@ -3,13 +3,15 @@ import { useCallback, useRef, useState } from 'react';
 import { Content } from '@/@types';
 import { ch2Pattern } from '@/utils';
 
-const useSearchBar = (stations: Content[]) => {
-  const inputRef = useRef(null);
+const useSearchBar = (stations: Content[] | undefined) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState(false);
   const [keyword, setKeyword] = useState('');
-  const [filteredLocation, setFilteredLocation] = useState<Content[]>([]);
+  const [filteredLocation, setFilteredLocation] = useState<
+    Content[] | undefined
+  >([]);
 
-  const createFuzzyMatcher = (inputValue: any) => {
+  const createFuzzyMatcher = (inputValue: string) => {
     setKeyword(inputValue);
 
     const pattern = inputValue.split('').map(ch2Pattern).join('.*?');
@@ -17,33 +19,30 @@ const useSearchBar = (stations: Content[]) => {
     return new RegExp(pattern);
   };
 
-  const handleKeyword = useCallback(
-    () => {
-      if (!keyword.length) {
-        setIsActive(!isActive);
+  const handleKeyword = useCallback(() => {
+    if (!keyword.length) {
+      setIsActive(!isActive);
 
-        return;
-      }
+      return;
+    }
 
-      const regex = createFuzzyMatcher(keyword);
-      const resultData = stations.filter(
-        (station: any) => regex.test(station.name),
-        false,
-      );
+    const regex = createFuzzyMatcher(keyword);
+    const resultData = stations?.filter(
+      (station) => regex.test(station.name),
+      false,
+    );
 
-      setFilteredLocation(resultData);
-      setIsActive(true);
-    },
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [keyword],
-  );
+    setFilteredLocation(resultData);
+    setIsActive(true);
+  }, [keyword]);
 
   const handleAutoComplete = () => {
     setIsActive(false);
     setKeyword('');
-    // @ts-ignore
-    inputRef.current.value = '';
+
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
   };
 
   return {

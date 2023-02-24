@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
-import { convertMinTo10Min } from '@/utils';
 import { DEFAULT_LOCATION } from '@/constants';
+import { convertMinTo10Min } from '@/utils';
 
 const initialReservationValue = {
   startTime: { hours: new Date().getHours(), minutes: new Date().getMinutes() },
@@ -25,7 +25,7 @@ const sessionStorageEffect =
       setSelf(JSON.parse(savedValue));
     }
 
-    onSet((newValue: any, _: any, isReset: any) => {
+    onSet((newValue: unknown, _: unknown, isReset: unknown) => {
       isReset
         ? sessionStorage.removeItem(key)
         : sessionStorage.setItem(key, JSON.stringify(newValue));

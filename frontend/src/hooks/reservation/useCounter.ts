@@ -8,7 +8,7 @@ const useCounter = (
   min: number,
   max: string | number,
   range: number,
-  time: number
+  time: number,
 ) => {
   const [currentTime, setTime] = useState<number>(time);
   const [timeline, setTimeline] = useRecoilState(reservationState);
@@ -31,8 +31,6 @@ const useCounter = (
     if (type === 'hours') setTimeline({ ...timeline, hours: currentTime });
 
     if (type === 'minutes') setTimeline({ ...timeline, minutes: currentTime });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTime, setTimeline]);
 
   return { handleTime, currentTime };

@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 
 import { reservationState } from '@/recoil/pagesState';
 
-import { useCheckValidReserveTable } from '..';
+import useCheckValidReserveTable from './useCheckValidReserveTable';
 
 const useCheckDateFixed = () => {
   const { startPoint, endPoint } = useCheckValidReserveTable();

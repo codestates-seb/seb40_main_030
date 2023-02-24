@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { useSnackBar } from '..';
+
 import { getPaymentsTable } from '@/apis/payments';
+import useSnackBar from '@/hooks/@common/useSnackBar';
 
 const useGetBookingList = () => {
   const { openSnackBar } = useSnackBar();
@@ -21,7 +22,8 @@ const useGetBookingList = () => {
     {
       select: (lists) =>
         lists?.filter(
-          (list: any) => list.payStatus === 'WAITING_FOR_RESERVATION',
+          (list: { payStatus: string }) =>
+            list.payStatus === 'WAITING_FOR_RESERVATION',
         ),
       useErrorBoundary: true,
       suspense: true,

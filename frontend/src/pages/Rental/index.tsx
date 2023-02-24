@@ -1,11 +1,11 @@
+import { lazy } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { PageWrapper } from '@/components/@common';
-import { lazy } from 'react';
 
 const RentalStatus = lazy(() => import('@/components/Rental/RentalStatus'));
 
-const Rental = () => {
+function Rental() {
   const { stationId } = useParams();
 
   return (
@@ -13,6 +13,6 @@ const Rental = () => {
       <RentalStatus id={stationId} />
     </PageWrapper>
   );
-};
+}
 
 export default Rental;

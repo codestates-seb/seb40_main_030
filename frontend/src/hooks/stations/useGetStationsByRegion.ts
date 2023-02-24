@@ -29,7 +29,7 @@ const useGetStationsByRegion = () => {
           if (startPoint !== null || endPoint !== null) {
             openSnackBar(MESSAGE.STATION_NOT_FOUND);
           }
-          return [];
+          return null;
         }
         throw err;
       }),

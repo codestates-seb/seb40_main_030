@@ -4,7 +4,9 @@ const usePreviousValue = (value: any) => {
   const previousValueRef = useRef();
 
   useEffect(() => {
-    previousValueRef.current = value;
+    if (previousValueRef.current) {
+      previousValueRef.current = value;
+    }
   }, [value]);
 
   return previousValueRef.current;

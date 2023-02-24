@@ -6,8 +6,8 @@ import {
 import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { reservationState } from '@/recoil/pagesState';
 import { ReservationDate } from '@/@types';
+import { reservationState } from '@/recoil/pagesState';
 
 const useSingleDateReservation = (currentDate: ReservationDate) => {
   const currentYear = new Date().getFullYear();
@@ -17,7 +17,6 @@ const useSingleDateReservation = (currentDate: ReservationDate) => {
 
   const { mutate } = useMutation(
     ['reservation-status'],
-    // @ts-ignore
     (status: MutationFunction<unknown, void> | any) => {
       setReservationStatus(status);
     },

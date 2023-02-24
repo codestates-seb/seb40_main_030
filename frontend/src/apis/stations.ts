@@ -1,6 +1,8 @@
-import { apiClient } from './api';
-import { Coordinate } from '@/@types/maps';
 import { AxiosResponse } from 'axios';
+
+import { Coordinate } from '@/@types/maps';
+
+import { apiClient } from './api';
 import { ApiStationsData, ApiBatteryData } from '../@types/apis';
 
 const getAllStations = async () => {

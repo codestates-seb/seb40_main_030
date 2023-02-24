@@ -10,10 +10,8 @@ const useKakaoMap = () => {
   const [isWatchingForLocation, setIsWatchForLocation] = useState(true);
 
   useEffect(() => {
-    // location 이 없는경우 early return;
     if (!location) return;
 
-    // 3000ms 이후 cancelLocation
     setTimeout(() => {
       cancelLocationWatch();
       setIsWatchForLocation(false);

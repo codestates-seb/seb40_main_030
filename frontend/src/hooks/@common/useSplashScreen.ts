@@ -17,7 +17,6 @@ const useSplashScreen = () => {
     } else {
       setLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { isLoading, isSplashed };

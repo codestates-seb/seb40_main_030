@@ -6,7 +6,7 @@ export type Content = {
   details: string;
   id: number;
   location: Coordinate;
-  name?: string;
+  name: string;
   phone: string;
   photoURL: string;
 };

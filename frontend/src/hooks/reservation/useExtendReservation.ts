@@ -1,25 +1,23 @@
 import { useRef, useState } from 'react';
 
-import { useSnackBar } from '..';
+import useSnackBar from '@/hooks/@common/useSnackBar';
 
 const useExtendReservation = (returnTime: string, possibleEndTime: string) => {
-  const [extendedDate, setExtendedDate] = useState<any>('');
-
-  const { openSnackBar } = useSnackBar();
+  const [extendedDate, setExtendedDate] = useState<number | null>(null);
   const externalHourRef = useRef(null);
   const externalMinutesRef = useRef(null);
+
+  const { openSnackBar } = useSnackBar();
 
   const timeDifferenceInHour =
     possibleEndTime &&
     (new Date(possibleEndTime)?.getTime() - new Date(returnTime)?.getTime()) /
       (1000 * 60 * 60);
 
-  const isValidExtendPeriod = (hoursRef: any, minutesRef: any) => {
+  const isValidExtendPeriod = (hoursRef, minutesRef) => {
     const hoursInMs =
-      // @ts-ignore
       String(hoursRef.current?.value).padStart(2, '0') * 1000 * 60 * 60;
     const minutesInMs =
-      // @ts-ignore
       String(minutesRef.current?.value).padStart(2, '0') * 1000 * 60;
     const newDateInMs =
       new Date(returnTime).getTime() + hoursInMs + minutesInMs;

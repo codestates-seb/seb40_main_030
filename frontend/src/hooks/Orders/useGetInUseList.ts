@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getPaymentsTable } from '@/apis/payments';
 import { useSnackBar } from '@/hooks';
 
-const useGetInUseList: any = () => {
+const useGetInUseList = () => {
   const { openSnackBar } = useSnackBar();
   const { data, status } = useQuery(
     ['order-inUse'],
@@ -24,9 +24,9 @@ const useGetInUseList: any = () => {
       suspense: true,
       select: (lists) =>
         lists
-          .filter((list: any) => list.payStatus === 'USE_NOW')
+          .filter((list: { payStatus: string }) => list.payStatus === 'USE_NOW')
           .sort(
-            (a: any, b: any) =>
+            (a, b) =>
               new Date(a.returnTime).getTime() -
               new Date(b.returnTime).getTime(),
           ),
