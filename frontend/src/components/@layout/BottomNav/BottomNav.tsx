@@ -34,7 +34,9 @@ function BottomNav() {
     >
       <S.ListWrap>
         <S.List
-          className={pathname === ROUTES.HOME.PATH && !isActive && 'active'}
+          className={
+            pathname === ROUTES.HOME.PATH && !isActive ? 'active' : undefined
+          }
         >
           <Link to='/'>
             <S.IconContainer onClick={() => setIsActive(false)}>
@@ -43,7 +45,7 @@ function BottomNav() {
             </S.IconContainer>
           </Link>
         </S.List>
-        <S.List className={isActive && 'active'}>
+        <S.List className={isActive ? 'active' : undefined}>
           <S.IconContainer
             onClick={() => {
               if (pathname === ROUTES.HOME.PATH) {
@@ -55,7 +57,7 @@ function BottomNav() {
             <S.Text className='text'>Reservation</S.Text>
           </S.IconContainer>
         </S.List>
-        <S.List className={pathname.includes('/order') && 'active'}>
+        <S.List className={pathname.includes('/order') ? 'active' : undefined}>
           <Link to={ROUTES.ORDERS.PATH}>
             <S.IconContainer>
               <BatteryIcon className='icon' />
@@ -65,7 +67,9 @@ function BottomNav() {
         </S.List>
         <S.List
           className={
-            pathname.includes('my') || (pathname.includes('notice') && 'active')
+            pathname.includes('my') || pathname.includes('notice')
+              ? 'active'
+              : undefined
           }
         >
           <S.IconContainer

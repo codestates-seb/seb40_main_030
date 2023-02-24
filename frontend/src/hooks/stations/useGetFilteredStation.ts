@@ -10,7 +10,7 @@ const useGetFilteredStation = () => {
   const { openSnackBar } = useSnackBar();
   const { startPoint, endPoint } = useCheckValidReserveTable();
 
-  const { data } = useQuery(
+  const { data, status } = useQuery(
     ['stations'],
     () =>
       getSearchDataBySetTime({
@@ -37,7 +37,7 @@ const useGetFilteredStation = () => {
     },
   );
 
-  return { data };
+  return { data, status };
 };
 
 export default useGetFilteredStation;

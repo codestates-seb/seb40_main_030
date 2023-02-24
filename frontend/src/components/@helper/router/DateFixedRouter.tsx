@@ -6,17 +6,21 @@ import { useBottomSheet, useCheckDateFixed, useSnackBar } from '@/hooks';
 
 function DateFixedRouter() {
   const { openSnackBar } = useSnackBar();
-  const { isDateFixed } = useCheckDateFixed();
+  const { isReservationCompleted } = useCheckDateFixed();
   const { setIsOpen } = useBottomSheet();
 
   useEffect(() => {
-    if (!isDateFixed) {
+    if (!isReservationCompleted) {
       openSnackBar(MESSAGE.RESERVATION_NOT_SUCCEED);
       setIsOpen(true);
     }
-  }, [isDateFixed]);
+  }, [isReservationCompleted]);
 
-  return isDateFixed ? <Outlet /> : <Navigate to={ROUTES.HOME.PATH} replace />;
+  return isReservationCompleted ? (
+    <Outlet />
+  ) : (
+    <Navigate to={ROUTES.HOME.PATH} replace />
+  );
 }
 
 export default DateFixedRouter;

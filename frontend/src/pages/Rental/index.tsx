@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, memo } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { PageWrapper } from '@/components/@common';
@@ -15,4 +15,4 @@ function Rental() {
   );
 }
 
-export default Rental;
+export default memo(Rental);

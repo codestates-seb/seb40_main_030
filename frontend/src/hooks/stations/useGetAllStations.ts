@@ -5,11 +5,12 @@ import { getAllStations } from '@/apis/stations';
 const useGetAllStations = () => {
   const { data, isLoading, isSuccess } = useQuery(
     ['stations'],
-    getAllStations().catch((err: any) => {
-      if (err.response.status === 404) {
-        return null;
-      }
-    }),
+    () =>
+      getAllStations().catch((err: any) => {
+        if (err.response.status === 404 || err.response.status === 400) {
+          return null;
+        }
+      }),
     {
       refetchOnWindowFocus: false,
       suspense: true,

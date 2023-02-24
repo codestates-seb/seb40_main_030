@@ -1,11 +1,14 @@
 import { useIsPresent } from 'framer-motion';
 
-import { Matches } from '@/@types';
+import { DESKTOP_MEDIA_QUERY } from '@/constants';
+import { useMediaQuery } from '@/hooks';
 
 import KakaoMap from './KakaoMap/KakaoMap';
 import Wrapper from './Maps.style';
 
-function MapArea({ matches }: { matches: Matches }) {
+function MapArea() {
+  const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
+
   const isPresent = useIsPresent();
 
   return (

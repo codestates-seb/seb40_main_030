@@ -52,7 +52,7 @@ function MapIndicator({ toggle, setToggle, matches }: MapIndicatorProps) {
         <span>
           {days
             ? `${days}일 ${hours}시간`
-            : isNaN(days) && isNaN(hours)
+            : Number.isNaN(days) && Number.isNaN(hours)
             ? `설정시간 없음`
             : `${hours}시간 ${minutes}분`}
         </span>

@@ -1,30 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { snackBarState } from '@/recoil/pagesState';
 
 const useSnackBar = () => {
-  const [isConfirmed, setIsConfirmed] = useState(false);
-  const [isCanceled, setIsCanceled] = useState(false);
   const [snackBar, setSnackBar] = useRecoilState(snackBarState);
 
   useEffect(() => {
     if (snackBar.isActive) {
       setTimeout(() => {
         setSnackBar({ ...snackBar, isActive: false });
-      }, 4000);
+      }, 3000);
     }
   }, [snackBar.isActive]);
 
-  const openSnackBar = (message: string) => {
-    setSnackBar({ message, isActive: true });
-  };
+  const openSnackBar = useCallback(
+    (message: string) => {
+      console.log(message);
+      setSnackBar({ message, isActive: true });
+    },
+    [snackBar.isActive],
+  );
 
   return {
-    setIsCanceled,
-    setIsConfirmed,
-    isConfirmed,
-    isCanceled,
     isActive: snackBar.isActive,
     message: snackBar.message,
     openSnackBar,

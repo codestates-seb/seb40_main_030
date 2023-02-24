@@ -3,12 +3,12 @@ import { useCallback, useRef, useState } from 'react';
 import { Content } from '@/@types';
 import { ch2Pattern } from '@/utils';
 
-const useSearchBar = (stations: Content[] | undefined) => {
+const useSearchBar = (stations?: Content[] | null) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState(false);
   const [keyword, setKeyword] = useState('');
   const [filteredLocation, setFilteredLocation] = useState<
-    Content[] | undefined
+    Content[] | null | undefined
   >([]);
 
   const createFuzzyMatcher = (inputValue: string) => {

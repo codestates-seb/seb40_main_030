@@ -40,6 +40,11 @@ const PAGES: Route[] = [
         path: ROUTES.RENTAL.PATH,
         name: ROUTES.RENTAL.NAME,
       },
+      {
+        element: <Search />,
+        path: ROUTES.SEARCH.PATH,
+        name: ROUTES.SEARCH.NAME,
+      },
     ],
   },
   {
@@ -116,11 +121,6 @@ const PAGES: Route[] = [
     element: <Home />,
     path: ROUTES.HOME.PATH,
     name: ROUTES.HOME.NAME,
-  },
-  {
-    element: <Search />,
-    path: ROUTES.SEARCH.PATH,
-    name: ROUTES.SEARCH.NAME,
   },
   {
     element: <PaymentCanceled />,

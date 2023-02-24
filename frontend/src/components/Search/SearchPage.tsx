@@ -5,14 +5,15 @@ import { useSetRecoilState } from 'recoil';
 import { Content } from '@/@types';
 import { ShadowButton, SnackBar } from '@/components/@common';
 import { MESSAGE, ROUTES } from '@/constants';
-import { useSnackBar } from '@/hooks';
+import { useSnackBar, useGetAllStations } from '@/hooks';
 import { currentLocationState } from '@/recoil/pagesState';
 
 import SearchBar from './SearchBar/SearchBar';
 
-function SearchPage({ stations }: { stations: Content[] | undefined }) {
+function SearchPage() {
+  const { data: stations } = useGetAllStations();
   const { isActive, message, openSnackBar } = useSnackBar();
-  const [locationInfo, setLocationInfo] = useState<any | undefined>({});
+  const [locationInfo, setLocationInfo] = useState<Partial<Content>>({});
   const navigate = useNavigate();
   const setLocation = useSetRecoilState(currentLocationState);
 

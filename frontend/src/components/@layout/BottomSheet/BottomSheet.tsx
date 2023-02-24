@@ -1,17 +1,14 @@
 import { ReactNode } from 'react';
 
 import { SnackBar } from '@/components/@common';
-import { useBottomSheet, useSnackBar } from '@/hooks';
+import { DESKTOP_MEDIA_QUERY } from '@/constants';
+import { useBottomSheet, useMediaQuery, useSnackBar } from '@/hooks';
 
 import * as S from './BottomSheet.style';
 import Header from './Header';
 
-type Props = {
-  matches: boolean;
-  children: ReactNode;
-};
-
-function BottomSheet({ matches, children }: Props) {
+function BottomSheet({ children }: { children: ReactNode }) {
+  const matches = useMediaQuery(DESKTOP_MEDIA_QUERY);
   const { onDragEnd, controls } = useBottomSheet();
   const { isActive, message } = useSnackBar();
 

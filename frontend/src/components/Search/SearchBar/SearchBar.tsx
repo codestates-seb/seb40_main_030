@@ -6,7 +6,7 @@ import { useSearchBar } from '@/hooks';
 import * as S from './SearchBar.style';
 
 type Props = {
-  stations?: Content[];
+  stations?: Content[] | null;
   setLocationInfo: (arg: Content) => void;
 };
 
@@ -29,7 +29,7 @@ function SearchBar({ stations, setLocationInfo }: Props) {
           type='text'
           placeholder='어디에서 빌리시나요 ?'
           maxLength={20}
-          onChange={(e) => handleKeyword(e.target.value)}
+          onChange={handleKeyword}
         />
         <S.AutoCompleteContainer isActive={isActive}>
           {filteredLocation?.length === 0 ? (
@@ -42,7 +42,7 @@ function SearchBar({ stations, setLocationInfo }: Props) {
                 key={locationInfo.confirmId + locationInfo.id}
                 onClick={(e) => {
                   handleAutoComplete();
-                  setSearchParams({ location: e.target.textContent });
+                  setSearchParams({ location: e.target?.textContent });
                   setLocationInfo(locationInfo);
                 }}
               >
