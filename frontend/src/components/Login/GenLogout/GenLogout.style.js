@@ -6,4 +6,12 @@ export const LogoutBtn = styled.button`
   font-weight: bold;
   border-radius: 3px;
   color: black;
+  @media (min-width: 376px) {
+    border-radius: 10px;
+    font-size: 13px;
+    width: 80px;
+  }
+  :hover {
+    background-color: gray;
+  }
 `;

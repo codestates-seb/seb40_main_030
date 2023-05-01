@@ -2,22 +2,16 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const LoginMidContainer = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
   padding: 70px 10px 0 10px;
-  /* border: 1px solid red; */
   @media (min-width: 376px) {
     padding: 100px 180px 0 180px;
   }
 `;
 export const LoginTypeDiv = styled.div`
   display: flex;
-  /* margin-right: 185px; */
   padding: 0px 0 15px 0;
   font-size: 15px;
   font-weight: bold;
-  /* border: 1px solid blue; */
   @media (min-width: 376px) {
     margin-bottom: 5px;
     font-size: 20px;
@@ -57,11 +51,9 @@ export const EmailInputDiv = styled.div`
   }
   input {
     width: 100%;
-    /* font-size: 13.55px; */
     font-size: 14px;
     border: 0 solid white;
     :focus {
-      /* border-radius: 2px; */
       outline: none;
     }
     @media (min-width: 376px) {
