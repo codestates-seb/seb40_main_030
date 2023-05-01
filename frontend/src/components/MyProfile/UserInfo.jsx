@@ -50,13 +50,6 @@ const Mid = () => {
     formState: { errors },
   } = useForm({
     mode: 'onChange',
-    // defaultValues: {
-    //   photoURL: userInfo.photoURL,
-    //   nickname: userInfo.nickname,
-    //   phone: userInfo.phone,
-    //   address: userInfo.address,
-    //   detailAddress: userInfo.detailAddress,
-    // },
   });
 
   const checkedNick = () => {
@@ -136,7 +129,7 @@ const Mid = () => {
           }
           apiNeedToken
             .patch(`/members/edit`, data, getConfig())
-            .then((res) => {
+            .then(() => {
               setNow('');
               setIsPostCode(false);
               setInputState('');
@@ -160,7 +153,7 @@ const Mid = () => {
 
   const removeUser = async () => {
     if (confirm('정말 탈퇴하시겠습니까?')) {
-      await apiNeedToken.delete(`/members/remove`, getConfig()).then((res) => {
+      await apiNeedToken.delete(`/members/remove`, getConfig()).then(() => {
         setNow('');
         setUserInfo('');
         setInSignAddress('');
