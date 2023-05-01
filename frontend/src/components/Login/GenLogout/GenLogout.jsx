@@ -1,14 +1,12 @@
 // 일반 로그아웃 컴포넌트
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 import { useSetRecoilState } from 'recoil';
+import { userInfoState } from '../../../recoil/userInfoState';
 
 import { kakaoLogout } from '@/apis/auth';
-import { accessToken } from '@/recoil/login';
 
 import { loginCheckState } from '../../../recoil/login';
 import { nowState } from '../../../recoil/nowState';
-import { userInfoState } from '../../../recoil/userInfoState';
 import { LogoutBtn } from './GenLogout.style';
 
 const GenLogout = () => {

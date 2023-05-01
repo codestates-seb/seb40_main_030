@@ -3,12 +3,22 @@ import styled from 'styled-components';
 export const MyProfileContainer = styled.div`
   width: 100%;
   height: 100%;
+  @media (min-width: 376px) {
+    display: flex;
+    flex-direction: column;
+    padding: 0 150px 0 150px;
+  }
 `;
 
 export const SignUpMidContainer = styled.div`
   padding: 40px 10px 0 10px;
   width: 100%;
   height: 100%;
+  @media (min-width: 376px) {
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+  }
 `;
 export const SignUpPhotoDiv = styled.div`
   width: 100%;
@@ -62,10 +72,18 @@ export const SignUpEmailInputDiv = styled.div`
   border: 1px solid #d6d9dc;
   border-radius: 3px;
   margin-bottom: 7px;
+  @media (min-width: 376px) {
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
   input {
     width: 78%;
     height: 30px;
     border: 0 solid white;
+    @media (min-width: 376px) {
+      font-size: 17px;
+    }
   }
 `;
 export const SignUpNickInputDiv = styled.div`
@@ -77,10 +95,21 @@ export const SignUpNickInputDiv = styled.div`
   border-radius: 3px;
   margin: 10px 0 5px 0;
   justify-content: space-between;
+  @media (min-width: 376px) {
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
   input {
     width: 78%;
     height: 30px;
     border: 0 solid white;
+    :focus {
+      outline: none;
+    }
+    @media (min-width: 376px) {
+      font-size: 17px;
+    }
   }
   button {
     height: 100%;
@@ -104,10 +133,21 @@ export const SignUpPhoneInputDiv = styled.div`
   border: 1px solid #d6d9dc;
   border-radius: 3px;
   margin: 10px 0 5px 0;
+  @media (min-width: 376px) {
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
   input {
     width: 78%;
     height: 30px;
     border: 0 solid white;
+    :focus {
+      outline: none;
+    }
+    @media (min-width: 376px) {
+      font-size: 17px;
+    }
   }
 `;
 export const SignUpPhoneSuccessMsgDiv = styled.div`
@@ -131,10 +171,21 @@ export const SignUpAddressInputDiv = styled.div`
   border-radius: 3px;
   margin-bottom: 7px;
   justify-content: space-between;
+  @media (min-width: 376px) {
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
   input {
     width: 78%;
     height: 30px;
     border: 0 solid white;
+    :focus {
+      outline: none;
+    }
+    @media (min-width: 376px) {
+      font-size: 17px;
+    }
   }
   button {
     height: 100%;
@@ -158,18 +209,35 @@ export const SignUpAddressInputAddDiv = styled.div`
   border: 1px solid #d6d9dc;
   border-radius: 3px;
   margin-bottom: 7px;
+  @media (min-width: 376px) {
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
   input {
     width: 78%;
     height: 30px;
     border: 0 solid white;
+    :focus {
+      outline: none;
+    }
+    @media (min-width: 376px) {
+      font-size: 17px;
+    }
   }
 `;
 
 export const SignUpBottomContainer = styled.div`
-  padding: 50px 10px 0 10px;
+  padding: 20px 10px 0 10px;
+  @media (min-width: 376px) {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
 `;
 
 export const MyProfileEditBtn = styled.div`
+  cursor: pointer;
   text-align: center;
   padding: 15px 0 10px 0;
   width: 100%;
@@ -180,9 +248,17 @@ export const MyProfileEditBtn = styled.div`
   color: white;
   margin-bottom: 20px;
   background-color: #7b8c9f;
+  @media (min-width: 376px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    font-size: 17px;
+  }
 `;
 
 export const SignUpSubmitBtn = styled.button`
+  cursor: pointer;
   width: 100%;
   height: 40px;
   border-radius: 3px;
@@ -190,9 +266,17 @@ export const SignUpSubmitBtn = styled.button`
   color: white;
   margin-bottom: 35px;
   background-color: #5584ac;
+  @media (min-width: 376px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    font-size: 17px;
+  }
 `;
 
 export const MyProfileRemoveBtn = styled.div`
+  cursor: pointer;
   text-align: center;
   padding: 15px 0 10px 0;
   width: 100%;
@@ -202,4 +286,11 @@ export const MyProfileRemoveBtn = styled.div`
   font-weight: bold;
   color: white;
   background-color: #5584ac;
+  @media (min-width: 376px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    font-size: 17px;
+  }
 `;

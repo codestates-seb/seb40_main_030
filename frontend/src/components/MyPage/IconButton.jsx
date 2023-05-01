@@ -1,6 +1,7 @@
-import * as S from './IconButton.style';
-import { PaymentIcon, NoticeIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
+
+import { PaymentIcon, NoticeIcon } from '../../assets';
+import * as S from './IconButton.style';
 
 const Mid = () => {
   const navigate = useNavigate();
@@ -8,12 +9,16 @@ const Mid = () => {
   return (
     <S.MyPageMidContainer>
       <S.IconDiv>
-        <PaymentIcon onClick={() => {}} />
-        <NoticeIcon
-          onClick={() => {
-            navigate('/notice');
-          }}
-        />
+        <div>
+          <PaymentIcon onClick={() => {}} />
+        </div>
+        <div>
+          <NoticeIcon
+            onClick={() => {
+              navigate('/notice');
+            }}
+          />
+        </div>
       </S.IconDiv>
       <S.IconTextDiv>
         <S.PaymentTextDiv onClick={() => {}}>결제내역</S.PaymentTextDiv>

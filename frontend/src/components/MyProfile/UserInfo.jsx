@@ -38,6 +38,7 @@ const Mid = () => {
     setNow('MyProfile');
     apiNeedToken.get(`/members/find`, getConfig()).then((res) => {
       setUserInfo(res.data);
+      console.log('');
     });
   }, []);
 
