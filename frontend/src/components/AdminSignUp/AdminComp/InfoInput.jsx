@@ -3,14 +3,14 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
-import { isOverLapEmail } from '../../../recoil/userInfoState';
-import * as S from './InfoInput.style';
 import { authClient } from '../../../apis/api';
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
   PHONE_REGEX,
 } from '../../../constants/regex';
+import { isOverLapEmail } from '../../../recoil/userInfoState';
+import * as S from './InfoInput.style';
 
 const Mid = () => {
   const navigate = useNavigate();

@@ -16,9 +16,10 @@ const useGetFilteredStationsBySetTime = () => {
     () =>
       getBatteryByLocationAndSetTime(currentLocation, {
         startTime: startPoint?.replace(' ', 'T'),
-        endTime: endPoint?.replace(' ', 'T'),
+        returnTime: endPoint?.replace(' ', 'T'),
       }).catch((err) => {
-        if (err.response.status === 400) {
+        const statusCode = err.response.status;
+        if (statusCode === 400 || statusCode === 404) {
           return null;
         } else {
           throw err; // 반드시 모든 케이스에 대한 error 처리를 해줘야 queryCache가 오류를 인식한다

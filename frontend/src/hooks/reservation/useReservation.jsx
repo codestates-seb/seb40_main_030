@@ -65,7 +65,7 @@ const useReservation = () => {
 
       setReservationStatus({
         ...reservationStatus,
-        endTime: { hours, minutes },
+        returnTime: { hours, minutes },
         dateFixed: { ...reservationStatus.dateFixed, time: true },
       });
     }

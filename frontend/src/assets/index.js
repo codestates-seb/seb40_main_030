@@ -29,8 +29,12 @@ import BatteryEmptyImg from './battery-empty.png';
 import TeongImg from './battery-empty2.png';
 import UserMapMarker from './userMapMarker.png';
 import PinningImage from './pinning_img.png';
+import Kakao_fail_Icon from './Kakao_failed.png';
+import Kakao_canceled_Icon from './Kakao_canceled.png';
 import SaleImg from './sale.png';
 import GuideImg from './guide.png';
+import KakaoLoginMedium from './kakao_login_medium_wide.png';
+import KakaoDeclined from './kakao_decline.jpeg';
 
 // Icons
 export {
@@ -52,11 +56,10 @@ export {
   CurrentLocationIcon,
   GlobeIcon,
   CompletedIcon,
+  Kakao_fail_Icon,
+  Kakao_canceled_Icon,
   SaleImg,
   GuideImg,
-};
-
-export {
   ServiceLogo,
   ProfileImg,
   PlusIcon,
@@ -68,4 +71,6 @@ export {
   TeongImg,
   UserMapMarker,
   PinningImage,
+  KakaoLoginMedium,
+  KakaoDeclined,
 };

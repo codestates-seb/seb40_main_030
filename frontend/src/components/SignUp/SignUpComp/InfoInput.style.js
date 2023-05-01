@@ -1,17 +1,33 @@
 import styled from 'styled-components';
 
 export const SignUpContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  /* overflow: auto; */
   ::-webkit-scrollbar {
     display: none;
   }
+  /* border: 1px solid red; */
 `;
 export const SignUpMidContainer = styled.div`
-  padding: 40px 10px 0 10px;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* gap: 5px; */
+  /* padding: 40px 10px 0 10px; */
+  /* padding: 40px 200px 0 200px; */
+  /* width: 100%; */
+  width: 300px;
+  height: 600px;
+  /* border: 1px solid blue; */
+  @media (max-width: 375px) {
+    width: 100%;
+    height: 570px;
+    padding: 40px 10px 0 10px;
+  }
 `;
 
 export const SignUpPhotoDiv = styled.div`

@@ -3,29 +3,25 @@ import axios from 'axios';
 const apiPay = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
-    // 'Acess-Control-Allow-Origin': '*',
-    'Content-type': 'application/json;charset=utf-8',
-    // Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwibWVtYmVySWQiOjEsInN1YiI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNjcwMjM0MzcwLCJleHAiOjE2NzAyMzYxNzB9.L8aJB975ptj7yyYmMNMIopZdgJnRav5pMe1lPe375W4',
+    Authorization: `Bearer ${
+      localStorage.getItem('accesstoken') !== null
+        ? localStorage.getItem('accesstoken')
+        : sessionStorage.getItem('accesstoken') !== null
+        ? sessionStorage.getItem('accesstoken')
+        : null
+    }`,
   },
-  withCredentials: true,
 });
 
-const postKakao = async () => {
+// prettier-ignore
+
+const postKakao = async (state, totalAmount) => {
   const response = await apiPay
-    .post(
-      // `/kakaoPay?itemName=${
-      //   state.batteryName
-      // }&totalAmount=${totalAmount}&batteryId=${
-      //   state.batteryId
-      // }&startTime=${state.startPoint.replace(
-      //   ' ',
-      //   'T',
-      // )}&endTime=${state.endPoint.replace(' ', 'T')}`,
-      'kakaoPay?itemName=HYUNDAI&totalAmount=80000&batteryId=1&startTime=2022-12-24T18:00&endTime=2022-12-24T19:00'
-    )
-    .then((res) => console.log(res))
-    // .catch((err) => console.log(err));
+    .get(
+      `/kakaoPay?itemName=${state.batteryName}&totalAmount=${totalAmount}&batteryId=
+      ${state.batteryId}&startTime=${state.startPoint.replace(' ','T')}&endTime=${state.endPoint.replace(' ', 'T')}`,
+    ).then((res) => window.location.assign(res.data.next_redirect_pc_url)
+    ).catch((res) => console.log(res));
   return response;
 };
-
-export { postKakao };
+export { postKakao, apiPay };

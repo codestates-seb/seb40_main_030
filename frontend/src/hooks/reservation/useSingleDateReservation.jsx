@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import { reservationState } from '@/recoil/pagesState';
 
 const useSingleDateReservation = (currentDate) => {
+  const currentYear = new Date().getFullYear();
   const queryClient = useQueryClient();
 
   const [reservationStatus, setReservationStatus] =
@@ -19,22 +20,28 @@ const useSingleDateReservation = (currentDate) => {
     },
   );
 
-  // single date reservation 일시에 default date 현재 시점으로 업데이트
   const handleSingleDateReservation = useCallback(() => {
     mutate({
       ...reservationStatus,
       startDate: {
-        year: 2022,
+        year: currentYear,
         month: currentDate?.month,
         date: currentDate?.date,
       },
       endDate: {
-        year: 2022,
+        year:
+          currentDate?.month === 12 &&
+          currentDate?.date === 31 &&
+          new Date().getHours() === 11
+            ? currentYear + 1
+            : currentYear,
         month: currentDate?.month,
         date: currentDate?.date,
       },
       dateFixed: { ...reservationStatus.dateFixed, date: true },
     });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { handleSingleDateReservation, reservationStatus };

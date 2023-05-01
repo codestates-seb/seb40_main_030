@@ -12,7 +12,6 @@ const TimeTable = () => {
   const { hours, minutes } = useRecoilValue(reservationState);
   const { handleReservation, reservation, reserveInfo } = useReservation();
 
-  convertMinTo10Min(new Date().getMinutes());
   if (!reserveInfo?.time) {
     return (
       <>
@@ -23,7 +22,7 @@ const TimeTable = () => {
               <Counter
                 type='hours'
                 min={1}
-                max={23}
+                max={24}
                 range={1}
                 time={new Date().getHours()}
               />
@@ -42,7 +41,7 @@ const TimeTable = () => {
         {/* 예약 설정완료 후에 status.bookable 이 true인 값만 찾기 */}
         <ShadowButton
           style={{ marginLeft: 20, marginTop: 30 }}
-          content={reservation ? '반납 시간 정하기' : '예약 설정 완료'}
+          content={reservation ? '반납시간 설정 완료' : '대여시간 설정 완료'}
           onClick={() => handleReservation(hours, minutes)}
         ></ShadowButton>
       </>

@@ -1,12 +1,20 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-const CompletedLayout = styled.div`
+import { DESKTOP_MAX_WIDTH, DESKTOP_MARGIN_LEFT } from '@/constants';
+
+const CompletedLayout = styled(motion.div)`
 height: 640px;
 margin: 0 auto;
 margin-top: 30px;
+width: 100%;
+
+position: fixed;
 text-align: center;
-font-size: 30px;
-`
+
+max-width: ${({ matches }) => matches && DESKTOP_MAX_WIDTH};
+left: ${({ matches }) => matches && DESKTOP_MARGIN_LEFT};
+`;
 
 const CompletedTitle = styled.div`
 font-weight: bold;
@@ -56,6 +64,7 @@ justify-content: space-around;
 height: 100px;
 margin: 10px 20px 40px 20px;
 border-radius: 15px;
+padding-top: 10px;
 `
 
 const Reservation = styled.div`

@@ -66,6 +66,7 @@ const BatteryList = ({ openSnackBar, batteryList, stationList }) => {
                 details={{
                   reservationState: battery.reservations.reservationState,
                   endTime: battery.reservations.endTime,
+                  // returnTime: battery.reservations.returnTime,
                   stationName: battery.stationName,
                   stationId: battery.stationId,
                   price: battery.price,

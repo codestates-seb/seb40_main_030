@@ -11,7 +11,6 @@ const useGetInUseList = () => {
     () =>
       getPaymentsTable().catch((err) => {
         const statusCode = err.response.status;
-        console.log(err);
         if (statusCode === 400 || statusCode === 404) {
           openSnackBar(
             `데이터를 읽어올 수 없습니다. error code : ${statusCode}`,
@@ -30,7 +29,8 @@ const useGetInUseList = () => {
           .filter((list) => list.payStatus === 'USE_NOW')
           .sort(
             (a, b) =>
-              new Date(a.endTime).getTime() - new Date(b.endTime).getTime(),
+              new Date(a.returnTime).getTime() -
+              new Date(b.returnTime).getTime(),
           ),
     },
   );
