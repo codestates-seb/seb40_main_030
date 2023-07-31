@@ -1,4 +1,15 @@
-# 이성과 갬성의 보배드림
+# TOC
+  * :sunglasses: 팀원
+    + [FE](#fe)
+    + [BE](#be)
+  * [Tech Stack](#tech-stack)
+  * [Project Architecture](#project-architecture)
+  * [Team Notion](#team-notion)
+  * [Commit Convention](#commit-convention)
+  
+---
+
+# 이성과 갬성의 보배빌림
 <img src ="https://cdn.discordapp.com/attachments/1048516340572487760/1048911518080696360/10b23957c2efb752.png" width=800px>
 여러분들은 전기자동차를 타보신적있으신가요?
 
@@ -57,13 +68,16 @@ Communication Tools<br/>
 ## Project Architecture
 ![undefined](https://user-images.githubusercontent.com/106420520/205456047-09f0e8f5-945f-4817-91bb-6bc3d7dffd62.png)
 
-<br>
-
-## Team Culture
 
 <br>
 
-## commit convention
+## Team Notion
+
+[팀 노션 바로가기](https://codestates.notion.site/8e43f8220bae4542b0ae84d8caa06b5a)
+
+<br>
+
+## Commit Convention
 - `Feat` : 새로운 기능 추가
 - `Fix` : 버그 수정
 - `Docs` : 문서 수정
