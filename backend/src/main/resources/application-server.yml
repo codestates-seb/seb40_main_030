@@ -1,19 +1,19 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://database-1.cg1z6nbd91zq.ap-northeast-2.rds.amazonaws.com:13306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-    username: admin
-    password: tlxltlf1!A # 테스트용 임시 (추후 AWS 파라미터로 옮길 예정)
+    url: ${RDS_URL}
+    username: ${RDS_USERNAME}
+    password: ${RDS_PASSWORD}
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
     defer-datasource-initialization: true
-#  sql:
-#    init:
-#      data-locations: classpath:static/db/data.sql
-#      mode: always
+  sql:
+    init:
+      data-locations: classpath:static/db/data.sql
+      mode: always
 
 decorator:
   datasource:

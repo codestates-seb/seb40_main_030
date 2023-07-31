@@ -19,6 +19,11 @@ public class StationResDto {
     private String photoURL;
     private String phone;
     private Integer confirmId;
+
+    private String city;  // 추가된 부분
+    private String region;  // 추가된 부분
+
+
     private List<Battery> batteries;
 
     public StationResDto(Station station) {
@@ -32,6 +37,9 @@ public class StationResDto {
         this.photoURL = station.getPhotoURL();
         this.phone = station.getPhone();
         this.confirmId = station.getConfirmId();
+
+        this.city = station.getCity();  // 추가된 부분
+        this.region = station.getRegion();  // 추가된 부분
 
         List<Battery> list = new ArrayList<>();
         for(int i=0 ; i< station.getBattery().size() ; i++) {
